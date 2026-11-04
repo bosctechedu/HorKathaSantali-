@@ -1,27 +1,8 @@
-import React, { useState } from 'react';
-import { useAdmin } from '../context/AdminContext';
+import React, { useEffect, useState } from 'react';
+import { useAdmin, ADMIN_USERNAME } from '../context/AdminContext';
 import {
-  Lock,
-  Unlock,
-  KeyRound,
-  CheckCircle2,
-  X,
-  LogOut,
-  ShieldCheck,
-  AlertTriangle,
-  Info,
-  UserCheck,
-  Eye,
-  EyeOff,
-  UserX,
-  RotateCcw,
-  Sparkles,
-  ArrowRight,
-  ShieldAlert,
-  Fingerprint,
-  Mail,
-  Check,
-  Edit3
+  Lock, Unlock, X, LogOut, ShieldCheck, AlertTriangle, Eye, EyeOff, Mail, KeyRound,
+  UserPlus, Users, Trash2, RotateCcw, CheckCircle2, Loader2, ArrowRight, UserCog,
 } from 'lucide-react';
 
 interface AdminLoginModalProps {
@@ -30,534 +11,311 @@ interface AdminLoginModalProps {
   onOpenCMS?: () => void;
 }
 
+type View = 'login' | 'setup' | 'reset';
+type Op = { username: string; name: string; createdAt?: string; active: boolean };
+
+const MIN = 8;
+const input =
+  'w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-900 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200';
+const btn =
+  'w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 text-white text-sm font-bold disabled:opacity-50 cursor-pointer';
+const btnLight =
+  'flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-50 cursor-pointer';
+
+const Note: React.FC<{ kind: 'error' | 'ok' | 'info'; children: React.ReactNode }> = ({ kind, children }) => (
+  <div
+    className={`p-3 rounded-xl text-xs flex gap-2 items-start border ${
+      kind === 'error' ? 'bg-rose-50 border-rose-200 text-rose-800' : kind === 'ok' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-amber-50 border-amber-200 text-amber-900'
+    }`}
+  >
+    {kind === 'error' ? <AlertTriangle className="w-4 h-4 shrink-0" /> : kind === 'ok' ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <ShieldCheck className="w-4 h-4 shrink-0" />}
+    <div>{children}</div>
+  </div>
+);
+
+const PassInput: React.FC<{ value: string; onChange: (v: string) => void; placeholder: string; autoComplete?: string }> = ({ value, onChange, placeholder, autoComplete }) => {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="relative">
+      <input type={show ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} autoComplete={autoComplete} className={input + ' pr-10'} />
+      <button type="button" onClick={() => setShow((s) => !s)} className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-slate-700" title={show ? 'छिपाएँ' : 'दिखाएँ'}>
+        {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+      </button>
+    </div>
+  );
+};
+
 export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClose, onOpenCMS }) => {
   const {
-    isAdmin,
-    adminId,
-    loginAdmin,
-    hasAdminPassword,
-    logoutAdmin,
-    resetAdminPassword,
-    updateAdminId
+    isAdmin, isSuperAdmin, role, staffUsername, authStatus, refreshAuthStatus,
+    login, logoutAdmin, sendAdminOtp, setupAdmin, resetAdminPassword, changePassword, staffFetch,
   } = useAdmin();
 
-  // Active view tab: 'login' | 'reset'
-  const [activeTab, setActiveTab] = useState<'login' | 'reset'>('login');
+  const [view, setView] = useState<View>('login');
+  const [loginRole, setLoginRole] = useState<'admin' | 'operator'>('admin');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [otp, setOtp] = useState('');
+  const [newPw, setNewPw] = useState('');
+  const [newPw2, setNewPw2] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [ok, setOk] = useState('');
+  const [otpSentTo, setOtpSentTo] = useState('');
+  const [cooldown, setCooldown] = useState(0);
 
-  // Login form state
-  const [loginId, setLoginId] = useState(adminId || '');
-  const [passcode, setPasscode] = useState('');
-  const [showPass, setShowPass] = useState(false);
-  const [loginError, setLoginError] = useState<string | null>(null);
-  const [loginSuccess, setLoginSuccess] = useState(false);
+  // Signed-in tools
+  const [oldPw, setOldPw] = useState('');
+  const [chPw, setChPw] = useState('');
+  const [ops, setOps] = useState<Op[]>([]);
+  const [opUser, setOpUser] = useState('');
+  const [opName, setOpName] = useState('');
+  const [opPw, setOpPw] = useState('');
 
-  // Reset form state
-  const [resetIdOrKey, setResetIdOrKey] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showNewPass, setShowNewPass] = useState(false);
-  const [resetError, setResetError] = useState<string | null>(null);
-  const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>(null);
+  useEffect(() => {
+    if (!isOpen) return;
+    setError(''); setOk('');
+    refreshAuthStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
-  // Active session change password inline toggle
-  const [showChangePassInline, setShowChangePassInline] = useState(false);
-  const [inlineNewPass, setInlineNewPass] = useState('');
-  const [inlineMsg, setInlineMsg] = useState<{ success: boolean; text: string } | null>(null);
+  useEffect(() => {
+    if (authStatus && authStatus.ready && !authStatus.adminSet && !isAdmin) setView('setup');
+  }, [authStatus, isAdmin]);
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const t = setTimeout(() => setCooldown((c) => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [cooldown]);
+
+  useEffect(() => {
+    if (isOpen && isSuperAdmin) loadOps();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, isSuperAdmin]);
 
   if (!isOpen) return null;
 
-  // Handle standard Admin Login
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoginError(null);
+  const reset = () => { setError(''); setOk(''); };
+  const go = (v: View) => { reset(); setOtp(''); setNewPw(''); setNewPw2(''); setOtpSentTo(''); setView(v); };
 
-    if (!loginId.trim()) {
-      setLoginError('Please enter your Admin ID or Email.');
-      return;
-    }
-    if (!passcode.trim()) {
-      setLoginError('Please enter your Admin Password.');
-      return;
-    }
-
-    const ok = loginAdmin(loginId.trim(), passcode.trim());
-    if (ok) {
-      setLoginSuccess(true);
-      setTimeout(() => {
-        setLoginSuccess(false);
-        setPasscode('');
-        onClose();
-      }, 700);
-    } else {
-      setLoginError(hasAdminPassword ? 'Invalid Admin ID or Password.' : 'First-time setup: enter an Admin ID and a password of at least 8 characters.');
-    }
+  const doLogin = async (e: React.FormEvent) => {
+    e.preventDefault(); reset();
+    const u = loginRole === 'admin' ? ADMIN_USERNAME : username.trim();
+    if (!u || !password) return setError('Username और Password डालें।');
+    setBusy(true);
+    const r = await login(u, password);
+    setBusy(false);
+    if (r.success) { setPassword(''); setOk('Login सफल।'); }
+    else { setError(r.error || 'Login नहीं हुआ।'); if (r.needSetup) go('setup'); }
   };
 
-  // Quick autofill default credentials
-
-
-  // Handle Password Reset
-  const handleResetSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setResetError(null);
-    setResetSuccessMessage(null);
-
-    if (!resetIdOrKey.trim()) {
-      setResetError('Please type RESET to confirm.');
-      return;
-    }
-    if (!newPassword || newPassword.length < 8) {
-      setResetError('New password must be at least 8 characters long.');
-      return;
-    }
-    if (newPassword !== confirmPassword) {
-      setResetError('New passwords do not match. Please re-enter carefully.');
-      return;
-    }
-
-    const res = resetAdminPassword(resetIdOrKey.trim(), newPassword.trim());
-    if (res.success) {
-      setResetSuccessMessage(res.message);
-      // Pre-fill login tab with new credentials
-      setPasscode(newPassword);
-      if (resetIdOrKey.includes('@') || resetIdOrKey.startsWith('BOSC')) {
-        setLoginId(resetIdOrKey.trim());
-      }
-      setTimeout(() => {
-        setActiveTab('login');
-      }, 1500);
-    } else {
-      setResetError(res.message);
-    }
+  const doSendOtp = async () => {
+    reset(); setBusy(true);
+    const r = await sendAdminOtp();
+    setBusy(false);
+    if (r.success) { setOtpSentTo(r.sentTo || 'Admin email'); setCooldown(60); setOk(`OTP भेजा गया: ${r.sentTo}. Inbox / Spam देखें।`); }
+    else setError(r.error || 'OTP नहीं भेज पाए।');
   };
 
-  // Handle inline password update while logged in
-  const handleInlineChangePass = (e: React.FormEvent) => {
-    e.preventDefault();
-    setInlineMsg(null);
-    if (!inlineNewPass || inlineNewPass.length < 8) {
-      setInlineMsg({ success: false, text: 'Password must be at least 8 characters.' });
-      return;
-    }
-    const res = resetAdminPassword(adminId, inlineNewPass.trim());
-    if (res.success) {
-      setInlineMsg({ success: true, text: 'Password updated successfully!' });
-      setInlineNewPass('');
-      setTimeout(() => setShowChangePassInline(false), 1500);
-    } else {
-      setInlineMsg({ success: false, text: res.message });
-    }
+  const doOtpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); reset();
+    if (!/^\d{6}$/.test(otp.trim())) return setError('6 अंकों का OTP डालें।');
+    if (newPw.length < MIN) return setError(`पासवर्ड कम से कम ${MIN} अक्षर का हो।`);
+    if (newPw !== newPw2) return setError('दोनों पासवर्ड एक जैसे नहीं हैं।');
+    setBusy(true);
+    const r = view === 'setup' ? await setupAdmin(otp, newPw) : await resetAdminPassword(otp, newPw);
+    setBusy(false);
+    if (!r.success) return setError(r.error || 'नहीं हो पाया।');
+    if (view === 'setup') { setOk('Admin खाता बन गया और आप Login हैं।'); }
+    else { go('login'); setLoginRole('admin'); setOk(r.message || 'पासवर्ड बदल गया। अब Login करें।'); }
+    setNewPw(''); setNewPw2(''); setOtp('');
   };
 
-  const handleLogout = () => {
-    logoutAdmin();
-    onClose();
+  const doChangePw = async (e: React.FormEvent) => {
+    e.preventDefault(); reset();
+    if (chPw.length < MIN) return setError(`नया पासवर्ड कम से कम ${MIN} अक्षर का हो।`);
+    setBusy(true);
+    const r = await changePassword(oldPw, chPw);
+    setBusy(false);
+    if (r.success) { setOk(r.message || 'पासवर्ड बदल गया।'); setOldPw(''); setChPw(''); } else setError(r.error || 'नहीं बदला।');
   };
+
+  const opCall = async (body: Record<string, unknown>) => {
+    const r = await staffFetch('/api/auth', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    return r.json().catch(() => ({}));
+  };
+
+  async function loadOps() {
+    const d = await opCall({ action: 'op-list' });
+    if (d.success) setOps(d.operators || []);
+  }
+
+  const createOp = async (e: React.FormEvent) => {
+    e.preventDefault(); reset();
+    if (opPw.length < MIN) return setError(`Operator पासवर्ड कम से कम ${MIN} अक्षर का हो।`);
+    setBusy(true);
+    const d = await opCall({ action: 'op-create', username: opUser.trim(), name: opName.trim(), password: opPw });
+    setBusy(false);
+    if (d.success) { setOk(`Operator "${opUser.trim().toLowerCase()}" बन गया। यही Username और Password उन्हें दें।`); setOpUser(''); setOpName(''); setOpPw(''); loadOps(); }
+    else setError(d.error || 'Operator नहीं बना।');
+  };
+
+  const resetOp = async (u: string) => {
+    const pw = prompt(`"${u}" का नया पासवर्ड (कम से कम ${MIN} अक्षर):`);
+    if (!pw) return;
+    reset();
+    const d = await opCall({ action: 'op-reset', username: u, password: pw });
+    d.success ? setOk(`"${u}" का पासवर्ड बदल गया।`) : setError(d.error || 'नहीं बदला।');
+  };
+
+  const deleteOp = async (u: string) => {
+    if (!confirm(`Operator "${u}" को हटाएँ? वह तुरंत Logout हो जाएगा।`)) return;
+    reset();
+    const d = await opCall({ action: 'op-delete', username: u });
+    if (d.success) { setOk(`"${u}" हटा दिया गया।`); loadOps(); } else setError(d.error || 'नहीं हटा।');
+  };
+
+  const notReady = authStatus && !authStatus.ready;
+  const noEmail = authStatus && authStatus.ready && !authStatus.emailReady;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs">
       <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-7 shadow-2xl border border-slate-200/90 relative overflow-hidden flex flex-col max-h-[92vh]">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors cursor-pointer z-10"
-          title="Close dialog"
-        >
+        <button onClick={onClose} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full cursor-pointer z-10" title="बंद करें">
           <X className="w-4 h-4" />
         </button>
 
-        {/* Top Header with Golden Shield & Lock */}
         <div className="flex items-center gap-3.5 pb-4 border-b border-slate-100 shrink-0">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 via-amber-600 to-orange-600 flex items-center justify-center text-white shadow-md shadow-amber-500/25 shrink-0">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white shadow-md shrink-0">
             {isAdmin ? <Unlock className="w-6 h-6" /> : <Lock className="w-6 h-6" />}
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
-                Admin Authentication Portal
-              </h3>
-              <span className="px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 text-[10px] font-bold uppercase tracking-wider">
-                BOSC Suite
-              </span>
-            </div>
+            <h3 className="text-base sm:text-lg font-black text-slate-900">Admin / Operator Login</h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              {isAdmin ? 'Active Editorial Session · Full Access' : 'Secure Login & Credential Recovery'}
+              {isAdmin ? (role === 'admin' ? 'Admin · पूरा नियंत्रण' : 'Assigned Operator · सामग्री व स्लाइडर') : 'सुरक्षित Login · Email OTP से पासवर्ड रीसेट'}
             </p>
           </div>
         </div>
 
-        {/* Main Body */}
-        <div className="overflow-y-auto pt-3 space-y-4 pr-1">
-          {/* Active Admin Session View */}
+        <div className="overflow-y-auto pt-4 space-y-4 pr-1">
+          {error && <Note kind="error">{error}</Note>}
+          {ok && <Note kind="ok">{ok}</Note>}
+
           {isAdmin ? (
             <div className="space-y-4">
-              <div className="p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 text-xs text-emerald-950 flex items-start gap-3 shadow-2xs">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <p className="font-bold text-sm text-emerald-900">Super Admin Active</p>
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900 font-mono text-[10px] font-bold">
-                      {adminId}
-                    </span>
-                  </div>
-                  <p className="text-slate-600 leading-relaxed text-[11px]">
-                    You have authenticated permissions to Add, Edit, and Delete Dictionary words, customize Hero Banner headers, manage cultural festivals, and modify Santali educational modules.
-                  </p>
+              <div className="p-4 rounded-2xl border border-emerald-200 bg-emerald-50 text-xs text-emerald-900 flex items-center gap-3">
+                <UserCog className="w-5 h-5 text-emerald-700" />
+                <div>
+                  <p className="font-bold text-sm">{role === 'admin' ? 'Admin' : 'Operator'} Login है</p>
+                  <p className="font-mono">{staffUsername}</p>
                 </div>
               </div>
 
-              {/* Master CMS Launch Button */}
-              {onOpenCMS && (
-                <button
-                  onClick={() => {
-                    onClose();
-                    onOpenCMS();
-                  }}
-                  className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-black text-xs flex items-center justify-center gap-2.5 shadow-md hover:scale-[1.02] active:scale-95 transition-all cursor-pointer"
-                >
-                  <Edit3 className="w-4 h-4" />
-                  <span>Launch Master Content Studio (CMS)</span>
+              <div className="grid grid-cols-2 gap-2">
+                <button onClick={() => { onOpenCMS?.(); onClose(); }} className={btn}>
+                  CMS खोलें <ArrowRight className="w-4 h-4" />
                 </button>
+                <button onClick={() => { logoutAdmin(); onClose(); }} className={btnLight + ' py-2.5 text-sm'}>
+                  <LogOut className="w-4 h-4" /> Logout
+                </button>
+              </div>
+
+              {isSuperAdmin && (
+                <div className="p-4 rounded-2xl border border-slate-200 space-y-3">
+                  <p className="text-sm font-black text-slate-900 flex items-center gap-2"><Users className="w-4 h-4" /> Assigned Operators</p>
+                  {ops.length === 0 ? (
+                    <p className="text-xs text-slate-500">अभी कोई Operator नहीं है।</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {ops.map((o) => (
+                        <div key={o.username} className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-50 border border-slate-200">
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-slate-900 font-mono truncate">{o.username}</p>
+                            {o.name && <p className="text-[11px] text-slate-500 truncate">{o.name}</p>}
+                          </div>
+                          <div className="flex gap-1.5 shrink-0">
+                            <button onClick={() => resetOp(o.username)} className={btnLight} title="पासवर्ड बदलें"><RotateCcw className="w-3.5 h-3.5" /></button>
+                            <button onClick={() => deleteOp(o.username)} className={btnLight + ' text-rose-700'} title="हटाएँ"><Trash2 className="w-3.5 h-3.5" /></button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <form onSubmit={createOp} className="space-y-2 pt-2 border-t border-slate-100">
+                    <p className="text-xs font-bold text-slate-700 flex items-center gap-1.5"><UserPlus className="w-3.5 h-3.5" /> नया Operator</p>
+                    <input value={opUser} onChange={(e) => setOpUser(e.target.value)} placeholder="Username (जैसे ramesh.op)" className={input} autoComplete="off" />
+                    <input value={opName} onChange={(e) => setOpName(e.target.value)} placeholder="नाम (वैकल्पिक)" className={input} autoComplete="off" />
+                    <PassInput value={opPw} onChange={setOpPw} placeholder={`पासवर्ड (कम से कम ${MIN} अक्षर)`} autoComplete="new-password" />
+                    <button type="submit" disabled={busy} className={btn}>{busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />} Operator बनाएँ</button>
+                  </form>
+                </div>
               )}
 
-              {/* Inline Password Reset / Security Update */}
-              <div className="bg-slate-50 rounded-2xl border border-slate-200/80 p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                    <KeyRound className="w-4 h-4 text-amber-600" />
-                    <span>Security &amp; Password Settings</span>
-                  </span>
-                  <button
-                    onClick={() => setShowChangePassInline(!showChangePassInline)}
-                    className="text-xs text-amber-800 hover:text-amber-950 font-bold underline cursor-pointer"
-                  >
-                    {showChangePassInline ? 'Hide Form' : 'Change Password'}
-                  </button>
-                </div>
-
-                {showChangePassInline && (
-                  <form onSubmit={handleInlineChangePass} className="space-y-2.5 pt-1">
-                    <div>
-                      <label className="text-[11px] font-semibold text-slate-600 block mb-1">
-                        Set New Admin Password
-                      </label>
-                      <input
-                        type="password"
-                        value={inlineNewPass}
-                        onChange={(e) => setInlineNewPass(e.target.value)}
-                        placeholder="Enter new secure password (min 8 chars)..."
-                        className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs font-medium focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
-                      />
-                    </div>
-
-                    {inlineMsg && (
-                      <p
-                        className={`text-xs font-semibold ${
-                          inlineMsg.success ? 'text-emerald-600' : 'text-rose-600'
-                        }`}
-                      >
-                        {inlineMsg.text}
-                      </p>
-                    )}
-
-                    <div className="flex justify-end pt-1">
-                      <button
-                        type="submit"
-                        className="px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow-xs cursor-pointer"
-                      >
-                        Save New Password
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="pt-2 flex items-center justify-between border-t border-slate-100">
-                <button
-                  onClick={onClose}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
-                >
-                  Return to Suite
-                </button>
-
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span>Log Out Admin</span>
-                </button>
-              </div>
+              <form onSubmit={doChangePw} className="p-4 rounded-2xl border border-slate-200 space-y-2">
+                <p className="text-sm font-black text-slate-900 flex items-center gap-2"><KeyRound className="w-4 h-4" /> अपना पासवर्ड बदलें</p>
+                <PassInput value={oldPw} onChange={setOldPw} placeholder="पुराना पासवर्ड" autoComplete="current-password" />
+                <PassInput value={chPw} onChange={setChPw} placeholder={`नया पासवर्ड (कम से कम ${MIN} अक्षर)`} autoComplete="new-password" />
+                <button type="submit" disabled={busy} className={btnLight + ' w-full py-2.5'}>पासवर्ड बदलें</button>
+              </form>
             </div>
           ) : (
-            /* Logged Out: Tabbed Navigation (Sign In & Reset Password) */
             <div className="space-y-4">
-              {/* Tabs Switcher: Sign In vs Reset Password */}
-              <div className="flex p-1 bg-slate-100 rounded-2xl border border-slate-200 text-xs font-bold">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveTab('login');
-                    setLoginError(null);
-                  }}
-                  className={`flex-1 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    activeTab === 'login'
-                      ? 'bg-white text-slate-900 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  <Lock className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Admin Sign In</span>
-                </button>
+              {notReady && <Note kind="error">Login सर्वर अभी चालू नहीं है (Cloudflare में KV binding <b>HK_DB</b> जोड़ना बाकी है)।</Note>}
+              {noEmail && <Note kind="info">Email OTP सेवा (BREVO_API_KEY) अभी सेट नहीं है। Setup / Reset के लिए ज़रूरी है।</Note>}
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveTab('reset');
-                    setResetError(null);
-                    setResetSuccessMessage(null);
-                  }}
-                  className={`flex-1 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    activeTab === 'reset'
-                      ? 'bg-white text-slate-900 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  <RotateCcw className="w-3.5 h-3.5 text-orange-600" />
-                  <span>Reset ID &amp; Password</span>
-                </button>
+              <div className="flex gap-1 p-1 rounded-xl bg-slate-100">
+                {([
+                  ['login', 'Login'],
+                  ...(authStatus && authStatus.ready && !authStatus.adminSet ? [['setup', 'पहली बार सेटअप']] : [['reset', 'पासवर्ड भूल गए']]),
+                ] as [View, string][]).map(([v, label]) => (
+                  <button key={v} onClick={() => go(v)} className={`flex-1 py-2 rounded-lg text-xs font-bold cursor-pointer ${view === v ? 'bg-white shadow text-slate-900' : 'text-slate-500'}`}>
+                    {label}
+                  </button>
+                ))}
               </div>
 
-              {/* Strict Requirement Notice: Public Sign Up Disabled */}
-              <div className="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200/80 text-xs text-amber-950 space-y-1">
-                <div className="flex items-center gap-2 font-bold text-amber-900">
-                  <UserX className="w-4 h-4 text-amber-700 shrink-0" />
-                  <span className="text-[11px] uppercase tracking-wider font-extrabold">
-                    Sign Up Restricted · Super Admin Only:
-                  </span>
-                </div>
-                <p className="text-[11px] leading-relaxed text-amber-900">
-                  Public user self-registration is permanently disabled. In order to preserve linguistic veracity and intellectual integrity, <strong>accounts can ONLY be provisioned and authorized by the BOSC Tech &amp; Edu Super Administrator</strong>.
-                </p>
-              </div>
-
-              {/* TAB 1: ADMIN SIGN IN */}
-              {activeTab === 'login' && (
-                <form onSubmit={handleLoginSubmit} className="space-y-3.5">
-                  {/* Admin ID / Email Field */}
-                  <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">
-                      Admin ID / Registered Email
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={loginId}
-                        onChange={(e) => {
-                          setLoginId(e.target.value);
-                          setLoginError(null);
-                        }}
-                        placeholder="Your Admin ID"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 bg-slate-50 font-medium"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Password Field */}
-                  <div>
-                    <div className="flex items-center justify-between mb-1">
-                      <label className="text-xs font-bold text-slate-700">
-                        Admin Password
-                      </label>
-                      <button
-                        type="button"
-                        onClick={() => setActiveTab('reset')}
-                        className="text-[11px] text-amber-800 hover:text-amber-950 font-bold underline cursor-pointer"
-                      >
-                        Forgot / Reset Password?
+              {view === 'login' && (
+                <form onSubmit={doLogin} className="space-y-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    {(['admin', 'operator'] as const).map((r) => (
+                      <button key={r} type="button" onClick={() => { setLoginRole(r); reset(); }}
+                        className={`py-2.5 rounded-xl border text-sm font-bold cursor-pointer ${loginRole === r ? 'border-amber-500 bg-amber-50 text-amber-900' : 'border-slate-200 text-slate-600'}`}>
+                        {r === 'admin' ? 'Admin' : 'Assigned Operator'}
                       </button>
-                    </div>
-                    <div className="relative">
-                      <input
-                        type={showPass ? 'text' : 'password'}
-                        value={passcode}
-                        onChange={(e) => {
-                          setPasscode(e.target.value);
-                          setLoginError(null);
-                        }}
-                        placeholder="Enter administrator passcode..."
-                        className="w-full px-3.5 py-2.5 pr-10 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 bg-slate-50 font-medium"
-                        autoFocus
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPass(!showPass)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
-                      >
-                        {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                      </button>
-                    </div>
+                    ))}
                   </div>
-
-                  {!hasAdminPassword && (
-                    <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 font-semibold">
-                      First-time setup on this device: the Admin ID and password (min 8 characters) you enter now will become the admin login.
-                    </div>
+                  {loginRole === 'admin' ? (
+                    <input value={ADMIN_USERNAME} readOnly className={input + ' bg-slate-50 font-mono'} aria-label="Admin username" />
+                  ) : (
+                    <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Admin द्वारा दिया गया Username" className={input} autoComplete="username" />
                   )}
-
-                  {/* Error Message */}
-                  {loginError && (
-                    <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-semibold flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
-                      <span>{loginError}</span>
-                    </div>
-                  )}
-
-                  {/* Success Message */}
-                  {loginSuccess && (
-                    <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-700 font-semibold flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Access Granted! Unlocking editorial control...</span>
-                    </div>
-                  )}
-
-                  {/* Form Footer */}
-                  <div className="pt-2 flex items-center justify-between border-t border-slate-100">
-                    <button
-                      type="button"
-                      onClick={onClose}
-                      className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
-                    >
-                      Cancel
-                    </button>
-
-                    <button
-                      type="submit"
-                      className="px-5 py-2.5 bg-gradient-to-r from-amber-600 via-amber-700 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer hover:scale-102 active:scale-98"
-                    >
-                      <Lock className="w-3.5 h-3.5" />
-                      <span>Sign In as Admin</span>
-                    </button>
-                  </div>
+                  <PassInput value={password} onChange={setPassword} placeholder="Password" autoComplete="current-password" />
+                  <button type="submit" disabled={busy || !!notReady} className={btn}>{busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />} Login</button>
+                  {loginRole === 'operator' && <p className="text-[11px] text-slate-500 text-center">पासवर्ड भूल गए? Admin से नया पासवर्ड लें।</p>}
                 </form>
               )}
 
-              {/* TAB 2: RESET ID & PASSWORD */}
-              {activeTab === 'reset' && (
-                <form onSubmit={handleResetSubmit} className="space-y-3.5">
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/90 text-xs text-slate-600">
-                    <p className="font-bold text-slate-800 flex items-center gap-1.5 mb-0.5">
-                      <Fingerprint className="w-3.5 h-3.5 text-orange-600" />
-                      <span>Admin Credentials Recovery &amp; Reset</span>
-                    </p>
-                    <p className="text-[11px] text-slate-500">
-                      Forgot the password? Type <code>RESET</code> below to set a new admin password for this device. (Admin changes are saved only on this device.)
-                    </p>
-                  </div>
-
-                  {/* Verification Key / Admin ID */}
-                  <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">
-                      Type RESET to confirm
-                    </label>
-                    <input
-                      type="text"
-                      value={resetIdOrKey}
-                      onChange={(e) => {
-                        setResetIdOrKey(e.target.value);
-                        setResetError(null);
-                      }}
-                      placeholder="RESET"
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-amber-500/20 focus:outline-none bg-slate-50"
-                      autoFocus
-                    />
-                  </div>
-
-                  {/* New Password */}
-                  <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">
-                      New Admin Password
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showNewPass ? 'text' : 'password'}
-                        value={newPassword}
-                        onChange={(e) => {
-                          setNewPassword(e.target.value);
-                          setResetError(null);
-                        }}
-                        placeholder="Enter new password (min 8 characters)..."
-                        className="w-full px-3.5 py-2 pr-10 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-amber-500/20 focus:outline-none bg-slate-50"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowNewPass(!showNewPass)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
-                      >
-                        {showNewPass ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Confirm New Password */}
-                  <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">
-                      Confirm New Password
-                    </label>
-                    <input
-                      type={showNewPass ? 'text' : 'password'}
-                      value={confirmPassword}
-                      onChange={(e) => {
-                        setConfirmPassword(e.target.value);
-                        setResetError(null);
-                      }}
-                      placeholder="Re-enter new password..."
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-amber-500/20 focus:outline-none bg-slate-50"
-                    />
-                  </div>
-
-                  {/* Reset Error */}
-                  {resetError && (
-                    <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-semibold flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
-                      <span>{resetError}</span>
-                    </div>
-                  )}
-
-                  {/* Reset Success Message */}
-                  {resetSuccessMessage && (
-                    <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-semibold space-y-1">
-                      <div className="flex items-center gap-1.5 text-emerald-700">
-                        <CheckCircle2 className="w-4 h-4" />
-                        <span className="font-bold">Password Reset Successful!</span>
-                      </div>
-                      <p className="text-[11px] text-emerald-900 font-normal">
-                        Your credentials have been updated and saved. Switching to login...
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Reset Form Actions */}
-                  <div className="pt-2 flex items-center justify-between border-t border-slate-100">
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('login')}
-                      className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
-                    >
-                      Back to Sign In
-                    </button>
-
-                    <button
-                      type="submit"
-                      className="px-5 py-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer hover:scale-102"
-                    >
-                      <RotateCcw className="w-3.5 h-3.5" />
-                      <span>Reset &amp; Save Password</span>
-                    </button>
-                  </div>
+              {(view === 'setup' || view === 'reset') && (
+                <form onSubmit={doOtpSubmit} className="space-y-3">
+                  <Note kind="info">
+                    {view === 'setup'
+                      ? <>Admin Username <b className="font-mono">{ADMIN_USERNAME}</b> रहेगा। OTP Admin email पर आएगा, फिर अपना पासवर्ड बनाएँ।</>
+                      : <>Admin पासवर्ड रीसेट: OTP Admin email ({authStatus?.resetEmail || 'bos•••@gmail.com'}) पर आएगा।</>}
+                  </Note>
+                  <button type="button" onClick={doSendOtp} disabled={busy || cooldown > 0 || !!notReady} className={btnLight + ' w-full py-2.5'}>
+                    <Mail className="w-4 h-4" /> {cooldown > 0 ? `दोबारा भेजें (${cooldown}s)` : otpSentTo ? 'OTP दोबारा भेजें' : 'Email पर OTP भेजें'}
+                  </button>
+                  <input value={otp} onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))} inputMode="numeric" placeholder="6 अंकों का OTP" className={input + ' tracking-[0.4em] font-mono text-center'} />
+                  <PassInput value={newPw} onChange={setNewPw} placeholder={`नया पासवर्ड (कम से कम ${MIN} अक्षर)`} autoComplete="new-password" />
+                  <PassInput value={newPw2} onChange={setNewPw2} placeholder="पासवर्ड दोबारा" autoComplete="new-password" />
+                  <button type="submit" disabled={busy || !!notReady} className={btn}>
+                    {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />} {view === 'setup' ? 'Admin खाता बनाएँ' : 'पासवर्ड रीसेट करें'}
+                  </button>
                 </form>
               )}
+
+              <p className="text-[11px] text-slate-500 text-center">मदद: WhatsApp +91 91109 77117 · bosctechedu@gmail.com</p>
             </div>
           )}
         </div>

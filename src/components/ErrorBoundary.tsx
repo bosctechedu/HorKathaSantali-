@@ -35,12 +35,8 @@ export class ErrorBoundary extends Component<Props, State> {
 
   private handleClearStorageAndReload = () => {
     try {
-      // Clear app state keys without losing admin password
-      const adminHash = localStorage.getItem('hor_katha_admin_pw_hash');
-      const adminId = localStorage.getItem('hor_katha_admin_id');
+      // Clear app state (staff login lives on the server; user signs in again)
       localStorage.clear();
-      if (adminHash) localStorage.setItem('hor_katha_admin_pw_hash', adminHash);
-      if (adminId) localStorage.setItem('hor_katha_admin_id', adminId);
       window.location.reload();
     } catch {
       window.location.reload();

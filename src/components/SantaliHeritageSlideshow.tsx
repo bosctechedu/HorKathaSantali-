@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { HERITAGE_30_SLIDES, HeritageSlide } from '../data/heritageGalleryData';
 import { speakWithFemaleVoice } from '../utils/speech';
+import { useAdmin } from '../context/AdminContext';
 import {
   ChevronLeft,
   ChevronRight,
@@ -38,10 +39,11 @@ export interface CustomHeroSlide {
   createdAt: number;
 }
 
-const STORAGE_KEY = 'hor_katha_custom_hero_slides';
+const STORAGE_KEY = 'hk_server_slides_cache'; // copy of server slider for fast/offline load
+const OLD_DEVICE_KEY = 'hor_katha_custom_hero_slides'; // earlier versions: slides saved only on one device
 
 // Compress image to ensure localStorage capacity is never exceeded
-function compressImage(file: File, maxWidth = 1600, quality = 0.85): Promise<string> {
+function compressImage(file: File, maxWidth = 1280, quality = 0.8): Promise<string> {
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -188,13 +190,51 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
     }
   }, [slides.length, currentIndex]);
 
-  // Save slides to localStorage
-  const saveSlides = (newSlides: CustomHeroSlide[]) => {
-    setSlides(newSlides);
+  // Slider lives on the server: everyone sees it, only Admin / Operator can change it.
+  const { isAdmin: canEdit, staffFetch } = useAdmin();
+  const [isSaving, setIsSaving] = useState(false);
+
+  const cacheSlides = (list: CustomHeroSlide[]) => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch { /* storage full */ }
+  };
+
+  useEffect(() => {
+    let alive = true;
+    fetch('/api/slides', { cache: 'no-cache' })
+      .then((r) => r.json())
+      .then((d) => {
+        if (!alive || !d?.ready || !Array.isArray(d.slides)) return;
+        setSlides(d.slides);
+        cacheSlides(d.slides);
+      })
+      .catch(() => { /* offline: keep cached slides */ });
+    return () => { alive = false; };
+  }, []);
+
+  const [oldDeviceSlides] = useState<CustomHeroSlide[]>(() => {
+    try { const v = JSON.parse(localStorage.getItem(OLD_DEVICE_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch { return []; }
+  });
+
+  const saveSlides = async (newSlides: CustomHeroSlide[]) => {
+    if (!canEdit) return;
+    setIsSaving(true);
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newSlides));
-    } catch (err) {
-      console.warn('Could not save slides to localStorage', err);
+      const r = await staffFetch('/api/slides', {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ slides: newSlides }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok || !d.success) {
+        alert(d.error || 'स्लाइड सेव नहीं हुई। दोबारा Login करके कोशिश करें।');
+        return;
+      }
+      setSlides(d.slides);
+      cacheSlides(d.slides);
+    } catch {
+      alert('सर्वर से जुड़ नहीं पाए। इंटरनेट जाँचें।');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -216,6 +256,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
 
   // Open modal for new slide
   const openAddModal = () => {
+    if (!canEdit) return;
     setEditingSlideId(null);
     setFormImage('');
     setUrlInput('');
@@ -233,6 +274,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
 
   // Open modal for editing existing slide
   const openEditModal = (slide: CustomHeroSlide) => {
+    if (!canEdit) return;
     setEditingSlideId(slide.id);
     setFormImage(slide.imageUrl);
     setUrlInput(slide.imageUrl.startsWith('http') ? slide.imageUrl : '');
@@ -404,13 +446,16 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
                 स्लाइडर रिक्त है · Empty Slider
               </span>
               <h3 className="text-lg sm:text-xl font-black text-amber-100 tracking-tight">
-                अपनी मनपसंद तस्वीर व अनूठा विवरण अपलोड करें
+                {canEdit ? 'अपनी मनपसंद तस्वीर व अनूठा विवरण अपलोड करें' : 'जोहार! Hor Katha Suite में आपका स्वागत है'}
               </h3>
               <p className="text-xs sm:text-sm text-slate-300/90 mt-1.5 leading-relaxed">
-                मुख्य शीर्षक, उप-शीर्षक और विस्तृत अनूठे विवरण के साथ अपनी पसंदीदा तस्वीर जोड़ें। यह 6 सेकंड के अंतराल में मुख्य बैनर पर प्रदर्शित होगी।
+                {canEdit
+                  ? 'मुख्य शीर्षक, उप-शीर्षक और विस्तृत अनूठे विवरण के साथ तस्वीर जोड़ें। यह सभी visitors को 6 सेकंड के अंतराल में मुख्य बैनर पर दिखेगी।'
+                  : 'संताली भाषा, संस्कृति और धरोहर की नई तस्वीरें जल्द ही यहाँ दिखेंगी।'}
               </p>
             </div>
 
+            {canEdit && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1">
               <button
                 onClick={openAddModal}
@@ -429,6 +474,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
                 <span>सैंपल लोड करें</span>
               </button>
             </div>
+            )}
           </div>
         </div>
       ) : (
@@ -482,6 +528,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
 
             {/* Actions: Add Slide, Edit, Delete, Pause/Play, Fullscreen */}
             <div className="flex items-center gap-1.5">
+              {canEdit && (<>
               {/* + Add Another Slide */}
               <button
                 onClick={openAddModal}
@@ -510,6 +557,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
               >
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
+              </>)}
 
               {/* Pause / Play (if multiple slides) */}
               {slides.length > 1 && (
@@ -608,7 +656,16 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
               ? 'स्लाइडर खाली है (0 तस्वीरें)'
               : `कुल ${slides.length} तस्वीरें लोड हैं · 6s ऑटो स्लाइड`}
           </span>
-          {slides.length > 0 && (
+          {isSaving && <span className="text-[10px] text-amber-200">सेव हो रहा है…</span>}
+          {canEdit && slides.length === 0 && oldDeviceSlides.length > 0 && (
+            <button
+              onClick={async () => { await saveSlides(oldDeviceSlides); localStorage.removeItem(OLD_DEVICE_KEY); }}
+              className="text-[10px] text-emerald-300 hover:text-emerald-200 underline font-bold cursor-pointer"
+            >
+              इस device की {oldDeviceSlides.length} पुरानी तस्वीरें सर्वर पर भेजें
+            </button>
+          )}
+          {canEdit && slides.length > 0 && (
             <button
               onClick={handleClearAll}
               className="text-[10px] text-rose-400 hover:text-rose-300 underline font-medium cursor-pointer ml-1"
@@ -618,6 +675,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
           )}
         </div>
 
+        {canEdit && (
         <div className="flex items-center gap-2">
           <button
             onClick={openAddModal}
@@ -627,6 +685,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
             <span>अपलोड करें</span>
           </button>
         </div>
+        )}
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
@@ -1023,7 +1082,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
             </div>
 
             <div className="flex flex-col items-end gap-1.5 shrink-0 self-end md:self-center">
-              <button
+              {canEdit && <button
                 onClick={() => {
                   setFullscreenSlide(null);
                   openEditModal(fullscreenSlide);
@@ -1032,7 +1091,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
               >
                 <Edit3 className="w-3.5 h-3.5" />
                 <span>संपादित करें</span>
-              </button>
+              </button>}
               <span className="text-[10px] text-amber-400 font-mono">
                 {currentIndex + 1} / {slides.length}
               </span>

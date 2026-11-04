@@ -14,16 +14,29 @@ import {
   getOfflineCacheStats
 } from '../utils/indexedDB';
 import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
-import { sha256Hex } from '../utils/sha256';
+
+export type StaffRole = 'admin' | 'operator';
+export type AuthResult = { success: boolean; error?: string; message?: string; needSetup?: boolean; sentTo?: string };
+export type AuthStatus = { ready: boolean; adminSet: boolean; emailReady: boolean; adminUsername?: string; resetEmail?: string };
+export const ADMIN_USERNAME = 'BOSC@TECH&EDU';
 
 interface AdminContextType {
+  /** true for Admin and Assigned Operator (content editing, slider upload) */
   isAdmin: boolean;
-  adminId: string;
-  hasAdminPassword: boolean;
-  loginAdmin: (passcodeOrId: string, passcode?: string) => boolean;
+  /** true only for the main Admin (operator management) */
+  isSuperAdmin: boolean;
+  role: StaffRole | null;
+  staffUsername: string;
+  authStatus: AuthStatus | null;
+  refreshAuthStatus: () => Promise<void>;
+  login: (username: string, password: string) => Promise<AuthResult>;
   logoutAdmin: () => void;
-  resetAdminPassword: (adminIdOrRecoveryKey: string, newPassword: string) => { success: boolean; message: string };
-  updateAdminId: (newId: string) => void;
+  sendAdminOtp: () => Promise<AuthResult>;
+  setupAdmin: (otp: string, password: string) => Promise<AuthResult>;
+  resetAdminPassword: (otp: string, password: string) => Promise<AuthResult>;
+  changePassword: (oldPassword: string, newPassword: string) => Promise<AuthResult>;
+  /** fetch with the staff session token */
+  staffFetch: (url: string, init?: RequestInit) => Promise<Response>;
   heroConfig: SiteHeroConfig;
   updateHeroConfig: (cfg: Partial<SiteHeroConfig>) => void;
   resetHeroConfig: () => void;
@@ -41,10 +54,12 @@ interface AdminContextType {
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
-    return localStorage.getItem('hor_katha_admin_active') === 'true';
-  });
-
+  // Staff session (Admin / Operator) is verified by the server (/api/auth); token kept on this device only.
+  const [token, setToken] = useState<string>(() => localStorage.getItem('hk_staff_token') || '');
+  const [role, setRole] = useState<StaffRole | null>(() => (localStorage.getItem('hk_staff_token') ? (localStorage.getItem('hk_staff_role') as StaffRole) : null));
+  const [staffUsername, setStaffUsername] = useState<string>(() => localStorage.getItem('hk_staff_user') || '');
+  const [authStatus, setAuthStatus] = useState<AuthStatus | null>(null);
+  const isAdmin = !!token && !!role;
   const [heroConfig, setHeroConfig] = useState<SiteHeroConfig>(() => {
     return safeLoadFromStorage('hor_katha_hero_config', DEFAULT_HERO_CONFIG);
   });
@@ -59,9 +74,6 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return safeLoadFromStorage('hor_katha_quiz_db', QUIZ_QUESTIONS);
   });
 
-  useEffect(() => {
-    localStorage.setItem('hor_katha_admin_active', isAdmin ? 'true' : 'false');
-  }, [isAdmin]);
 
   useEffect(() => {
     safeSaveToStorage('hor_katha_hero_config', heroConfig);
@@ -71,88 +83,91 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     safeSaveToStorage('hor_katha_quiz_db', quizItems);
   }, [quizItems]);
 
-  const [adminId, setAdminId] = useState<string>(() => {
-    return localStorage.getItem('hor_katha_admin_id') || 'BOSC-ADMIN-01';
-  });
+  // Remove old device-only admin data from earlier versions
+  useEffect(() => {
+    ['hor_katha_admin_active', 'hor_katha_admin_pw_hash', 'hor_katha_admin_password', 'hor_katha_admin_id'].forEach((k) => localStorage.removeItem(k));
+  }, []);
 
-  // Admin password is kept only as a SHA-256 hash on this device (no default / backdoor passwords).
-  const [adminPassHash, setAdminPassHash] = useState<string>(() => {
-    const stored = localStorage.getItem('hor_katha_admin_pw_hash');
-    if (stored) return stored;
-    // Migrate an old plain-text password (but never the old public default)
-    const legacy = localStorage.getItem('hor_katha_admin_password');
-    localStorage.removeItem('hor_katha_admin_password');
-    if (legacy && !['admin123', 'bosc2026', 'admin'].includes(legacy)) {
-      const h = sha256Hex(legacy);
-      localStorage.setItem('hor_katha_admin_pw_hash', h);
-      return h;
+  const saveSession = (t: string, r: StaffRole | null, u: string) => {
+    setToken(t); setRole(r); setStaffUsername(u);
+    if (t && r) {
+      localStorage.setItem('hk_staff_token', t); localStorage.setItem('hk_staff_role', r); localStorage.setItem('hk_staff_user', u);
+    } else {
+      ['hk_staff_token', 'hk_staff_role', 'hk_staff_user'].forEach((k) => localStorage.removeItem(k));
     }
-    return '';
-  });
-
-  const savePassword = (pw: string) => {
-    const h = sha256Hex(pw);
-    setAdminPassHash(h);
-    localStorage.setItem('hor_katha_admin_pw_hash', h);
   };
 
-  const MIN_PASS = 8;
-
-  const loginAdmin = (passcodeOrId: string, passcode?: string): boolean => {
-    const pass = (passcode === undefined ? passcodeOrId : passcode).trim();
-    const id = passcode === undefined ? adminId : passcodeOrId.trim();
-
-    // First run on this device: the first ID + strong password become the admin login
-    if (!adminPassHash) {
-      if (!id || pass.length < MIN_PASS) return false;
-      updateAdminId(id);
-      savePassword(pass);
-      setIsAdmin(true);
-      return true;
+  const call = async (body: Record<string, unknown>, withToken = false, t = token): Promise<any> => {
+    try {
+      const r = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', ...(withToken && t ? { authorization: `Bearer ${t}` } : {}) },
+        body: JSON.stringify(body),
+      });
+      const data = await r.json().catch(() => ({}));
+      return { status: r.status, ...data };
+    } catch {
+      return { status: 0, error: 'सर्वर से जुड़ नहीं पाए। इंटरनेट जाँचें।' };
     }
-
-    const idOk = passcode === undefined || id.toLowerCase() === adminId.toLowerCase();
-    if (idOk && sha256Hex(pass) === adminPassHash) {
-      setIsAdmin(true);
-      return true;
-    }
-    return false;
   };
 
-  const resetAdminPassword = (
-    adminIdOrRecoveryKey: string,
-    newPassword: string
-  ): { success: boolean; message: string } => {
-    const key = adminIdOrRecoveryKey.trim();
-    // Allowed when signed in (change password), or when the user types RESET to reset this device's admin login
-    if (!isAdmin && key.toUpperCase() !== 'RESET') {
-      return {
-        success: false,
-        message: 'Type RESET to confirm resetting the admin login on this device.',
-      };
+  const refreshAuthStatus = async () => {
+    try {
+      const r = await fetch('/api/auth', { cache: 'no-store' });
+      setAuthStatus(await r.json());
+    } catch {
+      setAuthStatus({ ready: false, adminSet: false, emailReady: false });
     }
-    if (!newPassword || newPassword.trim().length < MIN_PASS) {
-      return {
-        success: false,
-        message: `New password must be at least ${MIN_PASS} characters long.`,
-      };
-    }
-    savePassword(newPassword.trim());
-    return {
-      success: true,
-      message: 'Admin password saved on this device. Sign in with your Admin ID and the new password.',
-    };
   };
 
-  const updateAdminId = (newId: string) => {
-    if (newId && newId.trim()) {
-      setAdminId(newId.trim());
-      localStorage.setItem('hor_katha_admin_id', newId.trim());
-    }
+  // Verify a saved session once on load (offline: keep it until we can check)
+  useEffect(() => {
+    if (!token || !navigator.onLine) return;
+    call({ action: 'me' }, true).then((d) => {
+      if (d.status === 401 || d.status === 503) saveSession('', null, '');
+      else if (d.success) saveSession(token, d.role, d.username);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const login = async (username: string, password: string): Promise<AuthResult> => {
+    const d = await call({ action: 'login', username: username.trim(), password });
+    if (d.success && d.token) { saveSession(d.token, d.role, d.username); return { success: true }; }
+    return { success: false, error: d.error || 'Login नहीं हो पाया।', needSetup: !!d.needSetup };
+  };
+
+  const sendAdminOtp = async (): Promise<AuthResult> => {
+    const d = await call({ action: 'send-otp' });
+    return d.success ? { success: true, sentTo: d.sentTo } : { success: false, error: d.error || 'OTP नहीं भेज पाए।' };
+  };
+
+  const setupAdmin = async (otp: string, password: string): Promise<AuthResult> => {
+    const d = await call({ action: 'setup', otp: otp.trim(), password });
+    if (d.success && d.token) { saveSession(d.token, 'admin', d.username); refreshAuthStatus(); return { success: true }; }
+    return { success: false, error: d.error || 'Setup नहीं हो पाया।' };
+  };
+
+  const resetAdminPassword = async (otp: string, password: string): Promise<AuthResult> => {
+    const d = await call({ action: 'reset', otp: otp.trim(), password });
+    return d.success ? { success: true, message: d.message } : { success: false, error: d.error || 'Reset नहीं हो पाया।' };
+  };
+
+  const changePassword = async (oldPassword: string, newPassword: string): Promise<AuthResult> => {
+    const d = await call({ action: 'change-password', oldPassword, password: newPassword }, true);
+    if (d.success && d.token) { saveSession(d.token, role, staffUsername); return { success: true, message: d.message }; }
+    if (d.status === 401) saveSession('', null, '');
+    return { success: false, error: d.error || 'पासवर्ड नहीं बदला।' };
   };
 
   const logoutAdmin = () => {
-    setIsAdmin(false);
+    if (token) call({ action: 'logout' }, true);
+    saveSession('', null, '');
+  };
+
+  const staffFetch = async (url: string, init: RequestInit = {}) => {
+    const r = await fetch(url, { ...init, headers: { ...(init.headers || {}), authorization: `Bearer ${token}` } });
+    if (r.status === 401) saveSession('', null, '');
+    return r;
   };
 
   const updateHeroConfig = (cfg: Partial<SiteHeroConfig>) => {
@@ -232,12 +247,18 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     <AdminContext.Provider
       value={{
         isAdmin,
-        adminId,
-        hasAdminPassword: !!adminPassHash,
-        loginAdmin,
+        isSuperAdmin: isAdmin && role === 'admin',
+        role: isAdmin ? role : null,
+        staffUsername,
+        authStatus,
+        refreshAuthStatus,
+        login,
         logoutAdmin,
+        sendAdminOtp,
+        setupAdmin,
         resetAdminPassword,
-        updateAdminId,
+        changePassword,
+        staffFetch,
         heroConfig,
         updateHeroConfig,
         resetHeroConfig,
