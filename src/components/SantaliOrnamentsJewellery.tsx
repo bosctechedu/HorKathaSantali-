@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAdmin } from '../context/AdminContext';
+import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
 import { speakWithFemaleVoice } from '../utils/speech';
 import {
   Sparkles,
@@ -10,10 +12,17 @@ import {
   Heart,
   ChevronRight,
   Shield,
-  Palette
+  Palette,
+  Plus,
+  Edit2,
+  Trash2,
+  Save,
+  X,
+  RotateCcw,
+  ShieldCheck
 } from 'lucide-react';
 
-interface OrnamentItem {
+export interface OrnamentItem {
   id: string;
   nameDevanagari: string;
   nameRoman: string;
@@ -26,7 +35,7 @@ interface OrnamentItem {
   imageUrl: string;
 }
 
-const SANTALI_ORNAMENTS: OrnamentItem[] = [
+export const DEFAULT_ORNAMENTS: OrnamentItem[] = [
   {
     id: 'orn1',
     nameDevanagari: 'हांसली (हँसुली)',
@@ -174,20 +183,128 @@ const SANTALI_ORNAMENTS: OrnamentItem[] = [
 ];
 
 export const SantaliOrnamentsJewellery: React.FC = () => {
+  const { isAdmin } = useAdmin();
+  const STORAGE_KEY = 'hor_katha_jewellery_db';
+
+  const [ornaments, setOrnaments] = useState<OrnamentItem[]>(() =>
+    safeLoadFromStorage<OrnamentItem[]>(STORAGE_KEY, DEFAULT_ORNAMENTS)
+  );
   const [selectedBodyPart, setSelectedBodyPart] = useState<string>('all');
-  const [selectedOrnament, setSelectedOrnament] = useState<OrnamentItem>(SANTALI_ORNAMENTS[0]);
+  const [selectedOrnament, setSelectedOrnament] = useState<OrnamentItem>(ornaments[0] || DEFAULT_ORNAMENTS[0]);
+
+  // Admin Modal States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<OrnamentItem | null>(null);
+  const [formData, setFormData] = useState<Partial<OrnamentItem>>({});
+  const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
+
+  const showNotification = (msg: string) => {
+    setFeedbackMsg(msg);
+    setTimeout(() => setFeedbackMsg(null), 3000);
+  };
+
+  const saveOrnaments = (updated: OrnamentItem[]) => {
+    setOrnaments(updated);
+    safeSaveToStorage(STORAGE_KEY, updated);
+    if (!updated.some((o) => o.id === selectedOrnament.id) && updated.length > 0) {
+      setSelectedOrnament(updated[0]);
+    }
+  };
+
+  const handleAddNew = () => {
+    setEditingItem(null);
+    setFormData({
+      id: `orn_${Date.now()}`,
+      nameDevanagari: '',
+      nameRoman: '',
+      bodyPartHindi: 'गला (Neck)',
+      bodyPartCategory: 'neck',
+      metal: 'शुद्ध चांदी / कांसा',
+      significanceHindi: '',
+      wearingRitual: '',
+      festivalsAssociated: ['सोहराय', 'बाहा'],
+      imageUrl: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80'
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleEdit = (item: OrnamentItem) => {
+    setEditingItem(item);
+    setFormData({ ...item });
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = (id: string, name: string) => {
+    if (confirm(`क्या आप सचमुच "${name}" आभूषण को हटाना चाहते हैं?`)) {
+      const updated = ornaments.filter((o) => o.id !== id);
+      saveOrnaments(updated);
+      showNotification(`"${name}" आभूषण हटा दिया गया!`);
+    }
+  };
+
+  const handleSaveForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.nameDevanagari || !formData.significanceHindi) {
+      alert('कृपया आभूषण का नाम और महत्व अवश्य भरें।');
+      return;
+    }
+
+    if (editingItem) {
+      const updated = ornaments.map((o) =>
+        o.id === editingItem.id ? ({ ...o, ...formData } as OrnamentItem) : o
+      );
+      saveOrnaments(updated);
+      if (selectedOrnament.id === editingItem.id) {
+        setSelectedOrnament({ ...selectedOrnament, ...formData } as OrnamentItem);
+      }
+      showNotification('आभूषण सफलतापूर्वक अपडेट हो गया!');
+    } else {
+      const newItem: OrnamentItem = {
+        id: formData.id || `orn_${Date.now()}`,
+        nameDevanagari: formData.nameDevanagari || '',
+        nameRoman: formData.nameRoman || '',
+        bodyPartHindi: formData.bodyPartHindi || 'गला',
+        bodyPartCategory: formData.bodyPartCategory || 'neck',
+        metal: formData.metal || 'चांदी',
+        significanceHindi: formData.significanceHindi || '',
+        wearingRitual: formData.wearingRitual || '',
+        festivalsAssociated: formData.festivalsAssociated || ['सोहराय'],
+        imageUrl: formData.imageUrl || 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80'
+      };
+      saveOrnaments([newItem, ...ornaments]);
+      setSelectedOrnament(newItem);
+      showNotification('नया पारंपरिक आभूषण जुड़ गया!');
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleResetToDefault = () => {
+    if (confirm('क्या आप सचमुच सभी आभूषण फ़ैक्टरी डिफ़ॉल्ट पर रीसेट करना चाहते हैं?')) {
+      saveOrnaments(DEFAULT_ORNAMENTS);
+      setSelectedOrnament(DEFAULT_ORNAMENTS[0]);
+      showNotification('सभी आभूषण मूल स्वरूप में रीसेट हो गए!');
+    }
+  };
 
   const handleSpeak = (text: string) => {
     speakWithFemaleVoice(text, { lang: 'hi-IN', rate: 0.88 });
   };
 
-  const filteredOrnaments = SANTALI_ORNAMENTS.filter((item) => {
+  const filteredOrnaments = ornaments.filter((item) => {
     if (selectedBodyPart === 'all') return true;
     return item.bodyPartCategory === selectedBodyPart;
   });
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
+      {/* Toast Notification */}
+      {feedbackMsg && (
+        <div className="fixed bottom-6 right-6 z-50 bg-emerald-700 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold animate-in slide-in-from-bottom">
+          <CheckCircle2 className="w-4 h-4 text-emerald-200" />
+          <span>{feedbackMsg}</span>
+        </div>
+      )}
+
       {/* Hero Banner */}
       <div className="rounded-3xl bg-gradient-to-r from-slate-900 via-amber-950 to-slate-900 text-white p-6 md:p-8 shadow-xl relative overflow-hidden border border-amber-500/30">
         <div className="relative z-10 max-w-2xl space-y-3">
@@ -204,13 +321,33 @@ export const SantaliOrnamentsJewellery: React.FC = () => {
             हांसली, खागड़ा, साकम, रासा, तरपत, बांक व तोड़ा—संताली पारंपरिक आभूषण केवल सौंदर्य नहीं, बल्कि आत्मरक्षा, स्वास्थ्य, सामूहिकता और प्राकृतिक आस्था के पवित्र प्रतीक हैं।
           </p>
 
-          <div className="flex items-center gap-3 pt-1 text-xs text-amber-300">
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-amber-300">
             <span className="flex items-center gap-1 font-semibold">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>12 प्रमुख पारंपरिक आभूषण</span>
+              <span>{ornaments.length} प्रमुख पारंपरिक आभूषण</span>
             </span>
             <span>•</span>
             <span>चांदी व कांसा धातु शिल्प</span>
+
+            {isAdmin && (
+              <div className="flex items-center gap-2 ml-auto">
+                <button
+                  onClick={handleAddNew}
+                  className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs cursor-pointer transition-transform hover:scale-105"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>नया आभूषण जोड़ें (Add Ornament)</span>
+                </button>
+                <button
+                  onClick={handleResetToDefault}
+                  className="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-amber-200 font-bold text-xs flex items-center gap-1.5 border border-white/20 cursor-pointer"
+                  title="डिफ़ॉल्ट पर रीसेट करें"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>रीसेट</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -280,16 +417,43 @@ export const SantaliOrnamentsJewellery: React.FC = () => {
                     {ornament.metal.split('/')[0]}
                   </span>
 
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleSpeak(`${ornament.nameDevanagari}. ${ornament.significanceHindi}`);
-                    }}
-                    className="p-1 text-slate-500 hover:text-amber-700 rounded-md"
-                    title="सुनें"
-                  >
-                    <Volume2 className="w-3.5 h-3.5" />
-                  </button>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSpeak(`${ornament.nameDevanagari}. ${ornament.significanceHindi}`);
+                      }}
+                      className="p-1 text-slate-500 hover:text-amber-700 rounded-md cursor-pointer"
+                      title="सुनें"
+                    >
+                      <Volume2 className="w-3.5 h-3.5" />
+                    </button>
+
+                    {isAdmin && (
+                      <div className="flex items-center gap-0.5 ml-1 pl-1 border-l border-slate-200">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEdit(ornament);
+                          }}
+                          className="p-1 text-amber-700 hover:text-amber-900 rounded-md cursor-pointer"
+                          title="संपादित करें (Admin Edit)"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(ornament.id, ornament.nameDevanagari);
+                          }}
+                          className="p-1 text-rose-600 hover:text-rose-800 rounded-md cursor-pointer"
+                          title="हटाएं (Admin Delete)"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             );
@@ -374,6 +538,158 @@ export const SantaliOrnamentsJewellery: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Admin CRUD Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 space-y-4 shadow-2xl border border-amber-300 animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-amber-600" />
+                <h3 className="text-base font-black text-slate-900">
+                  {editingItem ? 'पारंपरिक आभूषण संपादित करें (Edit Ornament)' : 'नया पारंपरिक आभूषण जोड़ें (Add Ornament)'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveForm} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    आभूषण नाम (देवनागरी) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.nameDevanagari || ''}
+                    onChange={(e) => setFormData({ ...formData, nameDevanagari: e.target.value })}
+                    placeholder="उदा: हांसली / साकम"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    आभूषण नाम (Roman Script)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.nameRoman || ''}
+                    onChange={(e) => setFormData({ ...formData, nameRoman: e.target.value })}
+                    placeholder="उदा: Hasli / Sakam"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    शरीर का अंग (Category)
+                  </label>
+                  <select
+                    value={formData.bodyPartCategory || 'neck'}
+                    onChange={(e) => setFormData({ ...formData, bodyPartCategory: e.target.value as any })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-800"
+                  >
+                    <option value="head">सिर व केश (Head)</option>
+                    <option value="ears">कान (Ears)</option>
+                    <option value="neck">गला (Neck)</option>
+                    <option value="arms">हाथ व कलाई (Arms)</option>
+                    <option value="waist">कमर (Waist)</option>
+                    <option value="feet">पैर (Feet)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    अंग विवरण (हिन्दी)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.bodyPartHindi || ''}
+                    onChange={(e) => setFormData({ ...formData, bodyPartHindi: e.target.value })}
+                    placeholder="उदा: गला (Neck)"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    पारंपरिक धातु
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.metal || ''}
+                    onChange={(e) => setFormData({ ...formData, metal: e.target.value })}
+                    placeholder="उदा: शुद्ध चांदी / कांसा"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  सांस्कृतिक व दार्शनिक महत्व (Cultural Significance) *
+                </label>
+                <textarea
+                  rows={2}
+                  required
+                  value={formData.significanceHindi || ''}
+                  onChange={(e) => setFormData({ ...formData, significanceHindi: e.target.value })}
+                  placeholder="गले का सबसे प्रमुख ठोस और अर्धचंद्राकार आभूषण..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  पहनने की विधि व अवसर (Wearing Ritual)
+                </label>
+                <input
+                  type="text"
+                  value={formData.wearingRitual || ''}
+                  onChange={(e) => setFormData({ ...formData, wearingRitual: e.target.value })}
+                  placeholder="उदा: विवाह और सोहराय में अनिवार्य रूप से पहना जाता है।"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  तस्वीर URL (Image URL)
+                </label>
+                <input
+                  type="url"
+                  value={formData.imageUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                  placeholder="https://..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-100 cursor-pointer"
+                >
+                  रद्द करें
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>सहेजें (Save)</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

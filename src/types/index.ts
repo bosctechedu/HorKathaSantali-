@@ -138,6 +138,8 @@ export type ActiveDesktopTab =
   | 'illustrated_stories'
   | 'favorites_notebook'
   | 'certification'
+  | 'social_cards'
+  | 'lunar_calendar'
   | 'admin_cms'
   | 'translator'
   | 'ai_assistant'

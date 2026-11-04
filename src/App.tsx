@@ -14,6 +14,8 @@ import { Settings, ArrowLeft, Home, ShieldCheck, KeyRound, CheckCircle2, Lock, S
 const KeyboardModule = lazy(() => import('./components/KeyboardModule').then((m) => ({ default: m.KeyboardModule })));
 const DictionaryModule = lazy(() => import('./components/DictionaryModule').then((m) => ({ default: m.DictionaryModule })));
 const LearnModule = lazy(() => import('./components/LearnModule').then((m) => ({ default: m.LearnModule })));
+const SantaliSocialCardStudio = lazy(() => import('./components/SantaliSocialCardStudio').then((m) => ({ default: m.SantaliSocialCardStudio })));
+const SantaliLunarCalendarClock = lazy(() => import('./components/SantaliLunarCalendarClock').then((m) => ({ default: m.SantaliLunarCalendarClock })));
 const AISearchAssistant = lazy(() => import('./components/AISearchAssistant').then((m) => ({ default: m.AISearchAssistant })));
 const TranslatorModule = lazy(() => import('./components/TranslatorModule').then((m) => ({ default: m.TranslatorModule })));
 const DailyVocabQuiz = lazy(() => import('./components/DailyVocabQuiz').then((m) => ({ default: m.DailyVocabQuiz })));
@@ -110,19 +112,47 @@ function AppContent() {
       case 'dances': return 'dances';
       case 'bonga_buru': return 'bonga_buru';
       case 'hul_heroes': return 'hul_heroes';
-      case 'marriage_bapla': return 'bapla';
+      case 'marriage_bapla':
+      case 'marriage_rituals': return 'bapla';
       case 'attire_ornaments': return 'attire';
-      case 'cuisine': return 'cuisine';
+      case 'cuisine':
+      case 'traditional_cuisine': return 'cuisine';
       case 'sports_sendra': return 'sports';
       case 'folk_songs': return 'songs';
-      case 'pilgrimage': return 'pilgrimage';
+      case 'pilgrimage':
+      case 'sacred_pilgrimages': return 'pilgrimage';
       case 'life_rites': return 'rites';
       case 'governance': return 'governance';
       case 'herbal': return 'herbal';
       case 'calendar': return 'calendar';
       case 'clans': return 'clans';
-      case 'phrasebook': return 'phrases';
-      case 'kudum': return 'riddles';
+      case 'phrasebook':
+      case 'spoken_dialogues': return 'phrases';
+      case 'kudum':
+      case 'riddles_kudum': return 'riddles';
+      // 22 Additional Cultural & Heritage Modules
+      case 'sohrai_art': return 'sohrai_art';
+      case 'proverbs_bhenta': return 'proverbs_bhenta';
+      case 'agri_seasons': return 'agri_seasons';
+      case 'traditional_measures': return 'traditional_measures';
+      case 'architecture': return 'architecture';
+      case 'historical_garhs': return 'historical_garhs';
+      case 'puppetry_theater': return 'puppetry_theater';
+      case 'astronomy_lore': return 'astronomy_lore';
+      case 'sendra_lobir': return 'sendra_lobir';
+      case 'dhokra_art': return 'dhokra_art';
+      case 'water_harvesting': return 'water_harvesting';
+      case 'handloom_weaving': return 'handloom_weaving';
+      case 'livestock_khuntau': return 'livestock_khuntau';
+      case 'woodcraft_carpentry': return 'woodcraft_carpentry';
+      case 'bamboo_craft': return 'bamboo_craft';
+      case 'phonetics_lab': return 'phonetics_lab';
+      case 'baby_names': return 'baby_names';
+      case 'ornaments_jewellery': return 'ornaments_jewellery';
+      case 'blacksmithy_iron': return 'blacksmithy_iron';
+      case 'seasons_weather': return 'seasons_weather';
+      case 'idioms_menkatha': return 'idioms_menkatha';
+      case 'herbal_drinks': return 'herbal_drinks';
       default: return null;
     }
   };
@@ -513,6 +543,16 @@ function AppContent() {
               {/* Tab: Proficiency Exam & Certificate */}
               {activeTab === 'certification' && (
                 <SantaliProficiencyCertificate />
+              )}
+
+              {/* Tab: Social Card & Poster Studio */}
+              {activeTab === 'social_cards' && (
+                <SantaliSocialCardStudio />
+              )}
+
+              {/* Tab: Lunar Calendar Clock & Festival Countdown */}
+              {activeTab === 'lunar_calendar' && (
+                <SantaliLunarCalendarClock />
               )}
 
               {/* Tab: Majhi Pargana Self-Governance */}

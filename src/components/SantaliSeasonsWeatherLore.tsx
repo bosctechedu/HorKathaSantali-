@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAdmin } from '../context/AdminContext';
+import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
 import { speakWithFemaleVoice } from '../utils/speech';
 import {
   CloudSun,
@@ -13,17 +15,24 @@ import {
   Sparkles,
   Compass,
   CheckCircle2,
-  Calendar
+  Calendar,
+  Plus,
+  Edit2,
+  Trash2,
+  Save,
+  X,
+  RotateCcw,
+  ShieldCheck
 } from 'lucide-react';
 
-interface SantaliSeason {
+export interface SantaliSeason {
   id: string;
   nameSantaliDev: string;
   nameRoman: string;
   nameHindi: string;
   gregorianMonths: string;
   santaliMonths: string;
-  icon: any;
+  icon?: any;
   colorGradient: string;
   temperatureFeel: string;
   natureDescription: string;
@@ -32,7 +41,7 @@ interface SantaliSeason {
   weatherSigns: string[];
 }
 
-const SANTALI_6_SEASONS: SantaliSeason[] = [
+export const DEFAULT_SEASONS: SantaliSeason[] = [
   {
     id: 's1',
     nameSantaliDev: 'सितांग रुतु',
@@ -142,8 +151,123 @@ const SANTALI_6_SEASONS: SantaliSeason[] = [
   }
 ];
 
+const getSeasonIcon = (season: SantaliSeason) => {
+  if (season.icon) return season.icon;
+  if (season.id === 's1') return Sun;
+  if (season.id === 's2') return CloudSun;
+  if (season.id === 's3') return CloudRain;
+  if (season.id === 's4') return Wind;
+  if (season.id === 's5') return Snowflake;
+  if (season.id === 's6') return Flower2;
+  return Sun;
+};
+
 export const SantaliSeasonsWeatherLore: React.FC = () => {
-  const [selectedSeason, setSelectedSeason] = useState<SantaliSeason>(SANTALI_6_SEASONS[0]);
+  const { isAdmin } = useAdmin();
+  const STORAGE_KEY = 'hor_katha_weather_lore_db';
+
+  const [seasons, setSeasons] = useState<SantaliSeason[]>(() =>
+    safeLoadFromStorage<SantaliSeason[]>(STORAGE_KEY, DEFAULT_SEASONS)
+  );
+  const [selectedSeason, setSelectedSeason] = useState<SantaliSeason>(seasons[0] || DEFAULT_SEASONS[0]);
+
+  // Admin Modal States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<SantaliSeason | null>(null);
+  const [formData, setFormData] = useState<Partial<SantaliSeason>>({});
+  const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
+
+  const showNotification = (msg: string) => {
+    setFeedbackMsg(msg);
+    setTimeout(() => setFeedbackMsg(null), 3000);
+  };
+
+  const saveSeasons = (updated: SantaliSeason[]) => {
+    setSeasons(updated);
+    safeSaveToStorage(STORAGE_KEY, updated);
+    if (!updated.some((s) => s.id === selectedSeason.id) && updated.length > 0) {
+      setSelectedSeason(updated[0]);
+    }
+  };
+
+  const handleAddNew = () => {
+    setEditingItem(null);
+    setFormData({
+      id: `season_${Date.now()}`,
+      nameSantaliDev: '',
+      nameRoman: '',
+      nameHindi: '',
+      gregorianMonths: '',
+      santaliMonths: '',
+      colorGradient: 'from-amber-500 to-orange-600',
+      temperatureFeel: '',
+      natureDescription: '',
+      farmingActivities: '',
+      culturalFestivals: '',
+      weatherSigns: ['मौसम का पहला संकेत...', 'वर्षा अथवा वायु का संकेत...']
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleEdit = (item: SantaliSeason) => {
+    setEditingItem(item);
+    setFormData({ ...item });
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = (id: string, name: string) => {
+    if (confirm(`क्या आप सचमुच "${name}" ऋतु को हटाना चाहते हैं?`)) {
+      const updated = seasons.filter((s) => s.id !== id);
+      saveSeasons(updated);
+      showNotification(`"${name}" ऋतु हटा दी गई!`);
+    }
+  };
+
+  const handleSaveForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.nameSantaliDev || !formData.nameHindi) {
+      alert('कृपया ऋतु का नाम अवश्य भरें।');
+      return;
+    }
+
+    if (editingItem) {
+      const updated = seasons.map((s) =>
+        s.id === editingItem.id ? ({ ...s, ...formData } as SantaliSeason) : s
+      );
+      saveSeasons(updated);
+      if (selectedSeason.id === editingItem.id) {
+        setSelectedSeason({ ...selectedSeason, ...formData } as SantaliSeason);
+      }
+      showNotification('ऋतु विवरण सफलतापूर्वक अपडेट हो गया!');
+    } else {
+      const newItem: SantaliSeason = {
+        id: formData.id || `season_${Date.now()}`,
+        nameSantaliDev: formData.nameSantaliDev || '',
+        nameRoman: formData.nameRoman || '',
+        nameHindi: formData.nameHindi || '',
+        gregorianMonths: formData.gregorianMonths || '',
+        santaliMonths: formData.santaliMonths || '',
+        colorGradient: formData.colorGradient || 'from-teal-600 to-emerald-700',
+        temperatureFeel: formData.temperatureFeel || '',
+        natureDescription: formData.natureDescription || '',
+        farmingActivities: formData.farmingActivities || '',
+        culturalFestivals: formData.culturalFestivals || '',
+        weatherSigns: formData.weatherSigns || ['पारंपरिक मौसम संकेत']
+      };
+      saveSeasons([...seasons, newItem]);
+      setSelectedSeason(newItem);
+      showNotification('नई ऋतु जुड़ गई!');
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleResetToDefault = () => {
+    if (confirm('क्या आप सचमुच सभी ऋतुएं फ़ैक्टरी डिफ़ॉल्ट पर रीसेट करना चाहते हैं?')) {
+      saveSeasons(DEFAULT_SEASONS);
+      setSelectedSeason(DEFAULT_SEASONS[0]);
+      showNotification('सभी ऋतुएं मूल स्वरूप में रीसेट हो गईं!');
+    }
+  };
 
   const handleSpeak = (text: string) => {
     speakWithFemaleVoice(text, { lang: 'hi-IN', rate: 0.88 });
@@ -151,6 +275,14 @@ export const SantaliSeasonsWeatherLore: React.FC = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
+      {/* Toast Notification */}
+      {feedbackMsg && (
+        <div className="fixed bottom-6 right-6 z-50 bg-emerald-700 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold animate-in slide-in-from-bottom">
+          <CheckCircle2 className="w-4 h-4 text-emerald-200" />
+          <span>{feedbackMsg}</span>
+        </div>
+      )}
+
       {/* Banner */}
       <div className="rounded-3xl bg-gradient-to-r from-sky-950 via-teal-950 to-slate-900 text-white p-6 md:p-8 shadow-xl relative overflow-hidden border border-teal-500/30">
         <div className="relative z-10 max-w-2xl space-y-3">
@@ -167,35 +299,81 @@ export const SantaliSeasonsWeatherLore: React.FC = () => {
             सितांग (ग्रीष्म), जापानी (वर्षा), दासांय (शरद), राभांग (शीत), और बाहा (वसंत)—संताली पूर्वजों का मौसम चक्र प्रकृति, पशु-पक्षियों और नक्षत्रों के संकेतों पर आधारित है।
           </p>
 
-          <div className="flex items-center gap-3 pt-1 text-xs text-teal-300">
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-teal-300">
             <span className="flex items-center gap-1 font-semibold">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>६ संपूर्ण ऋतुएं व कृषि चक्र</span>
+              <span>{seasons.length} संपूर्ण ऋतुएं व कृषि चक्र</span>
             </span>
             <span>•</span>
             <span>देशी मौसम व वर्षा पूर्व-अनुमान</span>
+
+            {isAdmin && (
+              <div className="flex items-center gap-2 ml-auto">
+                <button
+                  onClick={handleAddNew}
+                  className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs cursor-pointer transition-transform hover:scale-105"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>नई ऋतु जोड़ें (Add Season)</span>
+                </button>
+                <button
+                  onClick={handleResetToDefault}
+                  className="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-teal-200 font-bold text-xs flex items-center gap-1.5 border border-white/20 cursor-pointer"
+                  title="डिफ़ॉल्ट पर रीसेट करें"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>रीसेट</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Season Cards Horizontal Selector */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        {SANTALI_6_SEASONS.map((season) => {
+        {seasons.map((season) => {
           const isSelected = selectedSeason.id === season.id;
-          const IconComponent = season.icon;
+          const IconComponent = getSeasonIcon(season);
           return (
-            <button
+            <div
               key={season.id}
               onClick={() => setSelectedSeason(season)}
-              className={`p-3.5 rounded-2xl text-left transition-all border flex flex-col justify-between cursor-pointer ${
+              className={`p-3.5 rounded-2xl text-left transition-all border flex flex-col justify-between cursor-pointer relative group ${
                 isSelected
                   ? 'bg-white border-teal-500 shadow-md ring-2 ring-teal-400/40 scale-102'
                   : 'bg-white hover:bg-slate-50 border-slate-200 shadow-xs'
               }`}
             >
               <div className="space-y-1.5">
-                <div className={`w-8 h-8 rounded-xl bg-gradient-to-tr ${season.colorGradient} text-white flex items-center justify-center shadow-xs`}>
-                  <IconComponent className="w-4 h-4" />
+                <div className="flex items-center justify-between">
+                  <div className={`w-8 h-8 rounded-xl bg-gradient-to-tr ${season.colorGradient} text-white flex items-center justify-center shadow-xs`}>
+                    <IconComponent className="w-4 h-4" />
+                  </div>
+                  {isAdmin && (
+                    <div className="flex items-center gap-0.5">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEdit(season);
+                        }}
+                        className="p-1 text-slate-400 hover:text-amber-700 rounded cursor-pointer"
+                        title="संपादित करें"
+                      >
+                        <Edit2 className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(season.id, season.nameSantaliDev);
+                        }}
+                        className="p-1 text-slate-400 hover:text-rose-600 rounded cursor-pointer"
+                        title="हटाएं"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <h3 className="text-sm font-black text-slate-900 mt-2">
                   {season.nameSantaliDev}
@@ -210,7 +388,7 @@ export const SantaliSeasonsWeatherLore: React.FC = () => {
                   {season.gregorianMonths}
                 </span>
               </div>
-            </button>
+            </div>
           );
         })}
       </div>
@@ -296,6 +474,167 @@ export const SantaliSeasonsWeatherLore: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Admin CRUD Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 space-y-4 shadow-2xl border border-teal-300 animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-teal-600" />
+                <h3 className="text-base font-black text-slate-900">
+                  {editingItem ? 'ऋतु विवरण संपादित करें (Edit Season)' : 'नई ऋतु विवरण जोड़ें (Add Season)'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveForm} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    संताली ऋतु नाम (देवनागरी) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.nameSantaliDev || ''}
+                    onChange={(e) => setFormData({ ...formData, nameSantaliDev: e.target.value })}
+                    placeholder="उदा: सितांग रुतु"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    ऋतु नाम (Roman Script)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.nameRoman || ''}
+                    onChange={(e) => setFormData({ ...formData, nameRoman: e.target.value })}
+                    placeholder="उदा: Sitang Rutu"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    हिन्दी नाम (Hindi Name) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.nameHindi || ''}
+                    onChange={(e) => setFormData({ ...formData, nameHindi: e.target.value })}
+                    placeholder="उदा: ग्रीष्म ऋतु (Summer)"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    संताली मास
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.santaliMonths || ''}
+                    onChange={(e) => setFormData({ ...formData, santaliMonths: e.target.value })}
+                    placeholder="उदा: चैत - बैसाख - जेठ"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    ग्रेगोरियन माह
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.gregorianMonths || ''}
+                    onChange={(e) => setFormData({ ...formData, gregorianMonths: e.target.value })}
+                    placeholder="उदा: मार्च - मई"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  प्रकृति, तापमान व वातावरण (Climate & Feel)
+                </label>
+                <textarea
+                  rows={2}
+                  value={formData.temperatureFeel || ''}
+                  onChange={(e) => setFormData({ ...formData, temperatureFeel: e.target.value })}
+                  placeholder="उदा: प्रचंड धूप, गर्म लू (लोलो होय)..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  प्राकृतिक सौंदर्य व वन स्वरूप (Nature Description)
+                </label>
+                <textarea
+                  rows={2}
+                  value={formData.natureDescription || ''}
+                  onChange={(e) => setFormData({ ...formData, natureDescription: e.target.value })}
+                  placeholder="उदा: पलाश और महुआ के वन खिल उठते हैं..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    कृषि कार्य (Agricultural Activities)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.farmingActivities || ''}
+                    onChange={(e) => setFormData({ ...formData, farmingActivities: e.target.value })}
+                    placeholder="उदा: खेतों की जुताई, मेढ़बंदी..."
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    सांस्कृतिक पर्व (Festivals)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.culturalFestivals || ''}
+                    onChange={(e) => setFormData({ ...formData, culturalFestivals: e.target.value })}
+                    placeholder="उदा: दिशोम सेंदरा, महुआ संग्रह..."
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-100 cursor-pointer"
+                >
+                  रद्द करें
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>सहेजें (Save)</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

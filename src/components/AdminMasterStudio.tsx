@@ -22,6 +22,10 @@ import { DEFAULT_KUDUM_LIST, KudumItem } from './KudumProverbs';
 import { CustomHeroSlide } from './SantaliHeritageSlideshow';
 import { HERITAGE_30_SLIDES } from '../data/heritageGalleryData';
 import {
+  AdminCulturalModulesStudio,
+  CULTURAL_MODULES_REGISTRY
+} from './AdminCulturalModulesStudio';
+import {
   ShieldCheck,
   Edit3,
   Plus,
@@ -51,6 +55,7 @@ import {
   Radio,
   Compass,
   Baby,
+  Sparkles,
   X
 } from 'lucide-react';
 
@@ -74,6 +79,29 @@ export type AdminTab =
   | 'clans'
   | 'phrases'
   | 'riddles'
+  | 'cultural_modules'
+  | 'sohrai_art'
+  | 'proverbs_bhenta'
+  | 'agri_seasons'
+  | 'traditional_measures'
+  | 'architecture'
+  | 'historical_garhs'
+  | 'puppetry_theater'
+  | 'astronomy_lore'
+  | 'sendra_lobir'
+  | 'dhokra_art'
+  | 'water_harvesting'
+  | 'handloom_weaving'
+  | 'livestock_khuntau'
+  | 'woodcraft_carpentry'
+  | 'bamboo_craft'
+  | 'phonetics_lab'
+  | 'baby_names'
+  | 'ornaments_jewellery'
+  | 'blacksmithy_iron'
+  | 'seasons_weather'
+  | 'idioms_menkatha'
+  | 'herbal_drinks'
   | 'backup';
 
 export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: AdminTab }> = ({
@@ -1017,11 +1045,17 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
   };
 
   // ==============================================================
-  // MASTER EXPORT & IMPORT
+  // MASTER EXPORT & IMPORT (ALL 36+ MODULES)
   // ==============================================================
   const handleExportAllJSON = () => {
+    // Collect all 22 additional cultural modules
+    const culturalDataMap: Record<string, any> = {};
+    CULTURAL_MODULES_REGISTRY.forEach((mod) => {
+      culturalDataMap[mod.key] = safeLoadFromStorage(mod.storageKey, mod.defaultData);
+    });
+
     const fullBackup = {
-      version: '5.0.0',
+      version: '6.0.0',
       exportedAt: new Date().toISOString(),
       hero: heroForm,
       creationStages,
@@ -1041,6 +1075,7 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
       lifeRites,
       phrases,
       kudums,
+      culturalModules: culturalDataMap,
       customWords: words.slice(0, 100)
     };
     const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
@@ -1050,7 +1085,7 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
     a.download = `HorKathaSantali_Universal_CMS_${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    showNotification('संपूर्ण ऐप का बैकअप JSON फाइल में डाउनलोड हो गया!');
+    showNotification('संपूर्ण ३६+ मॉड्यूल्स का बैकअप JSON फाइल में डाउनलोड हो गया!');
   };
 
   const handleImportJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1132,7 +1167,14 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
           setKudums(data.kudums);
           safeSaveToStorage('hor_katha_kudum_db', data.kudums);
         }
-        showNotification('बैकअप सफलतापूर्वक लोड व लागू हो गया!');
+        if (data.culturalModules) {
+          CULTURAL_MODULES_REGISTRY.forEach((mod) => {
+            if (data.culturalModules[mod.key]) {
+              safeSaveToStorage(mod.storageKey, data.culturalModules[mod.key]);
+            }
+          });
+        }
+        showNotification('बैकअप सफलतापूर्वक लोड व लागू हो गया! (सभी ३६+ मॉड्यूल्स अद्यतन)');
       } catch (err) {
         alert('अमान्य JSON फ़ाइल! कृपया सही बैकअप फ़ाइल चुनें।');
       }
@@ -1141,7 +1183,7 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
   };
 
   const handleResetAllToFactory = () => {
-    if (confirm('क्या आप सचमुच सभी मॉड्यूल्स को डिफ़ॉल्ट डेटा पर रीसेट करना चाहते हैं?')) {
+    if (confirm('क्या आप सचमुच सभी ३६ मॉड्यूल्स को डिफ़ॉल्ट डेटा पर रीसेट करना चाहते हैं?')) {
       localStorage.removeItem('hor_katha_cms_creation');
       localStorage.removeItem('hor_katha_cms_dances');
       localStorage.removeItem('hor_katha_cms_bonga_buru');
@@ -1160,6 +1202,9 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
       localStorage.removeItem('hor_katha_phrasebook_db');
       localStorage.removeItem('hor_katha_kudum_db');
       localStorage.removeItem('hor_katha_hero_config');
+      CULTURAL_MODULES_REGISTRY.forEach((mod) => {
+        localStorage.removeItem(mod.storageKey);
+      });
       resetHeroConfig();
       setCreationStages(CREATION_STAGES);
       setDances(TOP_10_DANCES);
@@ -1178,9 +1223,13 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
       setLifeRites(DEFAULT_LIFE_RITES);
       setPhrases(DEFAULT_PHRASES_DATA);
       setKudums(DEFAULT_KUDUM_LIST);
-      showNotification('सभी मॉड्यूल्स फ़ैक्टरी डिफ़ॉल्ट पर रीसेट हो गए!');
+      showNotification('सभी ३६ मॉड्यूल्स फ़ैक्टरी डिफ़ॉल्ट पर रीसेट हो गए!');
     }
   };
+
+  const isCulturalModuleTab =
+    activeTab === 'cultural_modules' ||
+    CULTURAL_MODULES_REGISTRY.some((m) => m.key === activeTab);
 
   const filteredWords = words
     .filter(
@@ -1210,7 +1259,7 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
               Master CMS · सम्पूर्ण संपादन केंद्र
             </span>
             <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/30 text-[11px] font-bold text-emerald-300">
-              A-to-Z Full CRUD (Add / Edit / Update / Delete)
+              A-to-Z Full CRUD (All 36 Modules Live)
             </span>
           </div>
 
@@ -1218,7 +1267,7 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
             यूनिवर्सल एडमिन कंटेंट स्टूडियो
           </h1>
           <p className="text-xs sm:text-sm text-amber-200/90 leading-relaxed font-medium">
-            हर सेक्शन के प्रत्येक कंटेंट को जोड़ें (Add), सुधारें (Edit), सहेजें (Update) या हटाएं (Delete)। वर्तनी या ऐतिहासिक त्रुटियों को तुरंत लाइव ठीक करें।
+            सभी ३६ सांस्कृतिक, भाषाई व ऐतिहासिक मॉड्यूल्स के प्रत्येक कंटेंट को जोड़ें (Add), सुधारें (Edit), सहेजें (Update) या हटाएं (Delete)।
           </p>
         </div>
 
@@ -1244,6 +1293,7 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
         {[
           { id: 'hero', label: '🏠 मुख्य बैनर', icon: Layout },
           { id: 'dictionary', label: '📖 शब्दकोश (10k)', icon: BookOpen },
+          { id: 'cultural_modules', label: '🎨 ३६ सांस्कृतिक मॉड्यूल्स (All 36)', icon: Sparkles },
           { id: 'creation', label: '🌍 धरती की सृष्टि', icon: Globe },
           { id: 'dances', label: '💃 शीर्ष १० नृत्य', icon: Music },
           { id: 'bonga_buru', label: '🪔 १५ बोंगा-बुरु', icon: Flame },
@@ -1263,7 +1313,7 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
           { id: 'riddles', label: '🧩 कुदुम व पहेलियां', icon: HelpCircle },
           { id: 'backup', label: '💾 मास्टर बैकअप', icon: Download }
         ].map((tab) => {
-          const isSel = activeTab === tab.id;
+          const isSel = activeTab === tab.id || (tab.id === 'cultural_modules' && isCulturalModuleTab);
           return (
             <button
               key={tab.id}
@@ -3903,7 +3953,17 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
       )}
 
       {/* ============================================================== */}
-      {/* 20. MASTER BACKUP & FACTORY RESET */}
+      {/* 20. ALL 36 CULTURAL & INDIGENOUS HERITAGE MODULES STUDIO */}
+      {/* ============================================================== */}
+      {isCulturalModuleTab && (
+        <AdminCulturalModulesStudio
+          initialModuleKey={activeTab === 'cultural_modules' ? undefined : activeTab}
+          onNotification={showNotification}
+        />
+      )}
+
+      {/* ============================================================== */}
+      {/* 21. MASTER BACKUP & FACTORY RESET */}
       {/* ============================================================== */}
       {activeTab === 'backup' && (
         <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAdmin } from '../context/AdminContext';
+import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
 import { speakWithFemaleVoice } from '../utils/speech';
 import {
   MessageSquare,
@@ -10,10 +12,17 @@ import {
   Filter,
   Lightbulb,
   Heart,
-  HelpCircle
+  HelpCircle,
+  Plus,
+  Edit2,
+  Trash2,
+  Save,
+  X,
+  RotateCcw,
+  ShieldCheck
 } from 'lucide-react';
 
-interface IdiomItem {
+export interface IdiomItem {
   id: string;
   idiomDevanagari: string;
   idiomRoman: string;
@@ -27,7 +36,7 @@ interface IdiomItem {
   categoryHindi: string;
 }
 
-const SANTALI_IDIOMS: IdiomItem[] = [
+export const DEFAULT_MENKATHA_IDIOMS: IdiomItem[] = [
   {
     id: 'm1',
     idiomDevanagari: 'ति रे दाक् बांय अतुक्',
@@ -187,6 +196,12 @@ const SANTALI_IDIOMS: IdiomItem[] = [
 ];
 
 export const SantaliIdiomsMenkatha: React.FC = () => {
+  const { isAdmin } = useAdmin();
+  const STORAGE_KEY = 'hor_katha_menkatha_db';
+
+  const [idioms, setIdioms] = useState<IdiomItem[]>(() =>
+    safeLoadFromStorage<IdiomItem[]>(STORAGE_KEY, DEFAULT_MENKATHA_IDIOMS)
+  );
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [favorites, setFavorites] = useState<string[]>(() => {
@@ -197,6 +212,94 @@ export const SantaliIdiomsMenkatha: React.FC = () => {
       return [];
     }
   });
+
+  // Admin Modal States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<IdiomItem | null>(null);
+  const [formData, setFormData] = useState<Partial<IdiomItem>>({});
+  const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
+
+  const showNotification = (msg: string) => {
+    setFeedbackMsg(msg);
+    setTimeout(() => setFeedbackMsg(null), 3000);
+  };
+
+  const saveIdioms = (updated: IdiomItem[]) => {
+    setIdioms(updated);
+    safeSaveToStorage(STORAGE_KEY, updated);
+  };
+
+  const handleAddNew = () => {
+    setEditingItem(null);
+    setFormData({
+      id: `idiom_${Date.now()}`,
+      idiomDevanagari: '',
+      idiomRoman: '',
+      literalMeaningHindi: '',
+      figurativeMeaningHindi: '',
+      meaningEnglish: '',
+      usageContext: '',
+      exampleSentenceDev: '',
+      exampleSentenceHindi: '',
+      category: 'wisdom',
+      categoryHindi: 'दार्शनिक ज्ञान'
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleEdit = (item: IdiomItem) => {
+    setEditingItem(item);
+    setFormData({ ...item });
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = (id: string, name: string) => {
+    if (confirm(`क्या आप सचमुच मुहावरे "${name}" को हटाना चाहते हैं?`)) {
+      const updated = idioms.filter((i) => i.id !== id);
+      saveIdioms(updated);
+      showNotification(`"${name}" मुहावरा हटा दिया गया!`);
+    }
+  };
+
+  const handleSaveForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.idiomDevanagari || !formData.figurativeMeaningHindi) {
+      alert('कृपया मुहावरा (देवनागरी) और भावार्थ अवश्य भरें।');
+      return;
+    }
+
+    if (editingItem) {
+      const updated = idioms.map((i) =>
+        i.id === editingItem.id ? ({ ...i, ...formData } as IdiomItem) : i
+      );
+      saveIdioms(updated);
+      showNotification('मुहावरा सफलतापूर्वक अपडेट हो गया!');
+    } else {
+      const newItem: IdiomItem = {
+        id: formData.id || `idiom_${Date.now()}`,
+        idiomDevanagari: formData.idiomDevanagari || '',
+        idiomRoman: formData.idiomRoman || '',
+        literalMeaningHindi: formData.literalMeaningHindi || '',
+        figurativeMeaningHindi: formData.figurativeMeaningHindi || '',
+        meaningEnglish: formData.meaningEnglish || '',
+        usageContext: formData.usageContext || '',
+        exampleSentenceDev: formData.exampleSentenceDev || '',
+        exampleSentenceHindi: formData.exampleSentenceHindi || '',
+        category: formData.category || 'wisdom',
+        categoryHindi: formData.categoryHindi || 'ज्ञान'
+      };
+      saveIdioms([newItem, ...idioms]);
+      showNotification('नया संताली मुहावरा जुड़ गया!');
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleResetToDefault = () => {
+    if (confirm('क्या आप सचमुच सभी मुहावरे फ़ैक्टरी डिफ़ॉल्ट पर रीसेट करना चाहते हैं?')) {
+      saveIdioms(DEFAULT_MENKATHA_IDIOMS);
+      showNotification('सभी मुहावरे मूल स्वरूप में रीसेट हो गए!');
+    }
+  };
 
   const toggleFavorite = (id: string) => {
     const updated = favorites.includes(id)
@@ -214,7 +317,7 @@ export const SantaliIdiomsMenkatha: React.FC = () => {
     speakWithFemaleVoice(text, { lang: 'hi-IN', rate: 0.88 });
   };
 
-  const filteredIdioms = SANTALI_IDIOMS.filter((item) => {
+  const filteredIdioms = idioms.filter((item) => {
     const matchesCat = selectedCategory === 'all' || item.category === selectedCategory;
     const query = search.toLowerCase().trim();
     const matchesSearch =
@@ -229,6 +332,14 @@ export const SantaliIdiomsMenkatha: React.FC = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
+      {/* Toast Notification */}
+      {feedbackMsg && (
+        <div className="fixed bottom-6 right-6 z-50 bg-emerald-700 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold animate-in slide-in-from-bottom">
+          <CheckCircle2 className="w-4 h-4 text-emerald-200" />
+          <span>{feedbackMsg}</span>
+        </div>
+      )}
+
       {/* Header Banner */}
       <div className="rounded-3xl bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 text-white p-6 md:p-8 shadow-xl relative overflow-hidden border border-amber-600/30">
         <div className="relative z-10 max-w-2xl space-y-3">
@@ -238,23 +349,44 @@ export const SantaliIdiomsMenkatha: React.FC = () => {
           </div>
 
           <h1 className="text-2xl md:text-3xl font-black text-amber-100 tracking-tight">
-            संताली मुहावरे, लोकोक्तियां व भेंता काथा (Santali Idioms & Sayings)
+            संताली मेनकाथा व गूढ़ लोकोक्तियां (Santali Idioms & Metaphors)
           </h1>
 
-          <p className="text-xs md:text-sm text-amber-200/90 leading-relaxed font-sans">
-            संताली भाषा के लाक्षणिक मुहावरे (मेनकाथा)—जिनमें प्रकृति, पशु-पक्षी, कृषि और पूर्वजों के गहरे जीवन दर्शन का रस समाया है। शाब्दिक अर्थ, भावार्थ और दैनिक प्रयोग के साथ।
+          <p className="text-xs md:text-sm text-stone-300 leading-relaxed font-sans">
+            संताली भाषा में किसी गूढ़ सत्य, व्यंग्य, उपदेश या सामाजिक मर्यादा को सीधे न कहकर लाक्षणिक शैली (भेंता काथा) में प्रस्तुत करने की समृद्ध मौखिक परंपरा है।
           </p>
 
-          <div className="flex items-center gap-3 pt-1 text-xs text-amber-300">
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-amber-300">
             <span className="flex items-center gap-1 font-semibold">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>12+ अमर संताली मुहावरे</span>
+              <span>{idioms.length} चयनित पारंपरिक मेनकाथा</span>
             </span>
             <span>•</span>
-            <span>शाब्दिक अर्थ व सटीक उदाहरण वाक्य</span>
+            <span>दैनिक बोलचाल में प्रयोग व भावार्थ</span>
+
+            {isAdmin && (
+              <div className="flex items-center gap-2 ml-auto">
+                <button
+                  onClick={handleAddNew}
+                  className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs cursor-pointer transition-transform hover:scale-105"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>नया मुहावरा जोड़ें (Add Idiom)</span>
+                </button>
+                <button
+                  onClick={handleResetToDefault}
+                  className="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-amber-200 font-bold text-xs flex items-center gap-1.5 border border-white/20 cursor-pointer"
+                  title="डिफ़ॉल्ट पर रीसेट करें"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>रीसेट</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
 
       {/* Search & Categories Bar */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-xs space-y-3">
@@ -349,6 +481,25 @@ export const SantaliIdiomsMenkatha: React.FC = () => {
                   >
                     <Heart className={`w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : ''}`} />
                   </button>
+
+                  {isAdmin && (
+                    <div className="flex items-center gap-0.5 ml-1 pl-1 border-l border-slate-200">
+                      <button
+                        onClick={() => handleEdit(item)}
+                        className="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 transition-colors cursor-pointer"
+                        title="मुहावरा संपादित करें (Admin Edit)"
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(item.id, item.idiomDevanagari)}
+                        className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 transition-colors cursor-pointer"
+                        title="मुहावरा हटाएं (Admin Delete)"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -388,6 +539,172 @@ export const SantaliIdiomsMenkatha: React.FC = () => {
           );
         })}
       </div>
+      {/* Admin CRUD Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 space-y-4 shadow-2xl border border-amber-300 animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-amber-600" />
+                <h3 className="text-base font-black text-slate-900">
+                  {editingItem ? 'संताली मुहावरा संपादित करें (Edit Idiom)' : 'नया संताली मुहावरा जोड़ें (Add Idiom)'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveForm} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    मुहावरा (देवनागरी) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.idiomDevanagari || ''}
+                    onChange={(e) => setFormData({ ...formData, idiomDevanagari: e.target.value })}
+                    placeholder="उदा: ति रे दाक् बांय अतुक्"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    मुहावरा (Roman Script)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.idiomRoman || ''}
+                    onChange={(e) => setFormData({ ...formData, idiomRoman: e.target.value })}
+                    placeholder="उदा: Ti re dah bang atuh"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    श्रेणी (Category)
+                  </label>
+                  <select
+                    value={formData.category || 'wisdom'}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-800"
+                  >
+                    <option value="wisdom">💡 दार्शनिक ज्ञान व नीति (Wisdom)</option>
+                    <option value="relations">🤝 रिश्ते व सामाजिक स्थिति (Relations)</option>
+                    <option value="character">🌱 स्वभाव व चरित्र (Character)</option>
+                    <option value="anger_emotion">⚡ क्रोध व मनोभाव (Emotion)</option>
+                    <option value="work_diligence">🌾 परिश्रम व कर्म (Work)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    श्रेणी लेबल (हिन्दी)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.categoryHindi || ''}
+                    onChange={(e) => setFormData({ ...formData, categoryHindi: e.target.value })}
+                    placeholder="उदा: स्वभाव व चरित्र"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  लाक्षणिक भावार्थ (Figurative Meaning in Hindi) *
+                </label>
+                <textarea
+                  rows={2}
+                  required
+                  value={formData.figurativeMeaningHindi || ''}
+                  onChange={(e) => setFormData({ ...formData, figurativeMeaningHindi: e.target.value })}
+                  placeholder="उदा: अत्यधिक कंजूस होना, चमड़ी जाए पर दमड़ी न जाए..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  शाब्दिक अर्थ (Literal Meaning)
+                </label>
+                <input
+                  type="text"
+                  value={formData.literalMeaningHindi || ''}
+                  onChange={(e) => setFormData({ ...formData, literalMeaningHindi: e.target.value })}
+                  placeholder="उदा: हाथ पर पानी गिराने पर भी नीचे न टपकना"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  अंग्रेजी अर्थ (English Meaning)
+                </label>
+                <input
+                  type="text"
+                  value={formData.meaningEnglish || ''}
+                  onChange={(e) => setFormData({ ...formData, meaningEnglish: e.target.value })}
+                  placeholder="e.g. Utterly stingy, very miserly"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    उदाहरण वाक्य (संताली देवनागरी)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.exampleSentenceDev || ''}
+                    onChange={(e) => setFormData({ ...formData, exampleSentenceDev: e.target.value })}
+                    placeholder="उदा: उनि हड़ाम दो ति रे दाक् बांय अतुक् लेकानिच् कानाय।"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    उदाहरण वाक्य का हिन्दी अनुवाद
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.exampleSentenceHindi || ''}
+                    onChange={(e) => setFormData({ ...formData, exampleSentenceHindi: e.target.value })}
+                    placeholder="उदा: वह बूढ़ा इतना कंजूस है कि हाथ से पानी तक नहीं टपकता।"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-100 cursor-pointer"
+                >
+                  रद्द करें
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>सहेजें (Save)</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

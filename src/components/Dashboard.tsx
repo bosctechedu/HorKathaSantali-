@@ -379,6 +379,22 @@ export const Dashboard: React.FC<DashboardProps> = ({
       gradient: 'from-teal-800 to-emerald-950',
       actionText: 'Read Stories'
     },
+    {
+      id: 'social_cards' as ActiveDesktopTab,
+      title: 'सोशल मीडिया कार्ड व पोस्टर जनरेटर',
+      subtitle: 'सोहराय कला बॉर्डर्स, संताली विचार व WhatsApp HD शेयर',
+      icon: Sparkles,
+      gradient: 'from-rose-800 to-amber-950',
+      actionText: 'Create Poster'
+    },
+    {
+      id: 'lunar_calendar' as ActiveDesktopTab,
+      title: 'पारंपरिक संताली चंद्र पंचांग व पर्व टाइमर',
+      subtitle: 'लाइव चंद्र कला (कुनामी/मूळ) व आगामी महापर्व काउंटडाउन',
+      icon: Clock,
+      gradient: 'from-indigo-900 to-slate-950',
+      actionText: 'View Chando Clock'
+    },
     ...(isAdmin
       ? [
           {
@@ -646,6 +662,49 @@ export const Dashboard: React.FC<DashboardProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         {/* Left Column (8 cols on lg) */}
         <div className="lg:col-span-8 space-y-5">
+
+          {/* New Additions Spotlight Banners */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div
+              onClick={() => onNavigate('social_cards')}
+              className="p-4 rounded-2xl bg-gradient-to-r from-amber-900 via-rose-950 to-stone-900 text-white cursor-pointer shadow-xs hover:shadow-md transition-all hover:scale-[1.01] flex items-center justify-between border border-amber-600/30 group"
+            >
+              <div className="space-y-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-[10px] uppercase tracking-wider">
+                  ✨ नया स्टूडियो (HD Card)
+                </span>
+                <h3 className="font-black text-sm text-amber-100 group-hover:text-amber-200">
+                  सोशल मीडिया कार्ड व पोस्टर
+                </h3>
+                <p className="text-[11px] text-amber-200/80 leading-snug">
+                  सोहराय भित्तिचित्र, संताली विचार व WhatsApp स्टेटस HD शेयर
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0 text-amber-300 group-hover:scale-110 transition-transform">
+                <Sparkles className="w-5 h-5" />
+              </div>
+            </div>
+
+            <div
+              onClick={() => onNavigate('lunar_calendar')}
+              className="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-indigo-950 to-stone-900 text-white cursor-pointer shadow-xs hover:shadow-md transition-all hover:scale-[1.01] flex items-center justify-between border border-indigo-600/30 group"
+            >
+              <div className="space-y-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-[10px] uppercase tracking-wider">
+                  🌕 लाइव पंचांग (Live Clock)
+                </span>
+                <h3 className="font-black text-sm text-indigo-100 group-hover:text-indigo-200">
+                  चंद्र पंचांग व महापर्व टाइमर
+                </h3>
+                <p className="text-[11px] text-indigo-200/80 leading-snug">
+                  लाइव चंद्र कला (कुनामी/मूळ) व आगामी महापर्व काउंटडाउन
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center shrink-0 text-indigo-300 group-hover:scale-110 transition-transform">
+                <Clock className="w-5 h-5" />
+              </div>
+            </div>
+          </div>
 
           {/* 6 Core Feature Cards Grid */}
           <div>

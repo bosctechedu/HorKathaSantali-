@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAdmin } from '../context/AdminContext';
+import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
 import { speakWithFemaleVoice } from '../utils/speech';
 import {
   Baby,
@@ -12,10 +14,16 @@ import {
   Check,
   ShieldCheck,
   Award,
-  Users
+  Users,
+  Plus,
+  Edit2,
+  Trash2,
+  Save,
+  X,
+  RotateCcw
 } from 'lucide-react';
 
-interface BabyNameItem {
+export interface BabyNameItem {
   id: string;
   nameDevanagari: string;
   nameRoman: string;
@@ -26,7 +34,7 @@ interface BabyNameItem {
   culturalOriginNote: string;
 }
 
-const SANTALI_BABY_NAMES: BabyNameItem[] = [
+export const DEFAULT_BABY_NAMES: BabyNameItem[] = [
   // Boys (कोड़ा गिद्रा)
   {
     id: 'b1',
@@ -433,6 +441,12 @@ const SANTALI_BABY_NAMES: BabyNameItem[] = [
 ];
 
 export const SantaliBabyNamesDirectory: React.FC = () => {
+  const { isAdmin } = useAdmin();
+  const STORAGE_KEY = 'hor_katha_baby_names_db';
+
+  const [names, setNames] = useState<BabyNameItem[]>(() =>
+    safeLoadFromStorage<BabyNameItem[]>(STORAGE_KEY, DEFAULT_BABY_NAMES)
+  );
   const [search, setSearch] = useState('');
   const [genderFilter, setGenderFilter] = useState<'all' | 'boy' | 'girl'>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -445,6 +459,88 @@ export const SantaliBabyNamesDirectory: React.FC = () => {
     }
   });
   const [showRulesModal, setShowRulesModal] = useState(false);
+
+  // Admin CRUD Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<BabyNameItem | null>(null);
+  const [formData, setFormData] = useState<Partial<BabyNameItem>>({});
+  const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
+
+  const showNotification = (msg: string) => {
+    setFeedbackMsg(msg);
+    setTimeout(() => setFeedbackMsg(null), 3000);
+  };
+
+  const saveNames = (updated: BabyNameItem[]) => {
+    setNames(updated);
+    safeSaveToStorage(STORAGE_KEY, updated);
+  };
+
+  const handleAddNew = () => {
+    setEditingItem(null);
+    setFormData({
+      id: `baby_${Date.now()}`,
+      nameDevanagari: '',
+      nameRoman: '',
+      gender: 'boy',
+      meaningHindi: '',
+      meaningEnglish: '',
+      category: 'nature',
+      culturalOriginNote: ''
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleEdit = (item: BabyNameItem) => {
+    setEditingItem(item);
+    setFormData({ ...item });
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = (id: string, name: string) => {
+    if (confirm(`क्या आप सचमुच "${name}" नाम को हटाना चाहते हैं?`)) {
+      const updated = names.filter((n) => n.id !== id);
+      saveNames(updated);
+      showNotification(`"${name}" नाम सूची से हटा दिया गया!`);
+    }
+  };
+
+  const handleSaveForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.nameDevanagari || !formData.meaningHindi) {
+      alert('कृपया नाम (देवनागरी) और हिन्दी अर्थ अवश्य भरें।');
+      return;
+    }
+
+    if (editingItem) {
+      const updated = names.map((n) =>
+        n.id === editingItem.id ? ({ ...n, ...formData } as BabyNameItem) : n
+      );
+      saveNames(updated);
+      showNotification('नाम सफलतापूर्वक अपडेट हो गया!');
+    } else {
+      const newItem: BabyNameItem = {
+        id: formData.id || `baby_${Date.now()}`,
+        nameDevanagari: formData.nameDevanagari || '',
+        nameRoman: formData.nameRoman || '',
+        gender: formData.gender || 'boy',
+        meaningHindi: formData.meaningHindi || '',
+        meaningEnglish: formData.meaningEnglish || '',
+        category: formData.category || 'nature',
+        culturalOriginNote: formData.culturalOriginNote || ''
+      };
+      saveNames([newItem, ...names]);
+      showNotification('नया पारंपरिक नाम जुड़ गया!');
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleResetToDefault = () => {
+    if (confirm('क्या आप सचमुच सभी नाम फ़ैक्टरी डिफ़ॉल्ट पर रीसेट करना चाहते हैं?')) {
+      saveNames(DEFAULT_BABY_NAMES);
+      showNotification('सभी नाम मूल स्वरूप में रीसेट हो गए!');
+    }
+  };
 
   const toggleFavorite = (id: string) => {
     const updated = favorites.includes(id)
@@ -462,7 +558,7 @@ export const SantaliBabyNamesDirectory: React.FC = () => {
     speakWithFemaleVoice(text, { lang: 'hi-IN', rate: 0.85 });
   };
 
-  const filteredNames = SANTALI_BABY_NAMES.filter((item) => {
+  const filteredNames = names.filter((item) => {
     const matchesGender =
       genderFilter === 'all' ||
       item.gender === genderFilter ||
@@ -500,7 +596,7 @@ export const SantaliBabyNamesDirectory: React.FC = () => {
             संताली समाज में नामकरण केवल पहचान नहीं, बल्कि पूर्वजों (हपड़ाम), प्रकृति, पारिस (गोत्र) और पर्वों के प्रति सम्मान का प्रतीक है। जानिए शास्त्रीय नियम और 200+ मंगलकारी नाम।
           </p>
 
-          <div className="pt-2 flex flex-wrap gap-2.5">
+          <div className="pt-2 flex flex-wrap gap-2.5 items-center">
             <button
               onClick={() => setShowRulesModal(true)}
               className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 font-black text-xs shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
@@ -513,6 +609,26 @@ export const SantaliBabyNamesDirectory: React.FC = () => {
               <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" />
               <span>पसंदीदा नाम: {favorites.length}</span>
             </div>
+
+            {isAdmin && (
+              <div className="flex items-center gap-2 ml-auto">
+                <button
+                  onClick={handleAddNew}
+                  className="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs cursor-pointer transition-transform hover:scale-105 active:scale-95"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>नया नाम जोड़ें (Add Name)</span>
+                </button>
+                <button
+                  onClick={handleResetToDefault}
+                  className="px-3 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-amber-200 font-bold text-xs flex items-center gap-1.5 border border-white/20 cursor-pointer transition-colors"
+                  title="डिफ़ॉल्ट पर रीसेट करें"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>रीसेट</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -550,7 +666,7 @@ export const SantaliBabyNamesDirectory: React.FC = () => {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              सभी ({SANTALI_BABY_NAMES.length})
+              सभी ({names.length})
             </button>
             <button
               onClick={() => setGenderFilter('boy')}
@@ -657,6 +773,25 @@ export const SantaliBabyNamesDirectory: React.FC = () => {
                   >
                     <Heart className={`w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : ''}`} />
                   </button>
+
+                  {isAdmin && (
+                    <div className="flex items-center gap-0.5 ml-1 pl-1 border-l border-slate-200">
+                      <button
+                        onClick={() => handleEdit(item)}
+                        className="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 transition-colors cursor-pointer"
+                        title="नाम संपादित करें (Admin Edit)"
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(item.id, item.nameDevanagari)}
+                        className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 transition-colors cursor-pointer"
+                        title="नाम हटाएं (Admin Delete)"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -754,6 +889,148 @@ export const SantaliBabyNamesDirectory: React.FC = () => {
                 समझ आ गया (Got it)
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Admin CRUD Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 space-y-4 shadow-2xl border border-amber-300 animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-amber-600" />
+                <h3 className="text-base font-black text-slate-900">
+                  {editingItem ? 'पारंपरिक नाम संपादित करें (Edit Name)' : 'नया पारंपरिक नाम जोड़ें (Add Name)'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveForm} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    नाम (देवनागरी लिपि) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.nameDevanagari || ''}
+                    onChange={(e) => setFormData({ ...formData, nameDevanagari: e.target.value })}
+                    placeholder="उदा: सागेन / बाहामनी"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    नाम (Roman Script)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.nameRoman || ''}
+                    onChange={(e) => setFormData({ ...formData, nameRoman: e.target.value })}
+                    placeholder="उदा: Sagen / Bahamoni"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    लिंग (Gender)
+                  </label>
+                  <select
+                    value={formData.gender || 'boy'}
+                    onChange={(e) => setFormData({ ...formData, gender: e.target.value as any })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-800"
+                  >
+                    <option value="boy">👦 लड़का (कोड़ा गिद्रा)</option>
+                    <option value="girl">👧 लड़की (कुड़ी गिद्रा)</option>
+                    <option value="unisex">🌱 दोनों (Unisex)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    श्रेणी (Category)
+                  </label>
+                  <select
+                    value={formData.category || 'nature'}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-800"
+                  >
+                    <option value="nature">🌿 प्रकृति व वन (Nature)</option>
+                    <option value="ancestral">🏛️ पूर्वज व कुल (Ancestral)</option>
+                    <option value="valour">🏹 हूल वीर व पराक्रम (Valour)</option>
+                    <option value="festival_day">🌾 पर्व व जन्म दिन (Festival/Day)</option>
+                    <option value="virtue">✨ सद्गुण व मंगल (Virtue)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  हिन्दी अर्थ (Hindi Meaning) *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.meaningHindi || ''}
+                  onChange={(e) => setFormData({ ...formData, meaningHindi: e.target.value })}
+                  placeholder="उदा: अंकुरित नया पत्ता, नई शुरुआत व समृद्धि"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  अंग्रेजी अर्थ (English Meaning)
+                </label>
+                <input
+                  type="text"
+                  value={formData.meaningEnglish || ''}
+                  onChange={(e) => setFormData({ ...formData, meaningEnglish: e.target.value })}
+                  placeholder="e.g. Fresh green sprout, symbol of prosperity"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  सांस्कृतिक पृष्ठभूमि व महत्व (Cultural Context Note)
+                </label>
+                <textarea
+                  rows={2}
+                  value={formData.culturalOriginNote || ''}
+                  onChange={(e) => setFormData({ ...formData, culturalOriginNote: e.target.value })}
+                  placeholder="उदा: संताली समाज में नए जीवन और नव-पल्लव का प्रतीक..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-100 cursor-pointer"
+                >
+                  रद्द करें
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>सहेजें (Save)</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

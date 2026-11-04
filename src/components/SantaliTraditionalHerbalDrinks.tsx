@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAdmin } from '../context/AdminContext';
+import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
 import { speakWithFemaleVoice } from '../utils/speech';
 import {
   Coffee,
@@ -11,10 +13,16 @@ import {
   CheckCircle2,
   Layers,
   Flame,
-  AlertTriangle
+  AlertTriangle,
+  Plus,
+  Edit2,
+  Trash2,
+  Save,
+  X,
+  RotateCcw
 } from 'lucide-react';
 
-interface HerbalDrinkItem {
+export interface HerbalDrinkItem {
   id: string;
   nameDevanagari: string;
   nameRoman: string;
@@ -27,7 +35,7 @@ interface HerbalDrinkItem {
   imageUrl: string;
 }
 
-const TRADITIONAL_DRINKS: HerbalDrinkItem[] = [
+export const DEFAULT_HERBAL_DRINKS: HerbalDrinkItem[] = [
   {
     id: 'dr1',
     nameDevanagari: 'मातकोम रसा (महुआ फूल का शरबत व रस)',
@@ -127,20 +135,128 @@ const TRADITIONAL_DRINKS: HerbalDrinkItem[] = [
 ];
 
 export const SantaliTraditionalHerbalDrinks: React.FC = () => {
+  const { isAdmin } = useAdmin();
+  const STORAGE_KEY = 'hor_katha_herbal_drinks_db';
+
+  const [drinks, setDrinks] = useState<HerbalDrinkItem[]>(() =>
+    safeLoadFromStorage<HerbalDrinkItem[]>(STORAGE_KEY, DEFAULT_HERBAL_DRINKS)
+  );
   const [activeCategory, setActiveCategory] = useState<string>('all');
-  const [selectedDrink, setSelectedDrink] = useState<HerbalDrinkItem>(TRADITIONAL_DRINKS[0]);
+  const [selectedDrink, setSelectedDrink] = useState<HerbalDrinkItem>(drinks[0] || DEFAULT_HERBAL_DRINKS[0]);
+
+  // Admin Modal States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<HerbalDrinkItem | null>(null);
+  const [formData, setFormData] = useState<Partial<HerbalDrinkItem>>({});
+  const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
+
+  const showNotification = (msg: string) => {
+    setFeedbackMsg(msg);
+    setTimeout(() => setFeedbackMsg(null), 3000);
+  };
+
+  const saveDrinks = (updated: HerbalDrinkItem[]) => {
+    setDrinks(updated);
+    safeSaveToStorage(STORAGE_KEY, updated);
+    if (!updated.some((d) => d.id === selectedDrink.id) && updated.length > 0) {
+      setSelectedDrink(updated[0]);
+    }
+  };
+
+  const handleAddNew = () => {
+    setEditingItem(null);
+    setFormData({
+      id: `drink_${Date.now()}`,
+      nameDevanagari: '',
+      nameRoman: '',
+      category: 'daily_health',
+      categoryHindi: 'दैनिक स्वास्थ्य पेय',
+      mainIngredients: ['वनौषधि / फूल', 'शुद्ध जल'],
+      healthBenefits: '',
+      preparationMethod: '',
+      culturalEtiquetteNote: '',
+      imageUrl: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80'
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleEdit = (item: HerbalDrinkItem) => {
+    setEditingItem(item);
+    setFormData({ ...item });
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = (id: string, name: string) => {
+    if (confirm(`क्या आप सचमुच "${name}" पेय को हटाना चाहते हैं?`)) {
+      const updated = drinks.filter((d) => d.id !== id);
+      saveDrinks(updated);
+      showNotification(`"${name}" पेय हटा दिया गया!`);
+    }
+  };
+
+  const handleSaveForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.nameDevanagari || !formData.healthBenefits) {
+      alert('कृपया पेय का नाम और स्वास्थ्य लाभ अवश्य भरें।');
+      return;
+    }
+
+    if (editingItem) {
+      const updated = drinks.map((d) =>
+        d.id === editingItem.id ? ({ ...d, ...formData } as HerbalDrinkItem) : d
+      );
+      saveDrinks(updated);
+      if (selectedDrink.id === editingItem.id) {
+        setSelectedDrink({ ...selectedDrink, ...formData } as HerbalDrinkItem);
+      }
+      showNotification('पेय विवरण सफलतापूर्वक अपडेट हो गया!');
+    } else {
+      const newItem: HerbalDrinkItem = {
+        id: formData.id || `drink_${Date.now()}`,
+        nameDevanagari: formData.nameDevanagari || '',
+        nameRoman: formData.nameRoman || '',
+        category: formData.category || 'daily_health',
+        categoryHindi: formData.categoryHindi || 'स्वास्थ्य पेय',
+        mainIngredients: formData.mainIngredients || ['वन-सामग्री'],
+        healthBenefits: formData.healthBenefits || '',
+        preparationMethod: formData.preparationMethod || '',
+        culturalEtiquetteNote: formData.culturalEtiquetteNote || '',
+        imageUrl: formData.imageUrl || 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80'
+      };
+      saveDrinks([...drinks, newItem]);
+      setSelectedDrink(newItem);
+      showNotification('नया पारंपरिक पेय जुड़ गया!');
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleResetToDefault = () => {
+    if (confirm('क्या आप सचमुच सभी पेय फ़ैक्टरी डिफ़ॉल्ट पर रीसेट करना चाहते हैं?')) {
+      saveDrinks(DEFAULT_HERBAL_DRINKS);
+      setSelectedDrink(DEFAULT_HERBAL_DRINKS[0]);
+      showNotification('सभी पेय मूल स्वरूप में रीसेट हो गए!');
+    }
+  };
 
   const handleSpeak = (text: string) => {
     speakWithFemaleVoice(text, { lang: 'hi-IN', rate: 0.88 });
   };
 
-  const filteredDrinks = TRADITIONAL_DRINKS.filter((item) => {
+  const filteredDrinks = drinks.filter((item) => {
     if (activeCategory === 'all') return true;
     return item.category === activeCategory;
   });
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
+      {/* Toast Notification */}
+      {feedbackMsg && (
+        <div className="fixed bottom-6 right-6 z-50 bg-emerald-700 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold animate-in slide-in-from-bottom">
+          <CheckCircle2 className="w-4 h-4 text-emerald-200" />
+          <span>{feedbackMsg}</span>
+        </div>
+      )}
+
       {/* Banner */}
       <div className="rounded-3xl bg-gradient-to-r from-emerald-950 via-teal-950 to-slate-900 text-white p-6 md:p-8 shadow-xl relative overflow-hidden border border-emerald-500/30">
         <div className="relative z-10 max-w-2xl space-y-3">
@@ -157,13 +273,33 @@ export const SantaliTraditionalHerbalDrinks: React.FC = () => {
             मातकोम रसा (महुआ शरबत), इचाक् बाहा लाल चाय, मांडी दाक् (ऊर्जा पेय), बेल शरबत और रानू-युक्त पावन पोचोई—संताली पूर्वजों के प्राकृतिक स्वास्थ्य पेय, उनकी निर्माण विधि और सांस्कृतिक मर्यादा।
           </p>
 
-          <div className="flex items-center gap-3 pt-1 text-xs text-emerald-300">
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-emerald-300">
             <span className="flex items-center gap-1 font-semibold">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>8 पारंपरिक देशी पेय व विधियां</span>
+              <span>{drinks.length} पारंपरिक देशी पेय व विधियां</span>
             </span>
             <span>•</span>
             <span>रानू-रान 21 जड़ी-बूटियों का औषधीय विज्ञान</span>
+
+            {isAdmin && (
+              <div className="flex items-center gap-2 ml-auto">
+                <button
+                  onClick={handleAddNew}
+                  className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs cursor-pointer transition-transform hover:scale-105"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>नया पेय जोड़ें (Add Drink)</span>
+                </button>
+                <button
+                  onClick={handleResetToDefault}
+                  className="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-emerald-200 font-bold text-xs flex items-center gap-1.5 border border-white/20 cursor-pointer"
+                  title="डिफ़ॉल्ट पर रीसेट करें"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>रीसेट</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -231,16 +367,43 @@ export const SantaliTraditionalHerbalDrinks: React.FC = () => {
                     {item.mainIngredients[0]}
                   </span>
 
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleSpeak(`${item.nameDevanagari}. लाभ: ${item.healthBenefits}`);
-                    }}
-                    className="p-1 text-slate-500 hover:text-emerald-700 rounded-md"
-                    title="सुनें"
-                  >
-                    <Volume2 className="w-3.5 h-3.5" />
-                  </button>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSpeak(`${item.nameDevanagari}. लाभ: ${item.healthBenefits}`);
+                      }}
+                      className="p-1 text-slate-500 hover:text-emerald-700 rounded-md cursor-pointer"
+                      title="सुनें"
+                    >
+                      <Volume2 className="w-3.5 h-3.5" />
+                    </button>
+
+                    {isAdmin && (
+                      <div className="flex items-center gap-0.5 ml-1 pl-1 border-l border-slate-200">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEdit(item);
+                          }}
+                          className="p-1 text-emerald-700 hover:text-emerald-900 rounded-md cursor-pointer"
+                          title="संपादित करें (Admin Edit)"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(item.id, item.nameDevanagari);
+                          }}
+                          className="p-1 text-rose-600 hover:text-rose-800 rounded-md cursor-pointer"
+                          title="हटाएं (Admin Delete)"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             );
@@ -320,6 +483,157 @@ export const SantaliTraditionalHerbalDrinks: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Admin CRUD Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 space-y-4 shadow-2xl border border-emerald-300 animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-emerald-600" />
+                <h3 className="text-base font-black text-slate-900">
+                  {editingItem ? 'पारंपरिक पेय विवरण संपादित करें (Edit Drink)' : 'नया पारंपरिक पेय जोड़ें (Add Drink)'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveForm} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    पेय का नाम (देवनागरी) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.nameDevanagari || ''}
+                    onChange={(e) => setFormData({ ...formData, nameDevanagari: e.target.value })}
+                    placeholder="उदा: मातकोम रसा (महुआ शरबत)"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    पेय का नाम (Roman Script)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.nameRoman || ''}
+                    onChange={(e) => setFormData({ ...formData, nameRoman: e.target.value })}
+                    placeholder="उदा: Matkom Rasa"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    श्रेणी (Category)
+                  </label>
+                  <select
+                    value={formData.category || 'daily_health'}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-800"
+                  >
+                    <option value="daily_health">🍵 दैनिक स्वास्थ्य पेय (Daily Health)</option>
+                    <option value="cooling">❄️ शीतल पाचक शरबत (Cooling)</option>
+                    <option value="sacred_ritual">🪔 धार्मिक व सांस्कृतिक पेय (Sacred Brew)</option>
+                    <option value="medicinal">🌿 वनौषधीय काढ़ा (Medicinal Tonic)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    श्रेणी लेबल (हिन्दी)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.categoryHindi || ''}
+                    onChange={(e) => setFormData({ ...formData, categoryHindi: e.target.value })}
+                    placeholder="उदा: शीतल पाचक शरबत"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  स्वास्थ्य लाभ व गुण (Health Benefits) *
+                </label>
+                <textarea
+                  rows={2}
+                  required
+                  value={formData.healthBenefits || ''}
+                  onChange={(e) => setFormData({ ...formData, healthBenefits: e.target.value })}
+                  placeholder="प्राकृतिक ग्लूकोज, कैल्शियम और आयरन से भरपूर..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  पारंपरिक निर्माण विधि (Preparation Method)
+                </label>
+                <textarea
+                  rows={2}
+                  value={formData.preparationMethod || ''}
+                  onChange={(e) => setFormData({ ...formData, preparationMethod: e.target.value })}
+                  placeholder="सुबह वनों से ताजे गिरे महुआ के फूलों को चुनकर..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  सांस्कृतिक मर्यादा व नियम (Cultural Etiquette)
+                </label>
+                <textarea
+                  rows={2}
+                  value={formData.culturalEtiquetteNote || ''}
+                  onChange={(e) => setFormData({ ...formData, culturalEtiquetteNote: e.target.value })}
+                  placeholder="सांस्कृतिक मर्यादा: इसे दवा और प्रसाद के रूप में..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  तस्वीर URL (Image URL)
+                </label>
+                <input
+                  type="url"
+                  value={formData.imageUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                  placeholder="https://..."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium text-slate-900"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-100 cursor-pointer"
+                >
+                  रद्द करें
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>सहेजें (Save)</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
