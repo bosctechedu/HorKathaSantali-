@@ -1,0 +1,28 @@
+HorKathaSantali — Cloudflare Pages deploy (2026-11-04)
+
+What was fixed
+1. npm install was failing (esbuild 0.25 vs Vite 8 peer conflict) → esbuild ^0.28; build now passes (tsc 0 errors).
+2. Admin security: backdoor passwords (admin123, bosc2026, admin), the public "Autofill Default" button,
+   a hard-coded personal email, and open recovery keys (BOSC-RECOVERY-KEY, superadmin, recovery) removed.
+   New: on first sign-in, the Admin ID + password (min 8 chars) you enter is saved as a SHA-256 hash.
+   Forgot the password: type RESET in the reset tab and set a new one (admin changes live on this device only).
+3. Speed: the 70 modules now load lazily → main JS 2.4 MB → 543 KB; offline precache 5.6 MB → 2.9 MB.
+4. 7 unused images (about 3 MB) removed.
+5. AI Studio leftovers removed: server.ts (Express/Gemini, never called by the app), WebSocket mock, dev-dist, .aistudio, metadata.json.
+   No API key needed now; the site is fully static.
+6. Added Cloudflare _headers (security headers, sw.js no-cache, assets cached for 1 year), .gitignore, README.
+
+Option A — via GitHub (recommended)
+1. Create a new repo: bosctechedu/HorKathaSantali, and push the contents of this folder to it.
+2. Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git → choose HorKathaSantali.
+3. Project name: horkathasantali
+   Build command: npm run build
+   Build output directory: dist
+   Environment variable: NODE_VERSION = 22
+4. Save and Deploy → https://horkathasantali.pages.dev
+
+Option B — Direct Upload
+1. Run npm install, then npm run build, on your computer.
+2. Cloudflare → Pages → Create → Upload assets → name horkathasantali → upload the dist folder.
+
+After deploy: open the site, Ctrl+Shift+R, then set your own Admin ID + password from the Admin login.

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <defs>
+    <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" rx="36" fill="#090d16"/>
+  <circle cx="90" cy="85" r="48" fill="#fbbf24" opacity="0.25"/>
+  <g fill="none" stroke="url(#appleGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M90 135V75"/>
+    <path d="M90 75C78 55 54 63 50 79C46 95 68 105 90 91"/>
+    <path d="M90 75C102 55 126 63 130 79C134 95 112 105 90 91"/>
+    <circle cx="90" cy="40" r="5" fill="#fbbf24"/>
+  </g>
+</svg>

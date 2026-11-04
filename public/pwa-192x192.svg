@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="pwaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="50%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <radialGradient id="goldGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.1"/>
+    </radialGradient>
+  </defs>
+  <rect width="192" height="192" rx="42" fill="#090d16"/>
+  <rect x="4" y="4" width="184" height="184" rx="38" fill="none" stroke="#10b981" stroke-width="2" stroke-opacity="0.4"/>
+  <circle cx="96" cy="88" r="54" fill="url(#goldGlow)" opacity="0.3"/>
+  <!-- Stylized Karam / Tree Motif representing Santali culture -->
+  <g fill="none" stroke="url(#pwaGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M96 142V82"/>
+    <path d="M96 82C84 62 60 70 56 86C52 102 74 112 96 98"/>
+    <path d="M96 82C108 62 132 70 136 86C140 102 118 112 96 98"/>
+    <path d="M96 66C88 50 72 54 70 66C68 76 84 82 96 74"/>
+    <path d="M96 66C104 50 120 54 122 66C124 76 108 82 96 74"/>
+    <path d="M96 52V42"/>
+    <circle cx="96" cy="40" r="4" fill="#fbbf24"/>
+  </g>
+  <!-- Sacred Sun / Stars -->
+  <circle cx="48" cy="50" r="2.5" fill="#34d399"/>
+  <circle cx="144" cy="50" r="2.5" fill="#34d399"/>
+  <text x="96" y="166" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="16" fill="#34d399" text-anchor="middle" letter-spacing="1.5">HOR KATHA</text>
+</svg>

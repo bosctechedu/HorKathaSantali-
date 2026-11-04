@@ -1,0 +1,219 @@
+export type ScriptType = 'santali_dev' | 'santali_roman' | 'hindi' | 'english' | 'devanagari' | 'roman' | 'santali';
+
+export type KeyboardTheme = 'deepseek_dark' | 'clean_light' | 'heritage_forest';
+
+export interface SantaliWord {
+  id: string;
+  wordDevanagari: string;
+  wordRoman: string;
+  phonetic: string;
+  partOfSpeech: string;
+  meaningHindi: string;
+  meaningEnglish: string;
+  exampleSantali: string;
+  exampleHindi: string;
+  exampleEnglish: string;
+  category:
+    | 'relation'
+    | 'fruit'
+    | 'animal'
+    | 'food'
+    | 'body'
+    | 'nature'
+    | 'household'
+    | 'culture'
+    | 'action'
+    | 'number_time'
+    | 'others'
+    | 'common'
+    | 'spiritual'
+    | 'family'
+    | 'phrases'
+    | string;
+  audioKey?: string;
+}
+
+export interface SantaliDevChar {
+  char: string;
+  name: string;
+  roman: string;
+  sound: string;
+  category: 'vowel' | 'consonant' | 'checked_modifier' | 'digit';
+  exampleWord: string;
+  exampleMeaning: string;
+}
+
+export interface QuizItem {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  explanation: string;
+}
+
+export interface SiteHeroConfig {
+  welcomeTitle: string;
+  subTitle: string;
+  motto: string;
+  quoteEnglish: string;
+  quoteSantali: string;
+  notice: string;
+}
+
+export type TranslatorMode =
+  | 'santali_roman_to_hindi'
+  | 'santali_dev_to_hindi'
+  | 'santali_to_english'
+  | 'hindi_to_english'
+  | 'hindi_to_santali_roman'
+  | 'hindi_to_santali_dev'
+  | 'english_to_santali'
+  | 'english_to_hindi'
+  | 'custom';
+
+export type ActiveDesktopTab =
+  | 'home'
+  | 'keyboard'
+  | 'dashboard'
+  | 'learn'
+  | 'phrasebook'
+  | 'flashcards'
+  | 'calligraphy'
+  | 'kudum'
+  | 'calendar'
+  | 'creation'
+  | 'dances'
+  | 'bonga_buru'
+  | 'governance'
+  | 'grammar'
+  | 'greetings'
+  | 'herbal'
+  | 'wordle'
+  | 'stories'
+  | 'speech_coach'
+  | 'speaker'
+  | 'instruments'
+  | 'family_tree'
+  | 'kids_rhymes'
+  | 'clock_numbers'
+  | 'clans'
+  | 'flora_worksheets'
+  | 'attire_ornaments'
+  | 'marriage_bapla'
+  | 'hul_heroes'
+  | 'cuisine'
+  | 'sports_sendra'
+  | 'folk_songs'
+  | 'pilgrimage'
+  | 'life_rites'
+  | 'sohrai_art'
+  | 'proverbs_bhenta'
+  | 'agri_seasons'
+  | 'traditional_measures'
+  | 'architecture'
+  | 'historical_garhs'
+  | 'puppetry_theater'
+  | 'astronomy_lore'
+  | 'sendra_lobir'
+  | 'dhokra_art'
+  | 'water_harvesting'
+  | 'handloom_weaving'
+  | 'livestock_khuntau'
+  | 'woodcraft_carpentry'
+  | 'bamboo_craft'
+  | 'phonetics_lab'
+  | 'baby_names'
+  | 'ornaments_jewellery'
+  | 'blacksmithy_iron'
+  | 'seasons_weather'
+  | 'idioms_menkatha'
+  | 'herbal_drinks'
+  | 'archery_simulator'
+  | 'traditional_cuisine'
+  | 'marriage_rituals'
+  | 'riddles_kudum'
+  | 'sacred_pilgrimages'
+  | 'spoken_dialogues'
+  | 'letter_templates'
+  | 'illustrated_stories'
+  | 'favorites_notebook'
+  | 'certification'
+  | 'admin_cms'
+  | 'translator'
+  | 'daily_quiz'
+  | 'settings'
+  | 'about';
+
+export type MobileScreen =
+  | 'splash'
+  | 'language'
+  | 'home'
+  | 'keyboard'
+  | 'dictionary'
+  | 'learn'
+  | 'phrasebook'
+  | 'flashcards'
+  | 'calligraphy'
+  | 'kudum'
+  | 'calendar'
+  | 'creation'
+  | 'dances'
+  | 'bonga_buru'
+  | 'governance'
+  | 'grammar'
+  | 'greetings'
+  | 'herbal'
+  | 'wordle'
+  | 'stories'
+  | 'speech_coach'
+  | 'speaker'
+  | 'instruments'
+  | 'family_tree'
+  | 'kids_rhymes'
+  | 'clock_numbers'
+  | 'clans'
+  | 'flora_worksheets'
+  | 'attire_ornaments'
+  | 'marriage_bapla'
+  | 'hul_heroes'
+  | 'cuisine'
+  | 'sports_sendra'
+  | 'folk_songs'
+  | 'pilgrimage'
+  | 'life_rites'
+  | 'sohrai_art'
+  | 'proverbs_bhenta'
+  | 'agri_seasons'
+  | 'traditional_measures'
+  | 'architecture'
+  | 'historical_garhs'
+  | 'puppetry_theater'
+  | 'astronomy_lore'
+  | 'sendra_lobir'
+  | 'dhokra_art'
+  | 'water_harvesting'
+  | 'handloom_weaving'
+  | 'livestock_khuntau'
+  | 'woodcraft_carpentry'
+  | 'bamboo_craft'
+  | 'phonetics_lab'
+  | 'baby_names'
+  | 'ornaments_jewellery'
+  | 'blacksmithy_iron'
+  | 'seasons_weather'
+  | 'idioms_menkatha'
+  | 'herbal_drinks'
+  | 'archery_simulator'
+  | 'traditional_cuisine'
+  | 'marriage_rituals'
+  | 'riddles_kudum'
+  | 'sacred_pilgrimages'
+  | 'spoken_dialogues'
+  | 'letter_templates'
+  | 'illustrated_stories'
+  | 'favorites_notebook'
+  | 'certification'
+  | 'translator'
+  | 'daily_quiz';
+
+export type GlobalViewMode = 'desktop' | 'mobile_simulator' | 'presentation';
