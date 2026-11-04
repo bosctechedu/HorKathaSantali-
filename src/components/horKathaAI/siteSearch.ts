@@ -20,6 +20,8 @@ const STOP = new Set([
   'था', 'थे', 'थी', 'पर', 'लिए', 'इतिहास', 'बारे', 'संक्षेप', 'समझाइए', 'सीखें', 'उपयोग',
 ]);
 
+const WORD_SKIP = new Set(['santhal', 'santal', 'santals', 'santhals', 'hool', 'hul', 'tribe', 'tribal', 'संताल', 'सान्ताल', 'संथाल', 'आदिवासी']);
+
 export function tokenize(query: string): string[] {
   return query
     .toLowerCase()
@@ -58,12 +60,14 @@ export function searchSite(query: string, words: SantaliWord[], limit = 5): { pa
       targetTab: m.targetTab,
     }));
 
-  const wordHits = tokens.length
+  // Generic words ("Santhal", "tribe") match half the dictionary; ignore them for word hits
+  const wordTokens = tokens.filter((t) => !WORD_SKIP.has(t));
+  const wordHits = wordTokens.length
     ? words
         .map((w) => {
           const fields = [w.wordRoman, w.wordDevanagari, w.meaningEnglish, w.meaningHindi].map((f) => (f || '').toLowerCase());
           let s = 0;
-          for (const t of tokens) {
+          for (const t of wordTokens) {
             if (fields.some((f) => f === t)) s += 4;
             else if (t.length >= 3 && fields.some((f) => f.split(/[\s,/;]+/).includes(t))) s += 3;
             else if (t.length >= 4 && fields.some((f) => f.startsWith(t))) s += 1;
