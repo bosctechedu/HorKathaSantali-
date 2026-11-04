@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MobileScreen, ScriptType } from '../types';
 import { CulturalTree } from './CulturalTree';
-import { KeyboardModule } from './KeyboardModule';
+import { openExternalKeyboard } from '../utils/externalKeyboard';
 import { DictionaryModule } from './DictionaryModule';
 import { LearnModule } from './LearnModule';
 import { TranslatorModule } from './TranslatorModule';
@@ -97,7 +97,12 @@ import {
 
 export const MobileSimulator: React.FC = () => {
   const { heroConfig } = useAdmin();
-  const [currentScreen, setCurrentScreen] = useState<MobileScreen>('home');
+  const [currentScreen, setCurrentScreenRaw] = useState<MobileScreen>('home');
+  // Keyboard opens Hor Katha Suite (horkathasuite.pages.dev)
+  const setCurrentScreen = (screen: MobileScreen) => {
+    if (screen === 'keyboard') { openExternalKeyboard(); return; }
+    setCurrentScreenRaw(screen);
+  };
   const [selectedScript, setSelectedScript] = useState<ScriptType>('roman');
 
   const screens: { id: MobileScreen; label: string }[] = [
@@ -414,13 +419,6 @@ export const MobileSimulator: React.FC = () => {
                     <span>Launch Google Translator (Online)</span>
                   </button>
                 </div>
-              </div>
-            )}
-
-            {/* Screen 4: Keyboard (Mobile) */}
-            {currentScreen === 'keyboard' && (
-              <div className="h-full flex flex-col justify-between">
-                <KeyboardModule compact />
               </div>
             )}
 

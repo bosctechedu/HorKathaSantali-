@@ -3,6 +3,7 @@ import { ActiveDesktopTab, GlobalViewMode, ScriptType } from './types';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
+import { openExternalKeyboard } from './utils/externalKeyboard';
 import type { AdminTab } from './components/AdminMasterStudio';
 import { AboutModal } from './components/AboutModal';
 import { AdminLoginModal } from './components/AdminLoginModal';
@@ -11,7 +12,6 @@ import { Footer } from './components/Footer';
 import { AdminProvider, useAdmin } from './context/AdminContext';
 import { Settings, ArrowLeft, Home, ShieldCheck, KeyRound, CheckCircle2, Lock, Sparkles, Edit3 } from 'lucide-react';
 
-const KeyboardModule = lazy(() => import('./components/KeyboardModule').then((m) => ({ default: m.KeyboardModule })));
 const DictionaryModule = lazy(() => import('./components/DictionaryModule').then((m) => ({ default: m.DictionaryModule })));
 const LearnModule = lazy(() => import('./components/LearnModule').then((m) => ({ default: m.LearnModule })));
 const SantaliSocialCardStudio = lazy(() => import('./components/SantaliSocialCardStudio').then((m) => ({ default: m.SantaliSocialCardStudio })));
@@ -92,7 +92,12 @@ const ModuleLoader = () => (
 
 function AppContent() {
   const [viewMode, setViewMode] = useState<GlobalViewMode>('desktop');
-  const [activeTab, setActiveTab] = useState<ActiveDesktopTab>('home');
+  const [activeTab, setActiveTabRaw] = useState<ActiveDesktopTab>('home');
+  // "Keyboard" opens Hor Katha Suite (horkathasuite.pages.dev) instead of an in-app keyboard
+  const setActiveTab = (tab: ActiveDesktopTab | ((prev: ActiveDesktopTab) => ActiveDesktopTab)) => {
+    if (tab === 'keyboard') { openExternalKeyboard(); return; }
+    setActiveTabRaw(tab as any);
+  };
   const [activeScript, setActiveScript] = useState<ScriptType>('roman');
   const [aboutModalOpen, setAboutModalOpen] = useState(false);
   const [adminModalOpen, setAdminModalOpen] = useState(false);
@@ -283,13 +288,6 @@ function AppContent() {
                   activeScript={activeScript}
                   onScriptChange={setActiveScript}
                   onOpenSearch={() => setSearchModalOpen(true)}
-                />
-              )}
-
-              {/* Tab: Keyboard */}
-              {activeTab === 'keyboard' && (
-                <KeyboardModule
-                  onSendToTranslator={handleSendToTranslator}
                 />
               )}
 
@@ -716,6 +714,7 @@ function AppContent() {
                 setViewMode('desktop');
               }}
               onSelectMobileScreen={(screen) => {
+                if (screen === 'keyboard') { openExternalKeyboard(); return; }
                 setViewMode('mobile_simulator');
               }}
             />
