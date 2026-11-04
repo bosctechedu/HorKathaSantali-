@@ -140,6 +140,7 @@ export type ActiveDesktopTab =
   | 'certification'
   | 'admin_cms'
   | 'translator'
+  | 'ai_assistant'
   | 'daily_quiz'
   | 'settings'
   | 'about';

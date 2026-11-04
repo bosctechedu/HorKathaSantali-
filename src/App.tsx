@@ -14,6 +14,7 @@ import { Settings, ArrowLeft, Home, ShieldCheck, KeyRound, CheckCircle2, Lock, S
 const KeyboardModule = lazy(() => import('./components/KeyboardModule').then((m) => ({ default: m.KeyboardModule })));
 const DictionaryModule = lazy(() => import('./components/DictionaryModule').then((m) => ({ default: m.DictionaryModule })));
 const LearnModule = lazy(() => import('./components/LearnModule').then((m) => ({ default: m.LearnModule })));
+const AISearchAssistant = lazy(() => import('./components/AISearchAssistant').then((m) => ({ default: m.AISearchAssistant })));
 const TranslatorModule = lazy(() => import('./components/TranslatorModule').then((m) => ({ default: m.TranslatorModule })));
 const DailyVocabQuiz = lazy(() => import('./components/DailyVocabQuiz').then((m) => ({ default: m.DailyVocabQuiz })));
 const SantaliPhrasebook = lazy(() => import('./components/SantaliPhrasebook').then((m) => ({ default: m.SantaliPhrasebook })));
@@ -595,6 +596,9 @@ function AppContent() {
                   initialText={translatorInitialText}
                 />
               )}
+
+              {/* Tab: AI Search Assistant (Cloudflare Pages Function /api/ai-chat) */}
+              {activeTab === 'ai_assistant' && <AISearchAssistant />}
 
               {/* Tab: Daily Santali Vocabulary Quiz */}
               {activeTab === 'daily_quiz' && (

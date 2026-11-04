@@ -11,6 +11,7 @@ import {
   Leaf,
   GraduationCap,
   Languages,
+  Bot,
   Flame,
   Settings,
   ShieldCheck,
@@ -186,6 +187,16 @@ const APP_MODULES: SearchItem[] = [
     icon: Languages,
     category: 'Translation',
     description: 'Bidirectional sentence translator with offline fallback and Google Translate bridge.'
+  },
+  {
+    id: 'mod-ai',
+    type: 'module',
+    title: 'AI Search Assistant',
+    subtitle: 'Ask anything about Santali language, culture and translation · Google Search grounded',
+    targetTab: 'ai_assistant',
+    icon: Bot,
+    category: 'Translation',
+    description: 'AI chat assistant (needs internet) for Santali words, festivals, history and general questions.'
   },
   {
     id: 'mod-quiz',
