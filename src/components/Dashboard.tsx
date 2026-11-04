@@ -46,7 +46,8 @@ import {
   UtensilsCrossed,
   HeartHandshake,
   Compass,
-  Scroll
+  Scroll,
+  Brain
 } from 'lucide-react';
 import { TextSpeakerReader } from './TextSpeakerReader';
 
@@ -395,6 +396,22 @@ export const Dashboard: React.FC<DashboardProps> = ({
       gradient: 'from-indigo-900 to-slate-950',
       actionText: 'View Chando Clock'
     },
+    {
+      id: 'educational' as ActiveDesktopTab,
+      title: 'LDP — लाइव अभ्यास केंद्र (कक्षा 1-12)',
+      subtitle: 'कक्षा, विषय व अध्यायवार 15+ MCQ अभ्यास, अध्ययन सामग्री व प्रतियोगी परीक्षाएं',
+      icon: GraduationCap,
+      gradient: 'from-emerald-800 to-teal-950',
+      actionText: 'Start Practice'
+    },
+    {
+      id: 'quiz' as ActiveDesktopTab,
+      title: 'क्विज़ / IQ टेस्ट (लाइव परीक्षा केंद्र)',
+      subtitle: 'UPSC, JPSC, JSSC, SSC, रेलवे, बैंक — वास्तविक पैटर्न पर मॉक टेस्ट',
+      icon: Brain,
+      gradient: 'from-slate-900 to-emerald-950',
+      actionText: 'Start Test'
+    },
     ...(isAdmin
       ? [
           {
@@ -702,6 +719,46 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </div>
               <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center shrink-0 text-indigo-300 group-hover:scale-110 transition-transform">
                 <Clock className="w-5 h-5" />
+              </div>
+            </div>
+
+            <div
+              onClick={() => onNavigate('educational')}
+              className="p-4 rounded-2xl bg-gradient-to-r from-emerald-900 via-teal-950 to-stone-900 text-white cursor-pointer shadow-xs hover:shadow-md transition-all hover:scale-[1.01] flex items-center justify-between border border-emerald-600/30 group"
+            >
+              <div className="space-y-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-[10px] uppercase tracking-wider">
+                  📚 LDP (लाइव अभ्यास मंच)
+                </span>
+                <h3 className="font-black text-sm text-emerald-100 group-hover:text-emerald-200">
+                  लाइव अभ्यास केंद्र (LDP Panel)
+                </h3>
+                <p className="text-[11px] text-emerald-200/80 leading-snug">
+                  कक्षा 1-12 व प्रतियोगी परीक्षा — अध्यायवार 15+ MCQ अभ्यास व अध्ययन सामग्री
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0 text-emerald-300 group-hover:scale-110 transition-transform">
+                <GraduationCap className="w-5 h-5" />
+              </div>
+            </div>
+
+            <div
+              onClick={() => onNavigate('quiz')}
+              className="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-emerald-950 to-stone-900 text-white cursor-pointer shadow-xs hover:shadow-md transition-all hover:scale-[1.01] flex items-center justify-between border border-emerald-600/30 group"
+            >
+              <div className="space-y-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-[10px] uppercase tracking-wider">
+                  🧠 Official CBT
+                </span>
+                <h3 className="font-black text-sm text-emerald-100 group-hover:text-emerald-200">
+                  क्विज़ / IQ टेस्ट
+                </h3>
+                <p className="text-[11px] text-emerald-200/80 leading-snug">
+                  झारखंड व राष्ट्रीय परीक्षाओं के वास्तविक पैटर्न पर लाइव मॉक टेस्ट
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0 text-emerald-300 group-hover:scale-110 transition-transform">
+                <Brain className="w-5 h-5" />
               </div>
             </div>
           </div>

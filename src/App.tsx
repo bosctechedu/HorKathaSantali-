@@ -16,6 +16,8 @@ const DictionaryModule = lazy(() => import('./components/DictionaryModule').then
 const LearnModule = lazy(() => import('./components/LearnModule').then((m) => ({ default: m.LearnModule })));
 const SantaliSocialCardStudio = lazy(() => import('./components/SantaliSocialCardStudio').then((m) => ({ default: m.SantaliSocialCardStudio })));
 const SantaliLunarCalendarClock = lazy(() => import('./components/SantaliLunarCalendarClock').then((m) => ({ default: m.SantaliLunarCalendarClock })));
+const EducationalLDPPage = lazy(() => import('./components/EducationalLDP'));
+const QuizIQTest = lazy(() => import('./components/QuizIQTest').then((m) => ({ default: m.QuizIQTest })));
 const AISearchAssistant = lazy(() => import('./components/AISearchAssistant').then((m) => ({ default: m.AISearchAssistant })));
 const TranslatorModule = lazy(() => import('./components/TranslatorModule').then((m) => ({ default: m.TranslatorModule })));
 const DailyVocabQuiz = lazy(() => import('./components/DailyVocabQuiz').then((m) => ({ default: m.DailyVocabQuiz })));
@@ -551,6 +553,16 @@ function AppContent() {
               {/* Tab: Lunar Calendar Clock & Festival Countdown */}
               {activeTab === 'lunar_calendar' && (
                 <SantaliLunarCalendarClock />
+              )}
+
+              {/* Tab: LDP — Live Practice Centre (ported from EDISAM) */}
+              {activeTab === 'educational' && (
+                <EducationalLDPPage />
+              )}
+
+              {/* Tab: Quiz / IQ Test (ported from EDISAM) */}
+              {activeTab === 'quiz' && (
+                <QuizIQTest />
               )}
 
               {/* Tab: Majhi Pargana Self-Governance */}

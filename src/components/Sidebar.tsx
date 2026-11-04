@@ -57,7 +57,8 @@ import {
   ShoppingBag,
   Activity,
   FileText,
-  Bookmark
+  Bookmark,
+  Brain
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -84,6 +85,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'home' as ActiveDesktopTab, label: 'मुख्य पृष्ठ (Home)', icon: Home },
     { id: 'social_cards' as ActiveDesktopTab, label: 'सोशल मीडिया कार्ड व पोस्टर', icon: Sparkles, badge: 'HD' },
     { id: 'lunar_calendar' as ActiveDesktopTab, label: 'चंद्र पंचांग व पर्व टाइमर', icon: Moon, badge: 'लाइव' },
+    { id: 'educational' as ActiveDesktopTab, label: 'LDP (लाइव अभ्यास केंद्र)', icon: GraduationCap, badge: '1-12' },
+    { id: 'quiz' as ActiveDesktopTab, label: 'क्विज / IQ टेस्ट', icon: Brain, badge: 'IQ' },
     { id: 'keyboard' as ActiveDesktopTab, label: 'संताली कीबोर्ड (Keyboard)', icon: KeyboardIcon },
     { id: 'dashboard' as ActiveDesktopTab, label: '10,000+ डिक्शनरी (शब्दकोश)', icon: LayoutDashboard },
     { id: 'learn' as ActiveDesktopTab, label: 'संताली देवनागरी सीखें', icon: GraduationCap },

@@ -140,6 +140,8 @@ export type ActiveDesktopTab =
   | 'certification'
   | 'social_cards'
   | 'lunar_calendar'
+  | 'educational'
+  | 'quiz'
   | 'admin_cms'
   | 'translator'
   | 'ai_assistant'
