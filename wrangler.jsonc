@@ -1,0 +1,10 @@
+{
+  // Used only if deployed via Cloudflare "Workers" (Create an app) flow.
+  // Pages flow ignores this file. Build: npm run build · Deploy: npx wrangler deploy
+  "name": "horkathasantali",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
