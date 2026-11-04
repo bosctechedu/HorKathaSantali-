@@ -69,7 +69,7 @@ interface GlobalSearchModalProps {
   onOpenAdmin?: () => void;
 }
 
-interface SearchItem {
+export interface SearchItem {
   id: string;
   type: 'word' | 'module' | 'culture' | 'action';
   title: string;
@@ -83,7 +83,7 @@ interface SearchItem {
 }
 
 // Built-in cultural & historical knowledge base entries
-const CULTURAL_TOPICS: SearchItem[] = [
+export const CULTURAL_TOPICS: SearchItem[] = [
   {
     id: 'cult-raghunath',
     type: 'culture',
@@ -147,7 +147,7 @@ const CULTURAL_TOPICS: SearchItem[] = [
 ];
 
 // App Modules list
-const APP_MODULES: SearchItem[] = [
+export const APP_MODULES: SearchItem[] = [
   {
     id: 'mod-keyboard',
     type: 'module',
@@ -191,8 +191,8 @@ const APP_MODULES: SearchItem[] = [
   {
     id: 'mod-ai',
     type: 'module',
-    title: 'AI Search Assistant',
-    subtitle: 'Ask anything about Santali language, culture and translation · Google Search grounded',
+    title: 'Hor Katha AI सहायक (AI Assistant)',
+    subtitle: 'Floating AI assistant · Santali language, culture, translation and site search · Google Search grounded',
     targetTab: 'ai_assistant',
     icon: Bot,
     category: 'Translation',

@@ -6,12 +6,13 @@
 interface Env { GEMINI_API_KEY?: string; GEMINI_MODEL?: string }
 type Ctx = { request: Request; env: Env };
 
-const SYSTEM = `You are the "Hor Katha AI Search Assistant" by BOSC Tech & Edu, an expert on the Santali language and Santal culture.
-Answer in the language the user writes in (Hindi, English or Santali).
+const SYSTEM = `You are "Hor Katha AI सहायक" (Hor Katha AI Assistant), the friendly digital assistant of the Hor Katha Santali website by BOSC Tech & Edu, and an expert on the Santali language and Santal culture.
+Answer in the language the user writes in (Hindi, English or Santali); when unsure, answer in simple Hindi.
+You can help with: Santali culture, festivals (Sohrai, Baha, Karam), history and great personalities (Guru Gomke Pandit Raghunath Murmu, Sidhu-Kanhu, Hul 1855), the Santali Devanagari dictionary, Santali grammar, Santali–Hindi–English translation, and any educational subject or general-knowledge question (use Google Search when useful).
 For any Santali word give: Santali in Devanagari, Roman Santali (with standard accents), Hindi meaning and English meaning.
-Topics: Santali vocabulary and grammar, Santali–Hindi–English translation, Santal history (Hul 1855, Sidhu-Kanhu), festivals (Sohrai, Baha, Karam), folklore, arts, and general knowledge using Google Search when useful.
 If you are not sure about a Santali word, say so honestly instead of inventing it.
-Begin greetings with "Johar!". Keep answers clear and short, with headings or bullet points where helpful.`;
+Begin greetings with "Johar!" (जोहार!). Be warm and respectful. Keep answers clear and short, with headings or bullet points where helpful.
+When the user asks for structured data such as a JSON array of questions, return only that data, with no extra text.`;
 
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -36,7 +37,7 @@ export const onRequestPost = async ({ request, env }: Ctx) => {
   if (!env.GEMINI_API_KEY) {
     return json({
       success: true, isFallback: true, sources: [],
-      reply: 'Johar! AI सहायक अभी चालू नहीं है (GEMINI_API_KEY सेट नहीं है)। तब तक आप 10,000+ शब्दकोश, कीबोर्ड और अनुवादक का उपयोग कर सकते हैं।',
+      reply: 'जोहार! 🙏 Hor Katha AI सहायक अभी चालू नहीं है, जल्द ही शुरू होगा। तब तक आप 10,000+ शब्दकोश, कीबोर्ड और अनुवादक का उपयोग कर सकते हैं।',
     });
   }
 
@@ -52,7 +53,7 @@ export const onRequestPost = async ({ request, env }: Ctx) => {
   const payload: any = {
     systemInstruction: { parts: [{ text: SYSTEM }] },
     contents,
-    generationConfig: { temperature: 0.5, maxOutputTokens: 1500 },
+    generationConfig: { temperature: 0.5, maxOutputTokens: 2048 },
   };
   if (webSearch) payload.tools = [{ google_search: {} }];
 

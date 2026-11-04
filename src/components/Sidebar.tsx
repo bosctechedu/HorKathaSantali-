@@ -8,7 +8,6 @@ import {
   LayoutDashboard,
   GraduationCap,
   Languages,
-  Bot,
   Settings,
   Info,
   HelpCircle,
@@ -159,7 +158,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'idioms_menkatha' as ActiveDesktopTab, label: 'संताली मुहावरे (मेनकाथा)', icon: Quote, badge: 'मुहावरा' },
     { id: 'archery_simulator' as ActiveDesktopTab, label: 'आक-सार धनुर्विद्या सिमुलेटर', icon: Target, badge: 'तीरंदाजी' },
     { id: 'translator' as ActiveDesktopTab, label: 'संताली अनुवादक (Translator)', icon: Languages },
-    { id: 'ai_assistant' as ActiveDesktopTab, label: 'AI सर्च सहायक (AI Assistant)', icon: Bot, badge: 'AI' },
   ];
 
   return (

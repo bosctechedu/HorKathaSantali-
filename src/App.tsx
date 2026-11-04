@@ -1,4 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { openHorKathaAI } from './components/horKathaAI/shared';
 import { ActiveDesktopTab, GlobalViewMode, ScriptType } from './types';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -18,7 +19,8 @@ const SantaliSocialCardStudio = lazy(() => import('./components/SantaliSocialCar
 const SantaliLunarCalendarClock = lazy(() => import('./components/SantaliLunarCalendarClock').then((m) => ({ default: m.SantaliLunarCalendarClock })));
 const EducationalLDPPage = lazy(() => import('./components/EducationalLDP'));
 const QuizIQTest = lazy(() => import('./components/QuizIQTest').then((m) => ({ default: m.QuizIQTest })));
-const AISearchAssistant = lazy(() => import('./components/AISearchAssistant').then((m) => ({ default: m.AISearchAssistant })));
+// Floating "Hor Katha AI सहायक" (EDISAM floating assistant port) — the site's only AI button
+const HorKathaAIWidget = lazy(() => import('./components/horKathaAI/HorKathaAIWidget'));
 const TranslatorModule = lazy(() => import('./components/TranslatorModule').then((m) => ({ default: m.TranslatorModule })));
 const DailyVocabQuiz = lazy(() => import('./components/DailyVocabQuiz').then((m) => ({ default: m.DailyVocabQuiz })));
 const SantaliPhrasebook = lazy(() => import('./components/SantaliPhrasebook').then((m) => ({ default: m.SantaliPhrasebook })));
@@ -98,6 +100,8 @@ function AppContent() {
   // "Keyboard" opens Hor Katha Suite (horkathasuite.pages.dev) instead of an in-app keyboard
   const setActiveTab = (tab: ActiveDesktopTab | ((prev: ActiveDesktopTab) => ActiveDesktopTab)) => {
     if (tab === 'keyboard') { openExternalKeyboard(); return; }
+    // The AI assistant is the floating widget now: open it instead of switching tabs
+    if (tab === 'ai_assistant') { openHorKathaAI(); return; }
     setActiveTabRaw(tab as any);
   };
   const [activeScript, setActiveScript] = useState<ScriptType>('roman');
@@ -647,9 +651,6 @@ function AppContent() {
                 />
               )}
 
-              {/* Tab: AI Search Assistant (Cloudflare Pages Function /api/ai-chat) */}
-              {activeTab === 'ai_assistant' && <AISearchAssistant />}
-
               {/* Tab: Daily Santali Vocabulary Quiz */}
               {activeTab === 'daily_quiz' && (
                 <DailyVocabQuiz
@@ -769,6 +770,16 @@ function AppContent() {
         isOpen={feedbackModalOpen}
         onClose={() => setFeedbackModalOpen(false)}
       />
+
+      {/* Floating Hor Katha AI सहायक (chat via /api/ai-chat + local site search) */}
+      <Suspense fallback={null}>
+        <HorKathaAIWidget
+          onNavigateTab={(tab) => {
+            setActiveTab(tab);
+            if (viewMode !== 'desktop') setViewMode('desktop');
+          }}
+        />
+      </Suspense>
 
       {/* Global Spotlight Search Modal with Ctrl+K shortcut & keyword highlighting */}
       {searchModalOpen && (
