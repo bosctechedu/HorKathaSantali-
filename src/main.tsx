@@ -29,6 +29,12 @@ window.addEventListener('load', () => {
   setTimeout(() => { try { sessionStorage.removeItem('hks_chunk_reload'); } catch { /* ignore */ } }, 10000);
 });
 
+// Keep an early install prompt for the lazy-loaded PwaInstallPrompt banner
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  (window as Window & { __hkInstallPrompt?: Event | null }).__hkInstallPrompt = e;
+});
+
 createRoot(document.getElementById('root')!).render(
   <ErrorBoundary>
     <App />

@@ -10,6 +10,19 @@ import type { AdminTab } from './components/AdminMasterStudio';
 const AboutModal = lazy(() => import('./components/AboutModal').then((m) => ({ default: m.AboutModal })));
 const AdminLoginModal = lazy(() => import('./components/AdminLoginModal').then((m) => ({ default: m.AdminLoginModal })));
 const FeedbackModal = lazy(() => import('./components/FeedbackModal').then((m) => ({ default: m.FeedbackModal })));
+// New AI Studio modules (Nov 2026 export), code-split
+const SantaliSerengKaraoke = lazy(() => import('./components/SantaliSerengKaraoke').then((m) => ({ default: m.SantaliSerengKaraoke })));
+const SantaliVillageTour = lazy(() => import('./components/SantaliVillageTour').then((m) => ({ default: m.SantaliVillageTour })));
+const SantaliWildFoodsNutrition = lazy(() => import('./components/SantaliWildFoodsNutrition').then((m) => ({ default: m.SantaliWildFoodsNutrition })));
+const SantaliFolkRadio = lazy(() => import('./components/SantaliFolkRadio').then((m) => ({ default: m.SantaliFolkRadio })));
+const SantaliEthnoMedicine = lazy(() => import('./components/SantaliEthnoMedicine').then((m) => ({ default: m.SantaliEthnoMedicine })));
+const SantaliMultiScriptConverter = lazy(() => import('./components/SantaliMultiScriptConverter').then((m) => ({ default: m.SantaliMultiScriptConverter })));
+const SantaliKidsSoundboard = lazy(() => import('./components/SantaliKidsSoundboard').then((m) => ({ default: m.SantaliKidsSoundboard })));
+const SantaliWallpaperStudio = lazy(() => import('./components/SantaliWallpaperStudio').then((m) => ({ default: m.SantaliWallpaperStudio })));
+const SantaliClanGenealogy = lazy(() => import('./components/SantaliClanGenealogy').then((m) => ({ default: m.SantaliClanGenealogy })));
+const SantaliHaatBarterSimulator = lazy(() => import('./components/SantaliHaatBarterSimulator').then((m) => ({ default: m.SantaliHaatBarterSimulator })));
+const SantaliBaplaChantsStudio = lazy(() => import('./components/SantaliBaplaChantsStudio').then((m) => ({ default: m.SantaliBaplaChantsStudio })));
+const PwaInstallPrompt = lazy(() => import('./components/PwaInstallPrompt').then((m) => ({ default: m.PwaInstallPrompt })));
 import { Footer } from './components/Footer';
 import { AdminProvider, useAdmin } from './context/AdminContext';
 import { Settings, ArrowLeft, Home, ShieldCheck, KeyRound, CheckCircle2, Lock, Sparkles, Edit3 } from 'lucide-react';
@@ -217,6 +230,19 @@ function AppContent() {
       case 'seasons_weather': return 'seasons_weather';
       case 'idioms_menkatha': return 'idioms_menkatha';
       case 'herbal_drinks': return 'herbal_drinks';
+      case 'sereng_karaoke': return 'songs';
+      case 'village_tour': return 'governance';
+      case 'wild_foods': return 'cuisine';
+      case 'festival_cards':
+      case 'greetings': return 'calendar';
+      case 'folk_radio': return 'songs';
+      case 'ethno_medicine': return 'herbal';
+      case 'script_converter': return 'hero';
+      case 'kids_soundboard': return 'hero';
+      case 'wallpaper_studio': return 'sohrai_art';
+      case 'clan_genealogy': return 'clans';
+      case 'haat_barter': return 'traditional_measures';
+      case 'bapla_chants': return 'bapla';
       default: return null;
     }
   };
@@ -261,6 +287,11 @@ function AppContent() {
         sidebarOpen={sidebarOpen}
         onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
       />
+
+      {/* PWA Offline & Install Promotion Manager */}
+      <Suspense fallback={null}>
+        <PwaInstallPrompt />
+      </Suspense>
 
       {/* Main Viewport Container */}
       <div className="flex-1 max-w-7xl w-full mx-auto flex">
@@ -632,9 +663,64 @@ function AppContent() {
                 <SantaliGrammarBuilder />
               )}
 
-              {/* Tab: Festive E-Cards & Greetings */}
-              {activeTab === 'greetings' && (
+              {/* Tab: Festive E-Cards & WhatsApp Greetings */}
+              {(activeTab === 'greetings' || activeTab === 'festival_cards') && (
                 <SantaliGreetingMaker />
+              )}
+
+              {/* Tab: Santali Folk Song Karaoke & Rhythm Studio */}
+              {activeTab === 'sereng_karaoke' && (
+                <SantaliSerengKaraoke />
+              )}
+
+              {/* Tab: Virtual Village Tour & Sacred Geography */}
+              {activeTab === 'village_tour' && (
+                <SantaliVillageTour />
+              )}
+
+              {/* Tab: Wild Foods, Leafy Greens & Indigenous Nutrition */}
+              {activeTab === 'wild_foods' && (
+                <SantaliWildFoodsNutrition />
+              )}
+
+              {/* Tab: Santali Folk Radio & Ambient Story Studio */}
+              {activeTab === 'folk_radio' && (
+                <SantaliFolkRadio />
+              )}
+
+              {/* Tab: Santali Ethno-Medicine & Emergency First Aid */}
+              {activeTab === 'ethno_medicine' && (
+                <SantaliEthnoMedicine />
+              )}
+
+              {/* Tab: Multi-Script Converter (Ol Chiki, Devanagari, Roman) */}
+              {activeTab === 'script_converter' && (
+                <SantaliMultiScriptConverter />
+              )}
+
+              {/* Tab: Kids Interactive Soundboard & Sound Quiz */}
+              {activeTab === 'kids_soundboard' && (
+                <SantaliKidsSoundboard />
+              )}
+
+              {/* Tab: 9:16 Mobile Wallpaper & Status Studio */}
+              {activeTab === 'wallpaper_studio' && (
+                <SantaliWallpaperStudio />
+              )}
+
+              {/* Tab: Clan & Family Heritage Archive */}
+              {activeTab === 'clan_genealogy' && (
+                <SantaliClanGenealogy />
+              )}
+
+              {/* Tab: Village Haat & Barter Simulator */}
+              {activeTab === 'haat_barter' && (
+                <SantaliHaatBarterSimulator />
+              )}
+
+              {/* Tab: Wedding Chants & Bapla Rituals Studio */}
+              {activeTab === 'bapla_chants' && (
+                <SantaliBaplaChantsStudio />
               )}
 
               {/* Tab: Traditional Herbal Medicine & Ethnobotany */}

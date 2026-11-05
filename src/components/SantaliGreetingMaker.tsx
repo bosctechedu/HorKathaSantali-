@@ -98,6 +98,42 @@ export const DEFAULT_GREETING_TEMPLATES: GreetingTemplate[] = [
     borderColor: 'border-rose-400',
     symbol: '🙏',
     festiveTag: 'सद्भावना व प्रेम संदेश'
+  },
+  {
+    id: 'magh_sim',
+    festivalName: 'Magh Sim Parab',
+    festivalDev: 'माघ सिम परोब (वर्ष संकल्प)',
+    defaultMessageDev: 'माघ सिम रेयाक सागुन जोहार! नावा बछोर रे अबोवाक हातु-दिशोम रे शांति ताहेन् मा!',
+    defaultMessageRoman: 'Magh Sim reyak sagun johar! Nawa bachhor re abowak hatu-disom re shanti tahen ma!',
+    defaultMessageHindi: 'माघ सिम पर्व की हार्दिक शुभकामनाएं! नव-संकल्प के साथ ग्राम स्वशासन और समृद्धि बढ़े!',
+    bgGradient: 'from-amber-700 via-orange-800 to-stone-950',
+    borderColor: 'border-amber-400',
+    symbol: '🌾',
+    festiveTag: 'स्वशासन व संकल्प पर्व'
+  },
+  {
+    id: 'sakrat',
+    festivalName: 'Sakrat Parab',
+    festivalDev: 'साकरात परोब (मकर संक्रांति)',
+    defaultMessageDev: 'साकरात परोब रेयाक आमाक आर आमाक घारोज ते सागुन जोहार! पीठा-लेतो जमे पे!',
+    defaultMessageRoman: 'Sakrat parab reyak amak ar amak gharoj te sagun johar! Pitha-leto jome pe!',
+    defaultMessageHindi: 'साकरात पर्व की हार्दिक शुभकामनाएं! स्वादिष्ट पीठा और तीरंदाजी उत्सव का आनंद लें!',
+    bgGradient: 'from-sky-700 via-indigo-800 to-slate-950',
+    borderColor: 'border-sky-400',
+    symbol: '🏹',
+    festiveTag: 'पीठा व तीरंदाजी पर्व'
+  },
+  {
+    id: 'bapla_blessing',
+    festivalName: 'Sagun Bapla',
+    festivalDev: 'सागुन बापला (विवाह मंगलकामना)',
+    defaultMessageDev: 'आबेन नवा जोड़ा ताहेन मा! जियान भोर सुख-दुख रे मिद् सांवते ताहेन बेन! सागुन बापला!',
+    defaultMessageRoman: 'Aben nawa jora tahen ma! Jiyan bhor sukh-dukh re mid sanwte tahen ben! Sagun Bapla!',
+    defaultMessageHindi: 'नव-दंपति को सुखद वैवाहिक जीवन की हार्दिक बधाई व मारांग बुरु का आशीर्वाद!',
+    bgGradient: 'from-pink-700 via-rose-800 to-red-950',
+    borderColor: 'border-pink-400',
+    symbol: '💍',
+    festiveTag: 'वैवाहिक मंगल आशीष'
   }
 ];
 
@@ -226,6 +262,90 @@ export const SantaliGreetingMaker: React.FC = () => {
     const fullText = `🌺 *${selectedTemplate.festivalDev}* 🌺\n\nप्रिय *${recipientName}*,\n\n${activeMessageDev}\n\n_${selectedTemplate.defaultMessageHindi}_\n\nसादर सप्रेम,\n*${senderName}*\n(Hor Katha Suite)`;
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(fullText)}`;
     window.open(url, '_blank');
+  };
+
+  const handleDownloadCardImage = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1200;
+    canvas.height = 800;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Background gradient
+    const grad = ctx.createLinearGradient(0, 0, 1200, 800);
+    grad.addColorStop(0, '#1c1917');
+    grad.addColorStop(0.5, '#4c0519');
+    grad.addColorStop(1, '#0c0a09');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1200, 800);
+
+    // Decorative Borders
+    ctx.strokeStyle = '#f59e0b';
+    ctx.lineWidth = 10;
+    ctx.strokeRect(30, 30, 1140, 740);
+    ctx.strokeStyle = '#fbbf24';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(45, 45, 1110, 710);
+
+    // Header Tag
+    ctx.font = 'bold 24px system-ui, sans-serif';
+    ctx.fillStyle = '#fde68a';
+    ctx.textAlign = 'center';
+    ctx.fillText(selectedTemplate.festiveTag.toUpperCase(), 600, 95);
+
+    // Symbol Emoji
+    ctx.font = '72px system-ui, sans-serif';
+    ctx.fillText(selectedTemplate.symbol, 600, 185);
+
+    // Festival Title
+    ctx.font = 'bold 46px system-ui, sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(selectedTemplate.festivalDev, 600, 255);
+
+    // Recipient
+    ctx.font = '600 28px system-ui, sans-serif';
+    ctx.fillStyle = '#fef08a';
+    ctx.fillText(`प्रिय: ${recipientName}`, 600, 315);
+
+    // Devanagari Message (wrapped)
+    ctx.font = 'bold 32px system-ui, sans-serif';
+    ctx.fillStyle = '#ffffff';
+    const words = activeMessageDev.split(' ');
+    let line = '';
+    let y = 390;
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + ' ';
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > 960 && i > 0) {
+        ctx.fillText(line, 600, y);
+        line = words[i] + ' ';
+        y += 44;
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line, 600, y);
+
+    // Hindi Meaning
+    ctx.font = 'italic 22px system-ui, sans-serif';
+    ctx.fillStyle = '#cbd5e1';
+    ctx.fillText(`"${selectedTemplate.defaultMessageHindi}"`, 600, y + 55);
+
+    // Sender
+    ctx.font = 'bold 30px system-ui, sans-serif';
+    ctx.fillStyle = '#f59e0b';
+    ctx.fillText(`सादर सप्रेम — ${senderName}`, 600, y + 140);
+
+    // Branding Footer
+    ctx.font = '18px system-ui, sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillText('होर काथा डिजिटल सुइट (Hor Katha Suite) • BOSC Tech & Edu', 600, 735);
+
+    // Download Trigger
+    const link = document.createElement('a');
+    link.download = `santali-greeting-${selectedTemplate.id}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
   };
 
   return (
@@ -481,8 +601,16 @@ export const SantaliGreetingMaker: React.FC = () => {
             </div>
           </div>
 
-          {/* Action Buttons: WhatsApp & Copy */}
+          {/* Action Buttons: Download Image, WhatsApp & Copy */}
           <div className="flex flex-wrap items-center gap-3 justify-end pt-2">
+            <button
+              onClick={handleDownloadCardImage}
+              className="px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-black flex items-center gap-2 shadow-md cursor-pointer transition-all hover:scale-105 active:scale-95"
+            >
+              <Download className="w-4 h-4 text-stone-950" />
+              <span>कार्ड इमेज डाउनलोड करें (PNG)</span>
+            </button>
+
             <button
               onClick={handleCopyText}
               className="px-5 py-3 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 text-xs font-bold flex items-center gap-2 border border-slate-200 shadow-2xs cursor-pointer transition-colors"
@@ -496,7 +624,7 @@ export const SantaliGreetingMaker: React.FC = () => {
               className="px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-2 shadow-md cursor-pointer transition-all hover:scale-105 active:scale-95"
             >
               <Send className="w-4 h-4" />
-              <span>WhatsApp पर भेजें (Share on WhatsApp)</span>
+              <span>WhatsApp पर भेजें</span>
             </button>
           </div>
         </div>

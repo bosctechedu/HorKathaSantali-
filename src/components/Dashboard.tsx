@@ -47,9 +47,31 @@ import {
   HeartHandshake,
   Compass,
   Scroll,
-  Brain
+  Brain,
+  Heart,
+  Swords,
+  Radio,
+  Sprout,
+  Scale,
+  Home,
+  Droplets,
+  Shirt,
+  Trees,
+  Bookmark,
+  Award,
+  Activity,
+  Quote,
+  Drama,
+  Moon,
+  Filter,
+  Landmark,
+  Leaf,
+  HeartPulse,
+  Smartphone,
+  ArrowRightLeft
 } from 'lucide-react';
 // Below-the-fold reader is code-split so it doesn't block first paint
+const DashboardModuleGrid = lazy(() => import('./DashboardModuleGrid'));
 const TextSpeakerReader = lazy(() => import('./TextSpeakerReader').then((m) => ({ default: m.TextSpeakerReader })));
 
 interface DashboardProps {
@@ -90,342 +112,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
   const handleSpeak = (text: string) => {
     speakWithFemaleVoice(text, { lang: 'hi-IN', rate: 0.88 });
   };
-
-  const featureCards = [
-    {
-      id: 'keyboard' as ActiveDesktopTab,
-      title: 'Santali Keyboard',
-      subtitle: 'Multilingual input in Santali Devanagari & Roman',
-      icon: Keyboard,
-      gradient: 'from-sky-500 to-blue-600',
-      actionText: 'Open Keyboard'
-    },
-    {
-      id: 'dashboard' as ActiveDesktopTab,
-      targetTab: 'dashboard' as ActiveDesktopTab,
-      title: 'Dictionary',
-      subtitle: `${words.length}+ words with audio pronunciation`,
-      icon: BookOpen,
-      gradient: 'from-amber-500 to-orange-600',
-      actionText: 'Explore Words'
-    },
-    {
-      id: 'calendar' as ActiveDesktopTab,
-      title: 'Cultural Festivals (पर्व)',
-      subtitle: 'सोहराय, बाहा, करम पर्वों का विस्तृत लेख व लोकगीत',
-      icon: Calendar,
-      gradient: 'from-amber-600 to-orange-700',
-      actionText: 'Explore Festivals'
-    },
-    {
-      id: 'learn' as ActiveDesktopTab,
-      title: 'Learn Santali Devanagari',
-      subtitle: 'Master letters, grammar & daily vocabulary',
-      icon: GraduationCap,
-      gradient: 'from-emerald-500 to-teal-600',
-      actionText: 'Start Learning'
-    },
-    {
-      id: 'translator' as ActiveDesktopTab,
-      title: 'Translator',
-      subtitle: 'Santali (Devanagari/Roman) ↔ Hindi & English',
-      icon: Languages,
-      gradient: 'from-rose-500 to-pink-600',
-      actionText: 'Translate'
-    },
-    {
-      id: 'daily_quiz' as ActiveDesktopTab,
-      title: 'Daily Vocab Quiz',
-      subtitle: '5 words every day, streak & rewards',
-      icon: Flame,
-      gradient: 'from-amber-500 via-orange-500 to-rose-600',
-      actionText: "Take Today's Quiz"
-    },
-    {
-      id: 'family_tree' as ActiveDesktopTab,
-      title: 'Kinship & Relations (साग़य)',
-      subtitle: 'चाचा, मामा, बुआ, ससुराल रिश्ते व परंपरा',
-      icon: Users,
-      gradient: 'from-teal-600 to-cyan-700',
-      actionText: 'View Family Tree'
-    },
-    {
-      id: 'phrasebook' as ActiveDesktopTab,
-      title: 'Everyday Phrasebook',
-      subtitle: 'Spoken daily dialogues with audio playback',
-      icon: MessageSquare,
-      gradient: 'from-emerald-600 to-teal-700',
-      actionText: 'Browse Phrases'
-    },
-    {
-      id: 'flashcards' as ActiveDesktopTab,
-      title: 'Vocabulary Flashcards',
-      subtitle: 'Flip card memory practice & quick review',
-      icon: Layers,
-      gradient: 'from-violet-600 to-purple-700',
-      actionText: 'Flip Cards'
-    },
-    {
-      id: 'calligraphy' as ActiveDesktopTab,
-      title: 'Calligraphy & Posters',
-      subtitle: 'Create Santali Devanagari festival posters & art',
-      icon: Palette,
-      gradient: 'from-amber-700 to-orange-800',
-      actionText: 'Design Poster'
-    },
-    {
-      id: 'kudum' as ActiveDesktopTab,
-      title: 'Kudum & Proverbs',
-      subtitle: 'Traditional Santali folklore riddles & wisdom',
-      icon: HelpCircle,
-      gradient: 'from-teal-600 to-emerald-700',
-      actionText: 'Solve Riddles'
-    },
-    {
-      id: 'calendar' as ActiveDesktopTab,
-      title: 'Cultural Calendar',
-      subtitle: 'Sohrai, Baha & indigenous festival seasons',
-      icon: Calendar,
-      gradient: 'from-orange-600 to-red-700',
-      actionText: 'View Seasons'
-    },
-    {
-      id: 'wordle' as ActiveDesktopTab,
-      title: 'Santali Wordle',
-      subtitle: '5-letter daily vocabulary puzzle game',
-      icon: Gamepad2,
-      gradient: 'from-purple-600 to-indigo-700',
-      actionText: 'Play Wordle'
-    },
-    {
-      id: 'stories' as ActiveDesktopTab,
-      title: 'Folk Stories Audio',
-      subtitle: 'Pandit Raghunath Murmu & Hul 1855 history',
-      icon: Headphones,
-      gradient: 'from-stone-700 to-amber-900',
-      actionText: 'Listen Stories'
-    },
-    {
-      id: 'speech_coach' as ActiveDesktopTab,
-      title: 'Pronunciation Coach',
-      subtitle: 'Speech recognition & accent scoring feedback',
-      icon: Mic,
-      gradient: 'from-teal-600 to-cyan-700',
-      actionText: 'Test Accent'
-    },
-    {
-      id: 'speaker' as ActiveDesktopTab,
-      title: 'Voice Speaker & Reader',
-      subtitle: 'Universal speech synthesizer for any text',
-      icon: Volume2,
-      gradient: 'from-amber-500 to-orange-600',
-      actionText: 'Read Aloud'
-    },
-    {
-      id: 'instruments' as ActiveDesktopTab,
-      title: 'Instruments & Rhythm',
-      subtitle: 'Playable Tamak, Tumdak, Tiriyo & Banam',
-      icon: Music,
-      gradient: 'from-red-600 to-amber-700',
-      actionText: 'Play Drums'
-    },
-    {
-      id: 'family_tree' as ActiveDesktopTab,
-      title: 'Kinship & Family Relations',
-      subtitle: 'Santali family tree terms & customs with audio',
-      icon: Users,
-      gradient: 'from-emerald-700 to-teal-800',
-      actionText: 'Explore Tree'
-    },
-    {
-      id: 'kids_rhymes' as ActiveDesktopTab,
-      title: 'Kids Rhymes Jukebox',
-      subtitle: 'Sing along to colorful poems & nursery songs',
-      icon: Smile,
-      gradient: 'from-pink-600 to-rose-600',
-      actionText: 'Sing Rhymes'
-    },
-    {
-      id: 'clock_numbers' as ActiveDesktopTab,
-      title: 'Speaking Clock & Numbers',
-      subtitle: 'Live spoken time & 1 to 100 counting chart',
-      icon: Clock,
-      gradient: 'from-indigo-600 to-purple-700',
-      actionText: 'Check Time'
-    },
-    {
-      id: 'clans' as ActiveDesktopTab,
-      title: '12 Sacred Clans (Paris)',
-      subtitle: 'Totem symbols, ancestral history & clan laws',
-      icon: Shield,
-      gradient: 'from-amber-700 to-stone-800',
-      actionText: 'View Clans'
-    },
-    {
-      id: 'flora_worksheets' as ActiveDesktopTab,
-      title: 'Sacred Flora & Worksheets',
-      subtitle: 'Medicinal forest trees & printable A4 PDFs',
-      icon: TreePine,
-      gradient: 'from-green-700 to-emerald-900',
-      actionText: 'Print Worksheets'
-    },
-    {
-      id: 'baby_names' as ActiveDesktopTab,
-      title: 'पारंपरिक नामकरण गाइड (200+)',
-      subtitle: 'दादा-दादी के नाम पर नामकरण नियम व अर्थ',
-      icon: Baby,
-      gradient: 'from-rose-500 to-amber-600',
-      actionText: 'Explore Names'
-    },
-    {
-      id: 'ornaments_jewellery' as ActiveDesktopTab,
-      title: 'पारंपरिक आभूषण व शृंगार (12)',
-      subtitle: 'हांसली, खागड़ा, साकम, रासा व तोड़ा कला',
-      icon: Sparkles,
-      gradient: 'from-amber-600 to-orange-700',
-      actionText: 'View Ornaments'
-    },
-    {
-      id: 'blacksmithy_iron' as ActiveDesktopTab,
-      title: 'कामार लोहार शिल्प व हथियार',
-      subtitle: 'दातरम, तांगा, सार-फासी व देशी धौंकनी',
-      icon: Hammer,
-      gradient: 'from-stone-700 to-neutral-900',
-      actionText: 'Discover Craft'
-    },
-    {
-      id: 'seasons_weather' as ActiveDesktopTab,
-      title: '६ ऋतुएँ व मौसम पूर्वानुमान',
-      subtitle: 'सितांग, जापानी, दासांय व चींटियों-पक्षियों के संकेत',
-      icon: Clock,
-      gradient: 'from-teal-600 to-cyan-700',
-      actionText: 'Check Seasons'
-    },
-    {
-      id: 'idioms_menkatha' as ActiveDesktopTab,
-      title: 'संताली मुहावरे (मेनकाथा)',
-      subtitle: 'दार्शनिक जीवन-दर्शन, लाक्षणिक अर्थ व बोलचाल',
-      icon: MessageSquare,
-      gradient: 'from-amber-700 to-orange-800',
-      actionText: 'Learn Idioms'
-    },
-    {
-      id: 'herbal_drinks' as ActiveDesktopTab,
-      title: 'पारंपरिक पेय व प्राकृतिक शरबत',
-      subtitle: 'महुआ रस, इचाक् चाय, मांडी दाक् व पोचोई मर्यादा',
-      icon: Coffee,
-      gradient: 'from-emerald-700 to-teal-900',
-      actionText: 'View Drinks'
-    },
-    {
-      id: 'archery_simulator' as ActiveDesktopTab,
-      title: 'आक-सार धनुर्विद्या सिमुलेटर',
-      subtitle: 'पारंपरिक बेझा तुञ व संताली शब्द निशाना खेल',
-      icon: Target,
-      gradient: 'from-orange-600 to-amber-700',
-      actionText: 'Play Archery'
-    },
-    {
-      id: 'traditional_cuisine' as ActiveDesktopTab,
-      title: 'संताली पारंपरिक पाककला व व्यंजन',
-      subtitle: 'साकाम पीठा, लेटे मंडी, रुगड़ा-ओत् व घोंघी रसा विधियां',
-      icon: UtensilsCrossed,
-      gradient: 'from-amber-800 to-orange-950',
-      actionText: 'Explore Cuisine'
-    },
-    {
-      id: 'marriage_rituals' as ActiveDesktopTab,
-      title: '७ विवाह प्रकार व ३ जीवन संस्कार',
-      subtitle: 'दुवार बापला, टुंकी दिपिल, निम दाहाक् व चाचो छातियार',
-      icon: HeartHandshake,
-      gradient: 'from-rose-800 to-red-950',
-      actionText: 'View Rituals'
-    },
-    {
-      id: 'riddles_kudum' as ActiveDesktopTab,
-      title: 'कुदुम पहेली प्रतियोगिता खेल',
-      subtitle: 'लोक पहेलियां, स्कोर बोर्ड, संकेत व ऑडियो उच्चारण',
-      icon: HelpCircle,
-      gradient: 'from-violet-800 to-purple-950',
-      actionText: 'Play Kudum'
-    },
-    {
-      id: 'sacred_pilgrimages' as ActiveDesktopTab,
-      title: 'पावन तीर्थ व ऐतिहासिक गढ़',
-      subtitle: 'लुगु बुरु, अयोध्या बुरु, भोगनाडीह हूल स्मारक व चांपा गढ़',
-      icon: Compass,
-      gradient: 'from-emerald-800 to-teal-950',
-      actionText: 'Visit Pilgrimages'
-    },
-    {
-      id: 'spoken_dialogues' as ActiveDesktopTab,
-      title: 'दैनिक संताली बोलचाल संवाद',
-      subtitle: 'हाट-बाजार, सत्कार, कृषि व वैद्य परामर्श वार्तालाप',
-      icon: MessageSquare,
-      gradient: 'from-blue-800 to-indigo-950',
-      actionText: 'Learn Dialogues'
-    },
-    {
-      id: 'letter_templates' as ActiveDesktopTab,
-      title: 'औपचारिक पत्र व नेवता साकाम',
-      subtitle: 'विवाह निमंत्रण, मांझी हाड़ाम आवेदन व सभा सूचना',
-      icon: FileText,
-      gradient: 'from-stone-800 to-amber-950',
-      actionText: 'Open Templates'
-    },
-    {
-      id: 'illustrated_stories' as ActiveDesktopTab,
-      title: 'सचित्र संताली लोककथाएं',
-      subtitle: 'पिलचु हाड़ाम-बूढ़ी, चालाक तूंईऊ व करम-धरम कथाएं',
-      icon: BookOpen,
-      gradient: 'from-teal-800 to-emerald-950',
-      actionText: 'Read Stories'
-    },
-    {
-      id: 'social_cards' as ActiveDesktopTab,
-      title: 'सोशल मीडिया कार्ड व पोस्टर जनरेटर',
-      subtitle: 'सोहराय कला बॉर्डर्स, संताली विचार व WhatsApp HD शेयर',
-      icon: Sparkles,
-      gradient: 'from-rose-800 to-amber-950',
-      actionText: 'Create Poster'
-    },
-    {
-      id: 'lunar_calendar' as ActiveDesktopTab,
-      title: 'पारंपरिक संताली चंद्र पंचांग व पर्व टाइमर',
-      subtitle: 'लाइव चंद्र कला (कुनामी/मूळ) व आगामी महापर्व काउंटडाउन',
-      icon: Clock,
-      gradient: 'from-indigo-900 to-slate-950',
-      actionText: 'View Chando Clock'
-    },
-    {
-      id: 'educational' as ActiveDesktopTab,
-      title: 'LDP — लाइव अभ्यास केंद्र (कक्षा 1-12)',
-      subtitle: 'कक्षा, विषय व अध्यायवार 15+ MCQ अभ्यास, अध्ययन सामग्री व प्रतियोगी परीक्षाएं',
-      icon: GraduationCap,
-      gradient: 'from-emerald-800 to-teal-950',
-      actionText: 'Start Practice'
-    },
-    {
-      id: 'quiz' as ActiveDesktopTab,
-      title: 'क्विज़ / IQ टेस्ट (लाइव परीक्षा केंद्र)',
-      subtitle: 'UPSC, JPSC, JSSC, SSC, रेलवे, बैंक — वास्तविक पैटर्न पर मॉक टेस्ट',
-      icon: Brain,
-      gradient: 'from-slate-900 to-emerald-950',
-      actionText: 'Start Test'
-    },
-    ...(isAdmin
-      ? [
-          {
-            id: 'admin_cms' as ActiveDesktopTab,
-            title: 'Admin Master CMS',
-            subtitle: 'Direct Add/Edit/Update access across all sections',
-            icon: Edit3,
-            gradient: 'from-slate-900 via-amber-900 to-slate-900',
-            actionText: 'Open Master CMS'
-          }
-        ]
-      : [])
-  ];
 
   return (
     <div className="space-y-5 animate-in fade-in duration-200">
@@ -766,50 +452,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </div>
           </div>
 
-          {/* 6 Core Feature Cards Grid */}
-          <div>
-            <div className="flex items-center justify-between mb-2.5">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                Core Applications
-              </h2>
-              <span className="text-[11px] text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                {featureCards.length} Interactive Modules
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-              {featureCards.map((card) => {
-                const Icon = card.icon;
-                return (
-                  <div
-                    key={card.title}
-                    onClick={() => onNavigate(card.targetTab || card.id)}
-                    className="group cursor-pointer rounded-2xl p-3.5 bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all flex flex-col justify-between h-40 relative overflow-hidden"
-                  >
-                    <div
-                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center text-white shadow-2xs group-hover:scale-105 transition-transform`}
-                    >
-                      <Icon className="w-5 h-5" />
-                    </div>
-
-                    <div className="my-1.5">
-                      <h3 className="text-xs font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
-                        {card.title}
-                      </h3>
-                      <p className="text-[10px] text-slate-500 line-clamp-2 mt-0.5 leading-snug">
-                        {card.subtitle}
-                      </p>
-                    </div>
-
-                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-semibold text-slate-600 group-hover:text-slate-900">
-                      <span>{card.actionText}</span>
-                      <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          {/* Interactive module cards (code-split) */}
+          <Suspense fallback={<div className="h-64 rounded-2xl bg-white border border-slate-200/80 animate-pulse" aria-hidden="true" />}>
+            <DashboardModuleGrid onNavigate={onNavigate} isAdmin={isAdmin} wordsCount={words.length} />
+          </Suspense>
 
           {/* Quick Tools Row with Professional Icons */}
           <div className="p-3.5 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-2 text-xs">

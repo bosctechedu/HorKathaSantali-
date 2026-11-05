@@ -57,7 +57,10 @@ import {
   Activity,
   FileText,
   Bookmark,
-  Brain
+  Brain,
+  HeartPulse,
+  Smartphone,
+  ArrowRightLeft
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -82,6 +85,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // Clean menu items
   const mainNav = [
     { id: 'home' as ActiveDesktopTab, label: 'मुख्य पृष्ठ (Home)', icon: Home },
+    { id: 'sereng_karaoke' as ActiveDesktopTab, label: 'सेरेंग कराओके व ताल अखाड़ा', icon: Music, badge: 'ताल' },
+    { id: 'folk_radio' as ActiveDesktopTab, label: 'लोककथा रेडियो व एम्बिएंट', icon: Radio, badge: 'रेडियो' },
+    { id: 'village_tour' as ActiveDesktopTab, label: 'संताल गांव का पवित्र मानचित्र', icon: Compass, badge: '3D' },
+    { id: 'wild_foods' as ActiveDesktopTab, label: 'वन-साग व पोषण संदर्शिका', icon: Leaf, badge: 'पोषण' },
+    { id: 'ethno_medicine' as ActiveDesktopTab, label: 'पारंपरिक वनौषधि व प्राथमिक उपचार', icon: HeartPulse, badge: 'उपचार' },
+    { id: 'festival_cards' as ActiveDesktopTab, label: 'व्हाट्सऐप व पर्व ग्रीटिंग्स', icon: Sparkles, badge: 'शेयर' },
     { id: 'social_cards' as ActiveDesktopTab, label: 'सोशल मीडिया कार्ड व पोस्टर', icon: Sparkles, badge: 'HD' },
     { id: 'lunar_calendar' as ActiveDesktopTab, label: 'चंद्र पंचांग व पर्व टाइमर', icon: Moon, badge: 'लाइव' },
     { id: 'educational' as ActiveDesktopTab, label: 'LDP (लाइव अभ्यास केंद्र)', icon: GraduationCap, badge: '1-12' },
@@ -90,6 +99,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'dashboard' as ActiveDesktopTab, label: '10,000+ डिक्शनरी (शब्दकोश)', icon: LayoutDashboard },
     { id: 'learn' as ActiveDesktopTab, label: 'संताली देवनागरी सीखें', icon: GraduationCap },
     { id: 'favorites_notebook' as ActiveDesktopTab, label: 'इञाक् साकाम (मेरी डायरी)', icon: Bookmark, badge: '⭐' },
+    { id: 'script_converter' as ActiveDesktopTab, label: 'त्रि-लिपि कनवर्टर (3-Script)', icon: ArrowRightLeft, badge: 'कनवर्टर' },
+    { id: 'kids_soundboard' as ActiveDesktopTab, label: 'सचित्र बाल-साउंडबोर्ड', icon: Smile, badge: 'बच्चों का' },
+    { id: 'wallpaper_studio' as ActiveDesktopTab, label: 'मोबाइल वॉलपेपर व स्टेटस', icon: Smartphone, badge: '9:16' },
+    { id: 'clan_genealogy' as ActiveDesktopTab, label: 'पारिस व वंशावली डायरी', icon: Shield, badge: 'धरोहर' },
+    { id: 'haat_barter' as ActiveDesktopTab, label: 'हाट व वस्तु-विनिमय बाज़ार', icon: Scale, badge: 'हाट' },
+    { id: 'bapla_chants' as ActiveDesktopTab, label: 'विवाह (बापला) गीत व नेग', icon: Heart, badge: 'बापला' },
   ];
 
   const culturalNav = [
