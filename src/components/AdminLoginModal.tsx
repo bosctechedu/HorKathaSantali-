@@ -310,7 +310,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
           {/* Overlapping "Welcome Back" pill */}
           <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-7 sm:px-9 py-2 rounded-full bg-white border border-blue-100 shadow-[0_10px_25px_-10px_rgba(37,99,235,0.5)] text-center whitespace-nowrap">
             <p className="text-lg sm:text-xl font-black text-blue-700 leading-tight">{isAdmin ? 'Welcome' : 'Welcome Back'}</p>
-            <p className="text-[9px] sm:text-[10px] font-bold text-blue-500 tracking-[0.22em] uppercase leading-tight">HOR/होड़ KATHA SANTALI</p>
+            <p className="text-[9px] sm:text-[10px] font-bold text-blue-500 tracking-wide leading-tight">HorKathaSantali</p>
           </div>
 
           <button onClick={onClose} className="absolute top-3 right-3 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-white/80 cursor-pointer z-10" title="बंद करें" aria-label="बंद करें">
