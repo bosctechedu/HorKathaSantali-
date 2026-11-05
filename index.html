@@ -16,7 +16,27 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Cinzel:wght@600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts load without blocking first paint; a size-matched local fallback (see index.css) avoids a layout jump on swap.
+         Cinzel and the 300 weight were never used, so they are no longer requested. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"></noscript>
+    <script>
+      // Lite mode for low-end phones / Data Saver / reduced motion: set before first paint (see index.css)
+      (function () {
+        try {
+          var d = document.documentElement, n = navigator, c = n.connection || {};
+          var forced = localStorage.getItem('hks_lite');
+          var lite = forced === '1' || (forced !== '0' && (
+            (n.hardwareConcurrency && n.hardwareConcurrency <= 4) ||
+            (n.deviceMemory && n.deviceMemory <= 4) ||
+            c.saveData === true || /(^|-)2g$/.test(c.effectiveType || '') ||
+            (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)));
+          if (lite) d.classList.add('lite');
+          document.addEventListener('visibilitychange', function () { d.classList.toggle('hks-hidden', document.hidden); });
+        } catch (e) { /* ignore */ }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

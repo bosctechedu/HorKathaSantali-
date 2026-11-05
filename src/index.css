@@ -1,14 +1,24 @@
 @import "tailwindcss";
 
+/* Size-matched stand-in while Plus Jakarta Sans downloads (Roboto on Android, Arial elsewhere), so the
+   non-blocking font swap does not reflow the page. Metrics measured from the two fonts. */
+@font-face {
+  font-family: 'Plus Jakarta Sans Fallback';
+  src: local('Roboto'), local('Roboto-Regular'), local('Arial'), local('Helvetica');
+  size-adjust: 103.9%;
+  ascent-override: 99.9%;
+  descent-override: 21.4%;
+  line-gap-override: 0%;
+}
+
 @layer base {
   html {
     font-size: 17.5px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
   }
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, -apple-system, sans-serif;
     color: #0f172a;
     background-color: #f8fafc;
     line-height: 1.58;
@@ -50,4 +60,67 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+
+/* ───────────── Smoothness on low/mid-end phones ───────────── */
+
+/* Skip layout & paint of off-screen blocks until they scroll near (fixed-height module cards, below-fold cards) */
+.hks-cv {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
+.hks-cv-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 10rem;
+}
+
+/* Background tab: stop every CSS animation */
+html.hks-hidden *,
+html.hks-hidden *::before,
+html.hks-hidden *::after {
+  animation-play-state: paused !important;
+}
+
+/* Phones: backdrop blur re-renders on every scroll frame (sticky header, slider buttons, modals).
+   Use the same translucent colour without the blur. */
+@media (max-width: 768px) {
+  *,
+  *::before,
+  *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  header.sticky {
+    background-color: #ffffff;
+  }
+}
+
+/* Lite mode (set in index.html for ≤4 cores, ≤4 GB RAM, Data Saver, 2G or reduced motion) */
+html.lite *,
+html.lite *::before,
+html.lite *::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html.lite header.sticky {
+  background-color: #ffffff;
+}
+/* decorative infinite loops off; loading spinners (animate-spin) keep turning */
+html.lite .animate-pulse,
+html.lite .animate-ping,
+html.lite .animate-bounce,
+html.lite .hks-decor-anim {
+  animation: none !important;
+}
+/* lighter shadows: big blurred shadows are expensive to paint while scrolling */
+html.lite .shadow-2xl,
+html.lite .shadow-xl {
+  --tw-shadow: 0 6px 14px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.28)) !important;
+}
+html.lite .shadow-lg {
+  --tw-shadow: 0 4px 10px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.2)) !important;
+}
+html.lite .hks-lite-nofilter {
+  filter: none !important;
 }

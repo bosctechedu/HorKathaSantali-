@@ -458,7 +458,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </Suspense>
 
           {/* Quick Tools Row with Professional Icons */}
-          <div className="p-3.5 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div className="hks-cv p-3.5 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-2 text-xs">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Quick Tools:
             </span>
@@ -577,7 +577,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* Recent Words List */}
-          <div className="p-4 bg-white rounded-2xl border border-slate-200/80 shadow-xs space-y-2.5">
+          <div className="hks-cv p-4 bg-white rounded-2xl border border-slate-200/80 shadow-xs space-y-2.5">
             <div className="flex items-center justify-between pb-1.5 border-b border-slate-100">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
                 Featured Words
@@ -631,7 +631,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* Cultural Quote Card & Sacred Tree */}
-          <div className="p-4 bg-gradient-to-b from-amber-50/50 via-white to-amber-50/30 rounded-2xl border border-amber-200/70 shadow-xs text-center space-y-2">
+          <div className="hks-cv p-4 bg-gradient-to-b from-amber-50/50 via-white to-amber-50/30 rounded-2xl border border-amber-200/70 shadow-xs text-center space-y-2">
             <div className="p-2.5 bg-amber-100/40 rounded-xl">
               <p className="text-xs italic text-amber-950 font-serif leading-relaxed">
                 "Santali bhasha, amag gorob, jioom m or katna."

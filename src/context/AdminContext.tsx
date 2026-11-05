@@ -207,7 +207,8 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
       try {
         const stats = await getOfflineCacheStats();
-        if (stats.wordCount === 0 && words.length > 0 && lexiconOk) {
+        // (no meta row = an earlier batched save was interrupted: write again, puts are idempotent)
+        if ((stats.wordCount === 0 || !stats.lastSyncTime) && words.length > 0 && lexiconOk) {
           await saveWordsToIndexedDB(words);
         } else if (stats.wordCount > 0 && (!navigator.onLine || words.length <= 100)) {
           // If offline or low word count, load from IndexedDB
@@ -220,9 +221,25 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         console.warn('IDB sync error in AdminContext:', e);
       }
     };
-    syncIDB();
+    // Not needed for first paint: build the 10k lexicon and the offline copy once the page is idle
+    // (cheap phones were spending seconds here right while the home page was becoming interactive).
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | undefined;
+    const start = () => {
+      if (w.requestIdleCallback) idleId = w.requestIdleCallback(() => { idleId = undefined; syncIDB(); }, { timeout: 4000 });
+      else idleId = window.setTimeout(() => { idleId = undefined; syncIDB(); }, 1500);
+    };
+    const startTimer = window.setTimeout(start, 1200);
     return () => {
       isMounted = false;
+      window.clearTimeout(startTimer);
+      if (idleId !== undefined) {
+        if (w.cancelIdleCallback) w.cancelIdleCallback(idleId);
+        window.clearTimeout(idleId);
+      }
     };
   }, []);
 

@@ -31,7 +31,11 @@ export const HorKathaAIWidget: React.FC<Props> = ({ onNavigateTab }) => {
   // Rotate the speech bubble text every 3 s while closed (EDISAM behaviour)
   useEffect(() => {
     if (isOpen) return;
-    const id = setInterval(() => setTextIndex((i) => (i + 1) % AI_ROTATING_TEXTS.length), 3000);
+    // slower on lite (low-end) devices; skipped while the tab is in the background
+    const lite = document.documentElement.classList.contains('lite');
+    const id = setInterval(() => {
+      if (!document.hidden) setTextIndex((i) => (i + 1) % AI_ROTATING_TEXTS.length);
+    }, lite ? 6000 : 3000);
     return () => clearInterval(id);
   }, [isOpen]);
 
@@ -69,7 +73,7 @@ export const HorKathaAIWidget: React.FC<Props> = ({ onNavigateTab }) => {
                   transition={{ duration: 0.35, ease: 'easeOut' }}
                   className="bg-gradient-to-r from-orange-500 via-rose-500 to-pink-600 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-2xl shadow-rose-950/40 font-extrabold text-xs sm:text-sm tracking-wide whitespace-nowrap flex items-center gap-2 border border-white/30 select-none hover:scale-105 transition duration-200"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-200 animate-spin" />
+                  <Sparkles className="hks-decor-anim w-4 h-4 text-amber-200 animate-spin" />
                   <span>{AI_ROTATING_TEXTS[textIndex]}</span>
                 </motion.div>
               </AnimatePresence>

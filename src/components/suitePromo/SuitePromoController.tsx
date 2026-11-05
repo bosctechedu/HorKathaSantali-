@@ -204,16 +204,22 @@ const SuitePromoController: React.FC<Props> = ({ blocked }) => {
 
 const CARD_CSS = `
 .hksp-card{background:linear-gradient(135deg,#f59e0b,#fde68a,#b45309,#fbbf24);box-shadow:0 0 0 1px rgba(180,83,9,.25),0 12px 30px -10px rgba(127,29,29,.55),0 0 22px rgba(251,191,36,.55)}
-.hksp-in{animation:hksp-in .5s cubic-bezier(.2,.9,.3,1.2) both, hksp-glow 2.6s ease-in-out .5s infinite}
+.hksp-in{animation:hksp-in .5s cubic-bezier(.2,.9,.3,1.2) both;box-shadow:0 0 0 1px rgba(180,83,9,.25),0 12px 30px -10px rgba(127,29,29,.55),0 0 18px rgba(251,191,36,.45)}
 @keyframes hksp-in{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
-@keyframes hksp-glow{0%,100%{box-shadow:0 0 0 1px rgba(180,83,9,.25),0 12px 30px -10px rgba(127,29,29,.55),0 0 18px rgba(251,191,36,.45)}50%{box-shadow:0 0 0 1px rgba(180,83,9,.35),0 12px 30px -10px rgba(127,29,29,.6),0 0 34px rgba(251,191,36,.85)}}
+/* glow pulse: a pre-painted shadow layer fading in/out (compositor only) instead of animating box-shadow every frame */
+.hksp-in::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:0 0 34px rgba(251,191,36,.85),0 0 0 1px rgba(180,83,9,.35);opacity:0;animation:hksp-glow 2.6s ease-in-out .5s infinite;will-change:opacity}
+@keyframes hksp-glow{0%,100%{opacity:0}50%{opacity:1}}
 .hksp-bob{animation:hksp-bob 3s ease-in-out infinite}
 @keyframes hksp-bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(-3deg)}}
 .hksp-msg{animation:hksp-msg .45s ease both}
 @keyframes hksp-msg{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.hksp-shine{background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:250% 100%;animation:hksp-shine 3.2s ease-in-out infinite}
-@keyframes hksp-shine{0%{background-position:150% 0}60%,100%{background-position:-60% 0}}
+/* shine sweep moved by transform (same path as the old background-position sweep) so it does not repaint the card */
+.hksp-shine{width:250%;right:auto!important;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);animation:hksp-shine 3.2s ease-in-out infinite;will-change:transform}
+@keyframes hksp-shine{0%{transform:translateX(-90%)}60%,100%{transform:translateX(36%)}}
 @media (prefers-reduced-motion: reduce){.hksp-in,.hksp-bob,.hksp-msg,.hksp-shine{animation:none!important}}
+@media (prefers-reduced-motion: reduce){.hksp-in::after{animation:none!important}}
+html.lite .hksp-in::after,html.lite .hksp-bob,html.lite .hksp-shine{animation:none!important}
+html.hks-hidden .hksp-in::after{animation-play-state:paused}
 `;
 
 export default SuitePromoController;

@@ -43,6 +43,27 @@ const STORAGE_KEY = 'hk_server_slides_cache'; // copy of server slider for fast/
 const OLD_DEVICE_KEY = 'hor_katha_custom_hero_slides'; // earlier versions: slides saved only on one device
 
 // Compress image to ensure localStorage capacity is never exceeded
+/**
+ * Pasted-URL slides often point at full-size originals (Unsplash / Wikimedia). Ask those hosts for a
+ * phone-sized copy for the slider; uploads are already compressed to 1280 px data URLs.
+ */
+function sliderImageUrl(url: string, width = 960): string {
+  if (!url || url.startsWith('data:')) return url;
+  try {
+    const u = new URL(url);
+    if (u.hostname === 'images.unsplash.com') {
+      u.searchParams.set('w', String(width));
+      if (!u.searchParams.has('q')) u.searchParams.set('q', '70');
+      if (!u.searchParams.has('auto')) u.searchParams.set('auto', 'format');
+      return u.toString();
+    }
+    // upload.wikimedia.org/wikipedia/commons/a/ab/File.jpg -> .../commons/thumb/a/ab/File.jpg/960px-File.jpg
+    const m = u.hostname === 'upload.wikimedia.org' && u.pathname.match(/^\/wikipedia\/([^/]+)\/(?!thumb\/)([0-9a-f])\/([0-9a-f]{2})\/([^/]+\.(?:jpe?g|png|webp))$/i);
+    if (m) return `${u.origin}/wikipedia/${m[1]}/thumb/${m[2]}/${m[3]}/${m[4]}/${width}px-${m[4]}`;
+  } catch { /* not a URL: use as is */ }
+  return url;
+}
+
 function compressImage(file: File, maxWidth = 1280, quality = 0.8): Promise<string> {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -141,8 +162,19 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const setProgress = (v: number) => {
     progressRef.current = v;
-    if (progressBarRef.current) progressBarRef.current.style.width = `${v}%`;
+    // transform (compositor only) instead of width: no layout every 100 ms
+    if (progressBarRef.current) progressBarRef.current.style.transform = `scaleX(${v / 100})`;
   };
+  // Pause auto-rotation while the slider is scrolled off-screen or the tab is in the background
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const inViewRef = useRef(true);
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(([e]) => { inViewRef.current = e.isIntersecting; });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const [fullscreenSlide, setFullscreenSlide] = useState<CustomHeroSlide | null>(null);
 
   // Modal State for Upload / Edit
@@ -176,6 +208,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
     }
 
     const timer = setInterval(() => {
+      if (document.hidden || !inViewRef.current) return;
       const prev = progressRef.current;
       if (prev >= 100) {
         setCurrentIndex((idx) => (idx + 1) % slides.length);
@@ -195,7 +228,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
     if (next?.imageUrl && !next.imageUrl.startsWith('data:')) {
       const img = new Image();
       img.decoding = 'async';
-      img.src = next.imageUrl;
+      img.src = sliderImageUrl(next.imageUrl);
     }
   }, [currentIndex, slides]);
 
@@ -438,7 +471,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
   const currentSlide = slides[currentIndex];
 
   return (
-    <div className={`relative rounded-2xl overflow-hidden bg-slate-950 border border-amber-300/40 shadow-xl group ${className}`}>
+    <div ref={rootRef} className={`relative rounded-2xl overflow-hidden bg-slate-950 border border-amber-300/40 shadow-xl group ${className}`}>
       {/* Hidden file input for fast re-trigger if needed */}
       <input
         type="file"
@@ -508,8 +541,8 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-black/50 z-30">
               <div
                 ref={progressBarRef}
-                className="h-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-300 transition-[width] ease-linear"
-                style={{ width: `${progressRef.current}%` }}
+                className="h-full w-full origin-left bg-gradient-to-r from-amber-400 via-orange-400 to-amber-300 transition-transform ease-linear"
+                style={{ transform: `scaleX(${progressRef.current / 100})` }}
               />
             </div>
           )}
@@ -517,11 +550,13 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
           {/* Current Slide Image with High Contrast and Zero Blur */}
           <img decoding="async"
             key={currentSlide.id}
-            src={currentSlide.imageUrl}
+            src={sliderImageUrl(currentSlide.imageUrl)}
+            onError={(e) => { const el = e.currentTarget; if (el.dataset.orig !== '1') { el.dataset.orig = '1'; el.src = currentSlide.imageUrl; } }}
             alt={currentSlide.heading}
-            className="w-full h-full object-cover filter contrast-[1.05] brightness-95 transition-opacity duration-300"
+            className="hks-lite-nofilter w-full h-full object-cover filter contrast-[1.05] brightness-95 transition-opacity duration-300"
             style={{ imageRendering: '-webkit-optimize-contrast' }}
-            loading="eager"
+            loading={currentIndex === 0 ? 'eager' : 'lazy'}
+            fetchPriority={currentIndex === 0 ? 'high' : 'auto'}
           />
 
           {/* Atmospheric Gradients */}

@@ -127,6 +127,8 @@ function prefetchCommonTabsOnIdle() {
     () => import('./components/QuizIQTest'),
   ];
   let cancelled = false;
+  // low-end phones (html.lite): wait longer so warming never overlaps the first interactions
+  const lite = document.documentElement.classList.contains('lite');
   const timer = setTimeout(() => {
     const next = () => {
       const load = loaders.shift();
@@ -134,7 +136,7 @@ function prefetchCommonTabsOnIdle() {
       ric(() => { if (!cancelled) load().catch(() => {}).finally(next); });
     };
     next();
-  }, 4000);
+  }, lite ? 9000 : 4000);
   return () => { cancelled = true; clearTimeout(timer); };
 }
 
@@ -142,7 +144,24 @@ const ModuleLoader = () => (
   <div className="flex items-center justify-center py-20 text-sm text-slate-500">Loading…</div>
 );
 
+/** true while the viewport is at least Tailwind's `md` width (the desktop sidebar is display:none below it) */
+function useIsMdUp() {
+  const query = '(min-width: 768px)';
+  const [md, setMd] = useState(() => typeof window === 'undefined' || !window.matchMedia || window.matchMedia(query).matches);
+  useEffect(() => {
+    if (!window.matchMedia) return;
+    const mq = window.matchMedia(query);
+    const on = () => setMd(mq.matches);
+    on();
+    mq.addEventListener ? mq.addEventListener('change', on) : mq.addListener(on);
+    return () => { mq.removeEventListener ? mq.removeEventListener('change', on) : mq.removeListener(on); };
+  }, []);
+  return md;
+}
+
 function AppContent() {
+  // phones never show the desktop sidebar: skip building its ~100 links there
+  const isMdUp = useIsMdUp();
   const [viewMode, setViewMode] = useState<GlobalViewMode>('desktop');
   const [activeTab, setActiveTabRaw] = useState<ActiveDesktopTab>('home');
   // "Keyboard" opens Hor Katha Suite (horkathasuite.pages.dev) instead of an in-app keyboard
@@ -323,7 +342,7 @@ function AppContent() {
         {viewMode === 'desktop' && (
           <div className="flex-1 flex w-full">
             {/* Desktop Left Sidebar (Hideable / Toggleable) */}
-            {sidebarOpen && (
+            {sidebarOpen && isMdUp && (
               <div className="hidden md:block">
                 <Sidebar
                   activeTab={activeTab}

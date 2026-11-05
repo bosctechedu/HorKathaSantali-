@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActiveDesktopTab } from '../types';
 import { openSuitePromo } from './suitePromo/events';
 import {
@@ -79,6 +79,16 @@ interface DashboardModuleGridProps {
 const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, isAdmin, wordsCount }) => {
   const [moduleCategory, setModuleCategory] = useState<string>('all');
   const [moduleFilterText, setModuleFilterText] = useState<string>('');
+  // Build the first cards with the page, the remaining ~100 right after (idle), so the first paint
+  // on a cheap phone doesn't wait for every card. All cards are there within a moment; search/filter see all.
+  const FIRST_CARDS = 12;
+  const [showAll, setShowAll] = useState(false);
+  useEffect(() => {
+    if (showAll) return;
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    const id = w.requestIdleCallback ? w.requestIdleCallback(() => setShowAll(true), { timeout: 1500 }) : window.setTimeout(() => setShowAll(true), 300);
+    return () => { if (w.cancelIdleCallback) w.cancelIdleCallback(id); else window.clearTimeout(id); };
+  }, [showAll]);
 
   const featureCards: {
     id: ActiveDesktopTab;
@@ -953,13 +963,13 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
 
       {/* Grid of Interactive Module Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-        {filteredFeatureCards.map((card) => {
+        {(showAll || moduleFilterText || moduleCategory !== 'all' ? filteredFeatureCards : filteredFeatureCards.slice(0, FIRST_CARDS)).map((card) => {
           const Icon = card.icon;
           return (
             <div
               key={`${card.id}_${card.title}`}
               onClick={() => (card.onOpen ? card.onOpen() : onNavigate(card.targetTab || card.id))}
-              className="group cursor-pointer rounded-2xl p-3.5 bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between h-40 relative overflow-hidden"
+              className="hks-cv-card group cursor-pointer rounded-2xl p-3.5 bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-[border-color,box-shadow] flex flex-col justify-between h-40 relative overflow-hidden"
             >
               <div
                 className={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center text-white shadow-2xs group-hover:scale-105 transition-transform`}

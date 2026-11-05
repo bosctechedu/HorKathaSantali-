@@ -78,37 +78,41 @@ export const getOfflineDB = (): Promise<IDBDatabase | null> => {
 };
 
 /**
- * Bulk saves words to IndexedDB in efficient batches.
+ * Bulk saves words to IndexedDB in small batches, one transaction each, yielding to the main thread
+ * between batches. A single 10k-row transaction blocked a cheap phone's UI for several seconds on the
+ * first visit. The meta row (count + time) is written last, so an interrupted save is redone next time.
  */
+const WORD_BATCH = 60;
+const yieldToMain = () =>
+  new Promise<void>((resolve) => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    if (w.requestIdleCallback) w.requestIdleCallback(() => resolve(), { timeout: 400 });
+    else setTimeout(resolve, 16);
+  });
+
 export const saveWordsToIndexedDB = async (words: SantaliWord[]): Promise<boolean> => {
   try {
     const db = await getOfflineDB();
     if (!db || words.length === 0) return false;
 
-    return new Promise((resolve) => {
-      const tx = db.transaction([STORE_WORDS, STORE_META], 'readwrite');
-      const store = tx.objectStore(STORE_WORDS);
-      const metaStore = tx.objectStore(STORE_META);
-
-      // Put words
-      for (let i = 0; i < words.length; i++) {
-        store.put(words[i]);
-      }
-
-      metaStore.put({
-        key: 'words_meta',
-        count: words.length,
-        lastUpdated: Date.now()
+    for (let start = 0; start < words.length; start += WORD_BATCH) {
+      const last = start + WORD_BATCH >= words.length;
+      const ok = await new Promise<boolean>((resolve) => {
+        const tx = db.transaction(last ? [STORE_WORDS, STORE_META] : [STORE_WORDS], 'readwrite');
+        const store = tx.objectStore(STORE_WORDS);
+        const end = Math.min(start + WORD_BATCH, words.length);
+        for (let i = start; i < end; i++) store.put(words[i]);
+        if (last) {
+          tx.objectStore(STORE_META).put({ key: 'words_meta', count: words.length, lastUpdated: Date.now() });
+        }
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+        tx.onabort = () => resolve(false);
       });
-
-      tx.oncomplete = () => {
-        resolve(true);
-      };
-
-      tx.onerror = () => {
-        resolve(false);
-      };
-    });
+      if (!ok) return false;
+      if (!last) await yieldToMain();
+    }
+    return true;
   } catch (e) {
     console.warn('Failed saving words to IndexedDB:', e);
     return false;
