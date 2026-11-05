@@ -213,6 +213,13 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
     handle = ric(step, { timeout: 4000 });
     return () => { cancelled = true; handle != null && cic(handle); };
   }, []);
+  // When the question changes (Next / Prev / palette), show only THAT question's own saved answer.
+  React.useEffect(() => {
+    const saved = y[C];
+    Z(saved !== void 0 ? saved : null);
+    T(l === "practice" && saved !== void 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [C]);
   const Ce = (Le: any) => {
       if (g === "playing")
         if (l === "practice") {
