@@ -241,16 +241,17 @@ const SuitePromoModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   const go = useCallback((d: number) => { setIdx((i) => (i + d + SLIDES.length) % SLIDES.length); setElapsed(0); }, []);
 
-  // autoplay with progress bar
+  // autoplay with progress bar (wall-clock based, no nested state updaters)
+  const startRef = useRef(Date.now());
+  useEffect(() => { startRef.current = Date.now() - elapsed; /* resume where we paused */ // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idx, auto]);
   useEffect(() => {
     if (!auto) return;
-    const step = 50;
     const id = setInterval(() => {
-      setElapsed((e) => {
-        if (e + step >= SLIDE_MS) { setIdx((i) => (i + 1) % SLIDES.length); return 0; }
-        return e + step;
-      });
-    }, step);
+      const e = Date.now() - startRef.current;
+      if (e >= SLIDE_MS) { startRef.current = Date.now(); setElapsed(0); setIdx((i) => (i + 1) % SLIDES.length); }
+      else setElapsed(e);
+    }, 50);
     return () => clearInterval(id);
   }, [auto]);
 
@@ -348,12 +349,12 @@ const SuitePromoModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             <h3 className="text-sm font-black text-[#7f1d1d] mb-2">💎 प्लान चुनें</h3>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
               {PLANS.map((p) => (
-                <div key={p.id} className={`relative rounded-2xl p-3 flex flex-col ${p.best ? 'bg-gradient-to-b from-[#7f1d1d] to-[#451a03] text-amber-50 ring-2 ring-amber-400 shadow-xl sm:scale-[1.03]' : 'bg-white/85 border border-amber-300 text-[#451a03]'}`}>
+                <div key={p.id} className={`relative rounded-2xl p-3 flex flex-col ${p.best ? 'bg-gradient-to-b from-[#7f1d1d] to-[#451a03] text-amber-50 ring-2 ring-amber-400 shadow-xl lg:scale-[1.03]' : 'bg-white/85 border border-amber-300 text-[#451a03]'}`}>
                   {p.best && <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-amber-400 text-[#451a03] text-[10px] font-black shadow">🏆 Best</span>}
                   <p className={`text-xs font-black ${p.best ? 'text-amber-300' : 'text-[#7f1d1d]'}`}>{p.name}</p>
                   <p className="mt-1 flex items-baseline gap-1.5 flex-wrap">
                     <span className="text-2xl font-black">{p.price}</span>
-                    {p.mrp && <s className={`text-xs ${p.best ? 'text-amber-200/70' : 'text-slate-500'}`}>MRP {p.mrp}</s>}
+                    {p.mrp && <s className={`text-xs ${p.best ? 'text-amber-200' : 'text-slate-500'}`}>MRP {p.mrp}</s>}
                     {p.sub && <span className="text-xs font-bold">/ {p.sub}</span>}
                   </p>
                   <ul className="mt-1.5 space-y-0.5 text-[11px] leading-snug">
