@@ -3,16 +3,19 @@
 // suggested prompts, voice input, send). Merged with the old Hor Katha "AI Search Assistant":
 // Gemini answers through /api/ai-chat (key stays on the server), Google Search on/off, source links,
 // saved history, offline/AI-off handling and local site search with buttons that open modules.
-import React, { useEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   Sparkles, Share2, Trash2, X, Bot, User, Check, Copy, Loader2, CircleHelp, Send, Mic, MicOff,
-  Globe, ExternalLink, ArrowRight, BookOpen, Landmark, LayoutGrid,
+  Globe, ExternalLink, ArrowRight, BookOpen, Landmark, LayoutGrid, KeyRound,
 } from 'lucide-react';
 import { useAdmin } from '../../context/AdminContext';
 import type { ActiveDesktopTab } from '../../types';
 import { AI_NAME } from './shared';
 import { searchSite, type SiteHit } from './siteSearch';
+import { askUserGemini, getUserKey, openInGemini, USER_KEY_EVENT } from './userGemini';
+
+const GeminiKeySettings = lazy(() => import('./GeminiKeySettings'));
 
 type Source = { title: string; uri: string };
 type Msg = {
@@ -264,6 +267,11 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
   const [webSearch, setWebSearch] = useState<boolean>(() => {
     try { return localStorage.getItem(WEB_KEY) !== 'off'; } catch { return true; }
   });
+  // "अपनी Gemini key जोड़ें": visitor's own key, kept only in this browser (localStorage)
+  const [userKey, setUserKeyState] = useState<string>(getUserKey);
+  const [showKeySettings, setShowKeySettings] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const messagesRef = useRef(messages);
@@ -283,6 +291,32 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
       .catch(() => { /* unknown: still try POST */ });
     return () => { alive = false; };
   }, []);
+
+  useEffect(() => {
+    const sync = () => setUserKeyState(getUserKey());
+    window.addEventListener(USER_KEY_EVENT, sync);
+    window.addEventListener('storage', sync);
+    return () => {
+      window.removeEventListener(USER_KEY_EVENT, sync);
+      window.removeEventListener('storage', sync);
+      if (toastTimer.current) clearTimeout(toastTimer.current);
+    };
+  }, []);
+
+  const showToast = (t: string) => {
+    setToast(t);
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    toastTimer.current = setTimeout(() => setToast(null), 3000);
+  };
+
+  /** "Gemini में खोलें": copy the question and open gemini.google.com in a new tab. */
+  const sendToGemini = (question: string) => {
+    const q = question.trim();
+    if (!q) { showToast('पहले अपना सवाल लिखें'); return; }
+    void openInGemini(q).then((ok) =>
+      showToast(ok ? 'सवाल कॉपी हो गया — Gemini में paste करें' : 'Gemini खुल गया — सवाल वहाँ लिखें / paste करें'),
+    );
+  };
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -353,7 +387,8 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
       save([...list, { id: 'local_' + Date.now(), role: 'assistant', content, links, timestamp: now() }]);
       return;
     }
-    if (aiAvailable === false) {
+    const ownKey = userKey || getUserKey();
+    if (aiAvailable === false && !ownKey) {
       const { content, links } = localAnswer(q, 'off');
       save([...list, { id: 'local_' + Date.now(), role: 'assistant', content, links, timestamp: now() }]);
       return;
@@ -366,6 +401,30 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
         .filter((m) => m.id !== 'welcome' && !m.error && m.content)
         .slice(-12)
         .map((m) => ({ role: m.role === 'user' ? 'user' : 'model', content: m.content }));
+
+      // 1) Visitor's own Gemini key → call Google directly from the browser (key never reaches our server)
+      let keyNotice = '';
+      if (ownKey) {
+        const res = await askUserGemini(ownKey, q, history, webSearch);
+        if (res.ok) {
+          const { pages, words: wordHits } = searchSite(q, words, 3);
+          const links: SiteHit[] = [...wordHits.map(({ word: _w, ...rest }) => rest), ...pages].slice(0, 4);
+          save([...list, { id: 'assistant_' + Date.now(), role: 'assistant', content: res.reply, sources: res.sources, links, timestamp: now() }]);
+          return;
+        }
+        keyNotice = res.status === 429
+          ? `🔑 ${res.message} इसलिए यह उत्तर साइट के AI से है।`
+          : res.status === 403 || res.status === 401 || res.status === 400
+          ? `🔑 ${res.message} कृपया 🔑 बटन से key जाँचें। यह उत्तर साइट के AI से है।`
+          : `🔑 ${res.message} यह उत्तर साइट के AI से है।`;
+        if (aiAvailable === false) {
+          const { content, links } = localAnswer(q, 'off');
+          save([...list, { id: 'err_' + Date.now(), role: 'assistant', content: `${keyNotice.replace(' यह उत्तर साइट के AI से है।', '')}\n\n${content}`, links, error: true, timestamp: now() }]);
+          return;
+        }
+      }
+
+      // 2) Site AI (server keeps its own key)
       const r = await fetch('/api/ai-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -391,7 +450,7 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
         {
           id: 'assistant_' + Date.now(),
           role: 'assistant',
-          content: data.reply || 'क्षमा करें, मैं इस समय उत्तर देने में असमर्थ हूँ। कृपया पुनः प्रयास करें।',
+          content: (keyNotice ? `> ${keyNotice}\n\n` : '') + (data.reply || 'क्षमा करें, मैं इस समय उत्तर देने में असमर्थ हूँ। कृपया पुनः प्रयास करें।'),
           sources: Array.isArray(data.sources) ? data.sources.slice(0, 6) : [],
           links,
           timestamp: now(),
@@ -469,13 +528,13 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
       animate={{ scale: 1, opacity: 1, y: 0 }}
       exit={{ scale: 0.9, opacity: 0, y: 30 }}
       transition={{ type: 'spring', duration: 0.4 }}
-      className="w-[calc(100vw-1.5rem)] sm:w-[410px] h-[520px] max-h-[calc(100vh-7rem)] bg-white border-2 border-slate-200 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-slate-900"
+      className="relative w-[calc(100vw-1.5rem)] sm:w-[410px] h-[520px] max-h-[calc(100vh-7rem)] bg-white border-2 border-slate-200 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-slate-900"
     >
       <input type="file" ref={fileRef} onChange={onFile} accept="image/*" className="hidden" />
 
       {/* Header */}
-      <div className="px-4 sm:px-5 py-3.5 bg-gradient-to-r from-orange-500 via-rose-500 to-pink-600 border-b border-rose-400/30 flex items-center justify-between text-white shadow-sm cursor-default select-none">
-        <div className="flex items-center gap-3 min-w-0">
+      <div className="px-3 sm:px-5 py-3.5 bg-gradient-to-r from-orange-500 via-rose-500 to-pink-600 border-b border-rose-400/30 flex items-center justify-between text-white shadow-sm cursor-default select-none">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <div
             onClick={() => fileRef.current?.click()}
             className="relative group cursor-pointer w-11 h-11 rounded-full border-2 border-white p-[1px] bg-slate-100 overflow-hidden shrink-0 shadow-md"
@@ -485,9 +544,19 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition text-[9px] font-bold text-white uppercase text-center leading-none">बदलें</div>
           </div>
           <div className="min-w-0">
-            <h3 className="text-sm font-black text-white flex items-center gap-1.5 leading-none whitespace-nowrap">
+            <h3 className="text-sm font-black text-white flex items-center gap-1.5 leading-none whitespace-nowrap truncate">
               {AI_NAME} <Sparkles className="w-3.5 h-3.5 text-amber-200 fill-amber-200" />
             </h3>
+            {userKey && (
+              <button
+                type="button"
+                onClick={() => setShowKeySettings(true)}
+                className="mt-1 inline-block px-1.5 py-[1px] rounded-full bg-white/25 border border-white/40 text-[9px] font-black text-white cursor-pointer"
+                title="आपकी अपनी Gemini key से उत्तर मिल रहे हैं"
+              >
+                🔑 आपकी Gemini
+              </button>
+            )}
             <div className="flex items-center gap-1.5 mt-1">
               <span className={`w-2 h-2 rounded-full animate-pulse ${aiAvailable === false ? 'bg-amber-300' : 'bg-emerald-300'}`} />
               <span className={`text-[10px] font-bold uppercase tracking-widest ${aiAvailable === false ? 'text-amber-100' : 'text-emerald-100'}`}>
@@ -498,20 +567,28 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
         </div>
         <div className="flex items-center gap-1 shrink-0">
           <button
+            onClick={() => setShowKeySettings(true)}
+            className={`p-1 sm:p-1.5 hover:bg-white/20 rounded-xl transition cursor-pointer ${userKey ? 'text-amber-200' : 'text-white/90 hover:text-white'}`}
+            title="अपनी Gemini key जोड़ें / Use your own Gemini key"
+            aria-label="अपनी Gemini key जोड़ें"
+          >
+            <KeyRound className="w-4 h-4" />
+          </button>
+          <button
             onClick={toggleWeb}
-            className={`p-1.5 hover:bg-white/20 rounded-xl transition cursor-pointer ${webSearch ? 'text-white' : 'text-white/45'}`}
+            className={`p-1 sm:p-1.5 hover:bg-white/20 rounded-xl transition cursor-pointer ${webSearch ? 'text-white' : 'text-white/45'}`}
             title={`Google Search ${webSearch ? 'ON' : 'OFF'} (वेब खोज ${webSearch ? 'चालू' : 'बंद'})`}
             aria-pressed={webSearch}
           >
             <Globe className="w-4 h-4" />
           </button>
-          <button onClick={shareChat} className="p-1.5 hover:bg-white/20 rounded-xl text-white/90 hover:text-white transition cursor-pointer" title="पूरी बातचीत शेयर करें (Share Conversation)">
+          <button onClick={shareChat} className="p-1 sm:p-1.5 hover:bg-white/20 rounded-xl text-white/90 hover:text-white transition cursor-pointer" title="पूरी बातचीत शेयर करें (Share Conversation)">
             <Share2 className="w-4 h-4" />
           </button>
-          <button onClick={clearChat} className="p-1.5 hover:bg-white/20 rounded-xl text-white/90 hover:text-white transition cursor-pointer" title="बातचीत मिटाएं / Clear chat">
+          <button onClick={clearChat} className="p-1 sm:p-1.5 hover:bg-white/20 rounded-xl text-white/90 hover:text-white transition cursor-pointer" title="बातचीत मिटाएं / Clear chat">
             <Trash2 className="w-4 h-4" />
           </button>
-          <button onClick={onClose} className="p-1.5 hover:bg-white/20 rounded-xl text-white/90 hover:text-white transition cursor-pointer" title="बंद करें / Close">
+          <button onClick={onClose} className="p-1 sm:p-1.5 hover:bg-white/20 rounded-xl text-white/90 hover:text-white transition cursor-pointer" title="बंद करें / Close">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -612,6 +689,20 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
                 >
                   <Share2 className="w-3.5 h-3.5" />
                 </button>
+                {m.role === 'assistant' && (() => {
+                  const idx = messages.indexOf(m);
+                  let qText = '';
+                  for (let k = idx - 1; k >= 0; k--) if (messages[k].role === 'user') { qText = messages[k].content; break; }
+                  return qText ? (
+                    <button
+                      onClick={() => sendToGemini(qText)}
+                      className="p-1 text-slate-400 hover:text-blue-700 hover:bg-blue-50 rounded-md transition cursor-pointer flex items-center gap-1 text-[9px] font-bold"
+                      title="यह सवाल अपने Gemini (gemini.google.com) में खोलें"
+                    >
+                      <Sparkles className="w-3 h-3" /> Gemini में खोलें
+                    </button>
+                  ) : null;
+                })()}
               </div>
             </div>
           </div>
@@ -669,6 +760,19 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
         />
         <VoiceInputButton onResult={(t) => setInput(t.slice(0, 2000))} lang="hi-IN" />
         <button
+          type="button"
+          onClick={() => {
+            let q = input.trim();
+            if (!q) for (let k = messages.length - 1; k >= 0; k--) if (messages[k].role === 'user') { q = messages[k].content; break; }
+            sendToGemini(q);
+          }}
+          className="p-2 shrink-0 rounded-xl border border-blue-300 bg-blue-50 hover:bg-blue-100 text-blue-800 transition cursor-pointer flex items-center"
+          title="Gemini में खोलें — सवाल कॉपी होकर gemini.google.com खुलेगा"
+          aria-label="Gemini में खोलें"
+        >
+          <Sparkles className="w-4 h-4" />
+        </button>
+        <button
           type="submit"
           disabled={!input.trim() || loading}
           className="w-10 h-10 shrink-0 bg-gradient-to-r from-orange-500 via-rose-500 to-pink-600 hover:opacity-95 disabled:bg-slate-200 disabled:from-slate-200 disabled:to-slate-200 text-white rounded-2xl flex items-center justify-center transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-md"
@@ -677,6 +781,26 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
           <Send className="w-4 h-4" />
         </button>
       </form>
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            className="absolute left-1/2 -translate-x-1/2 bottom-20 z-40 bg-slate-900 text-white text-[11px] font-bold px-3 py-2 rounded-xl shadow-xl whitespace-nowrap select-none"
+            role="status"
+          >
+            {toast}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showKeySettings && (
+          <Suspense key="hk-key-settings" fallback={null}>
+            <GeminiKeySettings onClose={() => setShowKeySettings(false)} />
+          </Suspense>
+        )}
+      </AnimatePresence>
       <p className="px-3 pb-1.5 -mt-1 bg-white text-[9px] text-slate-400 text-center select-none">
         AI के उत्तर गलत भी हो सकते हैं। संताली शब्दों को शब्दकोश से मिला लें।
       </p>
