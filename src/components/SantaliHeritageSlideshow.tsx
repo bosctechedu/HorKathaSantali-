@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { HERITAGE_30_SLIDES, HeritageSlide } from '../data/heritageGalleryData';
+import type { HeritageSlide } from '../data/heritageGalleryData';
 import { speakWithFemaleVoice } from '../utils/speech';
 import { useAdmin } from '../context/AdminContext';
 import {
@@ -136,7 +136,13 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
+  // Progress bar is driven through a ref (no React re-render 10×/s); only slide changes re-render.
+  const progressRef = useRef(0);
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
+  const setProgress = (v: number) => {
+    progressRef.current = v;
+    if (progressBarRef.current) progressBarRef.current.style.width = `${v}%`;
+  };
   const [fullscreenSlide, setFullscreenSlide] = useState<CustomHeroSlide | null>(null);
 
   // Modal State for Upload / Edit
@@ -170,17 +176,28 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
     }
 
     const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          setCurrentIndex((idx) => (idx + 1) % slides.length);
-          return 0;
-        }
-        return prev + (UPDATE_STEP / INTERVAL_TIME) * 100;
-      });
+      const prev = progressRef.current;
+      if (prev >= 100) {
+        setCurrentIndex((idx) => (idx + 1) % slides.length);
+        setProgress(0);
+      } else {
+        setProgress(prev + (UPDATE_STEP / INTERVAL_TIME) * 100);
+      }
     }, UPDATE_STEP);
 
     return () => clearInterval(timer);
   }, [slides.length, isPaused, fullscreenSlide, isModalOpen]);
+
+  // Warm the next slide's image so the switch doesn't flash
+  useEffect(() => {
+    if (slides.length <= 1) return;
+    const next = slides[(currentIndex + 1) % slides.length];
+    if (next?.imageUrl && !next.imageUrl.startsWith('data:')) {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = next.imageUrl;
+    }
+  }, [currentIndex, slides]);
 
   // Sync index if slides length changes
   useEffect(() => {
@@ -310,7 +327,9 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
   };
 
   // Restore sample slides if user wants
-  const handleLoadSampleSlides = () => {
+  const handleLoadSampleSlides = async () => {
+    // sample gallery data is only needed for this admin action → loaded on demand
+    const { HERITAGE_30_SLIDES } = await import('../data/heritageGalleryData');
     const sampleSlides: CustomHeroSlide[] = HERITAGE_30_SLIDES.slice(0, 5).map((s) => ({
       id: `sample_${s.id}`,
       imageUrl: s.imageUrl,
@@ -488,14 +507,15 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
           {slides.length > 1 && (
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-black/50 z-30">
               <div
+                ref={progressBarRef}
                 className="h-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-300 transition-[width] ease-linear"
-                style={{ width: `${progress}%` }}
+                style={{ width: `${progressRef.current}%` }}
               />
             </div>
           )}
 
           {/* Current Slide Image with High Contrast and Zero Blur */}
-          <img
+          <img decoding="async"
             key={currentSlide.id}
             src={currentSlide.imageUrl}
             alt={currentSlide.heading}
@@ -779,7 +799,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
 
                     {formImage && (
                       <div className="relative rounded-xl overflow-hidden border border-amber-400/30 max-h-48 bg-black flex items-center justify-center">
-                        <img
+                        <img decoding="async" loading="lazy"
                           src={formImage}
                           alt="Preview"
                           className="max-h-48 w-full object-cover"
@@ -802,7 +822,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
                     />
                     {urlInput && (
                       <div className="relative rounded-xl overflow-hidden border border-slate-700 max-h-48 bg-black flex items-center justify-center">
-                        <img
+                        <img decoding="async" loading="lazy"
                           src={urlInput}
                           alt="Preview"
                           className="max-h-48 w-full object-cover"
@@ -1032,7 +1052,7 @@ export const SantaliHeritageSlideshow: React.FC<SlideshowProps> = ({ className =
 
           {/* Center Image with navigation */}
           <div className="relative flex-1 flex items-center justify-center overflow-hidden my-3">
-            <img
+            <img decoding="async" loading="lazy"
               src={fullscreenSlide.imageUrl}
               alt={fullscreenSlide.heading}
               className="max-w-full max-h-[65vh] object-contain rounded-2xl shadow-2xl filter contrast-[1.05]"

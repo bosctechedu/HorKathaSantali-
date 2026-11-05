@@ -31,7 +31,8 @@ import {
 import { useLanguage, EdisamLanguageSwitch } from "./edisam/edisamI18n";
 import { edisamChapterQuestionsFetch } from "./edisam/edisamAi";
 import { generateEdisamPdf } from "./edisam/edisamPdf";
-import { QuizIQTest } from "./QuizIQTest";
+// Quiz tab is its own chunk: LDP opens without downloading the quiz bank
+const QuizIQTest = React.lazy(() => import("./QuizIQTest").then((m) => ({ default: m.QuizIQTest })));
 import { mergeNewQuestions, pickUniqueQuestions, questionKey } from "../utils/questionDedupe";
 import {
   LDP_SUBJECTS,
@@ -1547,7 +1548,11 @@ Includes chapter breakdowns, key formulas, previous year question trends, and hi
             </div>
           </motion.div>
         )}
-        {l === "quiz" && <QuizIQTest />}
+        {l === "quiz" && (
+          <React.Suspense fallback={<div className="flex items-center justify-center py-20 text-sm text-slate-500">Loading…</div>}>
+            <QuizIQTest />
+          </React.Suspense>
+        )}
       </AnimatePresence>
     </div>
   );

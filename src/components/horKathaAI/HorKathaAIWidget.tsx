@@ -4,7 +4,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 import type { ActiveDesktopTab } from '../../types';
-import { AI_AVATAR_KEY, AI_DEFAULT_AVATAR, AI_NAME, AI_ROTATING_TEXTS, OPEN_AI_EVENT } from './shared';
+import { AI_AVATAR_KEY, AI_DEFAULT_AVATAR, AI_NAME, AI_ROTATING_TEXTS, OPEN_AI_EVENT, setAIWidgetListening, takePendingAIOpen } from './shared';
 
 const HorKathaAIPanel = lazy(() => import('./HorKathaAIPanel'));
 
@@ -40,7 +40,14 @@ export const HorKathaAIWidget: React.FC<Props> = ({ onNavigateTab }) => {
       setIsOpen(true);
     };
     window.addEventListener(OPEN_AI_EVENT, onOpen);
-    return () => window.removeEventListener(OPEN_AI_EVENT, onOpen);
+    setAIWidgetListening(true);
+    // replay an open request made before the widget was mounted
+    const pending = takePendingAIOpen();
+    if (pending) {
+      if (pending.prompt && pending.prompt.trim()) setPendingPrompt(pending.prompt.trim());
+      setIsOpen(true);
+    }
+    return () => { setAIWidgetListening(false); window.removeEventListener(OPEN_AI_EVENT, onOpen); };
   }, []);
 
   return (
@@ -78,7 +85,7 @@ export const HorKathaAIWidget: React.FC<Props> = ({ onNavigateTab }) => {
             >
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-pink-600 animate-pulse opacity-85 blur-[3px] group-hover:opacity-100 transition-opacity" />
               <div className="relative w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-slate-900 p-[2.5px] bg-blue-600 border-[3.5px] border-red-600 shadow-2xl overflow-hidden flex items-center justify-center shrink-0">
-                <img
+                <img decoding="async"
                   src={avatar}
                   alt="Hor Katha AI Assistant Face"
                   referrerPolicy="no-referrer"

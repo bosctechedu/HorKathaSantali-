@@ -181,7 +181,15 @@ export const LDP_SUBJECTS = [
     ],
   },
 ];
+// Deterministic generator → memoized per (class, subject, chapter); callers never mutate the result.
+const chapterQuestionsCache = new Map<string, any[]>();
 export const generateChapterQuestions = (a: any, t: any, s: any) => {
+  const key = `${a}|${t}|${s}`;
+  let hit = chapterQuestionsCache.get(key);
+  if (!hit) chapterQuestionsCache.set(key, (hit = buildChapterQuestions(a, t, s)));
+  return hit;
+};
+const buildChapterQuestions = (a: any, t: any, s: any) => {
   const n: any = [];
   for (let o = 1; o <= 15; o++) {
     let l = "",

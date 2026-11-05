@@ -433,7 +433,7 @@ export const SantaliBlacksmithyIronCraft: React.FC = () => {
 
           {/* Image */}
           <div className="w-full h-48 rounded-2xl overflow-hidden bg-slate-950 relative border border-slate-200">
-            <img
+            <img decoding="async" loading="lazy"
               src={selectedTool.imageUrl}
               alt={selectedTool.nameDevanagari}
               className="w-full h-full object-cover filter contrast-105"

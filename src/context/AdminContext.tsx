@@ -5,7 +5,6 @@ import {
   QUIZ_QUESTIONS,
   DEFAULT_HERO_CONFIG
 } from '../data/santaliData';
-import { generate10kLexicon } from '../data/lexiconGenerator';
 import {
   saveWordsToIndexedDB,
   getWordsFromIndexedDB,
@@ -64,10 +63,12 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return safeLoadFromStorage('hor_katha_hero_config', DEFAULT_HERO_CONFIG);
   });
 
+  // The 10k lexicon (generator + 2,500-word daily vocabulary) is code-split and built right after
+  // first paint. Until then the core dictionary is shown (it is the head of the full lexicon, so the
+  // first entries never change).
   const [words, setWords] = useState<SantaliWord[]>(() => {
-    const baseLexicon = generate10kLexicon();
     const customWords = safeLoadFromStorage<SantaliWord[]>('hor_katha_custom_words', []);
-    return customWords.length > 0 ? [...customWords, ...baseLexicon] : baseLexicon;
+    return customWords.length > 0 ? [...customWords, ...SANTALI_DICTIONARY] : SANTALI_DICTIONARY;
   });
 
   const [quizItems, setQuizItems] = useState<QuizItem[]>(() => {
@@ -178,13 +179,35 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setHeroConfig(DEFAULT_HERO_CONFIG);
   };
 
-  // Synchronize words into IndexedDB on mount and check cached entries
+  // Build the full lexicon (lazy chunk), then synchronize words into IndexedDB and check cached entries
   useEffect(() => {
     let isMounted = true;
     const syncIDB = async () => {
+      let words: SantaliWord[] = [];
+      let lexiconOk = false;
+      try {
+        const { generate10kLexicon } = await import('../data/lexiconGenerator');
+        if (!isMounted) return;
+        const baseLexicon = generate10kLexicon();
+        const customWords = safeLoadFromStorage<SantaliWord[]>('hor_katha_custom_words', []);
+        words = customWords.length > 0 ? [...customWords, ...baseLexicon] : baseLexicon;
+        lexiconOk = true;
+        // keep any word added during the few ms before the lexicon was ready
+        setWords((prev) => {
+          const initialIds = new Set([...customWords, ...SANTALI_DICTIONARY].map((w) => w.id));
+          const added = prev.filter((w) => !initialIds.has(w.id));
+          return added.length ? [...added, ...words] : words;
+        });
+      } catch (e) {
+        // e.g. offline before the chunk was cached: fall back to the IndexedDB copy below
+        console.warn('Lexicon load error in AdminContext:', e);
+        if (!isMounted) return;
+        const customWords = safeLoadFromStorage<SantaliWord[]>('hor_katha_custom_words', []);
+        words = customWords.length > 0 ? [...customWords, ...SANTALI_DICTIONARY] : SANTALI_DICTIONARY;
+      }
       try {
         const stats = await getOfflineCacheStats();
-        if (stats.wordCount === 0 && words.length > 0) {
+        if (stats.wordCount === 0 && words.length > 0 && lexiconOk) {
           await saveWordsToIndexedDB(words);
         } else if (stats.wordCount > 0 && (!navigator.onLine || words.length <= 100)) {
           // If offline or low word count, load from IndexedDB

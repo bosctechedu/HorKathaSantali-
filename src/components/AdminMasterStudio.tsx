@@ -1446,7 +1446,7 @@ export const AdminMasterStudio: React.FC<{ onClose?: () => void; initialTab?: Ad
                 {heroSlides.map((slide, idx) => (
                   <div key={slide.id} className="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative group">
                     <div className="h-32 rounded-xl overflow-hidden bg-slate-950 relative">
-                      <img src={slide.imageUrl} alt={slide.heading} className="w-full h-full object-cover" />
+                      <img decoding="async" loading="lazy" src={slide.imageUrl} alt={slide.heading} className="w-full h-full object-cover" />
                       <div className="absolute top-1.5 left-1.5 bg-black/70 px-2 py-0.5 rounded text-[10px] text-amber-300 font-bold">
                         #{idx + 1} {slide.badge}
                       </div>

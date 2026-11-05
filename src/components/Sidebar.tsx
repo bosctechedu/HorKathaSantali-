@@ -167,8 +167,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="flex items-center justify-between px-1">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-300/60 flex items-center justify-center shrink-0 overflow-hidden">
-              <img
-                src="/assets/aistudio/bosc-main-logo_39d98de6.png"
+              <img decoding="async"
+                src="/assets/aistudio/bosc-main-logo_39d98de6.webp"
+                width={192}
+                height={192}
                 alt="BOSC"
                 className="w-full h-full object-contain p-0.5 drop-shadow-xs"
               />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { ActiveDesktopTab, ScriptType } from '../types';
 import { CulturalTree } from './CulturalTree';
 import { SantaliHeritageSlideshow } from './SantaliHeritageSlideshow';
@@ -49,7 +49,8 @@ import {
   Scroll,
   Brain
 } from 'lucide-react';
-import { TextSpeakerReader } from './TextSpeakerReader';
+// Below-the-fold reader is code-split so it doesn't block first paint
+const TextSpeakerReader = lazy(() => import('./TextSpeakerReader').then((m) => ({ default: m.TextSpeakerReader })));
 
 interface DashboardProps {
   onNavigate: (tab: ActiveDesktopTab) => void;
@@ -584,8 +585,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <div className="space-y-4 z-10 max-w-lg shrink-0 flex flex-col justify-between">
               {/* Brand Emblem & Organization Badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 border border-amber-300 shadow-2xs w-fit">
-                <img
-                  src="/assets/aistudio/bosc-main-logo_39d98de6.png"
+                <img decoding="async"
+                  src="/assets/aistudio/bosc-main-logo_39d98de6.webp"
+                width={192}
+                height={192}
                   alt="BOSC"
                   className="w-5 h-5 object-contain"
                 />
@@ -877,7 +880,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* Universal Live Voice Speaker & Reader */}
-          <TextSpeakerReader />
+          <Suspense fallback={null}>
+            <TextSpeakerReader />
+          </Suspense>
         </div>
 
         {/* Right Column (4 cols on lg): Script Selector + Recent Words + Tree Quote */}

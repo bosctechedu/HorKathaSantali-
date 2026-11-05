@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { CulturalTree } from './CulturalTree';
-import { LegalPoliciesModal, PolicyDocId } from './LegalPoliciesModal';
+import type { PolicyDocId } from './LegalPoliciesModal';
+
+// Policy modal is code-split: loads on first open, then stays mounted
+const LegalPoliciesModal = lazy(() => import('./LegalPoliciesModal').then((m) => ({ default: m.LegalPoliciesModal })));
 import {
   Keyboard,
   BookOpen,
@@ -40,6 +43,8 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenFeedback
 }) => {
   const [activePolicyModal, setActivePolicyModal] = useState<PolicyDocId | null>(null);
+  const [policyMounted, setPolicyMounted] = useState(false);
+  if (activePolicyModal !== null && !policyMounted) setPolicyMounted(true);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -137,8 +142,10 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="lg:col-span-4 space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
-                  <img
-                    src="/assets/aistudio/bosc-main-logo_39d98de6.png"
+                  <img decoding="async" loading="lazy"
+                    src="/assets/aistudio/bosc-main-logo_39d98de6.webp"
+                width={192}
+                height={192}
                     alt="BOSC Tech & Education"
                     className="w-full h-full object-contain drop-shadow-md"
                   />
@@ -409,11 +416,15 @@ export const Footer: React.FC<FooterProps> = ({
       </footer>
 
       {/* Unified Exact Legal & Governance Policy Modal matching User Image */}
-      <LegalPoliciesModal
-        isOpen={activePolicyModal !== null}
-        initialDoc={activePolicyModal || 'disclaimer'}
-        onClose={() => setActivePolicyModal(null)}
-      />
+      {(policyMounted || activePolicyModal !== null) && (
+        <Suspense fallback={null}>
+          <LegalPoliciesModal
+            isOpen={activePolicyModal !== null}
+            initialDoc={activePolicyModal || 'disclaimer'}
+            onClose={() => setActivePolicyModal(null)}
+          />
+        </Suspense>
+      )}
     </>
   );
 };

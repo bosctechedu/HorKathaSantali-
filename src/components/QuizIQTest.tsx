@@ -28,6 +28,20 @@ import {
   getExamQuestions,
 } from "../data/edisamQuizData";
 import { dedupeQuestions, mergeNewQuestions, pickUniqueQuestions } from "../utils/questionDedupe";
+
+// Exam pools (bank + AI questions, deduped) are memoized: examSpec() is called many times per render
+// (exam cards, setup summary, timer) and each merge re-normalizes ~350 questions.
+const EMPTY_FRESH: any[] = [];
+const examPoolCache = new Map<string, { fresh: any[]; pool: any[] }>();
+const cachedExamPool = (cat: any, id: any, fresh: any[]) => {
+  const key = String(id);
+  const hit = examPoolCache.get(key);
+  if (hit && hit.fresh === fresh) return hit.pool;
+  const pool = mergeNewQuestions(getExamQuestions(cat, id), fresh);
+  examPoolCache.set(key, { fresh, pool });
+  return pool;
+};
+
 export function QuizIQTest() {
   var Pe: any,
     Ve: any,
@@ -68,7 +82,7 @@ export function QuizIQTest() {
     [J, X] = React.useState<any>(!1),
     [ie, $] = React.useState<any>({}),
     // Unique pool (bank + AI questions, deduped) → effective count / duration (never padded with repeats)
-    examPool = (id: any) => mergeNewQuestions(getExamQuestions(t, id), ie[id] || []),
+    examPool = (id: any) => cachedExamPool(t, id, ie[id] || EMPTY_FRESH),
     examSpec = (id: any, demo: boolean) => {
       const ex: any = QUIZ_EXAMS.find((x: any) => x.id === id) || QUIZ_EXAMS[0],
         planned = demo ? 30 : ex.questionsCount,
@@ -185,6 +199,20 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
       D.current && (clearInterval(D.current), (D.current = null));
     };
   React.useEffect(() => () => pe(), []);
+  // Pre-build the other exams' question banks in idle time (one bank per idle slice), so switching
+  // category later doesn't block the main thread. Banks are cached in edisamQuizData.
+  React.useEffect(() => {
+    const ric: any = (window as any).requestIdleCallback || ((cb: any) => setTimeout(() => cb({ timeRemaining: () => 8 }), 200));
+    const cic: any = (window as any).cancelIdleCallback || clearTimeout;
+    const ids = QUIZ_EXAMS.map((x: any) => x.id);
+    let i = 0, handle: any = null, cancelled = false;
+    const step = (deadline: any) => {
+      while (!cancelled && i < ids.length && deadline.timeRemaining() > 4) getExamQuestions("", ids[i++]);
+      if (!cancelled && i < ids.length) handle = ric(step, { timeout: 4000 });
+    };
+    handle = ric(step, { timeout: 4000 });
+    return () => { cancelled = true; handle != null && cic(handle); };
+  }, []);
   const Ce = (Le: any) => {
       if (g === "playing")
         if (l === "practice") {

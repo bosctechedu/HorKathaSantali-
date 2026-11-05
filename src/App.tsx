@@ -1,14 +1,15 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { openHorKathaAI } from './components/horKathaAI/shared';
+import { openHorKathaAI, OPEN_AI_EVENT } from './components/horKathaAI/shared';
 import { ActiveDesktopTab, GlobalViewMode, ScriptType } from './types';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { openExternalKeyboard } from './utils/externalKeyboard';
 import type { AdminTab } from './components/AdminMasterStudio';
-import { AboutModal } from './components/AboutModal';
-import { AdminLoginModal } from './components/AdminLoginModal';
-import { FeedbackModal } from './components/FeedbackModal';
+// Modals are code-split: they load on first open and then stay mounted (state kept like before)
+const AboutModal = lazy(() => import('./components/AboutModal').then((m) => ({ default: m.AboutModal })));
+const AdminLoginModal = lazy(() => import('./components/AdminLoginModal').then((m) => ({ default: m.AdminLoginModal })));
+const FeedbackModal = lazy(() => import('./components/FeedbackModal').then((m) => ({ default: m.FeedbackModal })));
 import { Footer } from './components/Footer';
 import { AdminProvider, useAdmin } from './context/AdminContext';
 import { Settings, ArrowLeft, Home, ShieldCheck, KeyRound, CheckCircle2, Lock, Sparkles, Edit3 } from 'lucide-react';
@@ -90,6 +91,38 @@ const MobileSimulator = lazy(() => import('./components/MobileSimulator').then((
 const PresentationView = lazy(() => import('./components/PresentationView').then((m) => ({ default: m.PresentationView })));
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then((m) => ({ default: m.GlobalSearchModal })));
 
+/** true from the first time `flag` is true (lazy-mount a modal on first open, then keep it mounted) */
+function useOpenedOnce(flag: boolean) {
+  const [opened, setOpened] = useState(flag);
+  if (flag && !opened) setOpened(true);
+  return opened || flag;
+}
+
+// After first load, when the browser is idle, warm the most-used tabs (Dictionary, LDP, Quiz) so they open
+// instantly. Skipped on Save-Data / 2G connections so it never competes with first load on slow networks.
+function prefetchCommonTabsOnIdle() {
+  const nav = navigator as any;
+  const conn = nav.connection;
+  if (conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''))) return () => {};
+  const w = window as any;
+  const ric = (cb: () => void) => (w.requestIdleCallback ? w.requestIdleCallback(cb, { timeout: 8000 }) : setTimeout(cb, 3000));
+  const loaders = [
+    () => import('./components/DictionaryModule'),
+    () => import('./components/EducationalLDP'),
+    () => import('./components/QuizIQTest'),
+  ];
+  let cancelled = false;
+  const timer = setTimeout(() => {
+    const next = () => {
+      const load = loaders.shift();
+      if (!load || cancelled) return;
+      ric(() => { if (!cancelled) load().catch(() => {}).finally(next); });
+    };
+    next();
+  }, 4000);
+  return () => { cancelled = true; clearTimeout(timer); };
+}
+
 const ModuleLoader = () => (
   <div className="flex items-center justify-center py-20 text-sm text-slate-500">Loading…</div>
 );
@@ -114,6 +147,26 @@ function AppContent() {
   const [adminInitialTab, setAdminInitialTab] = useState<AdminTab>('hero');
 
   const { isAdmin } = useAdmin();
+  const aboutMounted = useOpenedOnce(aboutModalOpen);
+  const adminMounted = useOpenedOnce(adminModalOpen);
+  const feedbackMounted = useOpenedOnce(feedbackModalOpen);
+
+  useEffect(() => prefetchCommonTabsOnIdle(), []);
+
+  // Floating AI bubble (and its animation library) mounts once the browser is idle after first paint,
+  // or immediately when something asks to open the assistant.
+  const [aiWidgetMounted, setAiWidgetMounted] = useState(false);
+  useEffect(() => {
+    if (aiWidgetMounted) return;
+    const mount = () => setAiWidgetMounted(true);
+    window.addEventListener(OPEN_AI_EVENT, mount);
+    const w = window as any;
+    const handle = w.requestIdleCallback ? w.requestIdleCallback(mount, { timeout: 2500 }) : setTimeout(mount, 1200);
+    return () => {
+      window.removeEventListener(OPEN_AI_EVENT, mount);
+      if (w.cancelIdleCallback) w.cancelIdleCallback(handle); else clearTimeout(handle);
+    };
+  }, [aiWidgetMounted]);
 
   const getAdminTabForCurrentSection = (tab: ActiveDesktopTab): AdminTab | null => {
     switch (tab) {
@@ -749,29 +802,38 @@ function AppContent() {
         }}
       />
 
-      {/* About BOSC Tech & Edu Modal */}
-      <AboutModal
-        isOpen={aboutModalOpen}
-        onClose={() => setAboutModalOpen(false)}
-      />
+      <Suspense fallback={null}>
+        {/* About BOSC Tech & Edu Modal */}
+        {aboutMounted && (
+          <AboutModal
+            isOpen={aboutModalOpen}
+            onClose={() => setAboutModalOpen(false)}
+          />
+        )}
 
-      {/* Admin Login & Control Modal */}
-      <AdminLoginModal
-        isOpen={adminModalOpen}
-        onClose={() => setAdminModalOpen(false)}
-        onOpenCMS={() => {
-          setActiveTab('admin_cms');
-          if (viewMode !== 'desktop') setViewMode('desktop');
-        }}
-      />
+        {/* Admin Login & Control Modal */}
+        {adminMounted && (
+          <AdminLoginModal
+            isOpen={adminModalOpen}
+            onClose={() => setAdminModalOpen(false)}
+            onOpenCMS={() => {
+              setActiveTab('admin_cms');
+              if (viewMode !== 'desktop') setViewMode('desktop');
+            }}
+          />
+        )}
 
-      {/* Community Feedback Modal with Warm Welcome Message */}
-      <FeedbackModal
-        isOpen={feedbackModalOpen}
-        onClose={() => setFeedbackModalOpen(false)}
-      />
+        {/* Community Feedback Modal with Warm Welcome Message */}
+        {feedbackMounted && (
+          <FeedbackModal
+            isOpen={feedbackModalOpen}
+            onClose={() => setFeedbackModalOpen(false)}
+          />
+        )}
+      </Suspense>
 
       {/* Floating Hor Katha AI सहायक (chat via /api/ai-chat + local site search) */}
+      {aiWidgetMounted && (
       <Suspense fallback={null}>
         <HorKathaAIWidget
           onNavigateTab={(tab) => {
@@ -780,6 +842,7 @@ function AppContent() {
           }}
         />
       </Suspense>
+      )}
 
       {/* Global Spotlight Search Modal with Ctrl+K shortcut & keyword highlighting */}
       {searchModalOpen && (

@@ -200,8 +200,10 @@ export const MobileSimulator: React.FC = () => {
               <div className="h-full flex flex-col justify-between py-6 text-center">
                 <div className="pt-8 space-y-3 flex flex-col items-center">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-xs overflow-hidden">
-                    <img
-                      src="/assets/aistudio/bosc-main-logo_39d98de6.png"
+                    <img decoding="async" loading="lazy"
+                      src="/assets/aistudio/bosc-main-logo_39d98de6.webp"
+                width={192}
+                height={192}
                       alt="BOSC"
                       className="w-full h-full object-contain drop-shadow-md"
                     />
@@ -302,8 +304,10 @@ export const MobileSimulator: React.FC = () => {
                 {/* Mobile Top Header */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <img
-                      src="/assets/aistudio/bosc-main-logo_39d98de6.png"
+                    <img decoding="async" loading="lazy"
+                      src="/assets/aistudio/bosc-main-logo_39d98de6.webp"
+                width={192}
+                height={192}
                       alt="BOSC"
                       className="w-6 h-6 object-contain drop-shadow-xs"
                     />

@@ -83,8 +83,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 overflow-hidden shadow-2xs">
-              <img
-                src="/assets/aistudio/bosc-main-logo_39d98de6.png"
+              <img decoding="async"
+                src="/assets/aistudio/bosc-main-logo_39d98de6.webp"
+                width={192}
+                height={192}
                 alt="BOSC Tech & Education"
                 className="w-full h-full object-contain drop-shadow-xs"
               />

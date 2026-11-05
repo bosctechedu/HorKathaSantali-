@@ -481,7 +481,7 @@ const HorKathaAIPanel: React.FC<PanelProps> = ({ onClose, avatar, onAvatarChange
             className="relative group cursor-pointer w-11 h-11 rounded-full border-2 border-white p-[1px] bg-slate-100 overflow-hidden shrink-0 shadow-md"
             title="फोटो बदलें / Upload Photo"
           >
-            <img src={avatar} alt="Hor Katha AI Assistant" referrerPolicy="no-referrer" className="w-full h-full object-cover rounded-full group-hover:opacity-80 transition" />
+            <img decoding="async" loading="lazy" src={avatar} alt="Hor Katha AI Assistant" referrerPolicy="no-referrer" className="w-full h-full object-cover rounded-full group-hover:opacity-80 transition" />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition text-[9px] font-bold text-white uppercase text-center leading-none">बदलें</div>
           </div>
           <div className="min-w-0">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useDeferredValue } from 'react';
 import { SantaliWord } from '../types';
 import { useAdmin } from '../context/AdminContext';
 import { speakWithFemaleVoice } from '../utils/speech';
@@ -187,8 +187,11 @@ export const DictionaryModule: React.FC<DictionaryModuleProps> = ({
     setIsModalOpen(false);
   };
 
-  const filteredWords = words.filter((w) => {
-    const query = searchQuery.toLowerCase().trim();
+  // Filtering 10k words is memoized and runs on a deferred copy of the query, so typing stays smooth
+  const deferredQuery = useDeferredValue(searchQuery);
+  const filteredWords = useMemo(() => {
+  const query = deferredQuery.toLowerCase().trim();
+  return words.filter((w) => {
     const matchesQuery =
       !query ||
       w.wordRoman.toLowerCase().includes(query) ||
@@ -214,6 +217,7 @@ export const DictionaryModule: React.FC<DictionaryModuleProps> = ({
     }
     return matchesQuery;
   });
+  }, [words, deferredQuery, activeCategory, favorites]);
 
   return (
     <div className={`bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden ${compact ? 'p-3' : 'p-6'}`}>

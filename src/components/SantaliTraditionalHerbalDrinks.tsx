@@ -433,7 +433,7 @@ export const SantaliTraditionalHerbalDrinks: React.FC = () => {
 
           {/* Image */}
           <div className="w-full h-44 rounded-2xl overflow-hidden bg-slate-950 relative border border-slate-200">
-            <img
+            <img decoding="async" loading="lazy"
               src={selectedDrink.imageUrl}
               alt={selectedDrink.nameDevanagari}
               className="w-full h-full object-cover filter contrast-105"
