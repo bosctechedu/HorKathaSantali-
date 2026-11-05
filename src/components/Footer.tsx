@@ -356,6 +356,14 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
+        {/* Content source disclaimer */}
+        <div className="border-t border-slate-800/80 bg-[#04101f] px-4 lg:px-8 py-2.5">
+          <p className="max-w-7xl mx-auto text-center text-[11px] leading-relaxed text-amber-200/90">
+            ⚠️ इस ऐप में दी गई सभी सामग्री विभिन्न स्रोतों से ली गई है। हम इसकी 100% प्रामाणिकता की पुष्टि नहीं करते।
+            <span className="block text-slate-400">All content in this app is compiled from various sources; we do not guarantee its 100% authenticity.</span>
+          </p>
+        </div>
+
         {/* Bottom Copyright & Link Strip */}
         <div className="border-t border-slate-800/80 bg-[#020713] px-4 lg:px-8 py-3.5 text-xs text-slate-500">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">

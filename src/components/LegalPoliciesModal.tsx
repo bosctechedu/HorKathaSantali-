@@ -66,6 +66,11 @@ export const LegalPoliciesModal: React.FC<LegalPoliciesModalProps> = ({
         'Hor Katha Suite is a community-driven, non-commercial educational platform created by BOSC Tech & Edu for the preservation, learning, and promotion of the Santali language and Santali Devanagari script.',
       sections: [
         {
+          title: '⚠️ Content Sources / सामग्री के स्रोत',
+          content:
+            'इस ऐप में दी गई सभी सामग्री (शब्दकोश, संस्कृति, त्योहार, प्रश्न, AI उत्तर आदि) विभिन्न स्रोतों से ली गई है। हम इसकी 100% प्रामाणिकता की पुष्टि नहीं करते। All content in this app is compiled from various sources; we do not guarantee its 100% authenticity. Please verify important information from official sources.'
+        },
+        {
           title: '1. Educational & Preservation Intent',
           content:
             'Hor Katha Suite is designed solely for public educational, linguistic research, and cultural preservation purposes. All features—including the 10,000+ word dictionary, virtual keyboard, cultural festivals calendar, and translator—are provided 100% free of charge to promote digital literacy among the Santal and broader Adivasi communities.'
