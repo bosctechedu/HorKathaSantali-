@@ -81,9 +81,9 @@ export const LegalPoliciesModal: React.FC<LegalPoliciesModalProps> = ({
             'The Santali language exhibits natural phonetic and lexical variations across Jharkhand, Odisha, West Bengal, Assam, and neighboring regions. While our lexicographers and native speakers strive for standardized Santali Devanagari orthography and verified Roman transliteration, occasional regional dialectal differences may occur. Users are encouraged to report suggestions to continuously refine the corpus.'
         },
         {
-          title: '3. Non-Commercial & Community Open Access',
+          title: '3. Free Access & Our Own Product Promotion',
           content:
-            'No monetary fee, mandatory subscription, or commercial advertising is involved. The suite is maintained as a free public utility for tribal empowerment, academic research, rural schools, and cultural institutions.'
+            'All learning content on this website (HorKathaSantali) is free to access, with no mandatory subscription and no third-party advertising. The site may show promotional messages for our own product, Hor Katha Suite (Santali/Hindi typing software by BOSC Tech & Edu), which offers optional paid plans; buying it is never required to use this website. इस वेबसाइट की सभी शैक्षिक सामग्री मुफ़्त है और इसमें किसी बाहरी कंपनी का विज्ञापन नहीं है। यहाँ हमारे अपने उत्पाद Hor Katha Suite (टाइपिंग सॉफ़्टवेयर) का प्रचार दिख सकता है, जिसके वैकल्पिक paid plans हैं; इस वेबसाइट को इस्तेमाल करने के लिए उसे खरीदना ज़रूरी नहीं है।'
         },
         {
           title: '4. Cultural Sanctity & Sacred Heritage',
