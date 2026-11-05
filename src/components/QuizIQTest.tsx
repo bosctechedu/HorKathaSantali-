@@ -27,6 +27,7 @@ import {
   QUIZ_EXAMS,
   getExamQuestions,
 } from "../data/edisamQuizData";
+import { dedupeQuestions, mergeNewQuestions, pickUniqueQuestions } from "../utils/questionDedupe";
 export function QuizIQTest() {
   var Pe: any,
     Ve: any,
@@ -66,6 +67,17 @@ export function QuizIQTest() {
     [S, te] = React.useState<any>(null),
     [J, X] = React.useState<any>(!1),
     [ie, $] = React.useState<any>({}),
+    // Unique pool (bank + AI questions, deduped) → effective count / duration (never padded with repeats)
+    examPool = (id: any) => mergeNewQuestions(getExamQuestions(t, id), ie[id] || []),
+    examSpec = (id: any, demo: boolean) => {
+      const ex: any = QUIZ_EXAMS.find((x: any) => x.id === id) || QUIZ_EXAMS[0],
+        planned = demo ? 30 : ex.questionsCount,
+        plannedMins = demo ? 20 : ex.durationMins,
+        unique = examPool(id).length,
+        count = Math.min(planned, unique),
+        mins = count < planned ? Math.max(1, Math.ceil((plannedMins * count) / planned)) : plannedMins;
+      return { count, mins, planned, unique, short: count < planned };
+    },
     ve = async () => {
       X(!0);
       try {
@@ -102,13 +114,17 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
           category: Le.category,
           examType: n,
         }));
-        ($((Jt: any) => ({
+        // AI questions are deduped against the bank and earlier AI questions
+        const added = dedupeQuestions(xt, [...(ie[n] || []), ...getExamQuestions(t, n)]);
+        $((Jt: any) => ({
           ...Jt,
-          [n]: [...(Jt[n] || []), ...xt],
-        })),
-          alert(
-            "सफलता: AI ने आपके लिए 10 नए लाइव प्रश्न सफलतापूर्वक जनरेट और अपडेट कर दिए हैं! (Success: 10 new live questions loaded)",
-          ));
+          [n]: [...(Jt[n] || []), ...dedupeQuestions(added, Jt[n] || [])],
+        }));
+        alert(
+          added.length > 0
+            ? `सफलता: AI ने ${added.length} नए (बिना दोहराव वाले) प्रश्न जोड़ दिए हैं! (Success: ${added.length} new unique questions loaded)`
+            : "AI के सभी प्रश्न पहले से मौजूद थे — कोई दोहराव नहीं जोड़ा गया। (No new unique questions)",
+        );
       } catch (Le) {
         (console.error(Le),
           alert("AI प्रश्न लोड करने में त्रुटि। कृपया पुनः प्रयास करें।"));
@@ -130,17 +146,16 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
   }, [g]);
   const ee = () => {
       const Le = QUIZ_EXAMS.find((ea: any) => ea.id === n) || QUIZ_EXAMS[0];
-      let At = getExamQuestions(t, n);
-      ie[n] && (At = [...ie[n], ...At]);
+      const At = examPool(n);
       let dt = h;
-      l === "exam" && (dt = d === "demo" ? 30 : Le.questionsCount);
+      l === "exam" && (dt = examSpec(n, d === "demo").count);
       const pt = `seen_questions_${n}`,
         ht = localStorage.getItem(pt);
-      let mt = ht ? JSON.parse(ht) : [],
-        xt = At.filter((ea: any) => !mt.includes(ea.id));
-      xt.length < dt && ((xt = At), (mt = []));
-      const Bt = [...xt].sort(() => 0.5 - Math.random()).slice(0, dt),
-        Dt = [...mt, ...Bt.map((ea: any) => ea.id)];
+      let mt: any[] = [];
+      try { mt = ht ? JSON.parse(ht) : []; } catch { mt = []; }
+      // Unseen questions first, seen ones only fill the rest; no question twice in one session.
+      const { picked: Bt, resetSeen } = pickUniqueQuestions(At, dt, mt),
+        Dt = resetSeen ? Bt.map((ea: any) => ea.id) : [...mt, ...Bt.map((ea: any) => ea.id)];
       if (
         (localStorage.setItem(pt, JSON.stringify(Dt)),
         B(Bt),
@@ -154,7 +169,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
         b("playing"),
         l === "exam")
       ) {
-        const ea = (d === "demo" ? 20 : Le.durationMins) * 60;
+        const ea = examSpec(n, d === "demo").mins * 60;
         ne(ea);
       }
     },
@@ -410,11 +425,11 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                           </h4>
                           <div className="flex gap-1.5 flex-wrap pt-1">
                             <span className="text-[9px] bg-slate-100 text-slate-600 font-bold px-1.5 py-0.5 rounded-sm">
-                              {Le.questionsCount}
+                              {examSpec(Le.id, false).count}
                               {" Qs"}
                             </span>
                             <span className="text-[9px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded-sm">
-                              {Le.durationMins}
+                              {examSpec(Le.id, false).mins}
                               {" Mins"}
                             </span>
                           </div>
@@ -488,7 +503,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                       >
                         <span className="font-extrabold">लाइव डेमो टेस्ट</span>
                         <span className="text-[9px] text-gray-400 font-medium">
-                          (30 Q • 20 मिनट)
+                          ({examSpec(n, true).count} Q • {examSpec(n, true).mins} मिनट)
                         </span>
                       </button>
                       <button
@@ -503,12 +518,12 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                           {(Pe = QUIZ_EXAMS.find((Le: any) => Le.id === n)) ==
                           null
                             ? void 0
-                            : Pe.questionsCount}
+                            : examSpec(Pe.id, false).count}
                           {" Q • "}
                           {(Ve = QUIZ_EXAMS.find((Le: any) => Le.id === n)) ==
                           null
                             ? void 0
-                            : Ve.durationMins}
+                            : examSpec(Ve.id, false).mins}
                           {" मिनट)"}
                         </span>
                       </button>
@@ -562,12 +577,9 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                       कुल प्रश्न (Questions):
                     </span>
                     <span className="font-mono text-slate-900 text-sm">
-                      {l === "exam" && d === "demo"
-                        ? 30
-                        : (Y = QUIZ_EXAMS.find((Le: any) => Le.id === n)) ==
-                            null
-                          ? void 0
-                          : Y.questionsCount}
+                      {l === "exam"
+                        ? examSpec(n, d === "demo").count
+                        : Math.min(h, examPool(n).length)}
                       {" प्रश्न"}
                     </span>
                   </div>
@@ -576,12 +588,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                       परीक्षा समय (Duration):
                     </span>
                     <span className="font-mono text-slate-900 text-sm">
-                      {l === "exam" && d === "demo"
-                        ? 20
-                        : (ye = QUIZ_EXAMS.find((Le: any) => Le.id === n)) ==
-                            null
-                          ? void 0
-                          : ye.durationMins}
+                      {examSpec(n, l === "exam" && d === "demo").mins}
                       {" मिनट"}
                     </span>
                   </div>
@@ -614,12 +621,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                       अधिकतम अंक (Max Marks):
                     </span>
                     <span className="font-mono text-slate-950 text-sm font-black">
-                      {(l === "exam" && d === "demo"
-                        ? 30
-                        : (((H = QUIZ_EXAMS.find((Le: any) => Le.id === n)) ==
-                          null
-                            ? void 0
-                            : H.questionsCount) ?? 1)) *
+                      {examSpec(n, l === "exam" && d === "demo").count *
                         (((ue = QUIZ_EXAMS.find((Le: any) => Le.id === n)) ==
                         null
                           ? void 0

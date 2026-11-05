@@ -10,7 +10,7 @@ export function openHorKathaAI(prompt?: string) {
 }
 
 /** EDISAM's "AI Assistant Face" image, copied into /public so it does not depend on Unsplash. */
-export const AI_DEFAULT_AVATAR = '/horkatha-ai-face.jpg';
+export const AI_DEFAULT_AVATAR = '/horkatha-ai-face.jpg?v=2';
 /** User-uploaded avatar ("बदलें" on the panel header), same behaviour as EDISAM. */
 export const AI_AVATAR_KEY = 'horkatha_ai_custom_avatar';
 

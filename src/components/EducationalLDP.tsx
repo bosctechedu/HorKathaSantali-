@@ -32,6 +32,7 @@ import { useLanguage, EdisamLanguageSwitch } from "./edisam/edisamI18n";
 import { edisamChapterQuestionsFetch } from "./edisam/edisamAi";
 import { generateEdisamPdf } from "./edisam/edisamPdf";
 import { QuizIQTest } from "./QuizIQTest";
+import { mergeNewQuestions, pickUniqueQuestions, questionKey } from "../utils/questionDedupe";
 import {
   LDP_SUBJECTS,
   generateChapterQuestions,
@@ -126,24 +127,15 @@ export function LivePracticePanel() {
           (ue = `c${s}_s${o.id}_ch${A.id}`),
           (we = `seen_questions_c${s}_s${o.id}_ch${A.id}`));
       }
-      k[ue] && (H = [...k[ue], ...H]);
-      const me = new Map();
-      H.forEach((lt: any) => {
-        const ut = lt.text.trim().toLowerCase();
-        me.has(ut) || me.set(ut, lt);
-      });
-      const _e = Array.from(me.values());
-      let Ge = _e.filter((lt: any) => {
-        const ut = lt.text.trim().toLowerCase();
-        return !ie.includes(lt.id) && !ie.includes(ut);
-      });
-      Ge.length < 5 && ((Ge = _e), $([]), localStorage.removeItem(we));
-      const st = [...Ge].sort(() => 0.5 - Math.random()).slice(0, 15),
-        bt = Array.from(
+      // AI-fresh questions first, deduped against the bank; no question twice in one practice set.
+      const _e = mergeNewQuestions(H, k[ue] || []);
+      const { picked: st, resetSeen } = pickUniqueQuestions(_e, 15, ie);
+      resetSeen && localStorage.removeItem(we);
+      const bt = Array.from(
           new Set([
-            ...ie,
+            ...(resetSeen ? [] : ie),
             ...st.map((lt: any) => lt.id),
-            ...st.map((lt: any) => lt.text.trim().toLowerCase()),
+            ...st.map((lt: any) => questionKey(lt)),
           ]),
         );
       ($(bt),

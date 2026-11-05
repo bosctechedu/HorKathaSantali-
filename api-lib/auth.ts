@@ -63,6 +63,8 @@ const sha256 = async (s: string) => toHex(await crypto.subtle.digest('SHA-256', 
 
 export const normUser = (u: unknown) => String(u ?? '').trim().slice(0, 40);
 export const isAdminName = (u: string) => u.toUpperCase() === ADMIN_USERNAME;
+/** Admin may sign in with the username or the admin email (both case-insensitive). */
+export const isAdminLogin = (u: string) => isAdminName(u) || u.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
 export type Account = { salt: string; hash: string; ver: number; createdAt: string; name?: string; active?: boolean };
 export type Session = { role: 'admin' | 'operator'; username: string; ver: number };

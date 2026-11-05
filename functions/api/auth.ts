@@ -1,6 +1,6 @@
 // POST /api/auth  { action, ... }   ·   GET /api/auth → { ready, adminSet }
 import {
-  Ctx, json, sameOrigin, ip, ADMIN_USERNAME, ADMIN_EMAIL, MIN_PASS, normUser, isAdminName,
+  Ctx, json, sameOrigin, ip, ADMIN_USERNAME, ADMIN_EMAIL, MIN_PASS, normUser, isAdminName, isAdminLogin,
   getAdmin, getOperator, hashPassword, verifyPassword, createSession, readSession, deleteSession,
   loginFail, loginFailCount, loginClear, LOGIN_LIMIT, sendAdminOtp, checkAdminOtp, Account,
 } from '../../api-lib/auth';
@@ -64,10 +64,12 @@ export const onRequestPost = async ({ request, env }: Ctx) => {
       const username = normUser(b?.username);
       const pw = String(b?.password || '');
       if (!username || !pw) return json({ error: 'Username और Password दोनों डालें।' }, 400);
-      const failKey = `${username.toLowerCase()}|${reqIp}`;
+      const asAdmin = isAdminLogin(username); // username BOSC@TECH&EDU or the admin email
+      // Admin email and username share one lockout counter
+      const failKey = `${asAdmin ? ADMIN_USERNAME.toLowerCase() : username.toLowerCase()}|${reqIp}`;
       if ((await loginFailCount(db, failKey)) >= LOGIN_LIMIT) return json({ error: 'बहुत बार गलत प्रयास। 15 मिनट बाद कोशिश करें।' }, 429);
 
-      if (isAdminName(username)) {
+      if (asAdmin) {
         const admin = await getAdmin(db);
         if (!admin) return json({ error: 'Admin अभी बना नहीं है। "पहली बार सेटअप" से पासवर्ड बनाएँ।', needSetup: true }, 400);
         if (!(await verifyPassword(pw, admin.salt, admin.hash))) { await loginFail(db, failKey); return json({ error: 'Username या Password गलत है।' }, 401); }
@@ -130,7 +132,7 @@ export const onRequestPost = async ({ request, env }: Ctx) => {
       }
 
       const username = normUser(b?.username).toLowerCase();
-      if (!/^[a-z0-9._@-]{3,30}$/.test(username) || isAdminName(username)) return json({ error: 'Username 3–30 अक्षर (a-z, 0-9, . _ @ -) का हो, Admin वाला नाम नहीं।' }, 400);
+      if (!/^[a-z0-9._@-]{3,30}$/.test(username) || isAdminLogin(username)) return json({ error: 'Username 3–30 अक्षर (a-z, 0-9, . _ @ -) का हो, Admin वाला नाम नहीं।' }, 400);
 
       if (action === 'op-delete') {
         await db.delete(`acct:op:${username}`);

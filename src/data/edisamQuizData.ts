@@ -2,6 +2,7 @@
 // Converted from the production bundle back to TSX; local variable names are the minified originals.
 // Data + generators for the Quiz / IQ test (exam categories, exams, GK bank, question generator).
 
+import { questionKey, questionAnswerKey } from "../utils/questionDedupe";
 export const QUIZ_EXAM_CATEGORIES = [
   {
     id: "all_exams",
@@ -1825,10 +1826,13 @@ export const seededRandom = (a: any) => {
   return t - Math.floor(t);
 };
 export const generateExamQuestions = (a: any, t: any = 350) => {
+  // Builds up to `t` UNIQUE questions: keeps generating template variants (max 3×t attempts)
+  // and drops any whose text / text+answer repeats. Never pads with repeats.
   const s: any = [],
+    seenK = new Set<string>(),
     n = QUIZ_EXAMS.find((l: any) => l.id === a) || QUIZ_EXAMS[0],
     o = n.category;
-  for (let l = 0; l < t; l++) {
+  for (let l = 0; l < t * 3 && s.length < t; l++) {
     const A =
         l * 47 + a.charCodeAt(0) * 13 + (a.charCodeAt(a.length - 1) || 0) * 23,
       d = seededRandom(A),
@@ -2107,7 +2111,7 @@ export const generateExamQuestions = (a: any, t: any = 350) => {
         (B = m.indexOf(y.ans)),
         (C = y.exp));
     }
-    s.push({
+    const q = {
       id: `${a}_q_${l}`,
       category: o,
       examType: a,
@@ -2115,14 +2119,22 @@ export const generateExamQuestions = (a: any, t: any = 350) => {
       options: m,
       correctAnswer: B,
       explanation: C,
-    });
+    };
+    const k1 = questionKey(q), k2 = questionAnswerKey(q);
+    if (!k1 || seenK.has(k1) || seenK.has(k2)) continue;
+    seenK.add(k1);
+    seenK.add(k2);
+    s.push(q);
   }
   return s;
 };
+const examBankCache = new Map<string, any[]>();
 export const getExamQuestions = (a: any, t: any) => {
   let s = t;
-  return (
-    (s === "all" || s === "all_exams") && (s = "all_exams_mixed"),
-    generateExamQuestions(s, 350)
-  );
+  (s === "all" || s === "all_exams") && (s = "all_exams_mixed");
+  if (!examBankCache.has(s)) examBankCache.set(s, generateExamQuestions(s, 350));
+  return examBankCache.get(s)!;
 };
+/** Planned mock size shrunk to the number of unique questions available (never padded). */
+export const plannedExamCount = (examId: any, planned: number) =>
+  Math.min(planned, getExamQuestions("", examId).length);

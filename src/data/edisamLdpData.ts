@@ -3,6 +3,7 @@
 // Data for the LDP panel: class 1-12 subjects & chapters, chapter question generator (15 MCQs per section),
 // competitive / entrance exam groups and the Knowledge Shelf books.
 
+import { dedupeQuestions } from "../utils/questionDedupe";
 export const LDP_SUBJECTS = [
   {
     id: "santhali",
@@ -3239,7 +3240,8 @@ export const generateChapterQuestions = (a: any, t: any, s: any) => {
       category: t,
     });
   }
-  return n;
+  // No question may repeat inside one practice section (empty / duplicate texts are dropped).
+  return dedupeQuestions(n);
 };
 export const COMPETITIVE_EXAM_GROUPS = [
   {
