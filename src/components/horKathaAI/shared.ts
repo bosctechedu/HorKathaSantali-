@@ -34,3 +34,8 @@ export const AI_ROTATING_TEXTS = [
 ];
 
 export const AI_NAME = 'Hor Katha AI सहायक';
+
+/** Whether the floating assistant's chat panel is open (read by the Suite promo so it never overlaps). */
+let aiPanelOpen = false;
+export function setAIPanelOpen(v: boolean) { aiPanelOpen = v; }
+export function isAIPanelOpen() { return aiPanelOpen; }

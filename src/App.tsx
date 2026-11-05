@@ -1,5 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { openHorKathaAI, OPEN_AI_EVENT } from './components/horKathaAI/shared';
+import { OPEN_SUITE_PROMO_EVENT, promoUrlParam } from './components/suitePromo/events';
 import { ActiveDesktopTab, GlobalViewMode, ScriptType } from './types';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -35,6 +36,7 @@ const EducationalLDPPage = lazy(() => import('./components/EducationalLDP'));
 const QuizIQTest = lazy(() => import('./components/QuizIQTest').then((m) => ({ default: m.QuizIQTest })));
 // Floating "Hor Katha AI सहायक" (EDISAM floating assistant port) — the site's only AI button
 const HorKathaAIWidget = lazy(() => import('./components/horKathaAI/HorKathaAIWidget'));
+const SuitePromoController = lazy(() => import('./components/suitePromo/SuitePromoController'));
 const TranslatorModule = lazy(() => import('./components/TranslatorModule').then((m) => ({ default: m.TranslatorModule })));
 const DailyVocabQuiz = lazy(() => import('./components/DailyVocabQuiz').then((m) => ({ default: m.DailyVocabQuiz })));
 const SantaliPhrasebook = lazy(() => import('./components/SantaliPhrasebook').then((m) => ({ default: m.SantaliPhrasebook })));
@@ -180,6 +182,28 @@ function AppContent() {
       if (w.cancelIdleCallback) w.cancelIdleCallback(handle); else clearTimeout(handle);
     };
   }, [aiWidgetMounted]);
+
+  // Hor Katha Suite showcase (corner card + full popup): own lazy chunk, mounted well after idle,
+  // or right away when something asks to open it (Dashboard card, ?promo=1 / ?promo=card).
+  const [suitePromoMounted, setSuitePromoMounted] = useState(() => !!promoUrlParam());
+  useEffect(() => {
+    if (suitePromoMounted) return;
+    const mount = () => setSuitePromoMounted(true);
+    window.addEventListener(OPEN_SUITE_PROMO_EVENT, mount);
+    const w = window as any;
+    let handle: any;
+    const timer = setTimeout(() => {
+      handle = w.requestIdleCallback ? w.requestIdleCallback(mount, { timeout: 10000 }) : setTimeout(mount, 1000);
+    }, 15000);
+    return () => {
+      window.removeEventListener(OPEN_SUITE_PROMO_EVENT, mount);
+      clearTimeout(timer);
+      if (handle !== undefined) { if (w.cancelIdleCallback) w.cancelIdleCallback(handle); else clearTimeout(handle); }
+    };
+  }, [suitePromoMounted]);
+  const suitePromoBlocked =
+    aboutModalOpen || adminModalOpen || feedbackModalOpen || searchModalOpen ||
+    viewMode !== 'desktop' || /quiz|test|exam|educational|certificate|wordle/i.test(String(activeTab));
 
   const getAdminTabForCurrentSection = (tab: ActiveDesktopTab): AdminTab | null => {
     switch (tab) {
@@ -927,6 +951,13 @@ function AppContent() {
             if (viewMode !== 'desktop') setViewMode('desktop');
           }}
         />
+      </Suspense>
+      )}
+
+      {/* Hor Katha Suite showcase: golden corner card (bottom-left) + full popup */}
+      {suitePromoMounted && (
+      <Suspense fallback={null}>
+        <SuitePromoController blocked={suitePromoBlocked} />
       </Suspense>
       )}
 

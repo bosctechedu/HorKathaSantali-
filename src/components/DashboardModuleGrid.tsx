@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ActiveDesktopTab } from '../types';
+import { openSuitePromo } from './suitePromo/events';
 import {
   Keyboard,
   BookOpen,
@@ -88,7 +89,19 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
     gradient: string;
     actionText: string;
     category: 'language' | 'culture' | 'crafts' | 'nature' | 'games';
+    /** custom click (instead of navigating to a tab) */
+    onOpen?: () => void;
   }[] = [
+    {
+      id: 'keyboard',
+      title: '⌨️ Hor Katha Suite',
+      subtitle: 'संताली, हिन्दी फोनेटिक व English typing, Docs, Poster, Visiting Card — ₹9 में 7 दिन Trial',
+      icon: Sparkles,
+      gradient: 'from-[#7f1d1d] via-[#b45309] to-amber-400',
+      actionText: 'पूरी जानकारी देखें',
+      category: 'language',
+      onOpen: openSuitePromo,
+    },
     // ─── 1. भाषा, लिपि व अध्ययन (15 Modules) ───
     {
       id: 'keyboard',
@@ -945,7 +958,7 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
           return (
             <div
               key={`${card.id}_${card.title}`}
-              onClick={() => onNavigate(card.targetTab || card.id)}
+              onClick={() => (card.onOpen ? card.onOpen() : onNavigate(card.targetTab || card.id))}
               className="group cursor-pointer rounded-2xl p-3.5 bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between h-40 relative overflow-hidden"
             >
               <div

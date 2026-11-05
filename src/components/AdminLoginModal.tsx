@@ -106,7 +106,12 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
 
   const [view, setView] = useState<View>('login');
   const [loginRole, setLoginRole] = useState<Role>(remembered?.role || 'admin');
-  const [username, setUsername] = useState(remembered?.username || '');
+  // Admin role: always show the Admin username prefilled (still fully editable).
+  // Priority: Remember-me username → server adminUsername → constant.
+  const [username, setUsername] = useState(
+    remembered?.username || ((remembered?.role || 'admin') === 'admin' ? (authStatus?.adminUsername || ADMIN_USERNAME) : ''),
+  );
+  const [userEdited, setUserEdited] = useState(!!remembered?.username);
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(!!remembered);
   const [otp, setOtp] = useState('');
@@ -133,6 +138,13 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
     refreshAuthStatus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
+
+  // Once GET /api/auth answers, prefer its adminUsername (unless the user typed / Remember-me saved one).
+  useEffect(() => {
+    if (loginRole !== 'admin' || userEdited) return;
+    const want = authStatus?.adminUsername || ADMIN_USERNAME;
+    setUsername((u) => (!u.trim() || isAdminId(u) ? want : u));
+  }, [authStatus?.adminUsername, loginRole, userEdited]);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -163,6 +175,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
   const pickRole = (r: Role) => {
     setLoginRole(r); clearMsgs();
     if (r === 'operator' && isAdminId(username)) setUsername('');
+    if (r === 'admin' && !username.trim()) { setUsername(authStatus?.adminUsername || ADMIN_USERNAME); setUserEdited(false); }
     // Changing role inside a forgot flow jumps to that role's forgot screen
     if (view !== 'login') setView(r === 'operator' ? 'op-forgot' : 'forgot-send');
   };
@@ -423,12 +436,15 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
                 <PillField
                   icon={loginRole === 'admin' ? <ShieldUser className="w-5 h-5" /> : <UserCog className="w-5 h-5" />}
                   value={username}
-                  onChange={setUsername}
+                  onChange={(v) => { setUsername(v); setUserEdited(true); }}
                   placeholder={loginRole === 'admin' ? 'Enter Admin Email / Username' : 'Enter Operator Username'}
                   autoComplete="username"
                 />
                 <PillField icon={<LockKeyhole className="w-5 h-5" />} value={password} onChange={setPassword} placeholder="Enter Password" autoComplete="current-password" password />
 
+                {loginRole === 'admin' && (
+                  <p className="-mt-2 px-4 text-[10.5px] text-slate-500">Username पहले से भरा है — चाहें तो बदलकर <b>{ADMIN_EMAIL}</b> भी डाल सकते हैं।</p>
+                )}
                 <div className="flex items-center justify-between gap-2 px-1">
                   <label className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer select-none">
                     <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="w-4 h-4 rounded accent-blue-600 cursor-pointer" />
@@ -440,6 +456,15 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
                 <button type="submit" disabled={busy || notReady} className={bigBtn}>
                   {busy ? <Loader2 className="w-5 h-5 animate-spin" /> : null} SECURE LOG IN 🔒
                 </button>
+                {loginRole === 'admin' && !setupMode && (
+                  <button
+                    type="button"
+                    onClick={startForgot}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full border-2 border-amber-300 bg-amber-50 hover:bg-amber-100 text-sm font-black text-amber-900 cursor-pointer transition"
+                  >
+                    <KeyRound className="w-4 h-4" /> पासवर्ड भूल गए? <span className="text-[11px] font-bold text-amber-700">(Admin Email OTP से रीसेट)</span>
+                  </button>
+                )}
                 <p className="text-[11px] text-slate-500 text-center leading-relaxed">
                   {loginRole === 'admin'
                     ? `Admin: ${ADMIN_EMAIL} या ${ADMIN_USERNAME} से Login करें।`

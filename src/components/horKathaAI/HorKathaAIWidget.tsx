@@ -4,7 +4,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 import type { ActiveDesktopTab } from '../../types';
-import { AI_AVATAR_KEY, AI_DEFAULT_AVATAR, AI_NAME, AI_ROTATING_TEXTS, OPEN_AI_EVENT, setAIWidgetListening, takePendingAIOpen } from './shared';
+import { AI_AVATAR_KEY, AI_DEFAULT_AVATAR, AI_NAME, AI_ROTATING_TEXTS, OPEN_AI_EVENT, setAIPanelOpen, setAIWidgetListening, takePendingAIOpen } from './shared';
 
 const HorKathaAIPanel = lazy(() => import('./HorKathaAIPanel'));
 
@@ -24,6 +24,9 @@ export const HorKathaAIWidget: React.FC<Props> = ({ onNavigateTab }) => {
     setAvatar(src);
     try { localStorage.setItem(AI_AVATAR_KEY, src); } catch { /* storage full */ }
   };
+
+  // Let other widgets (Suite promo) know when the chat panel is open
+  useEffect(() => { setAIPanelOpen(isOpen); return () => setAIPanelOpen(false); }, [isOpen]);
 
   // Rotate the speech bubble text every 3 s while closed (EDISAM behaviour)
   useEffect(() => {
