@@ -23,6 +23,7 @@ import {
   Eye,
   Mail,
   Home,
+  ArrowDown,
   X,
   Sparkles,
   CheckCircle2,
@@ -50,6 +51,10 @@ export const Footer: React.FC<FooterProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const scrollToBottom = () => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+  };
+
   const handleNavigate = (tab: string) => {
     if (onNavigateTab) {
       onNavigateTab(tab);
@@ -66,7 +71,7 @@ export const Footer: React.FC<FooterProps> = ({
 
   return (
     <>
-      <footer className="mt-14 bg-[#050C1A] text-slate-300 border-t border-slate-800/80 relative select-none font-sans">
+      <footer className="mt-14 pb-44 sm:pb-40 bg-[#050C1A] text-slate-300 border-t border-slate-800/80 relative select-none font-sans">
         {/* Live Quick Links Navigation Strip (Replaced Static Mock Bar) */}
         <div className="border-b border-slate-800/80 bg-[#081329] px-4 lg:px-8 py-3.5">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
@@ -410,17 +415,26 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
-        {/* Floating Real Home Button (Bottom Right) */}
-        <button
-          onClick={() => handleNavigate('home')}
-          title="मुख्य पृष्ठ / Return to Home Dashboard"
-          aria-label="Return to Home Dashboard"
-          className="fixed bottom-6 right-6 z-40 px-3.5 py-3 rounded-full bg-gradient-to-tr from-sky-500 via-cyan-500 to-blue-600 text-white shadow-[0_6px_28px_rgba(14,165,233,0.6)] flex items-center gap-2 hover:scale-108 active:scale-95 transition-all group border-2 border-white/40 cursor-pointer"
-        >
-          <Home className="w-5 h-5 text-white group-hover:scale-115 transition-transform drop-shadow-sm" strokeWidth={2.5} />
-          <span className="text-xs font-black tracking-wide text-white drop-shadow-xs pr-1">Home</span>
-          <span className="w-2 h-2 rounded-full bg-amber-300 animate-pulse shadow-xs" />
-        </button>
+        {/* Floating nav (Bottom Right): Home = सिर्फ़ मुख्य पृष्ठ, ⬇ = पेज के अंत तक */}
+        <div className="fixed bottom-5 right-3 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2">
+          <button
+            onClick={scrollToBottom}
+            title="पेज के अंत तक जाएँ / Go to bottom"
+            aria-label="Go to bottom of page"
+            className="w-11 h-11 rounded-full bg-slate-900/85 backdrop-blur text-white border-2 border-white/30 shadow-[0_6px_20px_rgba(2,6,23,0.55)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          >
+            <ArrowDown className="w-5 h-5" strokeWidth={2.5} />
+          </button>
+          <button
+            onClick={() => handleNavigate('home')}
+            title="मुख्य पृष्ठ / Home"
+            aria-label="Go to Home"
+            className="h-11 px-3.5 rounded-full bg-gradient-to-tr from-sky-500 via-cyan-500 to-blue-600 text-white shadow-[0_6px_24px_rgba(14,165,233,0.55)] flex items-center gap-2 hover:scale-105 active:scale-95 transition-all group border-2 border-white/40 cursor-pointer"
+          >
+            <Home className="w-5 h-5 text-white drop-shadow-sm" strokeWidth={2.5} />
+            <span className="text-xs font-black tracking-wide text-white drop-shadow-xs pr-0.5">Home</span>
+          </button>
+        </div>
       </footer>
 
       {/* Unified Exact Legal & Governance Policy Modal matching User Image */}

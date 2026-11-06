@@ -58,8 +58,8 @@ export const HorKathaAIWidget: React.FC<Props> = ({ onNavigateTab }) => {
   }, []);
 
   return (
-    // Sits just above the site's floating Home button (bottom-6 right-6) so the two never overlap
-    <div className="fixed bottom-20 sm:bottom-24 right-3 sm:right-6 z-[60]">
+    // Floating nav (h-11, bottom-5/6, right-3/6) के ठीक ऊपर, उसी right edge पर
+    <div className="fixed bottom-[4.5rem] sm:bottom-[4.75rem] right-3 sm:right-6 z-[60]">
       <AnimatePresence>
         {!isOpen && (
           <div className="relative flex flex-col items-end">
@@ -77,7 +77,7 @@ export const HorKathaAIWidget: React.FC<Props> = ({ onNavigateTab }) => {
                   <span>{AI_ROTATING_TEXTS[textIndex]}</span>
                 </motion.div>
               </AnimatePresence>
-              <div className="absolute -bottom-1.5 right-6 w-3.5 h-3.5 bg-pink-600 rotate-45 rounded-xs pointer-events-none border-r border-b border-white/20" />
+              <div className="absolute -bottom-1.5 right-[23px] sm:right-[29px] w-3.5 h-3.5 bg-pink-600 rotate-45 rounded-xs pointer-events-none border-r border-b border-white/20" />
             </div>
             <motion.button
               id="ai-assistant-bubble"
