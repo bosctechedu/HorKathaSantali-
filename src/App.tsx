@@ -257,6 +257,7 @@ function AppContent() {
   const [aboutModalOpen, setAboutModalOpen] = useState(false);
   const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  useEffect(() => { const h = () => setFeedbackModalOpen(true); window.addEventListener('hk:open-feedback', h); return () => window.removeEventListener('hk:open-feedback', h); }, []);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [translatorInitialText, setTranslatorInitialText] = useState('');

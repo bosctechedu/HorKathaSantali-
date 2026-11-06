@@ -468,6 +468,11 @@ export const SantaliKidsSoundboard: React.FC = () => {
         </div>
       )}
 
+      <div className="flex flex-wrap items-center gap-2 px-3 py-2 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
+        <span>ℹ️ कुछ शब्दों की वर्तनी क्षेत्र के हिसाब से अलग हो सकती है। इसके लिए आप हमें सुझाव (Feedback) दे सकते हैं।</span>
+        <button type="button" onClick={() => window.dispatchEvent(new Event('hk:open-feedback'))} className="ml-auto px-3 py-1 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-bold cursor-pointer">✍️ सुझाव दें</button>
+      </div>
+
       {/* Interactive Soundboard Cards Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredCards.map((card) => {
