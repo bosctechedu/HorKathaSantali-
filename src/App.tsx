@@ -60,6 +60,7 @@ const EducationalLDPPage = lazy(() => import('./components/EducationalLDP'));
 const QuizIQTest = lazy(() => import('./components/QuizIQTest').then((m) => ({ default: m.QuizIQTest })));
 // Floating "Hor Katha AI सहायक" (EDISAM floating assistant port) — the site's only AI button
 const HorKathaAIWidget = lazy(() => import('./components/horKathaAI/HorKathaAIWidget'));
+const LiveContentEditor = lazy(() => import('./components/cms/LiveContentEditor').then((m) => ({ default: m.LiveContentEditor })));
 const SuitePromoController = lazy(() => import('./components/suitePromo/SuitePromoController'));
 const TranslatorModule = lazy(() => import('./components/TranslatorModule').then((m) => ({ default: m.TranslatorModule })));
 const DailyVocabQuiz = lazy(() => import('./components/DailyVocabQuiz').then((m) => ({ default: m.DailyVocabQuiz })));
@@ -405,7 +406,7 @@ function AppContent() {
             )}
 
             {/* Desktop Main Content Workspace */}
-            <main className={`flex-1 p-3 sm:p-5 lg:p-6 overflow-y-auto max-w-full transition-all duration-200 ${
+            <main data-hk-scope={activeTab} className={`flex-1 p-3 sm:p-5 lg:p-6 overflow-y-auto max-w-full transition-all duration-200 ${
               !sidebarOpen ? 'w-full' : ''
             }`}>
 <Suspense fallback={<ModuleLoader />}>
@@ -1124,6 +1125,13 @@ function AppContent() {
           />
         )}
       </Suspense>
+
+      {/* Live Content Editor: server के बदलाव सब पर लागू; Admin/Operator के लिए Edit Mode */}
+      {aiWidgetMounted && (
+        <Suspense fallback={null}>
+          <LiveContentEditor />
+        </Suspense>
+      )}
 
       {/* Floating Hor Katha AI सहायक (chat via /api/ai-chat + local site search) */}
       {aiWidgetMounted && (
