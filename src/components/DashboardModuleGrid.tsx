@@ -6,6 +6,7 @@ import {
   BookOpen,
   Camera,
   GraduationCap,
+  Briefcase,
   Presentation,
   Puzzle,
   Share2,
@@ -283,6 +284,24 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
       icon: Mail,
       gradient: 'from-blue-900 via-indigo-950 to-slate-900',
       actionText: 'Subscribe',
+      category: 'language'
+    },
+    {
+      id: 'qa_board',
+      title: 'प्रश्न पूछें',
+      subtitle: 'संताली भाषा व संस्कृति पर सवाल भेजें, Admin का उत्तर पढ़ें',
+      icon: HelpCircle,
+      gradient: 'from-cyan-900 via-sky-950 to-slate-900',
+      actionText: 'Ask',
+      category: 'culture'
+    },
+    {
+      id: 'job_board',
+      title: 'नौकरी सूचना बोर्ड',
+      subtitle: 'संताली शिक्षक, अनुवादक की नई भर्तियाँ, अंतिम तारीख़ के साथ',
+      icon: Briefcase,
+      gradient: 'from-yellow-800 via-amber-900 to-stone-900',
+      actionText: 'View',
       category: 'language'
     },
     {

@@ -195,6 +195,8 @@ export type ActiveDesktopTab =
   | 'community_board'
   | 'share_cards'
   | 'newsletter'
+  | 'qa_board'
+  | 'job_board'
   | 'admin_cms'
   | 'translator'
   | 'ai_assistant'

@@ -1,5 +1,26 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { recordVisit } from './lib/streak';
+import { ROUTE_IDS } from './data/routes';
+
+// हर हिस्से का अपना link: /m/<id>
+const tabFromPath = (): ActiveDesktopTab => { const m = window.location.pathname.match(/^\/m\/([a-z0-9_]+)\/?$/); return (m && ROUTE_IDS.has(m[1]) ? m[1] : 'home') as ActiveDesktopTab; };
+const BASE_TITLE = document.title;
+
+// अक्षर बड़ा/छोटा (बुज़ुर्गों और छोटे फ़ोन के लिए) — पूरी साइट rem पर चलती है
+const FONT_STEPS = [100, 112, 125, 140];
+const applyFont = (v: number) => { const el = document.documentElement; el.style.fontSize = ''; if (v !== 100) el.style.fontSize = `${(parseFloat(getComputedStyle(el).fontSize) * v) / 100}px`; };
+try { applyFont(Number(localStorage.getItem('hk_font')) || 100); } catch { /* ignore */ }
+const FontSizeControl: React.FC = () => {
+  const [v, setV] = useState<number>(() => { try { return Number(localStorage.getItem('hk_font')) || 100; } catch { return 100; } });
+  const set = (n: number) => { setV(n); applyFont(n); try { localStorage.setItem('hk_font', String(n)); } catch { /* ignore */ } };
+  const i = FONT_STEPS.indexOf(v) < 0 ? 0 : FONT_STEPS.indexOf(v);
+  return (
+    <div className="flex items-center bg-white border border-slate-200 rounded-xl overflow-hidden text-xs font-black text-slate-700" title="अक्षर का आकार">
+      <button aria-label="अक्षर छोटा करें" disabled={i === 0} onClick={() => set(FONT_STEPS[i - 1])} className="px-2.5 py-1.5 hover:bg-slate-100 disabled:opacity-30">अ−</button>
+      <button aria-label="अक्षर बड़ा करें" disabled={i === FONT_STEPS.length - 1} onClick={() => set(FONT_STEPS[i + 1])} className="px-2.5 py-1.5 hover:bg-slate-100 border-l border-slate-200 disabled:opacity-30">अ+</button>
+    </div>
+  );
+};
 import { openHorKathaAI, OPEN_AI_EVENT } from './components/horKathaAI/shared';
 import { OPEN_SUITE_PROMO_EVENT, promoUrlParam } from './components/suitePromo/events';
 import { ActiveDesktopTab, GlobalViewMode, ScriptType } from './types';
@@ -65,6 +86,8 @@ const HealthInfo = lazy(() => import('./components/knowledge/HealthInfo'));
 const CommunityBoard = lazy(() => import('./components/knowledge/CommunityBoard'));
 const ShareCards = lazy(() => import('./components/knowledge/ShareCards'));
 const Newsletter = lazy(() => import('./components/knowledge/Newsletter'));
+const QandA = lazy(() => import('./components/knowledge/QandA'));
+const JobBoard = lazy(() => import('./components/knowledge/JobBoard'));
 const SantaliMidwiferyCareLore = lazy(() => import('./components/SantaliMidwiferyCareLore').then((m) => ({ default: m.SantaliMidwiferyCareLore })));
 const PwaInstallPrompt = lazy(() => import('./components/PwaInstallPrompt').then((m) => ({ default: m.PwaInstallPrompt })));
 import { Footer } from './components/Footer';
@@ -208,7 +231,21 @@ function AppContent() {
   // phones never show the desktop sidebar: skip building its ~100 links there
   const isMdUp = useIsMdUp();
   const [viewMode, setViewMode] = useState<GlobalViewMode>('desktop');
-  const [activeTab, setActiveTabRaw] = useState<ActiveDesktopTab>('home');
+  const [activeTab, setActiveTabRaw] = useState<ActiveDesktopTab>(tabFromPath);
+  useEffect(() => {
+    const onPop = () => setActiveTabRaw(tabFromPath());
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+  useEffect(() => {
+    const routed = ROUTE_IDS.has(activeTab as string);
+    const want = routed ? `/m/${activeTab}` : '/';
+    if (window.location.pathname !== want && (routed || activeTab === 'home')) window.history.pushState(null, '', want + window.location.hash);
+    if (!routed) { document.title = BASE_TITLE; return; }
+    let live = true;
+    import('./data/routeTitles').then(({ ROUTE_TITLES }) => { if (live) document.title = `${ROUTE_TITLES[activeTab as string]} — HorKathaSantali`; }).catch(() => {});
+    return () => { live = false; };
+  }, [activeTab]);
   // "Keyboard" opens Hor Katha Suite (horkathasuite.pages.dev) instead of an in-app keyboard
   const setActiveTab = (tab: ActiveDesktopTab | ((prev: ActiveDesktopTab) => ActiveDesktopTab)) => {
     if (tab === 'keyboard') { openExternalKeyboard(); return; }
@@ -477,9 +514,15 @@ function AppContent() {
                     <Home className="w-4 h-4 text-sky-600 group-hover:scale-110 transition-transform" />
                     <span>Home Dashboard</span>
                   </button>
-                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                    <span className="w-2 h-2 rounded-full bg-sky-500" />
-                    <span>{activeTab} module</span>
+                  <div className="flex items-center gap-2">
+                    <FontSizeControl />
+                    {ROUTE_IDS.has(activeTab as string) && (
+                      <button onClick={() => { const u = `${window.location.origin}/m/${activeTab}`; if ((navigator as any).share) (navigator as any).share({ title: document.title, url: u }).catch(() => {}); else navigator.clipboard?.writeText(u).then(() => alert('Link copy हो गया')); }} title="इस पेज का link शेयर करें" className="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 hover:bg-sky-50">🔗 Link</button>
+                    )}
+                    <div className="hidden sm:flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      <span className="w-2 h-2 rounded-full bg-sky-500" />
+                      <span>{activeTab} module</span>
+                    </div>
                   </div>
                 </div>
               )}
@@ -968,6 +1011,8 @@ function AppContent() {
               {activeTab === 'community_board' && <CommunityBoard />}
               {activeTab === 'share_cards' && <ShareCards />}
               {activeTab === 'newsletter' && <Newsletter />}
+              {activeTab === 'qa_board' && <QandA />}
+              {activeTab === 'job_board' && <JobBoard />}
 
               {/* Tab: Traditional Herbal Medicine & Ethnobotany */}
               {activeTab === 'herbal' && (

@@ -60,5 +60,18 @@ const t = (n: string, c: any, x: any = '') => { c ? pass++ : fail++; console.log
   await cms({ op: 'approve', kind: 'event', id: r.pending[0].id }, admin);
   const ev = await (await onRequestGet({ env, request: new Request('https://x/api/submissions?kind=event') } as any)).json() as any;
   t('event public by kind', ev.items.length === 1 && (await pub()).items.length === 0);
+  store.delete('subrl:1.1.1.1');
+  t('public job submit → 403', (await cms({ op: 'submit', kind: 'job', name: 'राम', title: 'शिक्षक', text: 'शिक्षक की भर्ती निकली है, जल्दी आवेदन करें।' })).status === 403);
+  t('operator job post → 403', (await cms({ op: 'post', kind: 'job', title: 'संताली शिक्षक', date: '2099-01-01' }, op)).status === 403);
+  t('admin job post ok', (await cms({ op: 'post', kind: 'job', title: 'संताली शिक्षक', place: 'JSSC', date: '2099-01-01', link: 'https://example.org/x' }, admin)).success === true);
+  await cms({ op: 'post', kind: 'job', title: 'पुरानी भर्ती', date: '2020-01-01' }, admin);
+  const jobs = await (await onRequestGet({ env, request: new Request('https://x/api/submissions?kind=job') } as any)).json() as any;
+  t('expired job hidden, link kept', jobs.items.length === 1 && jobs.items[0].link === 'https://example.org/x', jobs);
+  t('qa submit short text ok', (await cms({ op: 'submit', kind: 'qa', name: 'सीता', text: 'ओल चिकी किसने बनाई?' })).success === true);
+  r = await cms({ op: 'pending', kind: 'qa' }, admin);
+  t('qa approve without answer → 400', (await cms({ op: 'approve', kind: 'qa', id: r.pending[0].id }, admin)).status === 400);
+  await cms({ op: 'approve', kind: 'qa', id: r.pending[0].id, answer: 'पंडित रघुनाथ मुर्मू ने, 1925 में।' }, admin);
+  const qa = await (await onRequestGet({ env, request: new Request('https://x/api/submissions?kind=qa') } as any)).json() as any;
+  t('qa published with answer', qa.items[0]?.answer?.includes('रघुनाथ'), qa);
   console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);
 })();

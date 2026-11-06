@@ -558,6 +558,26 @@ export const APP_MODULES: SearchItem[] = [
     description: 'email, newsletter, समाचार पत्र, subscribe'
   },
   {
+    id: 'mod-qa_board',
+    type: 'module',
+    title: 'प्रश्न पूछें',
+    subtitle: 'संताली भाषा व संस्कृति पर सवाल भेजें, Admin का उत्तर पढ़ें',
+    targetTab: 'qa_board',
+    icon: Sparkles,
+    category: 'Q&A',
+    description: 'प्रश्न, सवाल, question, उत्तर, Q&A'
+  },
+  {
+    id: 'mod-job_board',
+    type: 'module',
+    title: 'नौकरी सूचना बोर्ड',
+    subtitle: 'संताली शिक्षक, अनुवादक की नई भर्तियाँ, अंतिम तारीख़ के साथ',
+    targetTab: 'job_board',
+    icon: Sparkles,
+    category: 'Jobs',
+    description: 'नौकरी, भर्ती, job, vacancy, शिक्षक भर्ती'
+  },
+  {
     id: 'mod-dances',
     type: 'module',
     title: 'संताली पारंपरिक शीर्ष १० नृत्य (एनेच)',

@@ -11,19 +11,21 @@ import {
   Heart
 } from 'lucide-react';
 import { speakWithFemaleVoice } from '../utils/speech';
+import { MORE_SOUNDBOARD_CARDS } from '../data/soundboardMore';
 
 export interface SoundboardCard {
   id: string;
   nameDev: string;
   nameRoman: string;
   hindiMeaning: string;
-  category: 'animals' | 'birds' | 'nature' | 'home' | 'family';
+  category: 'animals' | 'birds' | 'nature' | 'home' | 'family' | 'body' | 'food' | 'fruitveg' | 'colors' | 'numbers';
+  olChiki?: string;
   categoryLabelHindi: string;
   icon: string;
   bgColor: string;
 }
 
-export const SOUNDBOARD_CARDS: SoundboardCard[] = [
+const BASE_SOUNDBOARD_CARDS: SoundboardCard[] = [
   // 1. Animals
   {
     id: 'tiger',
@@ -295,6 +297,8 @@ export const SOUNDBOARD_CARDS: SoundboardCard[] = [
   }
 ];
 
+export const SOUNDBOARD_CARDS: SoundboardCard[] = [...BASE_SOUNDBOARD_CARDS, ...MORE_SOUNDBOARD_CARDS];
+
 export const SantaliKidsSoundboard: React.FC = () => {
   const [selectedCat, setSelectedCat] = useState<string>('all');
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
@@ -305,10 +309,9 @@ export const SantaliKidsSoundboard: React.FC = () => {
   const [quizScore, setQuizScore] = useState<number>(0);
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
 
-  const filteredCards =
-    selectedCat === 'all'
-      ? SOUNDBOARD_CARDS
-      : SOUNDBOARD_CARDS.filter((c) => c.category === selectedCat);
+  const [searchQ, setSearchQ] = useState<string>('');
+  const filteredCards = (selectedCat === 'all' ? SOUNDBOARD_CARDS : SOUNDBOARD_CARDS.filter((c) => c.category === selectedCat))
+    .filter((c) => { const q = searchQ.trim().toLowerCase(); return !q || `${c.nameDev} ${c.hindiMeaning} ${c.olChiki || ''}`.toLowerCase().includes(q); });
 
   const handleCardClick = (card: SoundboardCard) => {
     setActiveCardId(card.id);
@@ -435,7 +438,12 @@ export const SantaliKidsSoundboard: React.FC = () => {
             { id: 'birds', label: '🦚 पक्षी व जलचर' },
             { id: 'nature', label: '🌸 वन, फल व फूल' },
             { id: 'home', label: '🥁 वाद्य व गांव' },
-            { id: 'family', label: '👨‍👩‍👦 परिवार (Family)' }
+            { id: 'family', label: '👨‍👩‍👦 परिवार (Family)' },
+            { id: 'body', label: '✋ शरीर' },
+            { id: 'food', label: '🍚 खाना-पीना' },
+            { id: 'fruitveg', label: '🍌 फल-सब्ज़ी' },
+            { id: 'colors', label: '🎨 रंग' },
+            { id: 'numbers', label: '🔢 गिनती' }
           ].map((cat) => (
             <button
               key={cat.id}
@@ -449,6 +457,7 @@ export const SantaliKidsSoundboard: React.FC = () => {
               {cat.label}
             </button>
           ))}
+          <input value={searchQ} onChange={(e) => setSearchQ(e.target.value)} placeholder="🔍 खोजें (जैसे: आम, पानी)" className="ml-auto px-3 py-2 rounded-xl text-xs border border-slate-200 outline-none focus:border-rose-400 w-full sm:w-48" />
         </div>
       )}
 
@@ -481,6 +490,7 @@ export const SantaliKidsSoundboard: React.FC = () => {
                 <div className="font-black text-sm text-slate-900 group-hover:text-rose-700">
                   {card.nameDev}
                 </div>
+                {card.olChiki && <div className="text-base text-indigo-800 leading-tight">{card.olChiki}</div>}
                 <div className="text-[11px] font-bold text-amber-800 font-mono">
                   {card.nameRoman}
                 </div>
