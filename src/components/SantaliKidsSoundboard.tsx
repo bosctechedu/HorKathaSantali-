@@ -12,13 +12,14 @@ import {
 } from 'lucide-react';
 import { speakWithFemaleVoice } from '../utils/speech';
 import { MORE_SOUNDBOARD_CARDS } from '../data/soundboardMore';
+import { MORE_SOUNDBOARD_CARDS_2 } from '../data/soundboardMore2';
 
 export interface SoundboardCard {
   id: string;
   nameDev: string;
   nameRoman: string;
   hindiMeaning: string;
-  category: 'animals' | 'birds' | 'nature' | 'home' | 'family' | 'body' | 'food' | 'fruitveg' | 'colors' | 'numbers';
+  category: 'animals' | 'birds' | 'nature' | 'home' | 'family' | 'body' | 'food' | 'fruitveg' | 'colors' | 'numbers' | 'time' | 'places' | 'actions' | 'describe' | 'talk';
   olChiki?: string;
   categoryLabelHindi: string;
   icon: string;
@@ -298,7 +299,7 @@ const BASE_SOUNDBOARD_CARDS: SoundboardCard[] = [
   }
 ];
 
-export const SOUNDBOARD_CARDS: SoundboardCard[] = [...BASE_SOUNDBOARD_CARDS, ...MORE_SOUNDBOARD_CARDS];
+export const SOUNDBOARD_CARDS: SoundboardCard[] = [...BASE_SOUNDBOARD_CARDS, ...MORE_SOUNDBOARD_CARDS, ...MORE_SOUNDBOARD_CARDS_2];
 
 export const SantaliKidsSoundboard: React.FC = () => {
   const [selectedCat, setSelectedCat] = useState<string>('all');
@@ -444,7 +445,12 @@ export const SantaliKidsSoundboard: React.FC = () => {
             { id: 'food', label: '🍚 खाना-पीना' },
             { id: 'fruitveg', label: '🍌 फल-सब्ज़ी' },
             { id: 'colors', label: '🎨 रंग' },
-            { id: 'numbers', label: '🔢 गिनती' }
+            { id: 'numbers', label: '🔢 गिनती' },
+            { id: 'time', label: '🕒 समय व दिशा' },
+            { id: 'places', label: '🏘️ जगह' },
+            { id: 'actions', label: '🏃 क्रिया' },
+            { id: 'describe', label: '😄 गुण व भाव' },
+            { id: 'talk', label: '🙏 बोलचाल व पढ़ाई' }
           ].map((cat) => (
             <button
               key={cat.id}
