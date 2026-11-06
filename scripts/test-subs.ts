@@ -51,5 +51,14 @@ const t = (n: string, c: any, x: any = '') => { c ? pass++ : fail++; console.log
   t('admin reject', (await cms({ op: 'reject', id: (await cms({ op: 'pending' }, admin)).pending[0].id }, admin)).success === true);
   t('pending now 1', (await cms({ op: 'pending' }, admin)).pending.length === 1);
   t('admin unpublish', (await cms({ op: 'unpublish', id }, admin)).success === true && (await pub()).items.length === 0);
+  store.delete('subrl:1.1.1.1');
+  t('event without date → 400', (await cms({ op: 'submit', kind: 'event', name: 'राम', title: 'बाहा मेला', text: 'गाँव में बाहा पर्व का मेला और नाच-गान होगा।' })).status === 400);
+  t('event submit ok', (await cms({ op: 'submit', kind: 'event', name: 'राम', title: 'बाहा मेला', date: '2027-03-10', place: 'दुमका', text: 'गाँव में बाहा पर्व का मेला और नाच-गान होगा।' })).success === true);
+  t('odd kind falls back to rachna', (await cms({ op: 'pending', kind: 'constructor' }, admin)).pending.length === 1);
+  r = await cms({ op: 'pending', kind: 'event' }, admin);
+  t('event pending separate, keeps date', r.pending.length === 1 && r.pending[0].date === '2027-03-10', r);
+  await cms({ op: 'approve', kind: 'event', id: r.pending[0].id }, admin);
+  const ev = await (await onRequestGet({ env, request: new Request('https://x/api/submissions?kind=event') } as any)).json() as any;
+  t('event public by kind', ev.items.length === 1 && (await pub()).items.length === 0);
   console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);
 })();

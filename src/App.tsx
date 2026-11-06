@@ -1,4 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { recordVisit } from './lib/streak';
 import { openHorKathaAI, OPEN_AI_EVENT } from './components/horKathaAI/shared';
 import { OPEN_SUITE_PROMO_EVENT, promoUrlParam } from './components/suitePromo/events';
 import { ActiveDesktopTab, GlobalViewMode, ScriptType } from './types';
@@ -57,6 +58,13 @@ const TribalRightsLaws = lazy(() => import('./components/knowledge/TribalRightsL
 const SantaliStudyCareer = lazy(() => import('./components/knowledge/SantaliStudyCareer'));
 const SantaliBooksMedia = lazy(() => import('./components/knowledge/SantaliBooksMedia'));
 const ReaderSubmissions = lazy(() => import('./components/knowledge/ReaderSubmissions'));
+const TeacherCorner = lazy(() => import('./components/knowledge/TeacherCorner'));
+const MyProgress = lazy(() => import('./components/knowledge/MyProgress'));
+const WordGame = lazy(() => import('./components/knowledge/WordGame'));
+const HealthInfo = lazy(() => import('./components/knowledge/HealthInfo'));
+const CommunityBoard = lazy(() => import('./components/knowledge/CommunityBoard'));
+const ShareCards = lazy(() => import('./components/knowledge/ShareCards'));
+const Newsletter = lazy(() => import('./components/knowledge/Newsletter'));
 const SantaliMidwiferyCareLore = lazy(() => import('./components/SantaliMidwiferyCareLore').then((m) => ({ default: m.SantaliMidwiferyCareLore })));
 const PwaInstallPrompt = lazy(() => import('./components/PwaInstallPrompt').then((m) => ({ default: m.PwaInstallPrompt })));
 import { Footer } from './components/Footer';
@@ -184,6 +192,7 @@ const ModuleLoader = () => (
 function useIsMdUp() {
   const query = '(min-width: 768px)';
   const [md, setMd] = useState(() => typeof window === 'undefined' || !window.matchMedia || window.matchMedia(query).matches);
+  useEffect(() => { recordVisit(); }, []);
   useEffect(() => {
     if (!window.matchMedia) return;
     const mq = window.matchMedia(query);
@@ -952,6 +961,13 @@ function AppContent() {
               {activeTab === 'santali_study_career' && <SantaliStudyCareer />}
               {activeTab === 'santali_books_media' && <SantaliBooksMedia />}
               {activeTab === 'reader_submissions' && <ReaderSubmissions />}
+              {activeTab === 'teacher_corner' && <TeacherCorner />}
+              {activeTab === 'my_progress' && <MyProgress />}
+              {activeTab === 'word_game' && <WordGame />}
+              {activeTab === 'health_info' && <HealthInfo />}
+              {activeTab === 'community_board' && <CommunityBoard />}
+              {activeTab === 'share_cards' && <ShareCards />}
+              {activeTab === 'newsletter' && <Newsletter />}
 
               {/* Tab: Traditional Herbal Medicine & Ethnobotany */}
               {activeTab === 'herbal' && (

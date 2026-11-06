@@ -11,6 +11,7 @@
     "clean": "rm -rf dist",
     "check:questions": "esbuild scripts/check-question-dupes.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/check-questions.mjs --log-level=warning && node node_modules/.cache/check-questions.mjs",
     "test:subs": "esbuild scripts/test-subs.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/test-subs.mjs --log-level=warning && node node_modules/.cache/test-subs.mjs",
+    "test:nl": "esbuild scripts/test-nl.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/test-nl.mjs --log-level=warning && node node_modules/.cache/test-nl.mjs",
     "test:content": "esbuild scripts/test-content.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/test-content.mjs --log-level=warning && node node_modules/.cache/test-content.mjs",
     "test:auth": "esbuild scripts/test-auth.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/test-auth.mjs --log-level=warning && node node_modules/.cache/test-auth.mjs"
   },

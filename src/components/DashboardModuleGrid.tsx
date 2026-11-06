@@ -6,6 +6,10 @@ import {
   BookOpen,
   Camera,
   GraduationCap,
+  Presentation,
+  Puzzle,
+  Share2,
+  Mail,
   Star,
   BarChart3,
   School,
@@ -216,6 +220,69 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
       icon: PenLine,
       gradient: 'from-pink-900 via-rose-950 to-slate-900',
       actionText: 'Send Yours',
+      category: 'language'
+    },
+    {
+      id: 'teacher_corner',
+      title: 'शिक्षक कोना',
+      subtitle: 'कक्षा 1–5 पाठ-योजना और print करने लायक ओल चिकी अभ्यास-पत्र',
+      icon: Presentation,
+      gradient: 'from-sky-900 via-blue-950 to-slate-900',
+      actionText: 'Open',
+      category: 'language'
+    },
+    {
+      id: 'my_progress',
+      title: 'मेरी प्रगति और प्रमाणपत्र',
+      subtitle: 'रोज़ का streak, badge, ओल चिकी परीक्षा और नाम वाला प्रमाणपत्र',
+      icon: Award,
+      gradient: 'from-amber-800 via-orange-900 to-stone-900',
+      actionText: 'Check Progress',
+      category: 'language'
+    },
+    {
+      id: 'word_game',
+      title: 'शब्द पहेली',
+      subtitle: 'शब्द जोड़ो और अर्थ पहचानो: शब्दकोश से खेल',
+      icon: Puzzle,
+      gradient: 'from-violet-900 via-purple-950 to-slate-900',
+      actionText: 'Play',
+      category: 'language'
+    },
+    {
+      id: 'health_info',
+      title: 'स्वास्थ्य जानकारी',
+      subtitle: 'सिकल सेल, मलेरिया, टीकाकरण, माँ-बच्चा, आयुष्मान कार्ड',
+      icon: HeartPulse,
+      gradient: 'from-rose-900 via-red-950 to-slate-900',
+      actionText: 'Read',
+      category: 'culture'
+    },
+    {
+      id: 'community_board',
+      title: 'संगठन और कार्यक्रम',
+      subtitle: 'संगठन सूची और आने वाले मेले-पर्व; आप भी जोड़ें',
+      icon: Users,
+      gradient: 'from-emerald-900 via-teal-950 to-slate-900',
+      actionText: 'Explore',
+      category: 'culture'
+    },
+    {
+      id: 'share_cards',
+      title: 'WhatsApp शेयर कार्ड',
+      subtitle: 'आज का शब्द या शुभकामना की तस्वीर बनाकर शेयर करें',
+      icon: Share2,
+      gradient: 'from-green-900 via-emerald-950 to-slate-900',
+      actionText: 'Create',
+      category: 'culture'
+    },
+    {
+      id: 'newsletter',
+      title: 'हफ़्ते का समाचार-पत्र',
+      subtitle: 'Email से जुड़ें: नए शब्द, कार्यक्रम और रचनाएँ',
+      icon: Mail,
+      gradient: 'from-blue-900 via-indigo-950 to-slate-900',
+      actionText: 'Subscribe',
       category: 'language'
     },
     {

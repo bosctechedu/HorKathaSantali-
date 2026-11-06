@@ -488,6 +488,76 @@ export const APP_MODULES: SearchItem[] = [
     description: 'कविता भेजें, कहानी, रचना, लेख, गीत, submit'
   },
   {
+    id: 'mod-teacher_corner',
+    type: 'module',
+    title: 'शिक्षक कोना',
+    subtitle: 'कक्षा 1–5 पाठ-योजना और print करने लायक ओल चिकी अभ्यास-पत्र',
+    targetTab: 'teacher_corner',
+    icon: Sparkles,
+    category: 'Teachers',
+    description: 'शिक्षक, lesson plan, पाठ योजना, worksheet, अभ्यास पत्र, print'
+  },
+  {
+    id: 'mod-my_progress',
+    type: 'module',
+    title: 'मेरी प्रगति और प्रमाणपत्र',
+    subtitle: 'रोज़ का streak, badge, ओल चिकी परीक्षा और नाम वाला प्रमाणपत्र',
+    targetTab: 'my_progress',
+    icon: Sparkles,
+    category: 'Progress',
+    description: 'प्रगति, streak, badge, certificate, प्रमाणपत्र, परीक्षा'
+  },
+  {
+    id: 'mod-word_game',
+    type: 'module',
+    title: 'शब्द पहेली',
+    subtitle: 'शब्द जोड़ो और अर्थ पहचानो: शब्दकोश से खेल',
+    targetTab: 'word_game',
+    icon: Sparkles,
+    category: 'Games',
+    description: 'खेल, पहेली, puzzle, word game, शब्द जोड़ो'
+  },
+  {
+    id: 'mod-health_info',
+    type: 'module',
+    title: 'स्वास्थ्य जानकारी',
+    subtitle: 'सिकल सेल, मलेरिया, टीकाकरण, माँ-बच्चा, आयुष्मान कार्ड',
+    targetTab: 'health_info',
+    icon: Sparkles,
+    category: 'Health',
+    description: 'सिकल सेल, sickle cell, मलेरिया, टीका, आयुष्मान, 108, 104'
+  },
+  {
+    id: 'mod-community_board',
+    type: 'module',
+    title: 'संगठन और कार्यक्रम',
+    subtitle: 'संगठन सूची और आने वाले मेले-पर्व; आप भी जोड़ें',
+    targetTab: 'community_board',
+    icon: Sparkles,
+    category: 'Community',
+    description: 'संगठन, कार्यक्रम, मेला, event, सेमिनार'
+  },
+  {
+    id: 'mod-share_cards',
+    type: 'module',
+    title: 'WhatsApp शेयर कार्ड',
+    subtitle: 'आज का शब्द या शुभकामना की तस्वीर बनाकर शेयर करें',
+    targetTab: 'share_cards',
+    icon: Sparkles,
+    category: 'Share',
+    description: 'whatsapp, share, शेयर, शुभकामना, कार्ड, तस्वीर'
+  },
+  {
+    id: 'mod-newsletter',
+    type: 'module',
+    title: 'हफ़्ते का समाचार-पत्र',
+    subtitle: 'Email से जुड़ें: नए शब्द, कार्यक्रम और रचनाएँ',
+    targetTab: 'newsletter',
+    icon: Sparkles,
+    category: 'Newsletter',
+    description: 'email, newsletter, समाचार पत्र, subscribe'
+  },
+  {
     id: 'mod-dances',
     type: 'module',
     title: 'संताली पारंपरिक शीर्ष १० नृत्य (एनेच)',
