@@ -22,6 +22,31 @@ export class ErrorBoundary extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Hor Katha Suite caught an error in ErrorBoundary:', error, errorInfo);
+    // After a new deploy, an already-open (or SW-cached) page may ask for an old module file that no
+    // longer exists. Fetch the new version silently: activate the waiting SW and reload once (max once / 60 s).
+    const msg = String(error?.message || error);
+    if (/dynamically imported module|Importing a module script failed|error loading dynamically imported|Failed to fetch|ChunkLoadError|Loading chunk/i.test(msg)) {
+      let recent = false;
+      try {
+        const last = Number(sessionStorage.getItem('hks_chunk_fix') || 0);
+        recent = Date.now() - last < 60000;
+        if (!recent) sessionStorage.setItem('hks_chunk_fix', String(Date.now()));
+      } catch { /* storage blocked */ }
+      if (!recent) {
+        const go = () => window.location.reload();
+        const sw = navigator.serviceWorker;
+        if (sw && sw.getRegistration) {
+          sw.getRegistration().then((reg) => {
+            if (!reg) return go();
+            reg.update().catch(() => {}).finally(() => {
+              const w = reg.waiting || reg.installing;
+              if (w) { w.postMessage({ type: 'SKIP_WAITING' }); setTimeout(go, 800); } else go();
+            });
+          }).catch(go);
+          setTimeout(go, 4000); // safety net
+        } else go();
+      }
+    }
   }
 
   private handleReset = () => {
@@ -45,6 +70,19 @@ export class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
+      let updating = false;
+      try {
+        const msg = String(this.state.error?.message || this.state.error);
+        const last = Number(sessionStorage.getItem('hks_chunk_fix') || 0);
+        updating = /dynamically imported module|Importing a module script failed|error loading dynamically imported|Failed to fetch|ChunkLoadError|Loading chunk/i.test(msg) && Date.now() - last < 6000;
+      } catch { /* ignore */ }
+      if (updating) {
+        return (
+          <div className="min-h-screen bg-slate-900 text-slate-100 flex items-center justify-center p-4 font-sans">
+            <p className="text-sm text-slate-300">नया संस्करण लोड हो रहा है…</p>
+          </div>
+        );
+      }
       return (
         <div className="min-h-screen bg-slate-900 text-slate-100 flex items-center justify-center p-4 font-sans">
           <div className="max-w-md w-full bg-slate-800 border border-slate-700/80 rounded-3xl p-6 shadow-2xl text-center space-y-4">

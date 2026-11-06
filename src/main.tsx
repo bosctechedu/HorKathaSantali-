@@ -34,7 +34,13 @@ window.addEventListener('vite:preloadError', (event) => {
     sessionStorage.setItem('hks_chunk_reload', '1');
   } catch { /* storage blocked */ }
   event.preventDefault();
-  window.location.reload();
+  // get the new service worker first, so the reload serves the new build instead of the cached old one
+  const go = () => window.location.reload();
+  const sw = navigator.serviceWorker;
+  if (sw && sw.getRegistration) {
+    sw.getRegistration().then((reg) => (reg ? reg.update().catch(() => {}) : undefined)).finally(() => setTimeout(go, 600));
+    setTimeout(go, 4000);
+  } else go();
 });
 window.addEventListener('load', () => {
   setTimeout(() => { try { sessionStorage.removeItem('hks_chunk_reload'); } catch { /* ignore */ } }, 10000);
