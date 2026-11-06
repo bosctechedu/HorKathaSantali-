@@ -2,6 +2,7 @@ import React from 'react';
 import { ActiveDesktopTab } from '../types';
 import { CulturalTree } from './CulturalTree';
 import { useAdmin } from '../context/AdminContext';
+const preloadModule = (id?: string) => { if (id) import('../data/modulePreload').then((m) => m.preloadModule(id)).catch(() => {}); };
 import {
   Home,
   Keyboard as KeyboardIcon,
@@ -292,6 +293,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => onTabChange(item.id)}
+                  onPointerEnter={() => preloadModule(item.id)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     isActive
                       ? 'bg-sky-50 text-sky-900 shadow-2xs border border-sky-300 font-bold scale-[1.01]'
@@ -326,6 +328,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => onTabChange(item.id)}
+                  onPointerEnter={() => preloadModule(item.id)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     isActive
                       ? 'bg-amber-50 text-amber-950 shadow-2xs border border-amber-300 font-bold scale-[1.01]'
@@ -367,6 +370,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => onTabChange(item.id)}
+                  onPointerEnter={() => preloadModule(item.id)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     isActive
                       ? 'bg-sky-50 text-sky-900 shadow-2xs border border-sky-300 font-bold scale-[1.01]'

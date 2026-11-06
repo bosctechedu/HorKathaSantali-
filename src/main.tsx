@@ -4,11 +4,22 @@ import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import './index.css';
 import { registerSW } from 'virtual:pwa-register';
 
-// Register Service Worker with auto-reload upon updates
-const updateSW = registerSW({
-  onNeedRefresh() {
-    console.log('Hor Katha Suite: new offline content available, refreshing...');
-    updateSW(true);
+// Register Service Worker. A new version installs quietly in the background; the page is NOT reloaded
+// while someone is reading. It switches over the next time the tab is hidden (or right away if the
+// update lands in the first 3 s after opening, before the user has done anything).
+const swOpenedAt = Date.now();
+let swUserActed = false;
+['pointerdown', 'keydown', 'scroll'].forEach((ev) => window.addEventListener(ev, () => { swUserActed = true; }, { once: true, passive: true }));
+registerSW({
+  onNeedReload() {
+    if (!swUserActed && Date.now() - swOpenedAt < 3000) { window.location.reload(); return; }
+    const onHide = () => {
+      if (document.visibilityState === 'hidden') {
+        document.removeEventListener('visibilitychange', onHide);
+        window.location.reload();
+      }
+    };
+    document.addEventListener('visibilitychange', onHide);
   },
   onOfflineReady() {
     console.log('Hor Katha Suite: App ready for offline usage via Service Worker & IndexedDB');

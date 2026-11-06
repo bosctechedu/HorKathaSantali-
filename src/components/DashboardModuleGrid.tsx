@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ActiveDesktopTab } from '../types';
 import { openSuitePromo } from './suitePromo/events';
+const preloadModule = (id?: string) => { if (id) import('../data/modulePreload').then((m) => m.preloadModule(id)).catch(() => {}); };
 import {
   Keyboard,
   BookOpen,
@@ -1283,6 +1284,22 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
       : [])
   ];
 
+  // On a fast connection (4G, no Data Saver, not lite mode), quietly download the first few modules
+  // in the background ~5 s after the page settles, so opening them shows no loading spinner.
+  const warmIds = featureCards.slice(0, 8).map((c) => (c.onOpen ? '' : (c.targetTab || c.id))).join(',');
+  useEffect(() => {
+    const c = (navigator as Navigator & { connection?: { effectiveType?: string; saveData?: boolean } }).connection;
+    if (!c || c.saveData || c.effectiveType !== '4g' || document.documentElement.classList.contains('lite')) return;
+    const ids = warmIds.split(',').filter(Boolean);
+    let i = 0;
+    let t = window.setTimeout(function next() {
+      if (i >= ids.length) return;
+      preloadModule(ids[i++]);
+      t = window.setTimeout(next, 1200);
+    }, 5000);
+    return () => window.clearTimeout(t);
+  }, [warmIds]);
+
   const filteredFeatureCards = featureCards.filter((card) => {
     const matchesCat = moduleCategory === 'all' || card.category === moduleCategory;
     const q = moduleFilterText.toLowerCase().trim();
@@ -1367,6 +1384,8 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
             <div
               key={`${card.id}_${card.title}`}
               onClick={() => (card.onOpen ? card.onOpen() : onNavigate(card.targetTab || card.id))}
+              onPointerEnter={() => preloadModule(card.targetTab || card.id)}
+              onTouchStart={() => preloadModule(card.targetTab || card.id)}
               className="hks-cv-card group cursor-pointer rounded-2xl p-3.5 bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-[border-color,box-shadow] flex flex-col justify-between h-40 relative overflow-hidden"
             >
               <div
