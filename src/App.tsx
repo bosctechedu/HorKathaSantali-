@@ -3,7 +3,8 @@ import { openHorKathaAI, OPEN_AI_EVENT } from './components/horKathaAI/shared';
 import { OPEN_SUITE_PROMO_EVENT, promoUrlParam } from './components/suitePromo/events';
 import { ActiveDesktopTab, GlobalViewMode, ScriptType } from './types';
 import { Header } from './components/Header';
-import { Sidebar } from './components/Sidebar';
+// Sidebar सिर्फ़ desktop (md+) पर दिखता है — अलग chunk में, ताकि mobile का main bundle छोटा रहे
+const Sidebar = lazy(() => import('./components/Sidebar').then((m) => ({ default: m.Sidebar })));
 import { Dashboard } from './components/Dashboard';
 import { openExternalKeyboard } from './utils/externalKeyboard';
 import type { AdminTab } from './components/AdminMasterStudio';
@@ -23,6 +24,29 @@ const SantaliWallpaperStudio = lazy(() => import('./components/SantaliWallpaperS
 const SantaliClanGenealogy = lazy(() => import('./components/SantaliClanGenealogy').then((m) => ({ default: m.SantaliClanGenealogy })));
 const SantaliHaatBarterSimulator = lazy(() => import('./components/SantaliHaatBarterSimulator').then((m) => ({ default: m.SantaliHaatBarterSimulator })));
 const SantaliBaplaChantsStudio = lazy(() => import('./components/SantaliBaplaChantsStudio').then((m) => ({ default: m.SantaliBaplaChantsStudio })));
+const SantaliBirdLoreEthnoOrnithology = lazy(() => import('./components/SantaliBirdLoreEthnoOrnithology').then((m) => ({ default: m.SantaliBirdLoreEthnoOrnithology })));
+const SantaliGodnaBodyArt = lazy(() => import('./components/SantaliGodnaBodyArt').then((m) => ({ default: m.SantaliGodnaBodyArt })));
+const SantaliIndigenousSeedsHeirloom = lazy(() => import('./components/SantaliIndigenousSeedsHeirloom').then((m) => ({ default: m.SantaliIndigenousSeedsHeirloom })));
+const SantaliGreetingsEtiquetteSimulator = lazy(() => import('./components/SantaliGreetingsEtiquetteSimulator').then((m) => ({ default: m.SantaliGreetingsEtiquetteSimulator })));
+const SantaliInstrumentsOrchestra = lazy(() => import('./components/SantaliInstrumentsOrchestra').then((m) => ({ default: m.SantaliInstrumentsOrchestra })));
+const SantaliBoneSettingHealing = lazy(() => import('./components/SantaliBoneSettingHealing').then((m) => ({ default: m.SantaliBoneSettingHealing })));
+const SantaliLoBirCourtSimulator = lazy(() => import('./components/SantaliLoBirCourtSimulator').then((m) => ({ default: m.SantaliLoBirCourtSimulator })));
+const SantaliOlChikiPenmanshipWorkbook = lazy(() => import('./components/SantaliOlChikiPenmanshipWorkbook').then((m) => ({ default: m.SantaliOlChikiPenmanshipWorkbook })));
+const SantaliHandiFermentationLore = lazy(() => import('./components/SantaliHandiFermentationLore').then((m) => ({ default: m.SantaliHandiFermentationLore })));
+const SantaliIpilConstellationsAstronomy = lazy(() => import('./components/SantaliIpilConstellationsAstronomy').then((m) => ({ default: m.SantaliIpilConstellationsAstronomy })));
+const SantaliNahelDhenkiCraft = lazy(() => import('./components/SantaliNahelDhenkiCraft').then((m) => ({ default: m.SantaliNahelDhenkiCraft })));
+const SantaliIndigenousSportsKati = lazy(() => import('./components/SantaliIndigenousSportsKati').then((m) => ({ default: m.SantaliIndigenousSportsKati })));
+const SantaliTraditionalFishingCraft = lazy(() => import('./components/SantaliTraditionalFishingCraft').then((m) => ({ default: m.SantaliTraditionalFishingCraft })));
+const SantaliNaturalPigmentsCraft = lazy(() => import('./components/SantaliNaturalPigmentsCraft').then((m) => ({ default: m.SantaliNaturalPigmentsCraft })));
+const SantaliBanamTamakLuthier = lazy(() => import('./components/SantaliBanamTamakLuthier').then((m) => ({ default: m.SantaliBanamTamakLuthier })));
+const SantaliJaherGroveEcology = lazy(() => import('./components/SantaliJaherGroveEcology').then((m) => ({ default: m.SantaliJaherGroveEcology })));
+const SantaliCustomaryOathsJustice = lazy(() => import('./components/SantaliCustomaryOathsJustice').then((m) => ({ default: m.SantaliCustomaryOathsJustice })));
+const SantaliSasandiriMegalithicLore = lazy(() => import('./components/SantaliSasandiriMegalithicLore').then((m) => ({ default: m.SantaliSasandiriMegalithicLore })));
+const SantaliIndigenousMathGeometry = lazy(() => import('./components/SantaliIndigenousMathGeometry').then((m) => ({ default: m.SantaliIndigenousMathGeometry })));
+const SantaliWildHoneyHarvesting = lazy(() => import('./components/SantaliWildHoneyHarvesting').then((m) => ({ default: m.SantaliWildHoneyHarvesting })));
+const SantaliAnimalBehaviorOmens = lazy(() => import('./components/SantaliAnimalBehaviorOmens').then((m) => ({ default: m.SantaliAnimalBehaviorOmens })));
+const SantaliTextileDyesBlockPrint = lazy(() => import('./components/SantaliTextileDyesBlockPrint').then((m) => ({ default: m.SantaliTextileDyesBlockPrint })));
+const SantaliMidwiferyCareLore = lazy(() => import('./components/SantaliMidwiferyCareLore').then((m) => ({ default: m.SantaliMidwiferyCareLore })));
 const PwaInstallPrompt = lazy(() => import('./components/PwaInstallPrompt').then((m) => ({ default: m.PwaInstallPrompt })));
 import { Footer } from './components/Footer';
 import { AdminProvider, useAdmin } from './context/AdminContext';
@@ -286,6 +310,29 @@ function AppContent() {
       case 'clan_genealogy': return 'clans';
       case 'haat_barter': return 'traditional_measures';
       case 'bapla_chants': return 'bapla';
+      case 'bird_lore': return 'herbal';
+      case 'godna_body_art': return 'attire';
+      case 'heirloom_seeds': return 'agri_seasons';
+      case 'kinship_etiquette': return 'governance';
+      case 'instruments_orchestra': return 'songs';
+      case 'bone_setting_healing': return 'herbal';
+      case 'lo_bir_court': return 'governance';
+      case 'calligraphy_workbook': return 'hero';
+      case 'handi_fermentation_lore': return 'herbal';
+      case 'ipil_astronomy': return 'astronomy_lore';
+      case 'nahel_dhenki_craft': return 'woodcraft_carpentry';
+      case 'indigenous_sports_kati': return 'sports';
+      case 'traditional_fishing_craft': return 'herbal';
+      case 'natural_pigments_craft': return 'attire';
+      case 'banam_tamak_luthier': return 'songs';
+      case 'jaher_sacred_grove_ecology': return 'bonga_buru';
+      case 'customary_oaths_justice': return 'governance';
+      case 'sasandiri_megalithic_lore': return 'pilgrimage';
+      case 'indigenous_math_geometry': return 'woodcraft_carpentry';
+      case 'wild_honey_harvesting': return 'herbal';
+      case 'animal_behavior_omens': return 'astronomy_lore';
+      case 'indigenous_textile_dyes': return 'attire';
+      case 'indigenous_midwifery_care': return 'herbal';
       default: return null;
     }
   };
@@ -344,6 +391,7 @@ function AppContent() {
             {/* Desktop Left Sidebar (Hideable / Toggleable) */}
             {sidebarOpen && isMdUp && (
               <div className="hidden md:block">
+                <Suspense fallback={<aside className="w-64 bg-white border-r border-slate-200/90 shrink-0 h-[calc(100vh-53px)] sticky top-[53px]" aria-hidden="true" />}>
                 <Sidebar
                   activeTab={activeTab}
                   onTabChange={setActiveTab}
@@ -352,6 +400,7 @@ function AppContent() {
                   onOpenFeedback={() => setFeedbackModalOpen(true)}
                   onToggleSidebar={() => setSidebarOpen(false)}
                 />
+                </Suspense>
               </div>
             )}
 
@@ -764,6 +813,121 @@ function AppContent() {
               {/* Tab: Wedding Chants & Bapla Rituals Studio */}
               {activeTab === 'bapla_chants' && (
                 <SantaliBaplaChantsStudio />
+              )}
+
+              {/* Tab: Bird Lore & Ethno-Ornithology */}
+              {activeTab === 'bird_lore' && (
+                <SantaliBirdLoreEthnoOrnithology />
+              )}
+
+              {/* Tab: Traditional Body Art, Sika & Godna */}
+              {activeTab === 'godna_body_art' && (
+                <SantaliGodnaBodyArt />
+              )}
+
+              {/* Tab: Indigenous Heirloom Seeds & Bandhi */}
+              {activeTab === 'heirloom_seeds' && (
+                <SantaliIndigenousSeedsHeirloom />
+              )}
+
+              {/* Tab: Kinship Greetings & Sacred Etiquette */}
+              {activeTab === 'kinship_etiquette' && (
+                <SantaliGreetingsEtiquetteSimulator />
+              )}
+
+              {/* Tab: Instruments Orchestra Sequencer */}
+              {activeTab === 'instruments_orchestra' && (
+                <SantaliInstrumentsOrchestra />
+              )}
+
+              {/* Tab: Indigenous Bone Setting & Herbal Trauma */}
+              {activeTab === 'bone_setting_healing' && (
+                <SantaliBoneSettingHealing />
+              )}
+
+              {/* Tab: Lo Bir Baisi Supreme Court */}
+              {activeTab === 'lo_bir_court' && (
+                <SantaliLoBirCourtSimulator />
+              )}
+
+              {/* Tab: Ol Chiki Penmanship & Calligraphy Workbook */}
+              {activeTab === 'calligraphy_workbook' && (
+                <SantaliOlChikiPenmanshipWorkbook />
+              )}
+
+              {/* Tab: Handi Fermentation Science & Sacred Lore */}
+              {activeTab === 'handi_fermentation_lore' && (
+                <SantaliHandiFermentationLore />
+              )}
+
+              {/* Tab: Ipil Constellations & Sky Lore */}
+              {activeTab === 'ipil_astronomy' && (
+                <SantaliIpilConstellationsAstronomy />
+              )}
+
+              {/* Tab: Nahel, Dhenki & Woodcraft Architecture */}
+              {activeTab === 'nahel_dhenki_craft' && (
+                <SantaliNahelDhenkiCraft />
+              )}
+
+              {/* Tab: Indigenous Sports & Kati Enech */}
+              {activeTab === 'indigenous_sports_kati' && (
+                <SantaliIndigenousSportsKati />
+              )}
+
+              {/* Tab: Traditional Fishing Traps & Craft */}
+              {activeTab === 'traditional_fishing_craft' && (
+                <SantaliTraditionalFishingCraft />
+              )}
+
+              {/* Tab: Natural Pigments & Earth Alchemy */}
+              {activeTab === 'natural_pigments_craft' && (
+                <SantaliNaturalPigmentsCraft />
+              )}
+
+              {/* Tab: Banam & Tamak Luthier Craft */}
+              {activeTab === 'banam_tamak_luthier' && (
+                <SantaliBanamTamakLuthier />
+              )}
+
+              {/* Tab: Jaher Sacred Grove Ecology */}
+              {activeTab === 'jaher_sacred_grove_ecology' && (
+                <SantaliJaherGroveEcology />
+              )}
+
+              {/* Tab: Customary Oaths & Restorative Justice */}
+              {activeTab === 'customary_oaths_justice' && (
+                <SantaliCustomaryOathsJustice />
+              )}
+
+              {/* Tab: Sasandiri & Megalithic Memorials */}
+              {activeTab === 'sasandiri_megalithic_lore' && (
+                <SantaliSasandiriMegalithicLore />
+              )}
+
+              {/* Tab: Indigenous Mathematics & Chala Geometry */}
+              {activeTab === 'indigenous_math_geometry' && (
+                <SantaliIndigenousMathGeometry />
+              )}
+
+              {/* Tab: Wild Honey Harvesting Lore */}
+              {activeTab === 'wild_honey_harvesting' && (
+                <SantaliWildHoneyHarvesting />
+              )}
+
+              {/* Tab: Animal Behavior & Bioacoustics */}
+              {activeTab === 'animal_behavior_omens' && (
+                <SantaliAnimalBehaviorOmens />
+              )}
+
+              {/* Tab: Textile Dyes & Block Print Studio */}
+              {activeTab === 'indigenous_textile_dyes' && (
+                <SantaliTextileDyesBlockPrint />
+              )}
+
+              {/* Tab: Indigenous Midwifery & Infant Care */}
+              {activeTab === 'indigenous_midwifery_care' && (
+                <SantaliMidwiferyCareLore />
               )}
 
               {/* Tab: Traditional Herbal Medicine & Ethnobotany */}

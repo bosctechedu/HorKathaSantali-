@@ -58,7 +58,16 @@ import {
   Coffee,
   Target,
   FileText,
-  Bookmark
+  Bookmark,
+  ArrowRightLeft,
+  Calculator,
+  Feather,
+  Fish,
+  Heart,
+  HeartPulse,
+  Radio,
+  Smartphone,
+  Trophy
 } from 'lucide-react';
 
 interface GlobalSearchModalProps {
@@ -766,6 +775,336 @@ export const APP_MODULES: SearchItem[] = [
     icon: Settings,
     category: 'System',
     description: 'Customize suite preferences, script selection, and offline caching.'
+  },
+  {
+    id: 'mod-social-cards',
+    type: 'module',
+    title: 'सोशल मीडिया कार्ड व पोस्टर स्टूडियो (Social Cards)',
+    subtitle: 'पारंपरिक संताली मोटिफ्स, कोट्स व 1080p HD पोस्टर जेनरेटर',
+    targetTab: 'social_cards',
+    icon: Sparkles,
+    category: 'Creatives & Social',
+    description: 'सांस्कृतिक कोट्स, पर्व पोस्टर, इंस्टाग्राम व फेसबुक शेयरिंग कार्ड्स।'
+  },
+  {
+    id: 'mod-lunar-calendar',
+    type: 'module',
+    title: 'संताली चंद्र पंचांग व पर्व टाइमर (Lunar Calendar)',
+    subtitle: 'चांदो माह, तिथि, नक्षत्र व आगामी त्योहारों का लाइव काउंटडाउन',
+    targetTab: 'lunar_calendar',
+    icon: Moon,
+    category: 'Calendar & Astronomy',
+    description: 'माघ, बाहा, सोहराय, करम का पारंपरिक चंद्र कैलेंडर व समय गणना।'
+  },
+  {
+    id: 'mod-sereng-karaoke',
+    type: 'module',
+    title: 'सेरेंग कराओके व ताल अखाड़ा (Karaoke Studio)',
+    subtitle: 'तुम्दाक्-तामाक् ड्रम सिंथेसाइज़र, ५ ताल (लागणे, डंता, सोहराय) व सिंक गीत',
+    targetTab: 'sereng_karaoke',
+    icon: Music,
+    category: 'Music & Performance',
+    description: 'वेब ऑडियो ड्रम लूप्स, बीपीएम स्पीड, लाइव माइक टेस्ट और ८ लोकगीत।'
+  },
+  {
+    id: 'mod-village-tour',
+    type: 'module',
+    title: 'संताल गांव का पवित्र मानचित्र (Virtual Village Tour)',
+    subtitle: 'जाहेर थान, मांझी थान, कुलही, अखड़ा, होड़ ओड़ाक् का 3D/SVG ब्लूप्रिंट',
+    targetTab: 'village_tour',
+    icon: Compass,
+    category: 'Geography & Sacred Spaces',
+    description: 'गांव के ५ प्रमुखों (मोड़े होड़) की मार्गदर्शिका और इंटरैक्टिव क्विज़।'
+  },
+  {
+    id: 'mod-wild-foods',
+    type: 'module',
+    title: 'वन-साग, जंगली कंद-मूल व पोषण संदर्शिका (Wild Foods)',
+    subtitle: '१८+ दुर्लभ औषधीय पत्ते (गेंधारी, मुंगा, सारु), पारंपरिक व्यंजन व रेसिपी',
+    targetTab: 'wild_foods',
+    icon: Leaf,
+    category: 'Cuisine & Nutrition',
+    description: 'जेकेद मांडी, लाठे, डुम्बु जिल पीठा, लेटो और डायनामिक सर्विंग स्केलर।'
+  },
+  {
+    id: 'mod-festival-cards',
+    type: 'module',
+    title: 'व्हाट्सऐप व पर्व ग्रीटिंग्स कार्ड्स (Festival Cards)',
+    subtitle: 'सोहराय, बाहा, करम, साकरात, सगुन बापला ग्रीटिंग्स व HD PNG एक्सपोर्ट',
+    targetTab: 'festival_cards',
+    icon: Sparkles,
+    category: 'Greetings & Festivals',
+    description: 'सीधे व्हाट्सऐप पर शेयर करें, कस्टम नाम व संदेश जोड़ें।'
+  },
+  {
+    id: 'mod-folk-radio',
+    type: 'module',
+    title: 'संताली लोककथा रेडियो व एम्बिएंट साउंड (Folk Radio)',
+    subtitle: 'वन की हवा, झींगुरों की गूंज व ४ नाटकीय लोककथाएं (हांस-हांसिली, हुल)',
+    targetTab: 'folk_radio',
+    icon: Radio,
+    category: 'Folklore & Audio',
+    description: 'एम्बिएंट सिंथेसाइज़र, पंक्ति-दर-पंक्ति ऑडियो वाचन और नैतिक सीख।'
+  },
+  {
+    id: 'mod-ethno-medicine',
+    type: 'module',
+    title: 'पारंपरिक वनौषधि व प्राथमिक उपचार (Ethno-Medicine)',
+    subtitle: '१० रोगों के देसी नुस्खे (हड्डी संधान, ज्वर, बिच्छू दंश, पेचिश) व अस्पताल प्रोटोकॉल',
+    targetTab: 'ethno_medicine',
+    icon: HeartPulse,
+    category: 'Herbal Medicine & Health',
+    description: 'हातु कविराज की जड़ी-बूटियां, काढ़े, खुराक और आपातकालीन दिशा-निर्देश।'
+  },
+  {
+    id: 'mod-script-converter',
+    type: 'module',
+    title: 'त्रि-लिपि कनवर्टर (3-Way Script Converter)',
+    subtitle: 'ओल चिकी ⇄ देवनागरी ⇄ रोमन का रियल-टाइम लाइव लिप्यंतरण',
+    targetTab: 'script_converter',
+    icon: ArrowRightLeft,
+    category: 'Linguistics & Scripts',
+    description: 'वर्णमाला चार्ट, त्वरित परीक्षण बटन और पूर्ण संताली कीबोर्ड पैलेट।'
+  },
+  {
+    id: 'mod-kids-soundboard',
+    type: 'module',
+    title: 'सचित्र बाल-साउंडबोर्ड व ध्वनि क्विज़ (Kids Soundboard)',
+    subtitle: '१००+ सचित्र कार्ड्स, पशु, पक्षी, वाद्य, परिवार व पहचानो कौन क्विज़',
+    targetTab: 'kids_soundboard',
+    icon: Smile,
+    category: 'Children & Education',
+    description: 'बाउंस एनिमेशन, संताली महिला उच्चारण और बाल ऑडियो गेम्स।'
+  },
+  {
+    id: 'mod-wallpaper-studio',
+    type: 'module',
+    title: 'मोबाइल वॉलपेपर व स्टेटस स्टूडियो (Wallpaper Studio)',
+    subtitle: '९:१६ HD लॉकस्क्रीन व इंस्टाग्राम/व्हाट्सऐप स्टोरी पोस्टर जेनरेटर',
+    targetTab: 'wallpaper_studio',
+    icon: Smartphone,
+    category: 'Creatives & Art',
+    description: '१०८०x१९२० कैनवास, ६ थीम, ८ कबीलाई प्रतीक, संताली कोट्स डाउनलोड।'
+  },
+  {
+    id: 'mod-clan-genealogy',
+    type: 'module',
+    title: 'पारिस व वंशावली डायरी (Clan Genealogy Archive)',
+    subtitle: '१२ पारिस (गोत्र), खूंट, टोटेम, ओड़ाक् बोंगा व घारोज साकाम प्रमाण-पत्र',
+    targetTab: 'clan_genealogy',
+    icon: Shield,
+    category: 'Clans & Genealogy',
+    description: 'पारिवारिक धरोहर प्रमाण-पत्र जेनरेटर, गोत्र वर्जनाएं व वंशावली वृक्ष।'
+  },
+  {
+    id: 'mod-haat-barter',
+    type: 'module',
+    title: 'हाट व वस्तु-विनिमय बाज़ार सिमुलेटर (Haat & Barter)',
+    subtitle: 'पाई, काठ, सेर, पोया नाप-तौल, हाट संवाद ऑडियो व खरीदारी खेल',
+    targetTab: 'haat_barter',
+    icon: Scale,
+    category: 'Culture & Commerce',
+    description: 'धान्य विनिमय कैलकुलेटर, मोल-भाव वार्तालाप और संताली बाजार अनुभव।'
+  },
+  {
+    id: 'mod-bapla-chants',
+    type: 'module',
+    title: 'विवाह (बापला) गीत व संपूर्ण नेग-दस्तूर (Bapla Chants)',
+    subtitle: 'तोरण, दाक् बापेर, सिंदूर दान, बिदाई सेरेञ ऑडियो व आशीर्वाद पत्रक',
+    targetTab: 'bapla_chants',
+    icon: Heart,
+    category: 'Rites of Passage',
+    description: '५ पावन वैवाहिक विधियां, पवित्र सामग्री चेकलिस्ट और मंत्र उच्चारण।'
+  },
+  {
+    id: 'mod-bird-lore',
+    type: 'module',
+    title: 'चेँड़े चिन्हा: पक्षी दर्शन, बोली व मौसम पूर्वानुमान (Bird Lore)',
+    subtitle: 'चितिर, कोयल, डाहुक, मोर की बोलियों का वेब ऑडियो सिंथेसाइज़र व क्विज़',
+    targetTab: 'bird_lore',
+    icon: Feather,
+    category: 'Ecology & Birds',
+    description: '९ पवित्र वन-पक्षी, मौसम शकुन, मेनकाथा कहावतें और बोली पहचान खेल।'
+  },
+  {
+    id: 'mod-godna-body-art',
+    type: 'module',
+    title: 'सिका दागा व गोदना: अमर देह-कला व हाना पुरी दर्शन (Body Art)',
+    subtitle: 'पुरुषों का सिका (३, ५, ७ दागा), नारी गोदना व डिजिटल टैटू स्टूडियो',
+    targetTab: 'godna_body_art',
+    icon: Sparkles,
+    category: 'Traditional Body Art',
+    description: 'कैनवास पर पारंपरिक गोदना स्टैम्प करें, त्वचा टोन चुनें और PNG डाउनलोड करें।'
+  },
+  {
+    id: 'mod-heirloom-seeds',
+    type: 'module',
+    title: 'देशज धान, मिलेट्स व "बंधी" बीज बैंक वास्तुकला (Heirloom Seeds)',
+    subtitle: 'करहानी, तुपु, दानगोड़ धान, ५-वर्षीय बंधी तकनीक व एरोक सिम प्रार्थना',
+    targetTab: 'heirloom_seeds',
+    icon: Sprout,
+    category: 'Agriculture & Seeds',
+    description: 'सूखारोधी व बाढ़रोधी देशज बीज, पुआल बोड़ रस्सी वास्तुकला व बुआई नेग।'
+  },
+  {
+    id: 'mod-kinship-etiquette',
+    type: 'module',
+    title: 'डोबोक जोहार, नाता-गोता व पारिवारिक शिष्टाचार (Kinship Etiquette)',
+    subtitle: 'डोबोक, बालाया, आतु जोहार, मामा-भांजा सम्मान व जेठ-बहू मर्यादा वर्जनाएं',
+    targetTab: 'kinship_etiquette',
+    icon: Users,
+    category: 'Kinship & Social Code',
+    description: 'पारस्परिक संथाली अभिवादन संवाद, ऑडियो उच्चारण व मर्यादा क्विज़।'
+  },
+  {
+    id: 'mod-instruments-orchestra',
+    type: 'module',
+    title: 'रुया-गाबुर: ५ पारंपरिक संताली वाद्ययंत्र ऑर्केस्ट्रा (Orchestra)',
+    subtitle: 'तुम्दाक्, तामाक्, बानाम, तिरिओ और घोंघोर का १६-स्टेप लूपर व मिक्सर',
+    targetTab: 'instruments_orchestra',
+    icon: Music,
+    category: 'Music & Instruments',
+    description: 'लागणे, सोहराय, करम ताल प्रीसेट्स, बीपीएम गति नियंत्रण व लाइव लूपिंग।'
+  },
+  {
+    id: 'mod-bone-setting-healing',
+    type: 'module',
+    title: 'हातु कविराज व पारंपरिक हड्डी संधानशाला (Bone Setting)',
+    subtitle: 'रूग-फाड़ो, बांस की कमानी (पाती), हाड़जोड़ा लता लेप व सुरक्षा प्रोटोकॉल',
+    targetTab: 'bone_setting_healing',
+    icon: HeartPulse,
+    category: 'Indigenous Orthopedics',
+    description: 'अस्थि भंग, मोच, कंधा उतरने की पारंपरिक संधान विधियां व अस्पताल रेफरल।'
+  },
+  {
+    id: 'mod-lo-bir-court',
+    type: 'module',
+    title: 'लो बीर बैसी: सर्वोच्च आदिवासी जन-अदालत सिमुलेटर (Lo Bir Court)',
+    subtitle: 'सेंदरा पशु बंटवारा, चराई विवाद, प्राचीन मौखिक विधि-संहिता व विचार-सभा',
+    targetTab: 'lo_bir_court',
+    icon: Scale,
+    category: 'Customary Jurisprudence',
+    description: 'बिना वकीलों व फीस के आम सहमति का न्याय, हापड़ाम काथा और ऐतिहासिक केस।'
+  },
+  {
+    id: 'mod-calligraphy-workbook',
+    type: 'module',
+    title: 'ओल चिकी व संताली सुलेखन अभ्यास पुस्तिका (Penmanship)',
+    subtitle: '३० मूल वर्णों का डिजिटल स्ट्रोक ट्रेसिंग व A4 प्रिंटेबल वर्कशीट PNG',
+    targetTab: 'calligraphy_workbook',
+    icon: PenTool,
+    category: 'Ol Chiki & Penmanship',
+    description: 'पंडित रघुनाथ मुर्मू कृत लिपि वर्णमाला, स्ट्रोक दिशा और सुलेखन अभ्यास।'
+  },
+  {
+    id: 'mod-handi-fermentation-lore',
+    type: 'module',
+    title: 'संथाल पारंपरिक वनौषधि किण्वन, रानू व हांडिया विज्ञान',
+    subtitle: '१५+ वनौषधियों की रानू, ५-चरणीय मटका किण्वन, रासी अमृत व बोंगा अर्पण',
+    targetTab: 'handi_fermentation_lore',
+    icon: Droplets,
+    category: 'Fermentation Science & Sacred Lore',
+    description: 'रूहें, हरड़, चिचिड़ी की रानू टिकिया, साल पत्ते की परत, शीतलता व सामाजिक मर्यादा।'
+  },
+  {
+    id: 'mod-ipil-astronomy',
+    type: 'module',
+    title: 'इपिल: संथाल पारंपरिक खगोल, नक्षत्र व रात्रि नेविगेशन',
+    subtitle: 'हर-काटा (हलवाहा), बुधु-बुधु (कृत्तिका), हती डाहार व सूर्य-चंद्र प्रभामंडल',
+    targetTab: 'ipil_astronomy',
+    icon: Moon,
+    category: 'Indigenous Astronomy & Starlight',
+    description: 'इंटरैक्टिव रात्रि तारा-मानचित्र (Sky Map), कृषि समय निर्धारण व नक्षत्र कथाएं।'
+  },
+  {
+    id: 'mod-nahel-dhenki-craft',
+    type: 'module',
+    title: 'नाहेल (हल), ढेंकी व जुआठ: काष्ठ-शिल्प वास्तुकला',
+    subtitle: 'साल लकड़ी के प्राकृतिक वक्र, उत्तोलक भौतिकी सिद्धांत व अंग-ब्लूप्रिंट',
+    targetTab: 'nahel_dhenki_craft',
+    icon: Trees,
+    category: 'Carpentry & Traditional Mechanics',
+    description: 'ईस, कुरहा, फाड़, पारहा, ढेंकी गाड़ व सामठ का ब्लूप्रिंट और काष्ठ चयन विज्ञान।'
+  },
+  {
+    id: 'mod-indigenous-sports-kati',
+    type: 'module',
+    title: 'काटी एनेच, बेझा तुन व संताली पारंपरिक लोक-खेल',
+    subtitle: 'इंटरैक्टिव काटी गोटी सिमुलेटर, साकरात तीरंदाजी व खेल नियम',
+    targetTab: 'indigenous_sports_kati',
+    icon: Trophy,
+    category: 'Traditional Sports & Games',
+    description: 'काटी गोटी फेंकने का भौतिकी खेल, गेंद-धुकड़ी और अंतर-ग्रामीण प्रतियोगिताएं।'
+  },
+  {
+    id: 'mod-traditional-fishing-craft',
+    type: 'module',
+    title: 'हाकू सांदरा व पारम्परिक मत्स्य आखेट शिल्प (Traditional Fishing Traps)',
+    subtitle: 'तोरोदान, घूनी, पिल्ही, झाली व हकु रान (मत्स्य-मूर्छा वनौषधि) विद्या',
+    targetTab: 'traditional_fishing_craft',
+    icon: Fish,
+    category: 'Fishing & Bamboo Traps',
+    description: 'बहते जल व स्थिर पोखरों के बांस उपकरण, जल-प्रवाह गति विज्ञान, गाड़ा बोंगा आभार व जलीय संरक्षण।'
+  },
+  {
+    id: 'mod-natural-pigments-craft',
+    type: 'module',
+    title: 'प्राकृतिक भित्ति वर्ण द्रव्य व सोहराय माटी रसायन (Mineral Earth Alchemy)',
+    subtitle: 'दुधी माटी (सफेद केओलिन), लाल हासबा (गेरू), हेन्डे हासबा (काला मैंगनीज) व पीली गेरू',
+    targetTab: 'natural_pigments_craft',
+    icon: Palette,
+    category: 'Sohrai Minerals & Mural Craft',
+    description: 'दातुन कूची व नाखी कंधी टूल्स, माटी शोधन विधि और इंटरएक्टिव डिजिटल भित्ति कैनवास सैंडबॉक्स।'
+  },
+  {
+    id: 'mod-banam-tamak-luthier',
+    type: 'module',
+    title: 'लोक-वाद्य निर्माण विद्या व बानाम ल्युथियर शिल्प (Indigenous Luthier Lore)',
+    subtitle: 'धोदरो बानाम (मानव काया वाद्य), टुमदाक (मृत्तिका मांदर) व तामाक छिलाई एवं सुर-लेप',
+    targetTab: 'banam_tamak_luthier',
+    icon: Hammer,
+    category: 'Luthier Craft & Acoustics',
+    description: 'गूलर पोड़ो लकड़ी नक्काशी, गोह-चमड़ा मढ़ना, खिरन सुर-लेप विधि और ऑडियो सुर अनुनाद परीक्षण।'
+  },
+  {
+    id: 'mod-jaher-sacred-grove-ecology',
+    type: 'module',
+    title: 'पवित्र जाहेर थान वन पारिस्थितिकी व वृक्ष विद्या (Sacred Grove Ecology)',
+    subtitle: 'सरजोम (साल), मातकोम (महुआ), हेसाः-बाड़े (पीपल-बरगद) का जैव-विविधता तंत्र व संरक्षण संहिता',
+    targetTab: 'jaher_sacred_grove_ecology',
+    icon: TreePine,
+    category: 'Sacred Grove & Ethno-Ecology',
+    description: 'जाहेर थान का आध्यात्मिक विन्यास, शून्य-दोहन नियम, भूजल संचयन और आदिम जीन बैंक संरक्षण।'
+  },
+  {
+    id: 'mod-customary-oaths-justice',
+    type: 'module',
+    title: 'संताली पावन शपथ, साक्षी व जोम जाति शुद्धिकरण (Oaths & Restorative Justice)',
+    subtitle: 'गुरी-घांस, बाहा दाः, सार-कापी किरिया व सामुदायिक पुनर्प्रवेश भोज',
+    targetTab: 'customary_oaths_justice',
+    icon: Scale,
+    category: 'Customary Law & Oaths',
+    description: 'पवित्र सत्य शपथ विधान, मांझी सभा की प्रक्रिया, सिम बोंगा साक्षी और जोम जाति पुनर्मिलन संस्कार।'
+  },
+  {
+    id: 'mod-sasandiri-megalithic-lore',
+    type: 'module',
+    title: 'सासानदीरी व महापाषाण स्मृति प्रस्तर विद्या (Megalithic Memorials)',
+    subtitle: 'दिरी बिद, चापाड़ दिरी, नाई गाड़ा जांग बाहा तीर्थ व पाषाण संतुलन भौतिकी',
+    targetTab: 'sasandiri_megalithic_lore',
+    icon: Landmark,
+    category: 'Megaliths & Ancestral Sites',
+    description: 'जीवित महापाषाण परंपरा, दामोदर नदी अस्थि विसर्जन तीर्थ, बिना गारे की प्रस्तर इंजीनियरिंग व कुल सासान।'
+  },
+  {
+    id: 'mod-indigenous-math-geometry',
+    type: 'module',
+    title: 'संताली लोक-गणित, गांठी लेखा व वास्तु ज्यामिति (Math & Geometry)',
+    subtitle: 'गांठी लेखा डोरी, २०-आधारित (इसी) कनवर्टर व २-चाला/४-चाला छप्पर भौतिकी',
+    targetTab: 'indigenous_math_geometry',
+    icon: Calculator,
+    category: 'Indigenous Math & Architecture',
+    description: 'गांठों द्वारा दिनों व धान्य की गिनती, बेस-२० विगेसिमल अंकगणित और तूफानों को झेलने वाली चाला छत ज्यामिति।'
   }
 ];
 

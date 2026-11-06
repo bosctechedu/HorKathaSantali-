@@ -65,8 +65,7 @@ import {
   Leaf,
   HeartPulse,
   Smartphone,
-  ArrowRightLeft
-} from 'lucide-react';
+  ArrowRightLeft, Calculator, Feather, Fish, Scissors } from 'lucide-react';
 
 // Module card grid (category pills + live search). Code-split from Dashboard so the large
 // Hindi card list doesn't weigh on the first-load chunk.
@@ -483,6 +482,213 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
       icon: Heart,
       gradient: 'from-rose-800 to-pink-950',
       actionText: 'Explore Wedding',
+      category: 'culture'
+    },
+    {
+      id: 'bird_lore',
+      title: 'चेँड़े चिन्हा: संथाल पक्षी दर्शन, बोली व मौसम पूर्वानुमान',
+      subtitle: 'चितिर, कोयल, डाहुक, मोर, फाख्ता की आवाज सिंथेसाइज़र व शकुन ज्ञान',
+      icon: Feather,
+      gradient: 'from-emerald-900 to-teal-950',
+      actionText: 'Listen Bird Calls',
+      category: 'nature'
+    },
+    {
+      id: 'godna_body_art',
+      title: 'सिका दागा व गोदना: अमर देह-कला व हाना पुरी दर्शन',
+      subtitle: 'पुरुषों की कलाई का सिका (३, ५, ७ दागा), नारी गोदना व डिजिटल स्टूडियो',
+      icon: Sparkles,
+      gradient: 'from-amber-900 to-stone-900',
+      actionText: 'Open Godna Studio',
+      category: 'culture'
+    },
+    {
+      id: 'heirloom_seeds',
+      title: 'संथाल देशज धान, मिलेट्स व "बंधी" बीज संरक्षण वास्तुकला',
+      subtitle: 'करहानी, तुपु, दानगोड़, झुमुका धान, ५-वर्षीय बंधी तकनीक व एरोक सिम',
+      icon: Sprout,
+      gradient: 'from-amber-800 to-emerald-950',
+      actionText: 'Explore Heirloom Seeds',
+      category: 'nature'
+    },
+    {
+      id: 'kinship_etiquette',
+      title: 'संथाल जोहार, नाता-गोता व पारंपरिक पारिवारिक शिष्टाचार',
+      subtitle: 'डोबोक जोहार, बालाया जोहार, मामा-भांजा सम्मान व मर्यादा वर्जनाएं',
+      icon: Users,
+      gradient: 'from-teal-800 to-stone-900',
+      actionText: 'Explore Etiquette',
+      category: 'culture'
+    },
+    {
+      id: 'instruments_orchestra',
+      title: 'रुया-गाबुर: ५ पारंपरिक संताली वाद्ययंत्र ऑर्केस्ट्रा',
+      subtitle: 'तुम्दाक्, तामाक्, बानाम, तिरिओ और घोंघोर का १६-स्टेप लूपर व मिक्सर',
+      icon: Music,
+      gradient: 'from-amber-950 via-rose-950 to-stone-900',
+      actionText: 'Play Orchestra',
+      category: 'games'
+    },
+    {
+      id: 'bone_setting_healing',
+      title: 'संथाल पारंपरिक हड्डी संधानशाला व वनौषधि लेप विद्या',
+      subtitle: 'हातु कविराज (रूग-फाड़ो), बांस की पाती, हाड़जोड़ा लेप व अस्पताल रेफरल',
+      icon: HeartPulse,
+      gradient: 'from-emerald-950 to-teal-900',
+      actionText: 'Explore Bone Healing',
+      category: 'nature'
+    },
+    {
+      id: 'lo_bir_court',
+      title: 'लो बीर बैसी: सर्वोच्च आदिवासी जन-अदालत सिमुलेटर',
+      subtitle: 'सेंदरा पशु बंटवारा, चराई विवाद व प्राचीन मौखिक विधि संहिता',
+      icon: Scale,
+      gradient: 'from-amber-950 to-stone-900',
+      actionText: 'Explore Court Cases',
+      category: 'culture'
+    },
+    {
+      id: 'calligraphy_workbook',
+      title: 'ओल चिकी व संताली सुलेखन अभ्यास पुस्तिका',
+      subtitle: '३० मूल वर्णों का डिजिटल स्ट्रोक ट्रेसिंग व प्रिंटेबल वर्कशीट',
+      icon: PenTool,
+      gradient: 'from-teal-800 to-emerald-950',
+      actionText: 'Practice Calligraphy',
+      category: 'language'
+    },
+    {
+      id: 'handi_fermentation_lore',
+      title: 'संथाल पारंपरिक वनौषधि किण्वन, रानू व हांडिया विज्ञान',
+      subtitle: '१५+ वनौषधियों की रानू, ५-चरणीय मटका किण्वन व देव-तर्पण विधान',
+      icon: Droplets,
+      gradient: 'from-amber-950 via-yellow-950 to-stone-900',
+      actionText: 'Explore Fermentation',
+      category: 'nature'
+    },
+    {
+      id: 'ipil_astronomy',
+      title: 'इपिल: संथाल पारंपरिक खगोल, नक्षत्र व रात्रि नेविगेशन',
+      subtitle: 'हर-काटा (हलवाहा), बुधु-बुधु, हती डाहार व सूर्य-चंद्र प्रभामंडल',
+      icon: Moon,
+      gradient: 'from-indigo-950 via-slate-900 to-emerald-950',
+      actionText: 'Explore Sky Lore',
+      category: 'nature'
+    },
+    {
+      id: 'nahel_dhenki_craft',
+      title: 'नाहेल (हल), ढेंकी व जुआठ: काष्ठ-शिल्प वास्तुकला',
+      subtitle: 'साल लकड़ी के प्राकृतिक वक्र, उत्तोलक भौतिकी सिद्धांत व अंग-ब्लूप्रिंट',
+      icon: Trees,
+      gradient: 'from-amber-950 via-stone-800 to-emerald-950',
+      actionText: 'Explore Woodcraft',
+      category: 'crafts'
+    },
+    {
+      id: 'indigenous_sports_kati',
+      title: 'काटी एनेच, बेझा तुन व संताली पारंपरिक लोक-खेल',
+      subtitle: 'इंटरैक्टिव काटी गोटी सिमुलेटर, साकरात तीरंदाजी व खेल नियम',
+      icon: Trophy,
+      gradient: 'from-orange-950 via-amber-900 to-stone-900',
+      actionText: 'Play Kati Game',
+      category: 'games'
+    },
+    {
+      id: 'traditional_fishing_craft',
+      title: 'हाकू सांदरा व पारम्परिक मत्स्य जाल शिल्प',
+      subtitle: 'तोरोदान, घूनी, पिल्ही, झाली व हकु रान वनौषधि विद्या',
+      icon: Fish,
+      gradient: 'from-teal-800 to-cyan-950',
+      actionText: 'Explore Fishing Lore',
+      category: 'crafts'
+    },
+    {
+      id: 'natural_pigments_craft',
+      title: 'प्राकृतिक भित्ति वर्ण द्रव्य व सोहराय माटी रसायन',
+      subtitle: 'दुधी माटी, लाल हासबा, हेन्डे हासबा व डिजिटल वॉल कैनवास',
+      icon: Palette,
+      gradient: 'from-amber-900 to-red-950',
+      actionText: 'Explore Pigments',
+      category: 'crafts'
+    },
+    {
+      id: 'banam_tamak_luthier',
+      title: 'लोक-वाद्य निर्माण विद्या व बानाम ल्युथियर शिल्प',
+      subtitle: 'धोदरो बानाम, टुमदाक, तामाक छिलाई व खिरन सुर-लेप',
+      icon: Hammer,
+      gradient: 'from-stone-900 via-amber-950 to-orange-950',
+      actionText: 'Explore Luthier',
+      category: 'crafts'
+    },
+    {
+      id: 'jaher_sacred_grove_ecology',
+      title: 'पवित्र जाहेर थान वन पारिस्थितिकी व वृक्ष विद्या',
+      subtitle: 'सरजोम, मातकोम, हेसाः-बाड़े का जैव-विविधता तंत्र व संरक्षण संहिता',
+      icon: TreePine,
+      gradient: 'from-emerald-950 via-teal-950 to-stone-900',
+      actionText: 'Explore Sacred Grove',
+      category: 'nature'
+    },
+    {
+      id: 'customary_oaths_justice',
+      title: 'संताली पावन शपथ, साक्षी व जोम जाति शुद्धिकरण',
+      subtitle: 'गुरी-घांस, बाहा दाः, सार-कापी किरिया व सामुदायिक पुनर्प्रवेश भोज',
+      icon: Scale,
+      gradient: 'from-amber-950 via-stone-900 to-slate-950',
+      actionText: 'Explore Oaths',
+      category: 'culture'
+    },
+    {
+      id: 'sasandiri_megalithic_lore',
+      title: 'सासानदीरी व महापाषाण स्मृति प्रस्तर विद्या',
+      subtitle: 'दिरी बिद, चापाड़ दिरी, नाई गाड़ा जांग बाहा तीर्थ व पाषाण संतुलन भौतिकी',
+      icon: Landmark,
+      gradient: 'from-stone-900 via-neutral-900 to-amber-950',
+      actionText: 'Explore Megaliths',
+      category: 'culture'
+    },
+    {
+      id: 'indigenous_math_geometry',
+      title: 'संताली लोक-गणित, गांठी लेखा व वास्तु ज्यामिति',
+      subtitle: 'गांठी लेखा डोरी, २०-आधारित (इसी) कनवर्टर व २-चाला/४-चाला छप्पर भौतिकी',
+      icon: Calculator,
+      gradient: 'from-sky-950 via-indigo-950 to-slate-900',
+      actionText: 'Explore Math & Geometry',
+      category: 'crafts'
+    },
+    {
+      id: 'wild_honey_harvesting',
+      title: 'संताली वन-शहद संचयन व वन्य-मधुमक्खी विद्या',
+      subtitle: 'तेरोम, लुती व हुरुम प्रजातियां, आधा छत्ता काटने की सतत परंपरा व औषधीय शहद',
+      icon: Droplets,
+      gradient: 'from-amber-950 via-yellow-950 to-stone-900',
+      actionText: 'Explore Honey Lore',
+      category: 'nature'
+    },
+    {
+      id: 'animal_behavior_omens',
+      title: 'संताली पशु-ध्वनि, जैव-संकेत व लोक-शकुन विद्या',
+      subtitle: 'चीतल की चेतावनी पुकार, वर्षा-मेंढक नाद व यात्रा के शुभ-अशुभ शकुन',
+      icon: Radio,
+      gradient: 'from-emerald-950 via-teal-950 to-stone-900',
+      actionText: 'Explore Animal Omens',
+      category: 'nature'
+    },
+    {
+      id: 'indigenous_textile_dyes',
+      title: 'पांची-पारहाड़ वनस्पति रंगाई व देशी ब्लॉक-प्रिंट',
+      subtitle: 'गाबा (बबूल-लोहा), पलाश पीत-केसरिया व लकड़ी के ठप्पा छपाई स्टूडियो',
+      icon: Scissors,
+      gradient: 'from-red-950 via-stone-900 to-amber-950',
+      actionText: 'Explore Block Print',
+      category: 'crafts'
+    },
+    {
+      id: 'indigenous_midwifery_care',
+      title: 'दाया बुढ़ी व संताली प्रसूति-शिशु रक्षा विज्ञान',
+      subtitle: 'नाड़ी-स्पर्श विद्या, महुआ तेल अभ्यंग, बांस चोई नाल-छेदन व जनम छठियार',
+      icon: Baby,
+      gradient: 'from-rose-950 via-pink-950 to-stone-900',
+      actionText: 'Explore Midwifery Lore',
       category: 'culture'
     },
 

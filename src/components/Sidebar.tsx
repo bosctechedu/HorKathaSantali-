@@ -60,8 +60,7 @@ import {
   Brain,
   HeartPulse,
   Smartphone,
-  ArrowRightLeft
-} from 'lucide-react';
+  ArrowRightLeft, Calculator, Feather, Fish, PenTool, Trophy } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: ActiveDesktopTab;
@@ -105,6 +104,29 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'clan_genealogy' as ActiveDesktopTab, label: 'पारिस व वंशावली डायरी', icon: Shield, badge: 'धरोहर' },
     { id: 'haat_barter' as ActiveDesktopTab, label: 'हाट व वस्तु-विनिमय बाज़ार', icon: Scale, badge: 'हाट' },
     { id: 'bapla_chants' as ActiveDesktopTab, label: 'विवाह (बापला) गीत व नेग', icon: Heart, badge: 'बापला' },
+    { id: 'bird_lore' as ActiveDesktopTab, label: 'पक्षी दर्शन व बोली (चेँड़े चिन्हा)', icon: Feather, badge: 'ध्वनि' },
+    { id: 'godna_body_art' as ActiveDesktopTab, label: 'सिका दागा व गोदना स्टूडियो', icon: Sparkles, badge: 'देह-कला' },
+    { id: 'heirloom_seeds' as ActiveDesktopTab, label: 'देशज धान व बंधी बीज बैंक', icon: Sprout, badge: 'बीज' },
+    { id: 'kinship_etiquette' as ActiveDesktopTab, label: 'डोबोक जोहार व शिष्टाचार', icon: Users, badge: 'मर्यादा' },
+    { id: 'instruments_orchestra' as ActiveDesktopTab, label: '५ वाद्ययंत्र ऑर्केस्ट्रा व लूपर', icon: Music, badge: 'लूपर' },
+    { id: 'bone_setting_healing' as ActiveDesktopTab, label: 'हातु कविराज व हड्डी संधान', icon: HeartPulse, badge: 'आयुर्वेद' },
+    { id: 'lo_bir_court' as ActiveDesktopTab, label: 'लो बीर बैसी सर्वोच्च जन-अदालत', icon: Scale, badge: 'न्याय' },
+    { id: 'calligraphy_workbook' as ActiveDesktopTab, label: 'ओल चिकी सुलेखन अभ्यास पुस्तिका', icon: PenTool, badge: 'सुलेखन' },
+    { id: 'handi_fermentation_lore' as ActiveDesktopTab, label: 'हांडिया व रानू किण्वन विज्ञान', icon: Droplets, badge: 'किण्वन' },
+    { id: 'ipil_astronomy' as ActiveDesktopTab, label: 'इपिल: नक्षत्र व खगोल दर्शन', icon: Moon, badge: 'इपिल' },
+    { id: 'nahel_dhenki_craft' as ActiveDesktopTab, label: 'नाहेल (हल) व ढेंकी काष्ठ-शिल्प', icon: Trees, badge: 'काष्ठ' },
+    { id: 'indigenous_sports_kati' as ActiveDesktopTab, label: 'काटी एनेच व पारंपरिक खेल', icon: Trophy, badge: 'खेल' },
+    { id: 'traditional_fishing_craft' as ActiveDesktopTab, label: 'हाकू सांदरा व मत्स्य जाल शिल्प', icon: Fish, badge: 'जाल' },
+    { id: 'natural_pigments_craft' as ActiveDesktopTab, label: 'सोहराय माटी रसायन व प्राकृतिक रंग', icon: Palette, badge: 'रंग' },
+    { id: 'banam_tamak_luthier' as ActiveDesktopTab, label: 'बानाम व तामाक ल्युथियर शिल्प', icon: Hammer, badge: 'वाद्य' },
+    { id: 'jaher_sacred_grove_ecology' as ActiveDesktopTab, label: 'जाहेर थान पवित्र वन पारिस्थितिकी', icon: TreePine, badge: 'उपवन' },
+    { id: 'customary_oaths_justice' as ActiveDesktopTab, label: 'किरिया व जोम जाति न्याय विधान', icon: Scale, badge: 'न्याय' },
+    { id: 'sasandiri_megalithic_lore' as ActiveDesktopTab, label: 'सासानदीरी व महापाषाण प्रस्तर', icon: Landmark, badge: 'पाषाण' },
+    { id: 'indigenous_math_geometry' as ActiveDesktopTab, label: 'गांठी लेखा, इसी गणित व ज्यामिति', icon: Calculator, badge: 'गणित' },
+    { id: 'wild_honey_harvesting' as ActiveDesktopTab, label: 'तेरोम व लुती वन-शहद संचयन', icon: Droplets, badge: 'शहद' },
+    { id: 'animal_behavior_omens' as ActiveDesktopTab, label: 'जीव-जन्तु साड़े व लोक-शकुन विद्या', icon: Radio, badge: 'शकुन' },
+    { id: 'indigenous_textile_dyes' as ActiveDesktopTab, label: 'पांची-पारहाड़ रंगाई व ब्लॉक प्रिंट', icon: Scissors, badge: 'रंगाई' },
+    { id: 'indigenous_midwifery_care' as ActiveDesktopTab, label: 'दाया बुढ़ी प्रसूति व शिशु रक्षा', icon: Baby, badge: 'प्रसूति' }
   ];
 
   const culturalNav = [
