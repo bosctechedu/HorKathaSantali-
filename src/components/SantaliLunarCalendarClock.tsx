@@ -78,7 +78,7 @@ export const SANTALI_LUNAR_MONTHS: LunarMonth[] = [
     natureSigns: 'आकाश में काले मेघ, प्रथम मानसूनी फुहारें।',
     agriculturalStage: 'खेतों में धान के बीज बोना (एरोक\')।',
     traditionalRole: 'ग्राम प्रधान मांझी द्वारा प्रथम बीज वपन अनुष्ठान।',
-    accentColor: 'from-emerald-600 to-teal-800'
+    accentColor: 'from-emerald-600 to-teal-100'
   },
   {
     id: 'sawan',
@@ -90,7 +90,7 @@ export const SANTALI_LUNAR_MONTHS: LunarMonth[] = [
     natureSigns: 'चारों ओर हरियाली, नदियां-नाले उफान पर।',
     agriculturalStage: 'धान की रोपाई (रोपा) और सामूहिक कदमताल।',
     traditionalRole: 'खेतों की हरियाली व कीट-पतंगों से रक्षा की प्रार्थना।',
-    accentColor: 'from-green-600 to-emerald-800'
+    accentColor: 'from-green-600 to-emerald-100'
   },
   {
     id: 'bhadov',
@@ -114,7 +114,7 @@ export const SANTALI_LUNAR_MONTHS: LunarMonth[] = [
     natureSigns: 'हल्की गुलाबी ठंड, धान में दूध भरने लगता है।',
     agriculturalStage: 'फसलों की सुरक्षा व जंगली जीवों से रखवाली।',
     traditionalRole: 'भुवांग वाद्य के साथ दासाय सेरेञ व चेला दीक्षा।',
-    accentColor: 'from-indigo-600 to-blue-800'
+    accentColor: 'from-indigo-600 to-blue-100'
   },
   {
     id: 'sohrai_katik',
@@ -138,7 +138,7 @@ export const SANTALI_LUNAR_MONTHS: LunarMonth[] = [
     natureSigns: 'शीत ऋतु का आगमन, खलिहानों में धान के ढेर।',
     agriculturalStage: 'नई फसल की कटाई और प्रथम अन्न का भोग।',
     traditionalRole: 'नई फसल का अन्न पहले बोंगा को, फिर पारिवारिक सहभोज।',
-    accentColor: 'from-teal-600 to-cyan-800'
+    accentColor: 'from-teal-600 to-cyan-100'
   },
   {
     id: 'pus',
@@ -150,7 +150,7 @@ export const SANTALI_LUNAR_MONTHS: LunarMonth[] = [
     natureSigns: 'कड़ाके की ठंड, पाला और कोहरा।',
     agriculturalStage: 'फसल की पूरी कुटाई-सफाई, आराम व खेल।',
     traditionalRole: 'भेंडा बेझा (तीरंदाजी निशाना), पीठा और अखड़ा मिलन।',
-    accentColor: 'from-blue-600 to-indigo-900'
+    accentColor: 'from-blue-600 to-indigo-50'
   },
   {
     id: 'magh',
@@ -162,7 +162,7 @@ export const SANTALI_LUNAR_MONTHS: LunarMonth[] = [
     natureSigns: 'पतझड़ की शुरुआत, महुआ के पेड़ पत्ते गिराते हैं।',
     agriculturalStage: 'कृषि वर्ष की समाप्ति, नए समझौतों की तैयारी।',
     traditionalRole: 'मांझी परगना प्रशासनिक पदाधिकारियों का वार्षिक नवीनीकरण।',
-    accentColor: 'from-purple-600 to-fuchsia-800'
+    accentColor: 'from-purple-600 to-fuchsia-100'
   },
   {
     id: 'fagun',
@@ -436,37 +436,37 @@ export const SantaliLunarCalendarClock: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-16 animate-in fade-in duration-200">
       {/* Hero Header with Live Astronomical Chando Clock */}
-      <div className="bg-gradient-to-r from-slate-950 via-indigo-950 to-stone-950 text-white p-6 sm:p-8 rounded-3xl shadow-xl border border-indigo-500/20 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-slate-50 via-indigo-50 to-stone-50 text-slate-900 p-6 sm:p-8 rounded-3xl shadow-xl border border-indigo-500/20 relative overflow-hidden">
         {/* Ambient Moon Glow Background */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-8 space-y-3">
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 border border-indigo-500/30">
-                <Moon className="w-3.5 h-3.5 text-amber-300" />
+              <span className="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-700 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 border border-indigo-500/30">
+                <Moon className="w-3.5 h-3.5 text-amber-700" />
                 चांदो पंचांग · Indigenous Lunar Astronomy
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-[11px] font-bold text-emerald-300">
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-[11px] font-bold text-emerald-700">
                 लाइव चंद्र कला व महापर्व अलर्ट
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-amber-100">
+            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-amber-800">
               पारंपरिक संताली चंद्र पंचांग व महापर्व टाइमर
             </h1>
-            <p className="text-xs sm:text-sm text-indigo-200/90 leading-relaxed font-medium">
+            <p className="text-xs sm:text-sm text-indigo-800/90 leading-relaxed font-medium">
               संताली जीवन चक्र चंद्रमा (चांदो) और प्रकृति के ऋतु-नक्षत्रों से संचालित होता है। जानिए वर्तमान चंद्र कला, आगामी महापर्वों का लाइव काउंटडाउन और पारंपरिक अनुष्ठान विधि।
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3 text-xs">
               <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15 flex items-center gap-2">
-                <Clock className="w-4 h-4 text-amber-300" />
-                <span className="font-mono text-amber-200 font-bold">
+                <Clock className="w-4 h-4 text-amber-700" />
+                <span className="font-mono text-amber-800 font-bold">
                   {currentTime.toLocaleTimeString('hi-IN')}
                 </span>
-                <span className="text-slate-400">|</span>
-                <span className="text-slate-200">{currentTime.toLocaleDateString('hi-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span className="text-slate-600">|</span>
+                <span className="text-slate-800">{currentTime.toLocaleDateString('hi-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
               </div>
             </div>
           </div>
@@ -484,7 +484,7 @@ export const SantaliLunarCalendarClock: React.FC = () => {
                 {/* Shadow overlay based on phase percent */}
                 {moonData.phasePercent < 95 && (
                   <div
-                    className="absolute inset-0 bg-slate-950/85 transition-all duration-700"
+                    className="absolute inset-0 bg-white/85 transition-all duration-700"
                     style={{
                       clipPath: moonData.isWaxing
                         ? `inset(0 0 0 ${moonData.phasePercent}%)`
@@ -496,13 +496,13 @@ export const SantaliLunarCalendarClock: React.FC = () => {
             </div>
 
             <div>
-              <p className="font-black text-amber-300 text-sm">{moonData.phaseNameDev}</p>
-              <p className="text-[11px] font-mono text-indigo-200">{moonData.phaseNameRoman}</p>
-              <div className="mt-1 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-200 text-[10px] font-bold">
+              <p className="font-black text-amber-700 text-sm">{moonData.phaseNameDev}</p>
+              <p className="text-[11px] font-mono text-indigo-800">{moonData.phaseNameRoman}</p>
+              <div className="mt-1 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-800 text-[10px] font-bold">
                 <span>दृश्यमान प्रदीप्ति: {moonData.phasePercent}%</span>
               </div>
             </div>
-            <p className="text-[11px] text-slate-300 leading-snug font-sans">
+            <p className="text-[11px] text-slate-700 leading-snug font-sans">
               {moonData.description}
             </p>
           </div>
@@ -532,9 +532,9 @@ export const SantaliLunarCalendarClock: React.FC = () => {
             </button>
             <button
               onClick={handleDownloadCalendarEvent}
-              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer shadow-2xs transition-colors"
+              className="px-4 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-900 font-bold text-xs flex items-center gap-1.5 cursor-pointer shadow-2xs transition-colors"
             >
-              <CalendarIcon className="w-3.5 h-3.5 text-amber-300" />
+              <CalendarIcon className="w-3.5 h-3.5 text-amber-700" />
               <span>कैलेंडर में जोड़ें (.ics)</span>
             </button>
           </div>
@@ -561,50 +561,50 @@ export const SantaliLunarCalendarClock: React.FC = () => {
         </div>
 
         {/* Big Live Countdown Ticker Box */}
-        <div className="bg-gradient-to-r from-amber-900 via-orange-950 to-stone-900 text-white p-6 sm:p-8 rounded-3xl shadow-md border border-amber-500/20">
+        <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-stone-50 text-slate-900 p-6 sm:p-8 rounded-3xl shadow-md border border-amber-500/20">
           <div className="text-center space-y-1 mb-6">
-            <span className="px-3 py-1 rounded-full bg-white/10 text-amber-300 text-[11px] font-black uppercase tracking-wider">
+            <span className="px-3 py-1 rounded-full bg-white/10 text-amber-700 text-[11px] font-black uppercase tracking-wider">
               {selectedFestival.approxDateStr}
             </span>
-            <h3 className="text-2xl sm:text-3xl font-black text-amber-100 font-serif">
+            <h3 className="text-2xl sm:text-3xl font-black text-amber-800 font-serif">
               {selectedFestival.nameDev}
             </h3>
-            <p className="text-xs text-amber-200/80 font-mono">
+            <p className="text-xs text-amber-800/80 font-mono">
               मुख्य आराध्य: {selectedFestival.sacredDeity}
             </p>
           </div>
 
           {/* 4 Ticker Clocks */}
           <div className="grid grid-cols-4 gap-2.5 sm:gap-4 max-w-xl mx-auto">
-            <div className="bg-black/40 border border-white/10 p-3 sm:p-4 rounded-2xl text-center">
-              <span className="block text-2xl sm:text-5xl font-black text-amber-300 font-mono">
+            <div className="bg-white/40 border border-white/10 p-3 sm:p-4 rounded-2xl text-center">
+              <span className="block text-2xl sm:text-5xl font-black text-amber-700 font-mono">
                 {countdown.days}
               </span>
-              <span className="text-[10px] sm:text-xs text-slate-300 uppercase tracking-wider font-bold">
+              <span className="text-[10px] sm:text-xs text-slate-700 uppercase tracking-wider font-bold">
                 दिन (Days)
               </span>
             </div>
-            <div className="bg-black/40 border border-white/10 p-3 sm:p-4 rounded-2xl text-center">
-              <span className="block text-2xl sm:text-5xl font-black text-amber-300 font-mono">
+            <div className="bg-white/40 border border-white/10 p-3 sm:p-4 rounded-2xl text-center">
+              <span className="block text-2xl sm:text-5xl font-black text-amber-700 font-mono">
                 {String(countdown.hours).padStart(2, '0')}
               </span>
-              <span className="text-[10px] sm:text-xs text-slate-300 uppercase tracking-wider font-bold">
+              <span className="text-[10px] sm:text-xs text-slate-700 uppercase tracking-wider font-bold">
                 घंटे (Hours)
               </span>
             </div>
-            <div className="bg-black/40 border border-white/10 p-3 sm:p-4 rounded-2xl text-center">
-              <span className="block text-2xl sm:text-5xl font-black text-amber-300 font-mono">
+            <div className="bg-white/40 border border-white/10 p-3 sm:p-4 rounded-2xl text-center">
+              <span className="block text-2xl sm:text-5xl font-black text-amber-700 font-mono">
                 {String(countdown.minutes).padStart(2, '0')}
               </span>
-              <span className="text-[10px] sm:text-xs text-slate-300 uppercase tracking-wider font-bold">
+              <span className="text-[10px] sm:text-xs text-slate-700 uppercase tracking-wider font-bold">
                 मिनट (Mins)
               </span>
             </div>
-            <div className="bg-black/40 border border-white/10 p-3 sm:p-4 rounded-2xl text-center">
-              <span className="block text-2xl sm:text-5xl font-black text-amber-400 font-mono animate-pulse">
+            <div className="bg-white/40 border border-white/10 p-3 sm:p-4 rounded-2xl text-center">
+              <span className="block text-2xl sm:text-5xl font-black text-amber-600 font-mono animate-pulse">
                 {String(countdown.seconds).padStart(2, '0')}
               </span>
-              <span className="text-[10px] sm:text-xs text-slate-300 uppercase tracking-wider font-bold">
+              <span className="text-[10px] sm:text-xs text-slate-700 uppercase tracking-wider font-bold">
                 सेकंड (Secs)
               </span>
             </div>

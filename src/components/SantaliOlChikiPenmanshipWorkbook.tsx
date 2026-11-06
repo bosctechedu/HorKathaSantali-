@@ -169,16 +169,16 @@ export const SantaliOlChikiPenmanshipWorkbook: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-teal-950 via-stone-900 to-emerald-950 border border-teal-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-teal-50 via-stone-50 to-emerald-50 border border-teal-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-teal-800/60 border border-teal-600/40 rounded-full text-xs font-semibold text-teal-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-teal-100/60 border border-teal-300/40 rounded-full text-xs font-semibold text-teal-800 mb-3">
             <PenTool className="w-3.5 h-3.5" />
             <span>ओल चेमेत व सुलेखन (Ol Chiki Interactive Penmanship)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-teal-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-teal-800">
             ओल चिकी व संताली सुलेखन अभ्यास पुस्तिका
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             गुरु गोमके पंडित रघुनाथ मुर्मू द्वारा १९२५ में रचित ओल चिकी (ᱚᱞ ᱪᱤᱠᱤ) लिपि के ३० मूल वर्णों को सही स्ट्रोक दिशा में लिखना सीखें। स्क्रीन पर डिजिटल कलम से अभ्यास करें अथवा A4 सुलेखन अभ्यास पत्रक डाउनलोड करें।
           </p>
         </div>
@@ -187,10 +187,10 @@ export const SantaliOlChikiPenmanshipWorkbook: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Character Selector Grid */}
         <div className="lg:col-span-5 space-y-3">
-          <div className="bg-stone-900 border border-stone-800 rounded-2xl p-4">
-            <div className="flex items-center justify-between pb-2 mb-3 border-b border-stone-800 text-xs font-bold text-stone-300">
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4">
+            <div className="flex items-center justify-between pb-2 mb-3 border-b border-stone-200 text-xs font-bold text-stone-700">
               <span>वर्ण चुनें (Select Ol Chiki Letter)</span>
-              <span className="text-teal-400 font-mono">{selectedChar.char} = {selectedChar.devanagariEquiv}</span>
+              <span className="text-teal-600 font-mono">{selectedChar.char} = {selectedChar.devanagariEquiv}</span>
             </div>
 
             <div className="grid grid-cols-5 gap-2 max-h-[460px] overflow-y-auto pr-1">
@@ -203,7 +203,7 @@ export const SantaliOlChikiPenmanshipWorkbook: React.FC = () => {
                     className={`h-16 rounded-xl border flex flex-col items-center justify-center transition-all ${
                       isSelected
                         ? 'bg-teal-600 text-white border-teal-400 shadow-lg scale-105 z-10'
-                        : 'bg-stone-950 hover:bg-stone-800 text-stone-200 border-stone-800'
+                        : 'bg-white hover:bg-stone-100 text-stone-800 border-stone-200'
                     }`}
                   >
                     <span className="text-2xl font-bold leading-none">{item.char}</span>
@@ -215,29 +215,29 @@ export const SantaliOlChikiPenmanshipWorkbook: React.FC = () => {
           </div>
 
           {/* Letter Info Card */}
-          <div className="bg-stone-900 border border-stone-800 rounded-2xl p-5 space-y-3 shadow-lg">
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-5 space-y-3 shadow-lg">
             <div className="flex items-start justify-between">
               <div>
-                <span className="text-3xl font-bold text-amber-300">{selectedChar.char}</span>
-                <span className="text-sm text-stone-300 font-bold ml-3">
+                <span className="text-3xl font-bold text-amber-700">{selectedChar.char}</span>
+                <span className="text-sm text-stone-700 font-bold ml-3">
                   {selectedChar.name} • {selectedChar.devanagariEquiv}
                 </span>
-                <p className="text-xs text-stone-400 font-mono mt-0.5">रोमन: {selectedChar.romanPhonetic}</p>
+                <p className="text-xs text-stone-600 font-mono mt-0.5">रोमन: {selectedChar.romanPhonetic}</p>
               </div>
               <button
                 onClick={speakPhonetic}
-                className="p-2 bg-teal-900/40 hover:bg-teal-800/60 text-teal-200 rounded-lg border border-teal-700/50"
+                className="p-2 bg-teal-50/40 hover:bg-teal-100/60 text-teal-800 rounded-lg border border-teal-200/50"
                 title="ध्वनि सुनें"
               >
                 <Volume2 className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="p-3 bg-stone-950 rounded-xl border border-stone-800 text-xs text-stone-300">
-              <strong className="text-teal-400 block mb-1">आकृति व दार्शनिक आधार:</strong>
+            <div className="p-3 bg-white rounded-xl border border-stone-200 text-xs text-stone-700">
+              <strong className="text-teal-600 block mb-1">आकृति व दार्शनिक आधार:</strong>
               {selectedChar.meaning}
             </div>
-            <div className="text-xs text-amber-300/90 font-medium">
+            <div className="text-xs text-amber-700/90 font-medium">
               ✍️ स्ट्रोक दिशा: {selectedChar.strokeHint}
             </div>
           </div>
@@ -245,11 +245,11 @@ export const SantaliOlChikiPenmanshipWorkbook: React.FC = () => {
 
         {/* Interactive Tracing Canvas */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="bg-stone-900 border border-stone-800 rounded-2xl p-5 shadow-xl text-center">
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-5 shadow-xl text-center">
             {/* Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-stone-800 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-stone-200 text-xs">
               <div className="flex items-center gap-2">
-                <span className="text-stone-400 font-medium">स्याही:</span>
+                <span className="text-stone-600 font-medium">स्याही:</span>
                 {['#10b981', '#f59e0b', '#38bdf8', '#ffffff'].map(c => (
                   <button
                     key={c}
@@ -263,7 +263,7 @@ export const SantaliOlChikiPenmanshipWorkbook: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-stone-400 font-medium">मोटाई:</span>
+                <span className="text-stone-600 font-medium">मोटाई:</span>
                 <input
                   type="range"
                   min="2"
@@ -279,15 +279,15 @@ export const SantaliOlChikiPenmanshipWorkbook: React.FC = () => {
                   onClick={() => setShowWatermark(!showWatermark)}
                   className={`px-3 py-1 rounded-lg border text-xs ${
                     showWatermark
-                      ? 'bg-stone-800 border-teal-500 text-teal-300'
-                      : 'bg-stone-950 border-stone-800 text-stone-400'
+                      ? 'bg-stone-100 border-teal-500 text-teal-700'
+                      : 'bg-white border-stone-200 text-stone-600'
                   }`}
                 >
                   ट्रेस गाइड {showWatermark ? 'चालू' : 'बंद'}
                 </button>
                 <button
                   onClick={resetCanvas}
-                  className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-lg"
+                  className="p-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg"
                   title="कैनवास साफ करें"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
@@ -315,10 +315,10 @@ export const SantaliOlChikiPenmanshipWorkbook: React.FC = () => {
                 onTouchStart={startDrawing}
                 onTouchMove={draw}
                 onTouchEnd={stopDrawing}
-                className="rounded-xl shadow-2xl cursor-crosshair border-2 border-stone-700 max-w-full h-auto bg-stone-950"
+                className="rounded-xl shadow-2xl cursor-crosshair border-2 border-stone-200 max-w-full h-auto bg-white"
               />
             </div>
-            <p className="text-[11px] text-stone-400 mt-3">
+            <p className="text-[11px] text-stone-600 mt-3">
               माउस या उंगली से हल्के हाथ से वर्ण को ऊपर से नीचे ट्रेस करें।
             </p>
           </div>

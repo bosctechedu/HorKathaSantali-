@@ -141,29 +141,29 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-red-950 via-stone-900 to-amber-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-red-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-red-50 via-stone-50 to-amber-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-xl border border-red-200/40 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/20 text-red-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-red-500/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/20 text-red-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-red-500/30">
               <Scissors className="w-4 h-4" />
               पांची-पारहाड़ रंगाई • Indigenous Textile Dyes & Block Print
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-red-50">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-red-900">
               पांची-पारहाड़ वनस्पति रंगाई व देशी ब्लॉक-प्रिंट शिल्प
             </h1>
-            <p className="mt-2 text-red-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="mt-2 text-red-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               बबूल छाल-लोहा किण्वन (गाबा), पलाश पुष्प पीत-केसरिया, लकड़ी के नक्काशीदार ठप्पे और संताली हैंडलूम फैब्रिक पर डिजिटल ब्लॉक-प्रिंटिंग।
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-stone-950/80 p-1.5 rounded-2xl border border-red-700/50">
+          <div className="flex items-center gap-2 bg-white/80 p-1.5 rounded-2xl border border-red-200/50">
             <button
               onClick={() => setActiveTab('stamp_studio')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'stamp_studio'
                   ? 'bg-red-700 text-white shadow-md'
-                  : 'text-red-300 hover:text-white'
+                  : 'text-red-700 hover:text-slate-900'
               }`}
             >
               ब्लॉक-प्रिंट स्टूडियो
@@ -173,7 +173,7 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'dye_alchemy'
                   ? 'bg-red-700 text-white shadow-md'
-                  : 'text-red-300 hover:text-white'
+                  : 'text-red-700 hover:text-slate-900'
               }`}
             >
               वनस्पति रंग रसायन
@@ -183,7 +183,7 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'panchi_lore'
                   ? 'bg-red-700 text-white shadow-md'
-                  : 'text-red-300 hover:text-white'
+                  : 'text-red-700 hover:text-slate-900'
               }`}
             >
               पांची-पारहाड़ धरोहर
@@ -197,8 +197,8 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Column */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <div className="bg-white dark:bg-slate-50 rounded-3xl p-5 border border-slate-200 dark:border-slate-200 shadow-sm space-y-4">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-slate-800 flex items-center gap-2">
                 <Palette className="w-4 h-4 text-red-600" />
                 १. प्राकृतिक वनस्पति रंग चुनें:
               </h2>
@@ -211,8 +211,8 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
                       onClick={() => setSelectedDye(dye)}
                       className={`p-3 rounded-2xl border text-left transition-all ${
                         isSelected
-                          ? 'border-red-600 ring-2 ring-red-500/20 bg-red-50/50 dark:bg-red-950/30'
-                          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800'
+                          ? 'border-red-300 ring-2 ring-red-500/20 bg-red-50/50 dark:bg-red-50/30'
+                          : 'border-slate-200 dark:border-slate-200 bg-white dark:bg-slate-100'
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -220,7 +220,7 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
                           className="w-4 h-4 rounded-full border border-black/20"
                           style={{ backgroundColor: dye.colorHex }}
                         />
-                        <span className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+                        <span className="text-xs font-bold text-slate-800 dark:text-slate-800 truncate">
                           {dye.nameSantali}
                         </span>
                       </div>
@@ -232,7 +232,7 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
                 })}
               </div>
 
-              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2 pt-2">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-slate-800 flex items-center gap-2 pt-2">
                 <Scissors className="w-4 h-4 text-red-600" />
                 २. पारंपरिक लकड़ी का ठप्पा (Stamp):
               </h2>
@@ -245,12 +245,12 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
                       onClick={() => setSelectedStamp(stamp)}
                       className={`p-3 rounded-2xl border text-left transition-all ${
                         isSelected
-                          ? 'border-red-600 ring-2 ring-red-500/20 bg-red-50/50 dark:bg-red-950/30'
-                          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800'
+                          ? 'border-red-300 ring-2 ring-red-500/20 bg-red-50/50 dark:bg-red-50/30'
+                          : 'border-slate-200 dark:border-slate-200 bg-white dark:bg-slate-100'
                       }`}
                     >
                       <div className="text-2xl mb-1">{stamp.symbol}</div>
-                      <div className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                      <div className="text-xs font-bold text-slate-800 dark:text-slate-800">
                         {stamp.name}
                       </div>
                       <div className="text-[10px] text-slate-500 mt-0.5 leading-tight">
@@ -265,10 +265,10 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
 
           {/* Interactive Fabric Canvas */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 border border-slate-200 dark:border-slate-200 shadow-sm space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-200 pb-3">
                 <div>
-                  <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+                  <h3 className="font-bold text-base text-slate-900 dark:text-slate-900 flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-red-500" />
                     हैंडलूम सूती वस्त्र कैनवास (Click to Stamp)
                   </h3>
@@ -278,7 +278,7 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
                 </div>
                 <button
                   onClick={initFabricCanvas}
-                  className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-100 hover:bg-slate-200 text-slate-700 dark:text-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-colors"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   वस्त्र धोएं (Clear)
@@ -286,7 +286,7 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
               </div>
 
               {/* Canvas viewport */}
-              <div className="rounded-2xl overflow-hidden shadow-inner border-4 border-amber-900/20 bg-[#FBF8F1]">
+              <div className="rounded-2xl overflow-hidden shadow-inner border-4 border-amber-200/20 bg-[#FBF8F1]">
                 <canvas
                   ref={canvasRef}
                   width={640}
@@ -297,8 +297,8 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
               </div>
 
               {/* Stamp Lore Callout */}
-              <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 text-xs text-slate-700 dark:text-slate-300 space-y-1">
-                <span className="font-bold text-amber-900 dark:text-amber-300 block">
+              <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-50/20 border border-amber-200/60 dark:border-amber-200/40 text-xs text-slate-700 dark:text-slate-700 space-y-1">
+                <span className="font-bold text-amber-900 dark:text-amber-700 block">
                   ठप्पा नक्काशी की विशेषता:
                 </span>
                 संताली काष्ठकार शीशम या साल की कठोर लकड़ी पर छेनी से गहराई में मोटिफ्स तराशते हैं। कपड़े पर छपाई के बाद कपड़े को धूप में सुखाकर बहती नदी के ठंडे पानी में धोया जाता है ताकि रंग पक्का हो सके।
@@ -310,13 +310,13 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
 
       {/* Main Tab: Dye Alchemy */}
       {activeTab === 'dye_alchemy' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <Palette className="w-5 h-5 text-red-600" />
               प्राकृतिक वानस्पतिक रंग रसायन व रंग-बंधक (Mordant Science)
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               बिना किसी हानिकारक सिंथेटिक केमिकल के जंगल की जड़ों, छालों और फलों से स्थायी पक्के रंगों की पारंपरिक तकनीक।
             </p>
           </div>
@@ -325,7 +325,7 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
             {BOTANICAL_DYES.map((dye) => (
               <div
                 key={dye.id}
-                className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-3"
+                className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/40 border border-slate-200 dark:border-slate-200 space-y-3"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
@@ -333,16 +333,16 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
                       className="w-5 h-5 rounded-full border border-black/30 shadow-xs"
                       style={{ backgroundColor: dye.colorHex }}
                     />
-                    <h3 className="font-bold text-slate-900 dark:text-white text-base">
+                    <h3 className="font-bold text-slate-900 dark:text-slate-900 text-base">
                       {dye.nameSantali}
                     </h3>
                   </div>
                   <span className="text-xs font-semibold text-slate-500">{dye.nameHindi}</span>
                 </div>
-                <div className="text-xs text-slate-600 dark:text-slate-300">
+                <div className="text-xs text-slate-600 dark:text-slate-700">
                   <strong>प्राकृतिक संघटक:</strong> {dye.botanicalIngredients}
                 </div>
-                <div className="text-xs text-slate-600 dark:text-slate-300">
+                <div className="text-xs text-slate-600 dark:text-slate-700">
                   <strong>रंग पक्का करने की विधि:</strong> {dye.mordantProcess}
                 </div>
               </div>
@@ -353,44 +353,44 @@ export const SantaliTextileDyesBlockPrint: React.FC = () => {
 
       {/* Main Tab: Panchi Lore */}
       {activeTab === 'panchi_lore' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <Layers className="w-5 h-5 text-red-600" />
               पांची-पारहाड़: संताली राष्ट्रीय वेशभूषा की गरिमा
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               संताली समाज में वस्त्र केवल शरीर ढकने के लिए नहीं, बल्कि प्रकृति, स्वाभिमान और सांस्कृतिक पहचान का प्रतीक हैं।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">👗</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 पांची व पारहाड़ का संयोजन
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 'पांची' निचले भाग में लपेटा जाने वाला दोहरे सूत का वस्त्र है और 'पारहाड़' ऊपरी भाग को गरिमापूर्ण ढंग से ढकने वाला पारंपरिक उत्तरीय है।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🔴</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 लाल और सफेद का पावन सामंजस्य
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 सफेद पृष्ठभूमि मन की निर्मलता और सत्य का प्रतीक है, जबकि लाल किनारा (पारहाड़) जीवन-शक्ति और रक्त-संबंधी कुल एकता को दर्शाता है।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🧵</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 देशी तसर व करघा बुनकरी
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 जंगल के साल और अर्जुन के पेड़ों पर पले रेशम कीटों (तसर ककून) से धागा निकालकर पारंपरिक गड्ढा-करघे (Pit loom) पर बुना जाता है।
               </p>
             </div>

@@ -282,28 +282,28 @@ export const SantaliVillageTour: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
       {/* Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950 via-stone-900 to-amber-950 text-white p-6 sm:p-8 border border-emerald-800/40 shadow-xl">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-50 via-stone-50 to-amber-50 text-slate-900 p-6 sm:p-8 border border-emerald-200/40 shadow-xl">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-lg text-xs font-bold border border-emerald-500/30">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/20 text-emerald-700 rounded-lg text-xs font-bold border border-emerald-500/30">
               <Compass className="w-3.5 h-3.5" />
               <span>सांताली हातु दिसोम - पवित्र ग्राम संरचना</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
               संताल गांव (हातु) का पवित्र इंटरएक्टिव मानचित्र
             </h1>
-            <p className="text-emerald-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="text-emerald-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               एक पारंपरिक संताल गांव की पवित्र भौगोलिक संरचना को जानें। जाहेर थान, मांझी थान, कुलही, अखड़ा और सासन के धार्मिक नियम, रीति-रिवाज और पदाधिकारियों की भूमिका का अनुभव करें।
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-stone-900/80 p-1.5 rounded-2xl border border-white/10 shrink-0">
+          <div className="flex items-center gap-2 bg-stone-50/80 p-1.5 rounded-2xl border border-white/10 shrink-0">
             <button
               onClick={() => setActiveTab('map')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'map'
                   ? 'bg-emerald-500 text-stone-950 shadow-md'
-                  : 'text-stone-300 hover:text-white'
+                  : 'text-stone-700 hover:text-slate-900'
               }`}
             >
               🗺️ गांव का मानचित्र
@@ -313,7 +313,7 @@ export const SantaliVillageTour: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'officials'
                   ? 'bg-emerald-500 text-stone-950 shadow-md'
-                  : 'text-stone-300 hover:text-white'
+                  : 'text-stone-700 hover:text-slate-900'
               }`}
             >
               👥 ग्राम पदाधिकारी
@@ -323,7 +323,7 @@ export const SantaliVillageTour: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'quiz'
                   ? 'bg-emerald-500 text-stone-950 shadow-md'
-                  : 'text-stone-300 hover:text-white'
+                  : 'text-stone-700 hover:text-slate-900'
               }`}
             >
               🎯 स्थल क्विज़
@@ -336,9 +336,9 @@ export const SantaliVillageTour: React.FC = () => {
       {activeTab === 'map' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Interactive Map Canvas (7 Cols) */}
-          <div className="lg:col-span-7 bg-stone-900 rounded-3xl p-5 border border-stone-800 shadow-md flex flex-col">
-            <div className="flex items-center justify-between mb-3 text-xs text-stone-400">
-              <span className="font-bold flex items-center gap-1.5 text-emerald-400">
+          <div className="lg:col-span-7 bg-stone-50 rounded-3xl p-5 border border-stone-200 shadow-md flex flex-col">
+            <div className="flex items-center justify-between mb-3 text-xs text-stone-600">
+              <span className="font-bold flex items-center gap-1.5 text-emerald-600">
                 <MapPin className="w-4 h-4" />
                 मानचित्र पर किसी भी पवित्र स्थल पर क्लिक करें:
               </span>
@@ -346,7 +346,7 @@ export const SantaliVillageTour: React.FC = () => {
             </div>
 
             {/* Stylized Santal Village Visual Map */}
-            <div className="relative w-full aspect-[4/3] bg-gradient-to-br from-emerald-950 via-stone-900 to-amber-950 rounded-2xl overflow-hidden border border-emerald-900/50 shadow-inner select-none">
+            <div className="relative w-full aspect-[4/3] bg-gradient-to-br from-emerald-50 via-stone-50 to-amber-50 rounded-2xl overflow-hidden border border-emerald-200/50 shadow-inner select-none">
               {/* Background Village Pathways & River Lines */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40">
                 {/* Central Kulhi Road */}
@@ -382,13 +382,13 @@ export const SantaliVillageTour: React.FC = () => {
                     className={`absolute z-10 p-2 sm:p-2.5 rounded-2xl flex flex-col items-center gap-1 transition-all cursor-pointer group ${
                       isSelected
                         ? 'bg-amber-500 text-stone-950 scale-110 shadow-2xl ring-4 ring-amber-400/50 z-30'
-                        : 'bg-stone-800/90 hover:bg-stone-700 text-white border border-white/20 shadow-lg hover:scale-105'
+                        : 'bg-stone-100/90 hover:bg-stone-200 text-slate-900 border border-white/20 shadow-lg hover:scale-105'
                     }`}
                   >
                     <span className="text-xl sm:text-2xl">{site.icon}</span>
                     <span
                       className={`text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded-md whitespace-nowrap ${
-                        isSelected ? 'bg-stone-950 text-amber-400' : 'bg-stone-900/90 text-stone-200'
+                        isSelected ? 'bg-white text-amber-600' : 'bg-stone-50/90 text-stone-800'
                       }`}
                     >
                       {site.nameDev.split(' ')[0]}
@@ -401,8 +401,8 @@ export const SantaliVillageTour: React.FC = () => {
               })}
 
               {/* Map Compass Rose */}
-              <div className="absolute bottom-3 right-3 bg-stone-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 text-[10px] text-stone-400 flex items-center gap-2">
-                <Compass className="w-3.5 h-3.5 text-amber-400 animate-spin-slow" />
+              <div className="absolute bottom-3 right-3 bg-stone-50/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 text-[10px] text-stone-600 flex items-center gap-2">
+                <Compass className="w-3.5 h-3.5 text-amber-600 animate-spin-slow" />
                 <span>उत्तर (North) • जाहेर थान</span>
               </div>
             </div>
@@ -419,7 +419,7 @@ export const SantaliVillageTour: React.FC = () => {
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     selectedSite.id === site.id
                       ? 'bg-emerald-600 text-white shadow-sm'
-                      : 'bg-stone-800 hover:bg-stone-700 text-stone-300'
+                      : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
                   }`}
                 >
                   <span>{site.icon}</span>

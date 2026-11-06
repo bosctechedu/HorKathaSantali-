@@ -91,16 +91,16 @@ export const SantaliLoBirCourtSimulator: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-stone-950 via-amber-950 to-stone-900 border border-amber-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-stone-50 via-amber-50 to-stone-50 border border-amber-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-800/60 border border-amber-600/40 rounded-full text-xs font-semibold text-amber-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100/60 border border-amber-300/40 rounded-full text-xs font-semibold text-amber-800 mb-3">
             <Scale className="w-3.5 h-3.5" />
             <span>लो बीर बैसी (Santali Supreme Customary Court)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-800">
             लो बीर बैसी: सर्वोच्च आदिवासी जन-अदालत सिमुलेटर
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             संथाल समाज की सर्वोच्च न्यायिक सभा 'लो बीर बैसी' में न कोई वकील होता है, न कोर्ट फीस। जंगल में साल के वृक्षों की छांव में हर व्यक्ति को अपनी बात रखने का अधिकार होता है। जानिए कैसे पूर्वजों की मौखिक विधि-संहिता से आम सहमति का न्याय होता है।
           </p>
 
@@ -110,7 +110,7 @@ export const SantaliLoBirCourtSimulator: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'simulator'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               जन-अदालत मुकदमा सिमुलेटर
@@ -120,7 +120,7 @@ export const SantaliLoBirCourtSimulator: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'constitution'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               संथाल त्रि-स्तरीय शासन व न्याय दर्शन
@@ -131,48 +131,48 @@ export const SantaliLoBirCourtSimulator: React.FC = () => {
 
       {/* Main Tab 1: Court Simulator */}
       {activeTab === 'simulator' && (
-        <div className="max-w-3xl mx-auto bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-stone-800">
-            <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">
+        <div className="max-w-3xl mx-auto bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-6">
+          <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+            <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">
               {currentCase.category}
             </span>
-            <span className="text-xs text-stone-400">
+            <span className="text-xs text-stone-600">
               मुकदमा {activeCaseIdx + 1} / {COURT_CASES.length}
             </span>
           </div>
 
           <div>
-            <h2 className="text-xl font-bold text-amber-200">{currentCase.titleDev}</h2>
-            <p className="text-xs text-stone-400 font-mono mt-0.5">{currentCase.titleRom}</p>
-            <p className="text-sm text-stone-300 mt-2 bg-stone-950 p-3.5 rounded-xl border border-stone-800">
+            <h2 className="text-xl font-bold text-amber-800">{currentCase.titleDev}</h2>
+            <p className="text-xs text-stone-600 font-mono mt-0.5">{currentCase.titleRom}</p>
+            <p className="text-sm text-stone-700 mt-2 bg-white p-3.5 rounded-xl border border-stone-200">
               {currentCase.background}
             </p>
           </div>
 
           {/* Statements */}
           <div className="space-y-3">
-            <div className="p-3.5 bg-blue-950/30 border border-blue-800/40 rounded-xl text-xs text-blue-100">
-              <strong className="text-blue-300 block mb-1">वादी का पक्ष:</strong>
+            <div className="p-3.5 bg-blue-50/30 border border-blue-200/40 rounded-xl text-xs text-blue-800">
+              <strong className="text-blue-700 block mb-1">वादी का पक्ष:</strong>
               {currentCase.complainantStatement}
             </div>
-            <div className="p-3.5 bg-amber-950/30 border border-amber-800/40 rounded-xl text-xs text-amber-100">
-              <strong className="text-amber-300 block mb-1">प्रतिवादी का पक्ष:</strong>
+            <div className="p-3.5 bg-amber-50/30 border border-amber-200/40 rounded-xl text-xs text-amber-800">
+              <strong className="text-amber-700 block mb-1">प्रतिवादी का पक्ष:</strong>
               {currentCase.defendantStatement}
             </div>
           </div>
 
           {/* Customary Law Quote */}
-          <div className="p-4 bg-stone-950 rounded-xl border border-amber-700/40 text-center">
-            <span className="text-xs uppercase text-amber-400 font-semibold block mb-1">
+          <div className="p-4 bg-white rounded-xl border border-amber-200/40 text-center">
+            <span className="text-xs uppercase text-amber-600 font-semibold block mb-1">
               पूर्वजों की प्राचीन विधि-संहिता (हापड़ाम काथा)
             </span>
-            <p className="text-base font-bold text-amber-200 font-serif">"{currentCase.customaryLawQuote}"</p>
-            <p className="text-xs text-stone-400 mt-1 italic">{currentCase.customaryLawExplanation}</p>
+            <p className="text-base font-bold text-amber-800 font-serif">"{currentCase.customaryLawQuote}"</p>
+            <p className="text-xs text-stone-600 mt-1 italic">{currentCase.customaryLawExplanation}</p>
           </div>
 
           {/* Judicial Options */}
           <div className="space-y-3">
-            <span className="text-xs font-bold text-stone-300 block">
+            <span className="text-xs font-bold text-stone-700 block">
               लो बीर बैसी के सदस्य के रूप में आपका न्यायसंगत फैसला क्या होगा?
             </span>
             {currentCase.options.map((opt, idx) => {
@@ -184,19 +184,19 @@ export const SantaliLoBirCourtSimulator: React.FC = () => {
                   className={`w-full p-4 rounded-xl text-left text-xs transition-all border ${
                     isSelected
                       ? opt.isTraditionalConsensus
-                        ? 'bg-emerald-950/80 border-emerald-500 text-emerald-100 font-semibold'
-                        : 'bg-red-950/80 border-red-500 text-red-100'
-                      : 'bg-stone-950 hover:bg-stone-800/80 border-stone-800 text-stone-200'
+                        ? 'bg-emerald-50/80 border-emerald-500 text-emerald-800 font-semibold'
+                        : 'bg-red-50/80 border-red-500 text-red-800'
+                      : 'bg-white hover:bg-stone-100/80 border-stone-200 text-stone-800'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <span>{opt.text}</span>
                     {isSelected && opt.isTraditionalConsensus && (
-                      <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     )}
                   </div>
                   {isSelected && (
-                    <div className="mt-2 pt-2 border-t border-stone-700/60 text-xs text-stone-300">
+                    <div className="mt-2 pt-2 border-t border-stone-200/60 text-xs text-stone-700">
                       {opt.explanation}
                     </div>
                   )}
@@ -220,19 +220,19 @@ export const SantaliLoBirCourtSimulator: React.FC = () => {
 
       {/* Main Tab 2: Constitution & Hierarchy */}
       {activeTab === 'constitution' && (
-        <div className="max-w-3xl mx-auto bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-4">
-          <h3 className="text-xl font-bold text-amber-300">संथाल समाज की त्रि-स्तरीय स्वशासन व्यवस्था</h3>
-          <div className="space-y-3 text-xs text-stone-300">
-            <div className="p-4 bg-stone-950 rounded-xl border border-stone-800">
-              <strong className="text-amber-400 block mb-1">१. हातु बैसी (Village Court)</strong>
+        <div className="max-w-3xl mx-auto bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-4">
+          <h3 className="text-xl font-bold text-amber-700">संथाल समाज की त्रि-स्तरीय स्वशासन व्यवस्था</h3>
+          <div className="space-y-3 text-xs text-stone-700">
+            <div className="p-4 bg-white rounded-xl border border-stone-200">
+              <strong className="text-amber-600 block mb-1">१. हातु बैसी (Village Court)</strong>
               ग्राम स्तर की सभा जिसकी अध्यक्षता मांझी बाबा करते हैं। गोड़ेत, प्राणिक व जोग मांझी की उपस्थिति में गांव के दैनिक विवाद सुलझाए जाते हैं।
             </div>
-            <div className="p-4 bg-stone-950 rounded-xl border border-stone-800">
-              <strong className="text-amber-400 block mb-1">२. परगना बैसी (Inter-Village Council)</strong>
+            <div className="p-4 bg-white rounded-xl border border-stone-200">
+              <strong className="text-amber-600 block mb-1">२. परगना बैसी (Inter-Village Council)</strong>
               १२ से २० गांवों का संघ जिसकी अध्यक्षता परगना बाबा करते हैं। दो गांवों के आपसी विवादों का निपटारा यहां होता है।
             </div>
-            <div className="p-4 bg-stone-950 rounded-xl border border-stone-800">
-              <strong className="text-amber-400 block mb-1">३. लो बीर बैसी (Supreme Assembly of the Forest)</strong>
+            <div className="p-4 bg-white rounded-xl border border-stone-200">
+              <strong className="text-amber-600 block mb-1">३. लो बीर बैसी (Supreme Assembly of the Forest)</strong>
               संथाल समाज की सर्वोच्च अपीलीय अदालत। यहां मांझी और परगना भी आम नागरिक के समान जमीन पर बैठते हैं। दिहरी (Dihri) के नेतृत्व में लिया गया फैसला अंतिम और बाध्यकारी होता है।
             </div>
           </div>

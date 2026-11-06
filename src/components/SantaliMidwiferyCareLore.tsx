@@ -67,29 +67,29 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-rose-950 via-pink-950 to-stone-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-rose-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-rose-50 via-pink-50 to-stone-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-xl border border-rose-200/40 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/20 text-rose-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-rose-500/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/20 text-rose-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-rose-500/30">
               <Baby className="w-4 h-4" />
               दाया बुढ़ी आर जनम छठियार • Indigenous Midwifery & Neonatal Lore
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-rose-50">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-rose-900">
               दाया बुढ़ी व संताली प्रसूति-शिशु रक्षा विज्ञान
             </h1>
-            <p className="mt-2 text-rose-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="mt-2 text-rose-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               पारंपरिक वनवासी दाई (दाया बुढ़ी) की नाड़ी-स्पर्श विद्या, महुआ तेल अभ्यंग, बांस की चोई से सुरक्षित नाल-छेदन और जनम छठियार का पवित्र नामकरण विधान।
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-stone-950/80 p-1.5 rounded-2xl border border-rose-700/50">
+          <div className="flex items-center gap-2 bg-white/80 p-1.5 rounded-2xl border border-rose-200/50">
             <button
               onClick={() => setActiveTab('stages')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'stages'
                   ? 'bg-rose-700 text-white shadow-md'
-                  : 'text-rose-300 hover:text-white'
+                  : 'text-rose-700 hover:text-slate-900'
               }`}
             >
               ४ प्रसूति चरण
@@ -99,7 +99,7 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'herbs'
                   ? 'bg-rose-700 text-white shadow-md'
-                  : 'text-rose-300 hover:text-white'
+                  : 'text-rose-700 hover:text-slate-900'
               }`}
             >
               मातृ पोषण वनौषधि
@@ -109,7 +109,7 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'naming_rules'
                   ? 'bg-rose-700 text-white shadow-md'
-                  : 'text-rose-300 hover:text-white'
+                  : 'text-rose-700 hover:text-slate-900'
               }`}
             >
               हपड़ाम नामकरण नियम
@@ -122,7 +122,7 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
       {activeTab === 'stages' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-rose-950 dark:text-rose-300 px-1 flex items-center gap-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-rose-950 dark:text-rose-700 px-1 flex items-center gap-2">
               <Compass className="w-4 h-4 text-rose-600" />
               मातृत्व व शिशु परिचर्या के चरण:
             </h2>
@@ -136,20 +136,20 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
                     onClick={() => setSelectedStage(stage)}
                     className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                       isSelected
-                        ? 'bg-rose-50/80 dark:bg-rose-950/40 border-rose-600 shadow-md ring-2 ring-rose-500/20'
-                        : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-rose-300'
+                        ? 'bg-rose-50/80 dark:bg-rose-50/40 border-rose-300 shadow-md ring-2 ring-rose-500/20'
+                        : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-rose-300'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl p-2 bg-rose-100 dark:bg-rose-900/60 rounded-xl">
+                        <span className="text-2xl p-2 bg-rose-100 dark:bg-rose-50/60 rounded-xl">
                           {stage.visualEmoji}
                         </span>
                         <div>
-                          <div className="font-bold text-slate-900 dark:text-white text-base">
+                          <div className="font-bold text-slate-900 dark:text-slate-900 text-base">
                             {stage.stageSantali}
                           </div>
-                          <div className="text-xs text-rose-700 dark:text-rose-400 font-semibold">
+                          <div className="text-xs text-rose-700 dark:text-rose-600 font-semibold">
                             {stage.stageHindi}
                           </div>
                         </div>
@@ -159,7 +159,7 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
                           e.stopPropagation();
                           speakText(`${stage.stageSantali}. ${stage.stageHindi}. ${stage.carePractice}`);
                         }}
-                        className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-100 dark:hover:bg-rose-900/50"
+                        className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-100 dark:hover:bg-rose-50/50"
                         title="विवरण सुनें"
                       >
                         <Volume2 className="w-4 h-4" />
@@ -171,8 +171,8 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
             </div>
 
             {/* Respect to Midwife Box */}
-            <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/40 text-xs text-rose-950 dark:text-rose-200 leading-relaxed">
-              <div className="font-bold text-rose-900 dark:text-rose-300 flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-50/30 border border-rose-200 dark:border-rose-200/40 text-xs text-rose-950 dark:text-rose-800 leading-relaxed">
+              <div className="font-bold text-rose-900 dark:text-rose-700 flex items-center gap-1.5 mb-1">
                 <Info className="w-4 h-4" />
                 दाया बुढ़ी का सामाजिक सम्मान:
               </div>
@@ -182,19 +182,19 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
 
           {/* Stage Detail */}
           <div className="lg:col-span-7 space-y-5">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 border border-slate-200 dark:border-slate-200 shadow-sm space-y-5">
+              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-200 pb-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
                     {selectedStage.visualEmoji} {selectedStage.stageSantali}
                   </h3>
-                  <p className="text-sm text-rose-700 dark:text-rose-400 font-medium">
+                  <p className="text-sm text-rose-700 dark:text-rose-600 font-medium">
                     {selectedStage.stageHindi}
                   </p>
                 </div>
                 <button
                   onClick={() => speakText(`${selectedStage.stageSantali}. परिचर्या: ${selectedStage.carePractice}. वनौषधि: ${selectedStage.herbalRemedy}`)}
-                  className="px-3.5 py-2 rounded-xl bg-rose-50 dark:bg-rose-900/40 hover:bg-rose-100 text-rose-700 dark:text-rose-300 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  className="px-3.5 py-2 rounded-xl bg-rose-50 dark:bg-rose-50/40 hover:bg-rose-100 text-rose-700 dark:text-rose-700 text-xs font-semibold flex items-center gap-1.5 transition-all"
                 >
                   <Volume2 className="w-4 h-4" />
                   ऑडियो सुनें
@@ -204,31 +204,31 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
               {/* Data Specifications */}
               <div className="space-y-4 text-sm">
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-rose-600"></span>
                     पारंपरिक अनुभव-परिचर्या (Traditional Nursing Method):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedStage.carePractice}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                     वनौषधीय आहार व काढ़ा (Herbal Nutrition):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedStage.herbalRemedy}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-amber-500"></span>
                     सांस्कृतिक संस्कार व वर्जनाएं:
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-amber-50/50 dark:bg-amber-950/20 p-3.5 rounded-2xl border border-amber-200/50 dark:border-amber-900/30">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-amber-50/50 dark:bg-amber-50/20 p-3.5 rounded-2xl border border-amber-200/50 dark:border-amber-200/30">
                     {selectedStage.sacredRitual}
                   </p>
                 </div>
@@ -240,41 +240,41 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
 
       {/* Main Tab: Herbs */}
       {activeTab === 'herbs' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <HeartPulse className="w-5 h-5 text-rose-600" />
               मातृत्व व नवजात शिशु के लिए प्राकृतिक वनौषधियां
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               संताली वनों से प्राप्त निरापद जड़ी-बूटियां जो माता और शिशु को प्राकृतिक प्रतिरोधक क्षमता देती हैं।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-950/30 border border-rose-200/60 dark:border-rose-900/40 space-y-2">
-              <h3 className="font-bold text-rose-950 dark:text-rose-200 text-sm">
+            <div className="p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-50/30 border border-rose-200/60 dark:border-rose-200/40 space-y-2">
+              <h3 className="font-bold text-rose-950 dark:text-rose-800 text-sm">
                 मातकोम सुनुम (महुआ तेल मालिश)
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-700 leading-relaxed">
                 महुआ के बीज (कोचड़ा) से घर में निकाला गया शुद्ध तेल। यह शिशु की नाजुक त्वचा को रूखेपन और संक्रमण से बचाता है और हड्डियों को इस्पात जैसा सुदृढ़ बनाता है।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-950/30 border border-rose-200/60 dark:border-rose-900/40 space-y-2">
-              <h3 className="font-bold text-rose-950 dark:text-rose-200 text-sm">
+            <div className="p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-50/30 border border-rose-200/60 dark:border-rose-200/40 space-y-2">
+              <h3 className="font-bold text-rose-950 dark:text-rose-800 text-sm">
                 दुधी लता व सतवार का काढ़ा
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-700 leading-relaxed">
                 जंगल की 'दुधी लता' और सतावर की जड़ों को उबालकर प्रसूता माता को दिया जाता है, जिससे प्राकृतिक दुग्ध-वृद्धि होती है और कमजोरी दूर होती है।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-950/30 border border-rose-200/60 dark:border-rose-900/40 space-y-2">
-              <h3 className="font-bold text-rose-950 dark:text-rose-200 text-sm">
+            <div className="p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-50/30 border border-rose-200/60 dark:border-rose-200/40 space-y-2">
+              <h3 className="font-bold text-rose-950 dark:text-rose-800 text-sm">
                 सरजोम लहा (साल का शुद्ध गोंद)
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-700 leading-relaxed">
                 साल के पेड़ का प्राकृतिक सफेद गोंद जिसे भूनकर गर्म दूध या मांड़ में मिलाकर प्रसूता को दिया जाता है ताकि आंतरिक घाव और सूजन शीघ्र ठीक हो सके।
               </p>
             </div>
@@ -284,24 +284,24 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
 
       {/* Main Tab: Naming Rules */}
       {activeTab === 'naming_rules' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-rose-600" />
               हपड़ाम नामकरण नियम: पूर्वजों की अमर परंपरा
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               संताली समाज में नाम किसी कल्पना से नहीं, बल्कि पूर्वजों के सम्मान में एक व्यवस्थित गणितीय क्रम से दिया जाता है।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
-              <div className="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/40 border border-slate-200 dark:border-slate-200 space-y-2">
+              <div className="font-bold text-slate-900 dark:text-slate-900 text-sm flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-rose-600" />
                 पुत्रों का नामकरण क्रम:
               </div>
-              <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pl-4 list-disc">
+              <ul className="text-xs text-slate-600 dark:text-slate-700 space-y-1.5 pl-4 list-disc">
                 <li><strong>पहला बेटा (First Son):</strong> अपने दादा (Paternal Grandfather) के नाम पर।</li>
                 <li><strong>दूसरा बेटा (Second Son):</strong> अपने नाना (Maternal Grandfather) के नाम पर।</li>
                 <li><strong>तीसरा बेटा (Third Son):</strong> पिता के बड़े भाई (बड़ा बाबू) के नाम पर।</li>
@@ -309,12 +309,12 @@ export const SantaliMidwiferyCareLore: React.FC = () => {
               </ul>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
-              <div className="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/40 border border-slate-200 dark:border-slate-200 space-y-2">
+              <div className="font-bold text-slate-900 dark:text-slate-900 text-sm flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-rose-600" />
                 पुत्रियों का नामकरण क्रम:
               </div>
-              <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pl-4 list-disc">
+              <ul className="text-xs text-slate-600 dark:text-slate-700 space-y-1.5 pl-4 list-disc">
                 <li><strong>पहली बेटी (First Daughter):</strong> अपनी दादी (Paternal Grandmother) के नाम पर।</li>
                 <li><strong>दूसरी बेटी (Second Daughter):</strong> अपनी नानी (Maternal Grandmother) के नाम पर।</li>
                 <li><strong>तीसरी बेटी (Third Daughter):</strong> पिता की बड़ी बहन (बड़ी बुआ) के नाम पर।</li>

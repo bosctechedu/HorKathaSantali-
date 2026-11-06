@@ -223,39 +223,39 @@ export const SantaliArcheryGameSimulator: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Banner */}
-      <div className="rounded-3xl bg-gradient-to-r from-stone-900 via-amber-950 to-orange-950 text-white p-6 md:p-8 shadow-xl relative overflow-hidden border border-amber-500/30">
+      <div className="rounded-3xl bg-gradient-to-r from-stone-50 via-amber-50 to-orange-50 text-slate-900 p-6 md:p-8 shadow-xl relative overflow-hidden border border-amber-500/30">
         <div className="relative z-10 max-w-2xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-bold uppercase tracking-wider">
-            <Target className="w-3.5 h-3.5 text-amber-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-700 border border-amber-400/40 text-xs font-bold uppercase tracking-wider">
+            <Target className="w-3.5 h-3.5 text-amber-600" />
             <span>आक-सार धनुर्विद्या व बेझा तुञ · Traditional Archery & Word Target Game</span>
           </div>
 
-          <h1 className="text-2xl md:text-3xl font-black text-amber-100 tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-black text-amber-800 tracking-tight">
             संताली तीरंदाजी व शब्द निशाना सिमुलेटर (Ak-Sar Archery Master)
           </h1>
 
-          <p className="text-xs md:text-sm text-amber-200/90 leading-relaxed font-sans">
+          <p className="text-xs md:text-sm text-amber-800/90 leading-relaxed font-sans">
             संताली धनुष (आक) और बाण (सार) का शास्त्रीय इतिहास और बेझा तुञ की प्राचीन परंपरा। सही संताली शब्द के निशाने पर तीर चलाएं और सर्वोच्च धनुर्धर की उपाधि हासिल करें!
           </p>
 
-          <div className="flex items-center gap-4 pt-1 text-xs text-amber-300">
+          <div className="flex items-center gap-4 pt-1 text-xs text-amber-700">
             <span className="font-bold flex items-center gap-1">
-              <Trophy className="w-4 h-4 text-amber-400" />
+              <Trophy className="w-4 h-4 text-amber-600" />
               <span>अंक: {score}</span>
             </span>
             <span>•</span>
-            <span className="font-bold flex items-center gap-1 text-orange-400">
+            <span className="font-bold flex items-center gap-1 text-orange-600">
               <Flame className="w-4 h-4 text-orange-500 animate-pulse" />
               <span>लगातार सही: {streak}</span>
             </span>
             <span>•</span>
-            <span className="text-slate-300">तीर शेष: {arrowsLeft}</span>
+            <span className="text-slate-700">तीर शेष: {arrowsLeft}</span>
           </div>
         </div>
       </div>
 
       {/* Main Archery Range Canvas / Arena */}
-      <div className="bg-slate-900 rounded-3xl border border-amber-400/40 p-6 md:p-8 text-white relative overflow-hidden shadow-2xl">
+      <div className="bg-slate-50 rounded-3xl border border-amber-400/40 p-6 md:p-8 text-slate-900 relative overflow-hidden shadow-2xl">
         {/* Ambient Target Rings Graphic */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full border-8 border-amber-500/10 pointer-events-none" />
         <div className="absolute right-10 top-1/2 -translate-y-1/2 w-60 h-60 rounded-full border-8 border-orange-500/10 pointer-events-none" />
@@ -263,22 +263,22 @@ export const SantaliArcheryGameSimulator: React.FC = () => {
         {!isGameOver ? (
           <div className="relative z-10 space-y-6">
             {/* Top Question Bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950/70 p-4 rounded-2xl border border-slate-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white/70 p-4 rounded-2xl border border-slate-200">
               <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600">
                   लक्ष्य प्रश्न #{currentIdx + 1} / {ARCHERY_CHALLENGES.length}
                 </span>
-                <h3 className="text-base sm:text-lg font-black text-white">
+                <h3 className="text-base sm:text-lg font-black text-slate-900">
                   {currentChallenge.promptHindi}
                 </h3>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600">
                   संकेत: {currentChallenge.hint}
                 </p>
               </div>
 
               <button
                 onClick={() => handleSpeak(`${currentChallenge.promptHindi}`)}
-                className="p-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/30 transition-colors flex items-center gap-1.5 text-xs font-bold cursor-pointer shrink-0 self-start sm:self-auto"
+                className="p-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 border border-amber-400/30 transition-colors flex items-center gap-1.5 text-xs font-bold cursor-pointer shrink-0 self-start sm:self-auto"
               >
                 <Volume2 className="w-4 h-4" />
                 <span>प्रश्न सुनें</span>
@@ -287,8 +287,8 @@ export const SantaliArcheryGameSimulator: React.FC = () => {
 
             {/* Target Ring Cards */}
             <div className="space-y-3">
-              <p className="text-xs font-bold text-amber-300 flex items-center gap-1.5">
-                <Target className="w-4 h-4 text-orange-400" />
+              <p className="text-xs font-bold text-amber-700 flex items-center gap-1.5">
+                <Target className="w-4 h-4 text-orange-600" />
                 <span>सही संताली शब्द पर निशाना साधने के लिए क्लिक करें (Shoot Target):</span>
               </p>
 
@@ -305,24 +305,24 @@ export const SantaliArcheryGameSimulator: React.FC = () => {
                           ? tgt.isCorrect
                             ? 'bg-emerald-600/30 border-emerald-400 ring-2 ring-emerald-400'
                             : 'bg-rose-600/30 border-rose-400 ring-2 ring-rose-400'
-                          : 'bg-slate-950/80 hover:bg-slate-800/90 border-slate-700 hover:border-amber-400'
+                          : 'bg-white/80 hover:bg-slate-100/90 border-slate-200 hover:border-amber-400'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="space-y-1">
-                          <span className="text-[10px] font-mono text-slate-400">
+                          <span className="text-[10px] font-mono text-slate-600">
                             लक्ष्य #{idx + 1}
                           </span>
-                          <h4 className="text-xl font-black text-amber-200 group-hover:text-amber-100">
+                          <h4 className="text-xl font-black text-amber-800 group-hover:text-amber-800">
                             {tgt.word}
                           </h4>
-                          <p className="text-xs text-amber-400/90 font-mono">
+                          <p className="text-xs text-amber-600/90 font-mono">
                             "{tgt.roman}"
                           </p>
                         </div>
 
                         <div className="w-12 h-12 rounded-full border-2 border-dashed border-amber-400/40 flex items-center justify-center group-hover:scale-110 group-hover:border-amber-400 transition-all bg-amber-500/10">
-                          <Target className="w-6 h-6 text-amber-400 group-hover:rotate-45 transition-transform" />
+                          <Target className="w-6 h-6 text-amber-600 group-hover:rotate-45 transition-transform" />
                         </div>
                       </div>
                     </button>
@@ -336,8 +336,8 @@ export const SantaliArcheryGameSimulator: React.FC = () => {
               <div
                 className={`p-3.5 rounded-2xl border text-center font-bold text-sm animate-in fade-in zoom-in-95 duration-200 ${
                   feedback.isSuccess
-                    ? 'bg-emerald-500/20 border-emerald-400 text-emerald-200'
-                    : 'bg-rose-500/20 border-rose-400 text-rose-200'
+                    ? 'bg-emerald-500/20 border-emerald-400 text-emerald-800'
+                    : 'bg-rose-500/20 border-rose-400 text-rose-800'
                 }`}
               >
                 {feedback.text}
@@ -347,18 +347,18 @@ export const SantaliArcheryGameSimulator: React.FC = () => {
         ) : (
           /* Game Over / Victory Screen */
           <div className="py-8 text-center space-y-4 max-w-md mx-auto">
-            <div className="w-16 h-16 mx-auto rounded-3xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400 shadow-lg">
+            <div className="w-16 h-16 mx-auto rounded-3xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-600 shadow-lg">
               <Trophy className="w-8 h-8 animate-bounce" />
             </div>
 
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
                 तीरंदाजी पूर्ण · Archery Completed
               </span>
-              <h2 className="text-2xl font-black text-white mt-1">
+              <h2 className="text-2xl font-black text-slate-900 mt-1">
                 {score >= 500 ? '🏹 बीर सारजोम (महान धनुर्धर)' : '🎯 कुशल संताली तीरंदाज'}
               </h2>
-              <p className="text-xs text-slate-300 mt-1">
+              <p className="text-xs text-slate-700 mt-1">
                 आपने कुल {score} अंक अर्जित किए! सर्वश्रेष्ठ स्ट्रीक: {bestStreak}
               </p>
             </div>

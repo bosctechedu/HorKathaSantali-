@@ -80,16 +80,16 @@ export const SantaliNahelDhenkiCraft: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-emerald-950 border border-amber-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-amber-50 via-stone-50 to-emerald-50 border border-amber-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-800/60 border border-amber-600/40 rounded-full text-xs font-semibold text-amber-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100/60 border border-amber-300/40 rounded-full text-xs font-semibold text-amber-800 mb-3">
             <Trees className="w-3.5 h-3.5" />
             <span>काष्ठ-शिल्प व कृषि वास्तुकला (Santali Indigenous Carpentry)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-800">
             नाहेल (हल), ढेंकी व जुआठ: संताली काष्ठ-शिल्प वास्तुकला
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             संथाल बढ़ई (बढ़ई होड़) बिना किसी लोहे के नट-बोल्ट के केवल साल की प्राकृतिक मुड़ी लकड़ियों और काष्ठ-खांचों (Tenon & Mortise) से सहस्राब्दियों तक चलने वाले कृषि यंत्र बनाते आए हैं। जानिए नाहेल और ढेंकी के भौतिकी सिद्धांत व अंग-संरचना।
           </p>
 
@@ -99,7 +99,7 @@ export const SantaliNahelDhenkiCraft: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'blueprint'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               यंत्र ब्लूप्रिंट व अंग-संरचना
@@ -109,7 +109,7 @@ export const SantaliNahelDhenkiCraft: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'wood_selection'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               पारंपरिक काष्ठ चयन विज्ञान (Wood Lore)
@@ -123,7 +123,7 @@ export const SantaliNahelDhenkiCraft: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Tool Selector */}
           <div className="lg:col-span-5 space-y-2">
-            <div className="text-xs font-bold text-stone-400 uppercase tracking-wider px-1 mb-2">
+            <div className="text-xs font-bold text-stone-600 uppercase tracking-wider px-1 mb-2">
               पारंपरिक काष्ठ यंत्र चुनें:
             </div>
             {TOOLS_DATA.map(t => {
@@ -134,17 +134,17 @@ export const SantaliNahelDhenkiCraft: React.FC = () => {
                   onClick={() => setSelectedTool(t)}
                   className={`p-3.5 rounded-xl cursor-pointer border transition-all ${
                     isSelected
-                      ? 'bg-amber-950/70 border-amber-500 shadow-md'
-                      : 'bg-stone-900/70 hover:bg-stone-800/60 border-stone-800'
+                      ? 'bg-amber-50/70 border-amber-500 shadow-md'
+                      : 'bg-stone-50/70 hover:bg-stone-100/60 border-stone-200'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-amber-200">{t.nameDev}</span>
-                    <span className="text-xs px-2 py-0.5 rounded bg-stone-800 text-stone-400 font-mono">
+                    <span className="text-sm font-bold text-amber-800">{t.nameDev}</span>
+                    <span className="text-xs px-2 py-0.5 rounded bg-stone-100 text-stone-600 font-mono">
                       {t.nameRom}
                     </span>
                   </div>
-                  <p className="text-xs text-stone-400 mt-1">{t.hindiName}</p>
+                  <p className="text-xs text-stone-600 mt-1">{t.hindiName}</p>
                 </div>
               );
             })}
@@ -152,56 +152,56 @@ export const SantaliNahelDhenkiCraft: React.FC = () => {
 
           {/* Detailed Blueprint & Components Card */}
           <div className="lg:col-span-7">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-5">
-              <div className="pb-4 border-b border-stone-800 flex items-start justify-between">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-5">
+              <div className="pb-4 border-b border-stone-200 flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-2xl font-bold text-amber-300">{selectedTool.nameDev}</h2>
+                    <h2 className="text-2xl font-bold text-amber-700">{selectedTool.nameDev}</h2>
                     <button
                       onClick={() => speakText(selectedTool.nameDev)}
-                      className="p-1 bg-amber-900/40 text-amber-200 rounded hover:bg-amber-800"
+                      className="p-1 bg-amber-50/40 text-amber-800 rounded hover:bg-amber-100"
                     >
                       <Volume2 className="w-4 h-4" />
                     </button>
                   </div>
-                  <p className="text-xs text-stone-400 font-mono mt-0.5">{selectedTool.nameRom}</p>
-                  <p className="text-sm text-stone-200 mt-1 font-semibold">{selectedTool.hindiName}</p>
+                  <p className="text-xs text-stone-600 font-mono mt-0.5">{selectedTool.nameRom}</p>
+                  <p className="text-sm text-stone-800 mt-1 font-semibold">{selectedTool.hindiName}</p>
                 </div>
               </div>
 
               {/* Wood & Mechanics */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="bg-stone-950 p-3.5 rounded-xl border border-stone-800">
-                  <span className="text-xs font-bold text-amber-400 uppercase tracking-wide block mb-1">
+                <div className="bg-white p-3.5 rounded-xl border border-stone-200">
+                  <span className="text-xs font-bold text-amber-600 uppercase tracking-wide block mb-1">
                     उपयुक्त काष्ठ (Wood Type)
                   </span>
-                  <p className="text-stone-300 text-xs leading-relaxed">{selectedTool.woodType}</p>
+                  <p className="text-stone-700 text-xs leading-relaxed">{selectedTool.woodType}</p>
                 </div>
-                <div className="bg-stone-950 p-3.5 rounded-xl border border-stone-800">
-                  <span className="text-xs font-bold text-emerald-400 uppercase tracking-wide block mb-1">
+                <div className="bg-white p-3.5 rounded-xl border border-stone-200">
+                  <span className="text-xs font-bold text-emerald-600 uppercase tracking-wide block mb-1">
                     भौतिकी सिद्धांत (Mechanics)
                   </span>
-                  <p className="text-stone-300 text-xs leading-relaxed">{selectedTool.mechanicsPrinciple}</p>
+                  <p className="text-stone-700 text-xs leading-relaxed">{selectedTool.mechanicsPrinciple}</p>
                 </div>
               </div>
 
               {/* Components List */}
               <div className="space-y-2">
-                <span className="text-xs font-bold text-stone-300 uppercase tracking-wide block">
+                <span className="text-xs font-bold text-stone-700 uppercase tracking-wide block">
                   यंत्र के मुख्य अंग व संथाली नामकरण:
                 </span>
                 <div className="space-y-2">
                   {selectedTool.components.map((comp, i) => (
                     <div
                       key={i}
-                      className="p-3 bg-stone-950/80 rounded-xl border border-stone-800 flex items-start justify-between gap-3"
+                      className="p-3 bg-white/80 rounded-xl border border-stone-200 flex items-start justify-between gap-3"
                     >
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-bold text-amber-300">{comp.partNameDev}</span>
-                          <span className="text-xs text-stone-400 font-mono">({comp.partNameRom})</span>
+                          <span className="text-sm font-bold text-amber-700">{comp.partNameDev}</span>
+                          <span className="text-xs text-stone-600 font-mono">({comp.partNameRom})</span>
                         </div>
-                        <p className="text-xs text-stone-300 mt-0.5">{comp.functionDesc}</p>
+                        <p className="text-xs text-stone-700 mt-0.5">{comp.functionDesc}</p>
                       </div>
                       <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-1" />
                     </div>
@@ -210,8 +210,8 @@ export const SantaliNahelDhenkiCraft: React.FC = () => {
               </div>
 
               {/* Proverb */}
-              <div className="p-4 bg-amber-950/20 border border-amber-800/40 rounded-xl text-xs text-amber-100">
-                <strong className="text-amber-300 block mb-1">संथाली काष्ठ कहावत:</strong>
+              <div className="p-4 bg-amber-50/20 border border-amber-200/40 rounded-xl text-xs text-amber-800">
+                <strong className="text-amber-700 block mb-1">संथाली काष्ठ कहावत:</strong>
                 "{selectedTool.maintenanceProverb}"
               </div>
             </div>
@@ -239,10 +239,10 @@ export const SantaliNahelDhenkiCraft: React.FC = () => {
               uses: 'हल की ईस (Draft Beam) और धनुष (आक्) की कमानी।'
             }
           ].map((w, idx) => (
-            <div key={idx} className="bg-stone-900 border border-stone-800 rounded-2xl p-5 space-y-2">
-              <span className="text-base font-bold text-amber-300 block">{w.tree}</span>
-              <p className="text-xs text-emerald-400 font-medium">गुण: {w.quality}</p>
-              <p className="text-xs text-stone-300 leading-relaxed">उपयोग: {w.uses}</p>
+            <div key={idx} className="bg-stone-50 border border-stone-200 rounded-2xl p-5 space-y-2">
+              <span className="text-base font-bold text-amber-700 block">{w.tree}</span>
+              <p className="text-xs text-emerald-600 font-medium">गुण: {w.quality}</p>
+              <p className="text-xs text-stone-700 leading-relaxed">उपयोग: {w.uses}</p>
             </div>
           ))}
         </div>

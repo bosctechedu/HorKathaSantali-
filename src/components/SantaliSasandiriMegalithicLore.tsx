@@ -77,29 +77,29 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-stone-900 via-neutral-900 to-amber-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-stone-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-stone-50 via-neutral-50 to-amber-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-xl border border-stone-200/40 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-stone-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-500/20 text-stone-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-stone-500/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-500/20 text-stone-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-stone-500/30">
               <Landmark className="w-4 h-4" />
               सासानदीरी • Santali Megalithic Memorials
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-50">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
               सासानदीरी व महापाषाण स्मृति प्रस्तर विद्या
             </h1>
-            <p className="mt-2 text-stone-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="mt-2 text-stone-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               दिरी बिद (खड़ा प्रस्तर), चापाड़ दिरी (विश्राम शिला), नाई गाड़ा (दामोदर) जांग बाहा अस्थि विसर्जन तीर्थ और बिना गारे की प्राचीन पाषाण संतुलन इंजीनियरिंग।
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-stone-950/80 p-1.5 rounded-2xl border border-stone-700/50">
+          <div className="flex items-center gap-2 bg-white/80 p-1.5 rounded-2xl border border-stone-200/50">
             <button
               onClick={() => setActiveTab('types')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'types'
                   ? 'bg-amber-700 text-white shadow-md'
-                  : 'text-stone-300 hover:text-white'
+                  : 'text-stone-700 hover:text-slate-900'
               }`}
             >
               महापाषाण रूप
@@ -109,7 +109,7 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'jang_baha'
                   ? 'bg-amber-700 text-white shadow-md'
-                  : 'text-stone-300 hover:text-white'
+                  : 'text-stone-700 hover:text-slate-900'
               }`}
             >
               जांग बाहा तीर्थ
@@ -119,7 +119,7 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'engineering'
                   ? 'bg-amber-700 text-white shadow-md'
-                  : 'text-stone-300 hover:text-white'
+                  : 'text-stone-700 hover:text-slate-900'
               }`}
             >
               पाषाण संतुलन विद्या
@@ -133,7 +133,7 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Megalith List */}
           <div className="lg:col-span-5 space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300 px-1 flex items-center gap-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-700 px-1 flex items-center gap-2">
               <Compass className="w-4 h-4 text-amber-600" />
               सासान के पवित्र पाषाण:
             </h2>
@@ -147,20 +147,20 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
                     onClick={() => setSelectedMegalith(m)}
                     className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                       isSelected
-                        ? 'bg-amber-50/80 dark:bg-stone-800 border-amber-600 shadow-md ring-2 ring-amber-500/20'
-                        : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-amber-300'
+                        ? 'bg-amber-50/80 dark:bg-stone-100 border-amber-300 shadow-md ring-2 ring-amber-500/20'
+                        : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-amber-300'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl p-2 bg-stone-100 dark:bg-stone-800 rounded-xl">
+                        <span className="text-2xl p-2 bg-stone-100 dark:bg-stone-100 rounded-xl">
                           {m.visualEmoji}
                         </span>
                         <div>
-                          <div className="font-bold text-slate-900 dark:text-white text-base">
+                          <div className="font-bold text-slate-900 dark:text-slate-900 text-base">
                             {m.nameSantali}
                           </div>
-                          <div className="text-xs text-amber-700 dark:text-amber-400 font-semibold">
+                          <div className="text-xs text-amber-700 dark:text-amber-600 font-semibold">
                             {m.nameHindi}
                           </div>
                         </div>
@@ -170,7 +170,7 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
                           e.stopPropagation();
                           speakText(`${m.nameSantali}. ${m.nameHindi}. ${m.ritualPurpose}`);
                         }}
-                        className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-900/50"
+                        className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-50/50"
                         title="विवरण सुनें"
                       >
                         <Volume2 className="w-4 h-4" />
@@ -182,8 +182,8 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
             </div>
 
             {/* Megalithic Fact Box */}
-            <div className="p-4 rounded-2xl bg-amber-50 dark:bg-stone-800/60 border border-amber-200 dark:border-stone-700 text-xs text-amber-950 dark:text-stone-200 leading-relaxed">
-              <div className="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-amber-50 dark:bg-stone-100/60 border border-amber-200 dark:border-stone-200 text-xs text-amber-950 dark:text-stone-800 leading-relaxed">
+              <div className="font-bold text-amber-900 dark:text-amber-700 flex items-center gap-1.5 mb-1">
                 <Info className="w-4 h-4" />
                 हजारों वर्षों की जीवित निरंतरता:
               </div>
@@ -193,19 +193,19 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
 
           {/* Megalith Detail */}
           <div className="lg:col-span-7 space-y-5">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 border border-slate-200 dark:border-slate-200 shadow-sm space-y-5">
+              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-200 pb-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
                     {selectedMegalith.visualEmoji} {selectedMegalith.nameSantali}
                   </h3>
-                  <p className="text-sm text-amber-700 dark:text-amber-400 font-medium">
+                  <p className="text-sm text-amber-700 dark:text-amber-600 font-medium">
                     {selectedMegalith.nameHindi}
                   </p>
                 </div>
                 <button
                   onClick={() => speakText(`${selectedMegalith.nameSantali}. रूप: ${selectedMegalith.architecturalForm}. उद्देश्य: ${selectedMegalith.ritualPurpose}`)}
-                  className="px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-stone-800 hover:bg-amber-100 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  className="px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-stone-100 hover:bg-amber-100 text-amber-700 dark:text-amber-700 text-xs font-semibold flex items-center gap-1.5 transition-all"
                 >
                   <Volume2 className="w-4 h-4" />
                   ऑडियो सुनें
@@ -215,31 +215,31 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
               {/* Data Specifications */}
               <div className="space-y-4 text-sm">
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-amber-600"></span>
                     स्थापत्य संरचना (Architectural Form):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedMegalith.architecturalForm}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-stone-500"></span>
                     आध्यात्मिक व पितृ-तर्पण उद्देश्य (Ritual Purpose):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedMegalith.ritualPurpose}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                     कुल व भूमि अधिकार (Clan Land Title):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-emerald-50/40 dark:bg-emerald-950/20 p-3.5 rounded-2xl border border-emerald-200/50 dark:border-emerald-900/30">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-emerald-50/40 dark:bg-emerald-50/20 p-3.5 rounded-2xl border border-emerald-200/50 dark:border-emerald-200/30">
                     {selectedMegalith.clanSignificance}
                   </p>
                 </div>
@@ -251,13 +251,13 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
 
       {/* Main Tab: Jang Baha Pilgrimage */}
       {activeTab === 'jang_baha' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-amber-600" />
               जांग बाहा: नाई गाड़ा (दामोदर) अस्थि विसर्जन तीर्थ
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               पूर्वजों की आत्मा की शांति और पुनर्मिलन के लिए दामोदर नदी के पावन तट तक की पवित्र यात्रा।
             </p>
           </div>
@@ -266,12 +266,12 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
             {JANG_BAHA_PILGRIMAGE.map((stage, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-stone-50 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-700 space-y-3"
+                className="p-5 rounded-2xl bg-stone-50 dark:bg-stone-100/40 border border-stone-200 dark:border-stone-200 space-y-3"
               >
-                <h3 className="font-bold text-stone-900 dark:text-stone-100 text-sm">
+                <h3 className="font-bold text-stone-900 dark:text-stone-800 text-sm">
                   {stage.stage}
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-700 leading-relaxed">
                   {stage.description}
                 </p>
               </div>
@@ -282,44 +282,44 @@ export const SantaliSasandiriMegalithicLore: React.FC = () => {
 
       {/* Main Tab: Engineering Physics */}
       {activeTab === 'engineering' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <Layers className="w-5 h-5 text-amber-600" />
               आदिम पाषाण संतुलन एवं काष्ठ उत्तोलक भौतिकी
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               बिना किसी आधुनिक क्रेन या लोहे की मशीनों के ५-१० टन वजनी शिलाओं को स्थापित करने की संताली इंजीनियरिंग।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🪵</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 साल के गोल लट्ठे (Rollers)
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 पहाड़ से शिला लाने के लिए साल (सरजोम) के मोटे बेलनाकार लट्ठों को रास्ते पर बिछाकर घर्षण को न्यूनतम किया जाता था।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">📐</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 मिट्टी का ढलानदार टीला (Earthen Ramp)
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 शिला को खड़ा करने के लिए पहले गड्ढे के पीछे ढलानदार मिट्टी का टीला बनाया जाता था, जिससे पत्थर स्वतः फिसलकर गड्ढे में सीधा हो जाता था।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">⚖️</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 त्रिकोणीय गुरुत्वाकर्षण संतुलन
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 चापाड़ दिरी के नीचे केवल ३ पत्थरों का आधार दिया जाता है, क्योंकि ३ बिंदु कभी डगमगाते नहीं (Triangulation principle)।
               </p>
             </div>

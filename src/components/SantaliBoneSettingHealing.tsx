@@ -82,16 +82,16 @@ export const SantaliBoneSettingHealing: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-emerald-950 via-stone-900 to-amber-950 border border-emerald-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-emerald-50 via-stone-50 to-amber-50 border border-emerald-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-800/60 border border-emerald-600/40 rounded-full text-xs font-semibold text-emerald-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100/60 border border-emerald-300/40 rounded-full text-xs font-semibold text-emerald-800 mb-3">
             <HeartPulse className="w-3.5 h-3.5" />
             <span>हातु कविराज व रूग-फाड़ो (Santali Indigenous Orthopedics)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-emerald-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-emerald-800">
             संथाल पारंपरिक हड्डी संधानशाला व वनौषधि लेप विद्या
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             संथाल समाज के हातु कविराज (रूग-फाड़ो) सदियों से बिना शल्य-चिकित्सा (Surgery) के बांस की खपच्चियों (पाती), हाड़जोड़ा लता और देसी तेलों से जटिल फ्रैक्चर व मोच का सफल संधान करते आए हैं। जानिए उनकी प्राचीन विधियां और सुरक्षा नियम।
           </p>
 
@@ -101,7 +101,7 @@ export const SantaliBoneSettingHealing: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'procedures'
                   ? 'bg-emerald-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               अस्थि संधान विधियां (Procedures)
@@ -111,7 +111,7 @@ export const SantaliBoneSettingHealing: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'herbal_cabinet'
                   ? 'bg-emerald-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               हड्डी जोड़ने वाली वनौषधियां
@@ -121,7 +121,7 @@ export const SantaliBoneSettingHealing: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'ethics_safety'
                   ? 'bg-emerald-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               कविराज आचार-संहिता व अस्पताल रेफरल
@@ -135,7 +135,7 @@ export const SantaliBoneSettingHealing: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Procedures List */}
           <div className="lg:col-span-5 space-y-2">
-            <div className="text-xs font-bold text-stone-400 uppercase tracking-wider px-1 mb-2">
+            <div className="text-xs font-bold text-stone-600 uppercase tracking-wider px-1 mb-2">
               अस्थि चोट व विकार चुनें:
             </div>
             {HEALING_DATABASE.map(item => {
@@ -146,17 +146,17 @@ export const SantaliBoneSettingHealing: React.FC = () => {
                   onClick={() => setSelectedItem(item)}
                   className={`p-3.5 rounded-xl cursor-pointer border transition-all ${
                     isSelected
-                      ? 'bg-emerald-950/70 border-emerald-500 shadow-md'
-                      : 'bg-stone-900/70 hover:bg-stone-800/60 border-stone-800'
+                      ? 'bg-emerald-50/70 border-emerald-500 shadow-md'
+                      : 'bg-stone-50/70 hover:bg-stone-100/60 border-stone-200'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-emerald-200">{item.conditionDev}</span>
-                    <span className="text-xs px-2 py-0.5 rounded bg-stone-800 text-stone-400 font-mono">
+                    <span className="text-sm font-bold text-emerald-800">{item.conditionDev}</span>
+                    <span className="text-xs px-2 py-0.5 rounded bg-stone-100 text-stone-600 font-mono">
                       {item.healingDays} दिन
                     </span>
                   </div>
-                  <p className="text-xs text-stone-400 mt-1">{item.hindiName}</p>
+                  <p className="text-xs text-stone-600 mt-1">{item.hindiName}</p>
                 </div>
               );
             })}
@@ -164,68 +164,68 @@ export const SantaliBoneSettingHealing: React.FC = () => {
 
           {/* Procedure Detail View */}
           <div className="lg:col-span-7">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-5">
-              <div className="pb-4 border-b border-stone-800 flex items-start justify-between">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-5">
+              <div className="pb-4 border-b border-stone-200 flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-bold text-amber-300">{selectedItem.conditionDev}</h2>
+                    <h2 className="text-xl font-bold text-amber-700">{selectedItem.conditionDev}</h2>
                     <button
                       onClick={() => speakText(selectedItem.conditionDev)}
-                      className="p-1 bg-amber-900/40 text-amber-200 rounded hover:bg-amber-800"
+                      className="p-1 bg-amber-50/40 text-amber-800 rounded hover:bg-amber-100"
                     >
                       <Volume2 className="w-4 h-4" />
                     </button>
                   </div>
-                  <p className="text-xs text-stone-400 font-mono mt-0.5">{selectedItem.conditionRom}</p>
-                  <p className="text-sm text-stone-200 mt-1 font-semibold">{selectedItem.hindiName}</p>
+                  <p className="text-xs text-stone-600 font-mono mt-0.5">{selectedItem.conditionRom}</p>
+                  <p className="text-sm text-stone-800 mt-1 font-semibold">{selectedItem.hindiName}</p>
                 </div>
 
                 <div className="text-right">
-                  <span className="text-xs text-stone-400 block">अनुमानित संधान अवधि</span>
-                  <span className="text-lg font-bold text-emerald-400">{selectedItem.healingDays} दिन</span>
+                  <span className="text-xs text-stone-600 block">अनुमानित संधान अवधि</span>
+                  <span className="text-lg font-bold text-emerald-600">{selectedItem.healingDays} दिन</span>
                 </div>
               </div>
 
               {/* Splint Technique */}
-              <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-                <span className="text-xs font-bold text-emerald-400 uppercase tracking-wide block mb-1">
+              <div className="bg-white p-4 rounded-xl border border-stone-200">
+                <span className="text-xs font-bold text-emerald-600 uppercase tracking-wide block mb-1">
                   बांस की पाती (खपच्ची) व संधान विधि
                 </span>
-                <p className="text-stone-300 text-sm leading-relaxed">{selectedItem.splintTechnique}</p>
+                <p className="text-stone-700 text-sm leading-relaxed">{selectedItem.splintTechnique}</p>
               </div>
 
               {/* Herbs Used */}
-              <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-                <span className="text-xs font-bold text-amber-400 uppercase tracking-wide block mb-2">
+              <div className="bg-white p-4 rounded-xl border border-stone-200">
+                <span className="text-xs font-bold text-amber-600 uppercase tracking-wide block mb-2">
                   प्रयुक्त प्रमुख वनौषधियां व लेप
                 </span>
                 <div className="flex flex-wrap gap-2 mb-3">
                   {selectedItem.herbsUsed.map((herb, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 bg-stone-900 border border-stone-700 text-xs text-amber-200 rounded-lg"
+                      className="px-2.5 py-1 bg-stone-50 border border-stone-200 text-xs text-amber-800 rounded-lg"
                     >
                       {herb}
                     </span>
                   ))}
                 </div>
-                <p className="text-stone-300 text-xs leading-relaxed">{selectedItem.preparationMethod}</p>
+                <p className="text-stone-700 text-xs leading-relaxed">{selectedItem.preparationMethod}</p>
               </div>
 
               {/* Diet Rules */}
-              <div className="bg-amber-950/20 border border-amber-800/40 p-4 rounded-xl">
-                <span className="text-xs font-bold text-amber-300 uppercase tracking-wide block mb-1">
+              <div className="bg-amber-50/20 border border-amber-200/40 p-4 rounded-xl">
+                <span className="text-xs font-bold text-amber-700 uppercase tracking-wide block mb-1">
                   पथ्य व अपथ्य (भोजन नियम)
                 </span>
-                <p className="text-amber-100/90 text-xs leading-relaxed">{selectedItem.dietRules}</p>
+                <p className="text-amber-800/90 text-xs leading-relaxed">{selectedItem.dietRules}</p>
               </div>
 
               {/* Emergency Red Flag Warning */}
-              <div className="p-4 bg-red-950/40 border border-red-700/60 rounded-xl flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+              <div className="p-4 bg-red-50/40 border border-red-200/60 rounded-xl flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-xs font-bold text-red-300 block mb-0.5">आपातकालीन अस्पताल रेफरल संकेत:</span>
-                  <p className="text-xs text-red-200/90 leading-relaxed font-medium">
+                  <span className="text-xs font-bold text-red-700 block mb-0.5">आपातकालीन अस्पताल रेफरल संकेत:</span>
+                  <p className="text-xs text-red-800/90 leading-relaxed font-medium">
                     {selectedItem.emergencyWarning}
                   </p>
                 </div>
@@ -255,10 +255,10 @@ export const SantaliBoneSettingHealing: React.FC = () => {
               role: 'मांसपेशियों की ऐंठन मिटाने और जोड़ों में चिकनाई बनाए रखने वाला पारंपरिक मालिश तेल।'
             }
           ].map((herb, i) => (
-            <div key={i} className="bg-stone-900 border border-stone-800 rounded-2xl p-5 space-y-3">
-              <span className="text-base font-bold text-amber-300 block">{herb.name}</span>
-              <span className="text-xs text-emerald-400 font-mono block">संताली: {herb.santaliName}</span>
-              <p className="text-stone-300 text-xs leading-relaxed">{herb.role}</p>
+            <div key={i} className="bg-stone-50 border border-stone-200 rounded-2xl p-5 space-y-3">
+              <span className="text-base font-bold text-amber-700 block">{herb.name}</span>
+              <span className="text-xs text-emerald-600 font-mono block">संताली: {herb.santaliName}</span>
+              <p className="text-stone-700 text-xs leading-relaxed">{herb.role}</p>
             </div>
           ))}
         </div>
@@ -266,19 +266,19 @@ export const SantaliBoneSettingHealing: React.FC = () => {
 
       {/* Main Tab 3: Ethics & Safety */}
       {activeTab === 'ethics_safety' && (
-        <div className="max-w-3xl mx-auto bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-5">
+        <div className="max-w-3xl mx-auto bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-5">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-amber-200">हातु कविराज की सेवा परंपरा व आधुनिक चिकित्सा समन्वय</h3>
-            <p className="text-xs text-stone-400 mt-1">संथाल संस्कृति में चिकित्सा व्यवसाय नहीं, अपितु लोक-कल्याण का पवित्र धर्म है</p>
+            <h3 className="text-xl font-bold text-amber-800">हातु कविराज की सेवा परंपरा व आधुनिक चिकित्सा समन्वय</h3>
+            <p className="text-xs text-stone-600 mt-1">संथाल संस्कृति में चिकित्सा व्यवसाय नहीं, अपितु लोक-कल्याण का पवित्र धर्म है</p>
           </div>
 
-          <div className="space-y-3 text-xs text-stone-300">
-            <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-              <strong className="text-amber-400 block mb-1">१. नि:शुल्क लोक सेवा (No Fixed Fee)</strong>
+          <div className="space-y-3 text-xs text-stone-700">
+            <div className="bg-white p-4 rounded-xl border border-stone-200">
+              <strong className="text-amber-600 block mb-1">१. नि:शुल्क लोक सेवा (No Fixed Fee)</strong>
               पारंपरिक कविराज कभी भी इलाज के लिए मोल-भाव नहीं करते। मरीज अपनी श्रद्धा से केवल एक पान का पत्ता, सुपारी या थोड़ा सा धान्य (चावल) भेंट करता है।
             </div>
-            <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-              <strong className="text-amber-400 block mb-1">२. आधुनिक एक्स-रे का स्वागत</strong>
+            <div className="bg-white p-4 rounded-xl border border-stone-200">
+              <strong className="text-amber-600 block mb-1">२. आधुनिक एक्स-रे का स्वागत</strong>
               आधुनिक युग में समझदार कविराज रोगी से पहले एक्स-रे कराने को कहते हैं ताकि फ्रैक्चर का सटीक कोण देखकर ही संधान किया जा सके।
             </div>
           </div>

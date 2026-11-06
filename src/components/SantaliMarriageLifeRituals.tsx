@@ -213,39 +213,39 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-rose-950 via-red-950 to-amber-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-rose-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-rose-50 via-red-50 to-amber-50 text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-rose-200/40 relative overflow-hidden">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
           <HeartHandshake size={260} />
         </div>
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-700 border border-rose-500/30 text-xs font-semibold mb-3">
             <Sparkles size={14} />
             <span>एयात बापला आर जिवोन छातियार - जीवन चक्र व वैवाहिक विधान</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-rose-100 flex items-center gap-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-rose-800 flex items-center gap-3">
             <span>संताली विवाह पद्धतियां व जीवन संस्कार</span>
             <button
               onClick={() => speakWithFemaleVoice('सांतार कोवाक् बापला आर छातियार विधान')}
-              className="p-2 rounded-full bg-rose-500/20 hover:bg-rose-500/40 text-rose-300 transition-colors"
+              className="p-2 rounded-full bg-rose-500/20 hover:bg-rose-500/40 text-rose-700 transition-colors"
               title="सुनें"
             >
               <Volume2 size={22} />
             </button>
           </h1>
-          <p className="text-rose-200/80 text-sm sm:text-base mt-2 leading-relaxed">
+          <p className="text-rose-800/80 text-sm sm:text-base mt-2 leading-relaxed">
             संताल समाज में 7 प्रकार के पारंपरिक विवाह (दुवार बापla, टुंकी दिपिल, गोलात, घरदी जांवाए आदि) तथा जन्म से लेकर परलोक गमन तक के 3 पावन संस्कार (निम दाहाक्, चाचो छातियार, भांडान) का विस्तृत शास्त्र।
           </p>
         </div>
       </div>
 
       {/* Tabs Filter */}
-      <div className="flex items-center gap-3 bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+      <div className="flex items-center gap-3 bg-white dark:bg-slate-50 p-3 rounded-2xl border border-slate-200 dark:border-slate-200 shadow-sm">
         <button
           onClick={() => setActiveTab('all')}
           className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all ${
             activeTab === 'all'
-              ? 'bg-rose-800 text-white shadow-md'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              ? 'bg-rose-100 text-slate-900 shadow-md'
+              : 'text-slate-600 dark:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-100'
           }`}
         >
           समग्र संस्कार ({RITUALS_DATA.length})
@@ -254,8 +254,8 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
           onClick={() => setActiveTab('marriage')}
           className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all ${
             activeTab === 'marriage'
-              ? 'bg-rose-800 text-white shadow-md'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              ? 'bg-rose-100 text-slate-900 shadow-md'
+              : 'text-slate-600 dark:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-100'
           }`}
         >
           7 विवाह प्रकार (7 Bapla Forms)
@@ -264,8 +264,8 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
           onClick={() => setActiveTab('samskara')}
           className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all ${
             activeTab === 'samskara'
-              ? 'bg-rose-800 text-white shadow-md'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              ? 'bg-rose-100 text-slate-900 shadow-md'
+              : 'text-slate-600 dark:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-100'
           }`}
         >
           3 जीवन संस्कार (Life Samskaras)
@@ -287,19 +287,19 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
                 onClick={() => setSelectedItem(item)}
                 className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                   isSelected
-                    ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-500 shadow-md scale-[1.01]'
-                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-rose-300 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                    ? 'bg-rose-50 dark:bg-rose-50/40 border-rose-500 shadow-md scale-[1.01]'
+                    : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-rose-300 hover:bg-slate-50 dark:hover:bg-slate-100/60'
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-900/60 text-rose-800 dark:text-rose-300">
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-50/60 text-rose-800 dark:text-rose-700">
                       {item.subTypeLabel}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-1">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-slate-800 mt-1">
                       {item.nameDevanagari}
                     </h3>
-                    <p className="text-xs text-rose-700 dark:text-rose-400 font-medium">
+                    <p className="text-xs text-rose-700 dark:text-rose-600 font-medium">
                       {item.nameRoman}
                     </p>
                   </div>
@@ -308,13 +308,13 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
                       e.stopPropagation();
                       speakWithFemaleVoice(item.nameDevanagari);
                     }}
-                    className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-rose-600"
+                    className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-100 text-slate-600 dark:text-slate-700 hover:text-rose-600"
                     title="उच्चारण सुनें"
                   >
                     <Volume2 size={16} />
                   </button>
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-2">
+                <p className="text-xs text-slate-600 dark:text-slate-600 mt-2 line-clamp-2">
                   {item.description}
                 </p>
               </div>
@@ -324,22 +324,22 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
 
         {/* Right Detail Card */}
         <div className="lg:col-span-7">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6 sticky top-6">
-            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
+          <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-xl space-y-6 sticky top-6">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-200 pb-5">
               <div>
-                <span className="px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 text-xs font-bold uppercase tracking-wider">
+                <span className="px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-50/50 text-rose-800 dark:text-rose-700 text-xs font-bold uppercase tracking-wider">
                   {selectedItem.subTypeLabel}
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-800 mt-2">
                   {selectedItem.nameDevanagari}
                 </h2>
-                <p className="text-sm text-rose-700 dark:text-rose-400 font-semibold">
+                <p className="text-sm text-rose-700 dark:text-rose-600 font-semibold">
                   {selectedItem.nameRoman}
                 </p>
               </div>
               <button
                 onClick={() => speakWithFemaleVoice(selectedItem.nameDevanagari)}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-800 text-white font-medium hover:bg-rose-900 transition-colors shadow"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-100 text-slate-900 font-medium hover:bg-rose-50 transition-colors shadow"
               >
                 <Volume2 size={18} />
                 <span>सुनें</span>
@@ -347,19 +347,19 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
             </div>
 
             {/* Description */}
-            <div className="p-4 rounded-2xl bg-rose-50/70 dark:bg-rose-950/20 border border-rose-200/60 dark:border-rose-900/30">
-              <h4 className="text-xs font-bold text-rose-900 dark:text-rose-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-rose-50/70 dark:bg-rose-50/20 border border-rose-200/60 dark:border-rose-200/30">
+              <h4 className="text-xs font-bold text-rose-900 dark:text-rose-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Compass size={14} />
                 <span>विस्तृत परिचय व अर्थ</span>
               </h4>
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {selectedItem.description}
               </p>
             </div>
 
             {/* Core Ritual Steps */}
             <div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-800 mb-3 flex items-center gap-2">
                 <Calendar size={16} className="text-rose-600" />
                 <span>मूल रस्में व अनुष्ठान क्रम (Ritual Steps)</span>
               </h4>
@@ -367,12 +367,12 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
                 {selectedItem.coreProcess.map((step, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800"
+                    className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-100/60 border border-slate-200/80 dark:border-slate-200"
                   >
-                    <span className="flex items-center justify-center w-5 h-5 rounded-full bg-rose-800 text-white text-xs font-bold shrink-0 mt-0.5">
+                    <span className="flex items-center justify-center w-5 h-5 rounded-full bg-rose-100 text-slate-900 text-xs font-bold shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
-                    <span className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <span className="text-xs sm:text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                       {step}
                     </span>
                   </div>
@@ -382,8 +382,8 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
 
             {/* Requirements & Elder Role */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40">
-                <h4 className="text-xs font-bold text-amber-900 dark:text-amber-300 uppercase tracking-wide flex items-center gap-1.5 mb-2">
+              <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-50/20 border border-amber-200/60 dark:border-amber-200/40">
+                <h4 className="text-xs font-bold text-amber-900 dark:text-amber-700 uppercase tracking-wide flex items-center gap-1.5 mb-2">
                   <Layers size={14} />
                   <span>आवश्यक सामग्रियां</span>
                 </h4>
@@ -391,7 +391,7 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
                   {selectedItem.keyRequirements.map((req, idx) => (
                     <li
                       key={idx}
-                      className="text-xs text-slate-700 dark:text-slate-300 flex items-center gap-1.5"
+                      className="text-xs text-slate-700 dark:text-slate-700 flex items-center gap-1.5"
                     >
                       <CheckCircle2 size={13} className="text-amber-600 shrink-0" />
                       <span>{req}</span>
@@ -400,24 +400,24 @@ export const SantaliMarriageLifeRituals: React.FC = () => {
                 </ul>
               </div>
 
-              <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/40">
-                <h4 className="text-xs font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wide flex items-center gap-1.5 mb-2">
+              <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-50/20 border border-emerald-200/60 dark:border-emerald-200/40">
+                <h4 className="text-xs font-bold text-emerald-900 dark:text-emerald-700 uppercase tracking-wide flex items-center gap-1.5 mb-2">
                   <Users size={14} />
                   <span>मांझी व बुजुर्गों की भूमिका</span>
                 </h4>
-                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-700 dark:text-slate-700 leading-relaxed">
                   {selectedItem.elderRole}
                 </p>
               </div>
             </div>
 
             {/* Social Significance */}
-            <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/20 border border-indigo-200/60 dark:border-indigo-900/30">
-              <h4 className="text-xs font-bold text-indigo-900 dark:text-indigo-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-50/20 border border-indigo-200/60 dark:border-indigo-200/30">
+              <h4 className="text-xs font-bold text-indigo-900 dark:text-indigo-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Award size={14} className="text-indigo-600" />
                 <span>सामाजिक व मानवीय दर्शन (Social Wisdom)</span>
               </h4>
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {selectedItem.socialSignificance}
               </p>
             </div>

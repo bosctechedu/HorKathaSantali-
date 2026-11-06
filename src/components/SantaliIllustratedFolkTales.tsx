@@ -192,41 +192,41 @@ export const SantaliIllustratedFolkTales: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-teal-950 via-emerald-950 to-stone-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-teal-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-teal-50 via-emerald-50 to-stone-50 text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-teal-200/40 relative overflow-hidden">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
           <BookOpen size={280} />
         </div>
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-700 border border-teal-500/30 text-xs font-semibold mb-3">
             <Sparkles size={14} />
             <span>हापड़ाम कोवाक् काहिनी - सचित्र संताली लोककथाएं व नीति बोध</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-teal-100 flex items-center gap-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-teal-800 flex items-center gap-3">
             <span>सचित्र संताली लोककथाएं (Folk Tales)</span>
             <button
               onClick={() => speakWithFemaleVoice('सांतार हापड़ाम कोवाक् काहिनी आर लोककथा')}
-              className="p-2 rounded-full bg-teal-500/20 hover:bg-teal-500/40 text-teal-300 transition-colors"
+              className="p-2 rounded-full bg-teal-500/20 hover:bg-teal-500/40 text-teal-700 transition-colors"
               title="सुनें"
             >
               <Volume2 size={22} />
             </button>
           </h1>
-          <p className="text-teal-200/80 text-sm sm:text-base mt-2 leading-relaxed">
+          <p className="text-teal-800/80 text-sm sm:text-base mt-2 leading-relaxed">
             पिलचु हाड़ाम-पिलचु बूढ़ी (सृष्टि उत्पत्ति व 12 कुल), तुरूई कोड़ा आर चालाक तूंईऊ, तथा करम-धरम पावन कथा — सचित्र दृश्य-दर-दृश्य संताली वाचन, देवनागरी लिपि और नैतिक संदेश के साथ।
           </p>
         </div>
       </div>
 
       {/* Story Selectors */}
-      <div className="flex items-center gap-3 bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-x-auto">
+      <div className="flex items-center gap-3 bg-white dark:bg-slate-50 p-3 rounded-2xl border border-slate-200 dark:border-slate-200 shadow-sm overflow-x-auto">
         {FOLK_STORIES.map((st) => (
           <button
             key={st.id}
             onClick={() => handleStoryChange(st)}
             className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl shrink-0 transition-all ${
               activeStory.id === st.id
-                ? 'bg-teal-800 text-white shadow-md'
-                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                ? 'bg-teal-100 text-slate-900 shadow-md'
+                : 'text-slate-600 dark:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-100'
             }`}
           >
             {st.titleDevanagari}
@@ -235,20 +235,20 @@ export const SantaliIllustratedFolkTales: React.FC = () => {
       </div>
 
       {/* Interactive Story Reader Frame */}
-      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
+      <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-xl space-y-6">
         {/* Story Header */}
-        <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
+        <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-200 pb-5">
           <div>
-            <span className="px-3 py-1 rounded-full bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300 text-xs font-bold uppercase tracking-wider">
+            <span className="px-3 py-1 rounded-full bg-teal-100 dark:bg-teal-50/50 text-teal-800 dark:text-teal-700 text-xs font-bold uppercase tracking-wider">
               {activeStory.categoryLabel}
             </span>
-            <h2 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-2">
+            <h2 className="text-2xl font-black text-slate-900 dark:text-slate-800 mt-2">
               {activeStory.titleDevanagari}
             </h2>
-            <p className="text-sm font-semibold text-teal-700 dark:text-teal-400">
+            <p className="text-sm font-semibold text-teal-700 dark:text-teal-600">
               {activeStory.titleRoman}
             </p>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-600 mt-2">
               {activeStory.summary}
             </p>
           </div>
@@ -259,23 +259,23 @@ export const SantaliIllustratedFolkTales: React.FC = () => {
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border ${
                 starred
                   ? 'bg-amber-500 text-stone-950 border-amber-500 shadow'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200'
+                  : 'bg-slate-100 dark:bg-slate-100 text-slate-700 dark:text-slate-700 border-slate-200 dark:border-slate-200 hover:bg-slate-200'
               }`}
               title="डायरी में सुरक्षित करें"
             >
               <Bookmark size={14} />
               <span>{starred ? 'सुरक्षित है' : 'सेव करें'}</span>
             </button>
-            <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+            <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-100 text-slate-700 dark:text-slate-700">
               दृश्य {currentSceneIndex + 1} / {activeStory.scenes.length}
             </span>
           </div>
         </div>
 
         {/* Visual Scene Canvas / Box */}
-        <div className="rounded-2xl p-6 sm:p-8 bg-gradient-to-br from-teal-50/60 via-emerald-50/40 to-slate-50 dark:from-slate-950 dark:via-teal-950/20 dark:to-slate-900 border border-teal-200/60 dark:border-teal-900/40 relative shadow-inner space-y-4">
+        <div className="rounded-2xl p-6 sm:p-8 bg-gradient-to-br from-teal-50/60 via-emerald-50/40 to-slate-50 dark:from-slate-50 dark:via-teal-50/20 dark:to-slate-50 border border-teal-200/60 dark:border-teal-200/40 relative shadow-inner space-y-4">
           {/* Illustration Framing Note */}
-          <div className="flex items-center gap-2 text-xs font-semibold text-teal-800 dark:text-teal-300 bg-teal-100/70 dark:bg-teal-900/40 px-3 py-1.5 rounded-xl w-fit">
+          <div className="flex items-center gap-2 text-xs font-semibold text-teal-800 dark:text-teal-700 bg-teal-100/70 dark:bg-teal-50/40 px-3 py-1.5 rounded-xl w-fit">
             <Bookmark size={14} />
             <span>दृश्य परिकल्पना: {currentScene.illustrationNote}</span>
           </div>
@@ -283,50 +283,50 @@ export const SantaliIllustratedFolkTales: React.FC = () => {
           {/* Santali Text */}
           <div className="space-y-3 pt-2">
             <div className="flex items-start justify-between gap-4">
-              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-800 leading-relaxed">
                 {currentScene.santaliDev}
               </h3>
               <button
                 onClick={() => speakWithFemaleVoice(currentScene.santaliDev)}
-                className="p-3 rounded-2xl bg-teal-700 text-white hover:bg-teal-800 transition-colors shadow-md shrink-0"
+                className="p-3 rounded-2xl bg-teal-700 text-white hover:bg-teal-100 transition-colors shadow-md shrink-0"
                 title="कथा वाचन सुनें"
               >
                 <Volume2 size={20} />
               </button>
             </div>
-            <p className="text-sm font-semibold text-teal-700 dark:text-teal-400">
+            <p className="text-sm font-semibold text-teal-700 dark:text-teal-600">
               {currentScene.santaliRoman}
             </p>
           </div>
 
           {/* Hindi Translation */}
-          <div className="p-4 rounded-xl bg-white/80 dark:bg-slate-800/80 border border-teal-200/40 dark:border-teal-900/30">
+          <div className="p-4 rounded-xl bg-white/80 dark:bg-slate-100/80 border border-teal-200/40 dark:border-teal-200/30">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wide block mb-1">
               हिन्दी अनुवाद:
             </span>
-            <p className="text-sm sm:text-base text-slate-800 dark:text-slate-200 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-800 dark:text-slate-800 leading-relaxed">
               {currentScene.hindiTranslation}
             </p>
           </div>
         </div>
 
         {/* Moral Wisdom Box */}
-        <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40">
-          <h4 className="text-xs font-bold text-amber-900 dark:text-amber-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+        <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-50/30 border border-amber-200 dark:border-amber-200/40">
+          <h4 className="text-xs font-bold text-amber-900 dark:text-amber-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
             <Heart size={14} className="text-amber-600" />
             <span>नैतिक शिक्षा व जीवन दर्शन (Moral Wisdom)</span>
           </h4>
-          <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
             {activeStory.moralWisdom}
           </p>
         </div>
 
         {/* Navigation Controls */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-200">
           <button
             disabled={currentSceneIndex === 0}
             onClick={handlePrevScene}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-100 text-slate-700 dark:text-slate-700 hover:bg-slate-200 dark:hover:bg-slate-200 text-xs sm:text-sm font-semibold disabled:opacity-40 disabled:pointer-events-none transition-colors"
           >
             <ChevronLeft size={16} />
             <span>पिछला दृश्य</span>
@@ -340,7 +340,7 @@ export const SantaliIllustratedFolkTales: React.FC = () => {
                 className={`w-2.5 h-2.5 rounded-full transition-all ${
                   idx === currentSceneIndex
                     ? 'w-6 bg-teal-700'
-                    : 'bg-slate-300 dark:bg-slate-700'
+                    : 'bg-slate-300 dark:bg-slate-200'
                 }`}
               />
             ))}
@@ -349,7 +349,7 @@ export const SantaliIllustratedFolkTales: React.FC = () => {
           <button
             disabled={currentSceneIndex === activeStory.scenes.length - 1}
             onClick={handleNextScene}
-            className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-teal-700 text-white hover:bg-teal-800 text-xs sm:text-sm font-semibold disabled:opacity-40 disabled:pointer-events-none transition-colors shadow"
+            className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-teal-700 text-white hover:bg-teal-100 text-xs sm:text-sm font-semibold disabled:opacity-40 disabled:pointer-events-none transition-colors shadow"
           >
             <span>अगला दृश्य</span>
             <ChevronRight size={16} />

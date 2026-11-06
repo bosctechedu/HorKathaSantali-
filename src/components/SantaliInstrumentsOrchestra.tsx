@@ -289,16 +289,16 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-rose-950 border border-amber-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-amber-50 via-stone-50 to-rose-50 border border-amber-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-800/60 border border-amber-600/40 rounded-full text-xs font-semibold text-amber-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100/60 border border-amber-300/40 rounded-full text-xs font-semibold text-amber-800 mb-3">
             <Music2 className="w-3.5 h-3.5" />
             <span>संथाल वाद्ययंत्र ऑर्केस्ट्रा व लाइव लूपर (Santali Acoustic Sequencer)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-800">
             रुया-गाबुर: ५ पारंपरिक संताली वाद्ययंत्र ऑर्केस्ट्रा
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             तुम्दाक्, तामाक्, बानाम, तिरिओ और घोंघोर का वास्तविक ध्वनिक लूपर। पारंपरिक लागणे, सोहराय और करम तालों को लाइव मिलाएं, गति (BPM) नियंत्रित करें और अपना संताली लोक-संगीत तैयार करें।
           </p>
 
@@ -308,7 +308,7 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'orchestra'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               लाइव १६-स्टेप ऑर्केस्ट्रा लूपर
@@ -318,7 +318,7 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'instrument_lore'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               वाद्ययंत्रों का इतिहास व वास्तुकला
@@ -329,9 +329,9 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
 
       {/* Main Tab 1: Orchestra Sequencer */}
       {activeTab === 'orchestra' && (
-        <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-6">
+        <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-6">
           {/* Master Control Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-stone-950 rounded-xl border border-stone-800">
+          <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-stone-200">
             {/* Play/Pause & Reset */}
             <div className="flex items-center gap-3">
               <button
@@ -351,7 +351,7 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
 
               <button
                 onClick={() => setCurrentStep(0)}
-                className="p-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-xl border border-stone-700"
+                className="p-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl border border-stone-200"
                 title="प्रारंभिक बीट पर लाएं"
               >
                 <RotateCcw className="w-4 h-4" />
@@ -359,7 +359,7 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
             </div>
 
             {/* Rhythm Preset Selector */}
-            <div className="flex items-center gap-1.5 bg-stone-900 p-1.5 rounded-xl border border-stone-800 text-xs">
+            <div className="flex items-center gap-1.5 bg-stone-50 p-1.5 rounded-xl border border-stone-200 text-xs">
               {(['lagne', 'sohrai', 'karam'] as const).map(key => (
                 <button
                   key={key}
@@ -367,7 +367,7 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
                   className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
                     selectedRhythm === key
                       ? 'bg-amber-600 text-white shadow'
-                      : 'text-stone-300 hover:bg-stone-800'
+                      : 'text-stone-700 hover:bg-stone-100'
                   }`}
                 >
                   {DEFAULT_RHYTHMS[key].name}
@@ -376,8 +376,8 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
             </div>
 
             {/* BPM Slider */}
-            <div className="flex items-center gap-3 bg-stone-900 px-4 py-2 rounded-xl border border-stone-800">
-              <span className="text-xs font-bold text-stone-300">गति (BPM): {bpm}</span>
+            <div className="flex items-center gap-3 bg-stone-50 px-4 py-2 rounded-xl border border-stone-200">
+              <span className="text-xs font-bold text-stone-700">गति (BPM): {bpm}</span>
               <input
                 type="range"
                 min="60"
@@ -394,7 +394,7 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
             {tracks.map(track => (
               <div
                 key={track.id}
-                className="p-4 bg-stone-950/70 rounded-xl border border-stone-800/80 space-y-3"
+                className="p-4 bg-white/70 rounded-xl border border-stone-200/80 space-y-3"
               >
                 {/* Track Info & Mixer */}
                 <div className="flex flex-wrap items-center justify-between gap-2">
@@ -403,22 +403,22 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
                       onClick={() => toggleMute(track.id)}
                       className={`p-1.5 rounded-lg border transition-colors ${
                         track.muted
-                          ? 'bg-red-950/60 border-red-700 text-red-400'
-                          : 'bg-stone-800 border-stone-700 text-stone-300 hover:bg-stone-700'
+                          ? 'bg-red-50/60 border-red-200 text-red-600'
+                          : 'bg-stone-100 border-stone-200 text-stone-700 hover:bg-stone-200'
                       }`}
                       title={track.muted ? 'अनम्यूट करें' : 'म्यूट करें'}
                     >
                       {track.muted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                     </button>
                     <div>
-                      <span className="text-sm font-bold text-amber-200">{track.nameDev}</span>
-                      <span className="text-xs text-stone-400 font-mono ml-2">({track.type})</span>
+                      <span className="text-sm font-bold text-amber-800">{track.nameDev}</span>
+                      <span className="text-xs text-stone-600 font-mono ml-2">({track.type})</span>
                     </div>
                   </div>
 
                   {/* Volume Slider */}
                   <div className="flex items-center gap-2">
-                    <Sliders className="w-3.5 h-3.5 text-stone-400" />
+                    <Sliders className="w-3.5 h-3.5 text-stone-600" />
                     <input
                       type="range"
                       min="0"
@@ -442,12 +442,12 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
                       btnClass += `${track.color} text-white shadow-md border-amber-300/50 `;
                     } else {
                       btnClass += isQuarter
-                        ? 'bg-stone-800/80 hover:bg-stone-700 text-stone-500 border-stone-700 '
-                        : 'bg-stone-900 hover:bg-stone-800 text-stone-600 border-stone-800 ';
+                        ? 'bg-stone-200 hover:bg-stone-300 text-stone-600 border-stone-300 '
+                        : 'bg-stone-100 hover:bg-stone-200 text-stone-500 border-stone-200 ';
                     }
 
                     if (isCurrent) {
-                      btnClass += 'ring-2 ring-white scale-105 z-10 shadow-lg ';
+                      btnClass += 'ring-2 ring-amber-500 scale-105 z-10 shadow-lg ';
                     }
 
                     return (
@@ -474,21 +474,21 @@ export const SantaliInstrumentsOrchestra: React.FC = () => {
           {tracks.map(track => (
             <div
               key={track.id}
-              className="bg-stone-900 border border-stone-800 rounded-2xl p-5 space-y-3 hover:border-amber-600/50 transition-colors"
+              className="bg-stone-50 border border-stone-200 rounded-2xl p-5 space-y-3 hover:border-amber-300/50 transition-colors"
             >
-              <div className="flex items-center justify-between pb-2 border-b border-stone-800">
-                <span className="text-lg font-bold text-amber-300">{track.nameDev}</span>
-                <span className="text-xs px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">
+              <div className="flex items-center justify-between pb-2 border-b border-stone-200">
+                <span className="text-lg font-bold text-amber-700">{track.nameDev}</span>
+                <span className="text-xs px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">
                   {track.nameRom}
                 </span>
               </div>
-              <p className="text-xs text-stone-400 font-semibold">{track.type}</p>
-              <p className="text-stone-300 text-sm leading-relaxed">{track.description}</p>
+              <p className="text-xs text-stone-600 font-semibold">{track.type}</p>
+              <p className="text-stone-700 text-sm leading-relaxed">{track.description}</p>
               <button
                 onClick={() => triggerInstrumentSound(track.id, 0.9)}
-                className="w-full py-2 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
+                className="w-full py-2 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
               >
-                <Volume2 className="w-3.5 h-3.5 text-amber-400" />
+                <Volume2 className="w-3.5 h-3.5 text-amber-600" />
                 <span>एकल ध्वनि सुनें (Test Tone)</span>
               </button>
             </div>

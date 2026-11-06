@@ -196,28 +196,28 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-stone-900 via-amber-950 to-orange-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-amber-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-stone-50 via-amber-50 to-orange-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-xl border border-amber-200/40 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-500/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-500/30">
               <Music className="w-4 h-4" />
               ल्युथियर शिल्प • Indigenous Instrument Craftsmanship
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-amber-50">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-amber-900">
               लोक-वाद्य निर्माण विद्या व बानाम ल्युथियर शिल्प
             </h1>
-            <p className="mt-2 text-amber-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="mt-2 text-amber-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               धोदरो बानाम की मानव-काया वास्तुकला, टुमदाक (मृत्तिका मांदर) व तामाक (महा-नगाड़ा) की छिलाई, खिरन सुर-लेप और काष्ठ-ध्वनि विज्ञान।
             </p>
           </div>
 
           {/* Quick tab switcher */}
-          <div className="flex items-center gap-2 bg-stone-950/80 p-1.5 rounded-2xl border border-amber-700/40">
+          <div className="flex items-center gap-2 bg-white/80 p-1.5 rounded-2xl border border-amber-200/40">
             <button
               onClick={() => setActiveTab('anatomy')}
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                activeTab === 'anatomy' ? 'bg-amber-600 text-white shadow-md' : 'text-amber-300 hover:text-white'
+                activeTab === 'anatomy' ? 'bg-amber-600 text-white shadow-md' : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               काया व अंग (Anatomy)
@@ -225,7 +225,7 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
             <button
               onClick={() => setActiveTab('craft_steps')}
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                activeTab === 'craft_steps' ? 'bg-amber-600 text-white shadow-md' : 'text-amber-300 hover:text-white'
+                activeTab === 'craft_steps' ? 'bg-amber-600 text-white shadow-md' : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               निर्माण चरण
@@ -233,7 +233,7 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
             <button
               onClick={() => setActiveTab('tuning')}
               className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                activeTab === 'tuning' ? 'bg-amber-600 text-white shadow-md' : 'text-amber-300 hover:text-white'
+                activeTab === 'tuning' ? 'bg-amber-600 text-white shadow-md' : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               सुर व अनुनाद
@@ -246,7 +246,7 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Instruments List */}
         <div className="lg:col-span-4 space-y-3">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 px-1 flex items-center gap-2">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-amber-900 dark:text-amber-700 px-1 flex items-center gap-2">
             <Hammer className="w-4 h-4 text-amber-600" />
             पारंपरिक वाद्य चुनें:
           </h2>
@@ -260,19 +260,19 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
                   onClick={() => setSelectedInst(inst)}
                   className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                     isSelected
-                      ? 'bg-amber-50/80 dark:bg-amber-950/40 border-amber-600 shadow-md ring-2 ring-amber-500/20'
-                      : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-amber-300'
+                      ? 'bg-amber-50/80 dark:bg-amber-50/40 border-amber-300 shadow-md ring-2 ring-amber-500/20'
+                      : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-amber-300'
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <div className="font-bold text-slate-900 dark:text-white text-base">
+                      <div className="font-bold text-slate-900 dark:text-slate-900 text-base">
                         {inst.nameDevanagari}
                       </div>
-                      <div className="text-xs text-amber-700 dark:text-amber-400 font-semibold font-mono">
+                      <div className="text-xs text-amber-700 dark:text-amber-600 font-semibold font-mono">
                         ({inst.nameSantali})
                       </div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      <div className="text-xs text-slate-500 dark:text-slate-600 mt-1">
                         {inst.nameHindi}
                       </div>
                     </div>
@@ -281,7 +281,7 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
                         e.stopPropagation();
                         speakText(`${inst.nameDevanagari}. ${inst.nameHindi}. ${inst.spiritualMeaning}`);
                       }}
-                      className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-900/50"
+                      className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-50/50"
                       title="विवरण सुनें"
                     >
                       <Volume2 className="w-4 h-4" />
@@ -293,8 +293,8 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
           </div>
 
           {/* Lore Callout */}
-          <div className="p-4 rounded-2xl bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/40 text-xs text-orange-900 dark:text-orange-200 space-y-2">
-            <div className="font-bold flex items-center gap-1.5 text-orange-800 dark:text-orange-300">
+          <div className="p-4 rounded-2xl bg-orange-50 dark:bg-orange-50/30 border border-orange-200 dark:border-orange-200/40 text-xs text-orange-900 dark:text-orange-800 space-y-2">
+            <div className="font-bold flex items-center gap-1.5 text-orange-800 dark:text-orange-700">
               <Sparkles className="w-4 h-4" />
               वृक्ष-चेतना व संताली आस्था:
             </div>
@@ -306,14 +306,14 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
 
         {/* Right Column: Instrument Deep-dive */}
         <div className="lg:col-span-8 space-y-5">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
+          <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 border border-slate-200 dark:border-slate-200 shadow-sm space-y-5">
             {/* Header info */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-200 pb-4">
               <div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
                   {selectedInst.nameDevanagari} ({selectedInst.nameSantali})
                 </h3>
-                <p className="text-sm text-amber-700 dark:text-amber-400 font-medium">
+                <p className="text-sm text-amber-700 dark:text-amber-600 font-medium">
                   {selectedInst.nameHindi}
                 </p>
               </div>
@@ -335,24 +335,24 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
 
             {/* Quick Specs */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 text-xs">
-                <span className="text-slate-500 dark:text-slate-400 block font-semibold">काष्ठ / आधार सामग्री</span>
-                <span className="font-bold text-slate-800 dark:text-slate-100 mt-0.5 block">{selectedInst.woodType}</span>
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200/60 text-xs">
+                <span className="text-slate-500 dark:text-slate-600 block font-semibold">काष्ठ / आधार सामग्री</span>
+                <span className="font-bold text-slate-800 dark:text-slate-800 mt-0.5 block">{selectedInst.woodType}</span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 text-xs">
-                <span className="text-slate-500 dark:text-slate-400 block font-semibold">चमड़ा / झिल्ली</span>
-                <span className="font-bold text-slate-800 dark:text-slate-100 mt-0.5 block">{selectedInst.skinType}</span>
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200/60 text-xs">
+                <span className="text-slate-500 dark:text-slate-600 block font-semibold">चमड़ा / झिल्ली</span>
+                <span className="font-bold text-slate-800 dark:text-slate-800 mt-0.5 block">{selectedInst.skinType}</span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 text-xs">
-                <span className="text-slate-500 dark:text-slate-400 block font-semibold">प्राकृतिक सुर मान</span>
-                <span className="font-bold text-amber-600 dark:text-amber-400 mt-0.5 block">{selectedInst.tuningPitch}</span>
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200/60 text-xs">
+                <span className="text-slate-500 dark:text-slate-600 block font-semibold">प्राकृतिक सुर मान</span>
+                <span className="font-bold text-amber-600 dark:text-amber-600 mt-0.5 block">{selectedInst.tuningPitch}</span>
               </div>
             </div>
 
             {/* Tab: Anatomy */}
             {activeTab === 'anatomy' && (
               <div className="space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-700 flex items-center gap-1.5">
                   <Layers className="w-4 h-4 text-amber-600" />
                   वाद्य के अंग, मानव-देह समानता व ध्वनिक भूमिका:
                 </h4>
@@ -360,18 +360,18 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
                   {selectedInst.parts.map((p, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-2xl bg-amber-50/40 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-900/40 space-y-2"
+                      className="p-4 rounded-2xl bg-amber-50/40 dark:bg-amber-50/20 border border-amber-200/50 dark:border-amber-200/40 space-y-2"
                     >
                       <div className="flex items-center justify-between">
-                        <div className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <div className="font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-amber-600"></span>
                           <span>{p.partSantali} ({p.partHindi})</span>
                         </div>
-                        <span className="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200 text-xs font-semibold">
+                        <span className="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-50/60 text-amber-800 dark:text-amber-800 text-xs font-semibold">
                           काया प्रतीक: {p.humanAnatomySymbol}
                         </span>
                       </div>
-                      <div className="text-xs text-slate-600 dark:text-slate-300 grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+                      <div className="text-xs text-slate-600 dark:text-slate-700 grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
                         <div><strong>प्रयुक्त सामग्री:</strong> {p.material}</div>
                         <div><strong>ध्वनि योगदान:</strong> {p.acousticRole}</div>
                       </div>
@@ -384,7 +384,7 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
             {/* Tab: Craft Steps */}
             {activeTab === 'craft_steps' && (
               <div className="space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-700 flex items-center gap-1.5">
                   <Hammer className="w-4 h-4 text-amber-600" />
                   निर्माण व तराशने के पारंपरिक ५ चरण:
                 </h4>
@@ -392,7 +392,7 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
                   {selectedInst.craftSteps.map((step, idx) => (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 flex items-start gap-3 text-sm text-slate-800 dark:text-slate-200"
+                      className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 flex items-start gap-3 text-sm text-slate-800 dark:text-slate-800"
                     >
                       <CheckCircle2 className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
                       <span>{step}</span>
@@ -405,20 +405,20 @@ export const SantaliBanamTamakLuthier: React.FC = () => {
             {/* Tab: Tuning & Acoustics */}
             {activeTab === 'tuning' && (
               <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-stone-100 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 space-y-3">
-                  <h4 className="font-bold text-slate-900 dark:text-white text-sm">
+                <div className="p-4 rounded-2xl bg-stone-100 dark:bg-stone-100/60 border border-stone-200 dark:border-stone-200 space-y-3">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                     खिरन (Khiran) - सुर स्थिर करने वाला चमत्कारी लेप
                   </h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-700 leading-relaxed">
                     टुमदाक के दाहिने मुख पर लोहे के महीन बुरादे, पके हुए करहानी चावल के मांड़ और इमली के बीज के पाउडर को पत्थर पर रगड़कर काला लेप बनाया जाता है। इसे सटीक वृत्ताकार रूप में लगाया जाता है। यह चमड़े के कंपन को संतुलित करके 'खण-खण' जैसी धातुई गूंज पैदा करता है।
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40 space-y-2">
-                  <h4 className="font-bold text-amber-900 dark:text-amber-200 text-sm">
+                <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-50/30 border border-amber-200 dark:border-amber-200/40 space-y-2">
+                  <h4 className="font-bold text-amber-900 dark:text-amber-800 text-sm">
                     आक (धनुष) पर घोड़े के बाल का चुनाव
                   </h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-700 leading-relaxed">
                     बानाम के धनुष के लिए केवल सफेद अरबी अथवा देशी स्वस्थ घोड़े की पूंछ के बालों को चुना जाता है। बालों पर साल के गोंद (सरजोम लहा) को रगड़ा जाता है ताकि तार पर सर्वोत्तम घर्षण व मिठास आ सके।
                   </p>
                 </div>

@@ -105,19 +105,19 @@ export const SantaliDailyThoughtWidget: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-amber-900 via-stone-900 to-amber-950 text-white rounded-3xl p-6 sm:p-7 shadow-xl border border-amber-700/40 relative overflow-hidden">
+    <div className="bg-gradient-to-br from-amber-50 via-stone-50 to-amber-50 text-slate-900 rounded-3xl p-6 sm:p-7 shadow-xl border border-amber-200/40 relative overflow-hidden">
       <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
         <Quote size={120} />
       </div>
 
       <div className="relative z-10 space-y-4">
         {/* Top Header */}
-        <div className="flex items-center justify-between gap-3 border-b border-amber-800/50 pb-3">
+        <div className="flex items-center justify-between gap-3 border-b border-amber-200/50 pb-3">
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            <span className="p-1.5 rounded-lg bg-amber-500/20 text-amber-700 border border-amber-500/30">
               <Sparkles size={16} />
             </span>
-            <span className="text-xs sm:text-sm font-bold tracking-wide uppercase text-amber-200">
+            <span className="text-xs sm:text-sm font-bold tracking-wide uppercase text-amber-800">
               दिन का संताली सुविचार • दिन रिनक् मेनकाथा
             </span>
           </div>
@@ -128,7 +128,7 @@ export const SantaliDailyThoughtWidget: React.FC = () => {
               className={`p-2 rounded-xl transition-all ${
                 starred
                   ? 'bg-amber-400 text-stone-950 font-bold'
-                  : 'bg-white/10 hover:bg-white/20 text-amber-200'
+                  : 'bg-white/10 hover:bg-white/20 text-amber-800'
               }`}
               title="डायरी में सेव करें"
             >
@@ -136,14 +136,14 @@ export const SantaliDailyThoughtWidget: React.FC = () => {
             </button>
             <button
               onClick={handleCopy}
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-amber-200 transition-colors"
+              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-amber-800 transition-colors"
               title="कॉपी करें"
             >
-              {copied ? <Check size={15} className="text-emerald-400" /> : <Copy size={15} />}
+              {copied ? <Check size={15} className="text-emerald-600" /> : <Copy size={15} />}
             </button>
             <button
               onClick={handleNext}
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-amber-200 transition-colors"
+              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-amber-800 transition-colors"
               title="अगला विचार देखें"
             >
               <RefreshCw size={15} />
@@ -153,33 +153,33 @@ export const SantaliDailyThoughtWidget: React.FC = () => {
 
         {/* Proverb Content */}
         <div className="space-y-2">
-          <div className="text-sm sm:text-base font-semibold text-amber-300 font-mono tracking-wide">
+          <div className="text-sm sm:text-base font-semibold text-amber-700 font-mono tracking-wide">
             {thought.olChiki}
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-3">
+          <div className="text-xl sm:text-2xl font-extrabold text-slate-900 flex items-center gap-3">
             <span>{thought.santaliDevanagari}</span>
             <button
               onClick={() => speakWithFemaleVoice(thought.santaliDevanagari)}
-              className="p-1.5 rounded-full bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 transition-colors shrink-0"
+              className="p-1.5 rounded-full bg-amber-500/20 hover:bg-amber-500/40 text-amber-700 transition-colors shrink-0"
               title="उच्चारण सुनें"
             >
               <Volume2 size={20} />
             </button>
           </div>
-          <div className="text-xs sm:text-sm text-amber-200/80 font-medium">
+          <div className="text-xs sm:text-sm text-amber-800/80 font-medium">
             {thought.santaliRoman}
           </div>
         </div>
 
         {/* Meaning and Life Lesson */}
-        <div className="pt-2 border-t border-amber-800/40 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-          <div className="bg-black/20 p-3 rounded-2xl border border-amber-500/10">
-            <span className="text-amber-400 font-bold block mb-1">हिन्दी भावार्थ:</span>
-            <p className="text-slate-200 leading-relaxed">{thought.hindiMeaning}</p>
+        <div className="pt-2 border-t border-amber-200/40 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+          <div className="bg-white/20 p-3 rounded-2xl border border-amber-500/10">
+            <span className="text-amber-600 font-bold block mb-1">हिन्दी भावार्थ:</span>
+            <p className="text-slate-800 leading-relaxed">{thought.hindiMeaning}</p>
           </div>
-          <div className="bg-black/20 p-3 rounded-2xl border border-amber-500/10">
-            <span className="text-amber-400 font-bold block mb-1">जीवन दर्शन व सीख:</span>
-            <p className="text-slate-200 leading-relaxed">{thought.lifeLesson}</p>
+          <div className="bg-white/20 p-3 rounded-2xl border border-amber-500/10">
+            <span className="text-amber-600 font-bold block mb-1">जीवन दर्शन व सीख:</span>
+            <p className="text-slate-800 leading-relaxed">{thought.lifeLesson}</p>
           </div>
         </div>
       </div>

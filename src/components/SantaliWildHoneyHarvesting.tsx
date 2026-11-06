@@ -93,29 +93,29 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-yellow-950 to-stone-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-amber-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-amber-50 via-yellow-50 to-stone-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-xl border border-amber-200/40 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-500/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-500/30">
               <Droplets className="w-4 h-4" />
               तेरोम आर लुती रस • Wild Honey Harvesting Lore
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-amber-50">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-amber-900">
               संताली वन-शहद संचयन व वन्य-मधुमक्खी विद्या
             </h1>
-            <p className="mt-2 text-amber-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="mt-2 text-amber-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               तेरोम, लुती व हुरुम मधुमक्खी प्रजातियों का ज्ञान, आधा छत्ता छोड़ने की सतत संचयन परंपरा, बीर बोंगा की प्रार्थना और वनौषधीय शहद चिकित्सा।
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-stone-950/80 p-1.5 rounded-2xl border border-amber-700/50">
+          <div className="flex items-center gap-2 bg-white/80 p-1.5 rounded-2xl border border-amber-200/50">
             <button
               onClick={() => setActiveTab('species')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'species'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-amber-300 hover:text-white'
+                  : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               मधुमक्खी जातियां
@@ -125,7 +125,7 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'sustainable_steps'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-amber-300 hover:text-white'
+                  : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               सतत संचयन विधि
@@ -135,7 +135,7 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'medicinal'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-amber-300 hover:text-white'
+                  : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               औषधीय गुण
@@ -148,7 +148,7 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
       {activeTab === 'species' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 px-1 flex items-center gap-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-amber-900 dark:text-amber-700 px-1 flex items-center gap-2">
               <Compass className="w-4 h-4 text-amber-600" />
               ३ पारंपरिक वन-मधुमक्खियां:
             </h2>
@@ -162,20 +162,20 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
                     onClick={() => setSelectedBee(bee)}
                     className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                       isSelected
-                        ? 'bg-amber-50/80 dark:bg-amber-950/40 border-amber-600 shadow-md ring-2 ring-amber-500/20'
-                        : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-amber-300'
+                        ? 'bg-amber-50/80 dark:bg-amber-50/40 border-amber-300 shadow-md ring-2 ring-amber-500/20'
+                        : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-amber-300'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl p-2 bg-amber-100 dark:bg-amber-900/60 rounded-xl">
+                        <span className="text-2xl p-2 bg-amber-100 dark:bg-amber-50/60 rounded-xl">
                           {bee.visualEmoji}
                         </span>
                         <div>
-                          <div className="font-bold text-slate-900 dark:text-white text-base">
+                          <div className="font-bold text-slate-900 dark:text-slate-900 text-base">
                             {bee.nameSantali}
                           </div>
-                          <div className="text-xs text-amber-700 dark:text-amber-400 font-semibold font-mono">
+                          <div className="text-xs text-amber-700 dark:text-amber-600 font-semibold font-mono">
                             {bee.nameHindi}
                           </div>
                           <div className="text-[11px] text-slate-500 italic">
@@ -188,7 +188,7 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
                           e.stopPropagation();
                           speakText(`${bee.nameSantali}. ${bee.nameHindi}. ${bee.medicinalBenefit}`);
                         }}
-                        className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-900/50"
+                        className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-50/50"
                         title="विवरण सुनें"
                       >
                         <Volume2 className="w-4 h-4" />
@@ -200,8 +200,8 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
             </div>
 
             {/* Indigenous Ecology Callout */}
-            <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40 text-xs text-amber-950 dark:text-amber-200 leading-relaxed">
-              <div className="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-50/30 border border-amber-200 dark:border-amber-200/40 text-xs text-amber-950 dark:text-amber-800 leading-relaxed">
+              <div className="font-bold text-amber-900 dark:text-amber-700 flex items-center gap-1.5 mb-1">
                 <Info className="w-4 h-4" />
                 जैव-विविधता परागण (Pollination Guardians):
               </div>
@@ -211,19 +211,19 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
 
           {/* Bee Detail */}
           <div className="lg:col-span-7 space-y-5">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 border border-slate-200 dark:border-slate-200 shadow-sm space-y-5">
+              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-200 pb-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
                     {selectedBee.visualEmoji} {selectedBee.nameSantali}
                   </h3>
-                  <p className="text-sm text-amber-700 dark:text-amber-400 font-medium">
+                  <p className="text-sm text-amber-700 dark:text-amber-600 font-medium">
                     {selectedBee.nameHindi} ({selectedBee.scientificName})
                   </p>
                 </div>
                 <button
                   onClick={() => speakText(`${selectedBee.nameSantali}. घोंसला: ${selectedBee.nestLocation}. शहद स्वाद: ${selectedBee.honeyFlavor}`)}
-                  className="px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-amber-900/40 hover:bg-amber-100 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  className="px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-amber-50/40 hover:bg-amber-100 text-amber-700 dark:text-amber-700 text-xs font-semibold flex items-center gap-1.5 transition-all"
                 >
                   <Volume2 className="w-4 h-4" />
                   ऑडियो सुनें
@@ -233,31 +233,31 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
               {/* Data Specifications */}
               <div className="space-y-4 text-sm">
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-amber-600"></span>
                     छत्ता निर्माण स्थान व प्रकृति (Nest Habitat):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedBee.nestLocation}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
                     शहद का स्वाद व रंग (Flavor & Consistency):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedBee.honeyFlavor}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                     औषधीय उपयोग व स्वास्थ्य लाभ:
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-emerald-50/40 dark:bg-emerald-950/20 p-3.5 rounded-2xl border border-emerald-200/50 dark:border-emerald-900/30">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-emerald-50/40 dark:bg-emerald-50/20 p-3.5 rounded-2xl border border-emerald-200/50 dark:border-emerald-200/30">
                     {selectedBee.medicinalBenefit}
                   </p>
                 </div>
@@ -269,13 +269,13 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
 
       {/* Main Tab: Sustainable Steps */}
       {activeTab === 'sustainable_steps' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-amber-600" />
               आदिवासी सतत संचयन आचार-संहिता (Non-Destructive Harvesting)
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               संताली समाज कभी भी पूरी कॉलोनी या छत्ते को नष्ट नहीं करता। प्रकृति के साथ सह-अस्तित्व की ४-चरणीय विधि।
             </p>
           </div>
@@ -284,17 +284,17 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
             {SUSTAINABLE_HARVEST_STEPS.map((s) => (
               <div
                 key={s.step}
-                className="p-5 rounded-2xl bg-amber-50/40 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-800/40 space-y-2"
+                className="p-5 rounded-2xl bg-amber-50/40 dark:bg-amber-50/20 border border-amber-200/60 dark:border-amber-200/40 space-y-2"
               >
                 <div className="flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-amber-600 text-white text-xs font-bold flex items-center justify-center">
                     {s.step}
                   </span>
-                  <h3 className="font-bold text-amber-950 dark:text-amber-200 text-base">
+                  <h3 className="font-bold text-amber-950 dark:text-amber-800 text-base">
                     {s.title}
                   </h3>
                 </div>
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                   {s.description}
                 </p>
               </div>
@@ -305,44 +305,44 @@ export const SantaliWildHoneyHarvesting: React.FC = () => {
 
       {/* Main Tab: Medicinal */}
       {activeTab === 'medicinal' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-amber-600" />
               जंगली शहद व मोम (मेढ़) के पारंपरिक लोक-नुस्खे
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               हातु कविराज (ग्राम्य वैद्य) द्वारा प्रयुक्त शुद्ध प्राकृतिक वनौषधीय प्रयोग।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🍯</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 लुती रस व नेत्र ज्योति
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 छोटी डंक-रहित मधुमक्खी (लुती) के रस की १ बूंद रात को सोने से पहले आंखों में डालने से धुंधलापन और जलन दूर होती है।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🌿</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 अदरक व तेरोम रस का काढ़ा
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 शीत ऋतु में तीव्र खांसी और सीने की जकड़न में जंगली पहाड़ी शहद को कुचले हुए अदरक के रस के साथ गुनगुना सेवन कराया जाता है।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🕯️</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 मधुमक्खी मोम (मेढ़) व फटी एड़ियां
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 छत्ते के प्राकृतिक मोम को गर्म सरसों या महुआ के तेल में पिघलाकर पैरों की गहरी फटी बिवाइयों पर लगाने से घाव २ दिन में भर जाते हैं।
               </p>
             </div>

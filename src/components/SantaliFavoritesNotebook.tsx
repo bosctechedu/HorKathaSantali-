@@ -137,36 +137,36 @@ export const SantaliFavoritesNotebook: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-amber-900 via-stone-900 to-amber-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-amber-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-amber-50 via-stone-50 to-amber-50 text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-amber-200/40 relative overflow-hidden">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
           <BookMarked size={280} />
         </div>
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-700 border border-amber-500/30 text-xs font-semibold mb-3">
             <Sparkles size={14} />
             <span>इञाक् साकाम - ऑफ़लाइन नोटबुक व पसंदीदा संग्रह</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-100 flex items-center gap-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-800 flex items-center gap-3">
             <span>इञाक् साकाम (मेरी पसंदीदा डायरी)</span>
             <button
               onClick={() => speakWithFemaleVoice('इञाक् साकाम आर कुशीयाक् संग्रह')}
-              className="p-2 rounded-full bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 transition-colors"
+              className="p-2 rounded-full bg-amber-500/20 hover:bg-amber-500/40 text-amber-700 transition-colors"
               title="सुनें"
             >
               <Volume2 size={22} />
             </button>
           </h1>
-          <p className="text-amber-200/80 text-sm sm:text-base mt-2 leading-relaxed">
+          <p className="text-amber-800/80 text-sm sm:text-base mt-2 leading-relaxed">
             आपके द्वारा स्टार (⭐) किए गए सभी संताली पारंपरिक व्यंजन, तीर्थ स्थल, औपचारिक पत्र, पहेलियां और महत्वपूर्ण शब्दावली यहां आपके डिवाइस में हमेशा ऑफ़लाइन सुरक्षित रहते हैं।
           </p>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-50 rounded-2xl p-4 border border-slate-200 dark:border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="relative w-full sm:w-88">
           <Search size={18} className={`absolute left-3.5 top-1/2 -translate-y-1/2 transition-colors ${
-            isListening ? 'text-rose-600' : 'text-slate-400'
+            isListening ? 'text-rose-600' : 'text-slate-600'
           }`} />
           <input
             type="text"
@@ -176,7 +176,7 @@ export const SantaliFavoritesNotebook: React.FC = () => {
             className={`w-full pl-10 pr-20 py-2 rounded-xl border text-sm transition-all ${
               isListening
                 ? 'border-rose-400 ring-2 ring-rose-300/60 bg-rose-50/40 text-rose-950 font-medium'
-                : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500'
+                : 'bg-slate-50 dark:bg-slate-100/60 border-slate-200 dark:border-slate-200 text-slate-800 dark:text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500'
             }`}
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -184,7 +184,7 @@ export const SantaliFavoritesNotebook: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="text-[11px] text-slate-400 hover:text-slate-600 px-1 py-0.5"
+                className="text-[11px] text-slate-600 hover:text-slate-600 px-1 py-0.5"
               >
                 ✕
               </button>
@@ -199,7 +199,7 @@ export const SantaliFavoritesNotebook: React.FC = () => {
                   : 'bg-amber-100 hover:bg-amber-200 text-amber-800 border border-amber-300/50'
               }`}
             >
-              <Mic size={14} className={isListening ? 'animate-bounce text-white' : ''} />
+              <Mic size={14} className={isListening ? 'animate-bounce text-slate-900' : ''} />
             </button>
           </div>
         </div>
@@ -219,7 +219,7 @@ export const SantaliFavoritesNotebook: React.FC = () => {
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 selectedCategory === cat.id
                   ? 'bg-amber-600 text-white shadow-sm'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  : 'bg-slate-100 dark:bg-slate-100 text-slate-600 dark:text-slate-600 hover:bg-slate-200 dark:hover:bg-slate-200'
               }`}
             >
               {cat.label}
@@ -230,12 +230,12 @@ export const SantaliFavoritesNotebook: React.FC = () => {
 
       {/* Favorites List */}
       {filtered.length === 0 ? (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-12 text-center border border-slate-200 dark:border-slate-800 space-y-3">
-          <Bookmark size={48} className="mx-auto text-amber-400 opacity-60" />
-          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-12 text-center border border-slate-200 dark:border-slate-200 space-y-3">
+          <Bookmark size={48} className="mx-auto text-amber-600 opacity-60" />
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-800">
             कोई पसंदीदा आइटम नहीं मिला
           </h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+          <p className="text-sm text-slate-500 dark:text-slate-600 max-w-md mx-auto">
             व्यंजन, पत्र, तीर्थ या पहेली मॉड्यूल में स्टार (⭐) बटन दबाकर अपनी पसंद की सामग्री को यहां सेव करें।
           </p>
         </div>
@@ -244,53 +244,53 @@ export const SantaliFavoritesNotebook: React.FC = () => {
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-lg transition-all flex flex-col justify-between"
+              className="bg-white dark:bg-slate-50 rounded-2xl p-5 border border-slate-200 dark:border-slate-200 shadow-md hover:shadow-lg transition-all flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-xs font-bold border border-amber-200/50 dark:border-amber-900/40">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-50/50 text-amber-800 dark:text-amber-700 text-xs font-bold border border-amber-200/50 dark:border-amber-200/40">
                     {getCategoryIcon(item.category)}
                     <span>{item.categoryLabel}</span>
                   </span>
-                  <span className="text-[11px] text-slate-400">{item.savedAt}</span>
+                  <span className="text-[11px] text-slate-600">{item.savedAt}</span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-start justify-between gap-2">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-800 flex items-start justify-between gap-2">
                     <span>{item.titleDevanagari}</span>
                     <button
                       onClick={() => speakWithFemaleVoice(item.titleDevanagari)}
-                      className="text-amber-600 hover:text-amber-700 dark:text-amber-400 p-1 rounded-lg hover:bg-amber-50 dark:hover:bg-slate-800 transition-colors shrink-0"
+                      className="text-amber-600 hover:text-amber-700 dark:text-amber-600 p-1 rounded-lg hover:bg-amber-50 dark:hover:bg-slate-100 transition-colors shrink-0"
                       title="उच्चारण सुनें"
                     >
                       <Volume2 size={16} />
                     </button>
                   </h3>
-                  <p className="text-xs text-amber-700 dark:text-amber-400 font-semibold mt-0.5">
+                  <p className="text-xs text-amber-700 dark:text-amber-600 font-semibold mt-0.5">
                     {item.titleRoman}
                   </p>
                   {item.subtitle && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 italic">
+                    <p className="text-xs text-slate-500 dark:text-slate-600 mt-1 italic">
                       {item.subtitle}
                     </p>
                   )}
                 </div>
 
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                <p className="text-xs text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/40 p-3 rounded-xl border border-slate-100 dark:border-slate-200">
                   {item.summary}
                 </p>
               </div>
 
               {/* Card Footer Actions */}
-              <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-3 mt-4">
+              <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-200 pt-3 mt-4">
                 <button
                   onClick={() => handleCopy(item)}
-                  className="flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-amber-600 transition-colors"
+                  className="flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-slate-700 hover:text-amber-600 transition-colors"
                 >
                   {copiedId === item.id ? (
                     <>
                       <Check size={14} className="text-emerald-500" />
-                      <span className="text-emerald-600 dark:text-emerald-400">कॉपी हो गया!</span>
+                      <span className="text-emerald-600 dark:text-emerald-600">कॉपी हो गया!</span>
                     </>
                   ) : (
                     <>
@@ -302,7 +302,7 @@ export const SantaliFavoritesNotebook: React.FC = () => {
 
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="flex items-center gap-1 text-xs font-semibold text-rose-500 hover:text-rose-700 p-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                  className="flex items-center gap-1 text-xs font-semibold text-rose-500 hover:text-rose-700 p-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-50/40 transition-colors"
                   title="हटाएं"
                 >
                   <Trash2 size={14} />

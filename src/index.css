@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Always light: phone/browser dark mode must NOT switch pages to dark (dark: styles only under a .dark class, never set) */
+@custom-variant dark (&:where(.dark, .dark *));
+:root { color-scheme: only light; }
+
 /* Size-matched stand-in while Plus Jakarta Sans downloads (Roboto on Android, Arial elsewhere), so the
    non-blocking font swap does not reflow the page. Metrics measured from the two fonts. */
 @font-face {

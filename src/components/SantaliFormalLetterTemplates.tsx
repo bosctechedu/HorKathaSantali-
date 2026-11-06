@@ -181,26 +181,26 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-stone-900 via-amber-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-stone-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-stone-50 via-amber-50 to-slate-50 text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-stone-200/40 relative overflow-hidden">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
           <Scroll size={280} />
         </div>
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-700 border border-amber-500/30 text-xs font-semibold mb-3">
             <Sparkles size={14} />
             <span>नेवता साकाम आर दरखास्त - प्रामाणिक औपचारिक प्रारूप</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-100 flex items-center gap-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-800 flex items-center gap-3">
             <span>संताली औपचारिक पत्र व निमंत्रण प्रारूप</span>
             <button
               onClick={() => speakWithFemaleVoice('सांतार नेवता साकाम आर मांझी हाड़ाम ठीन् दरखास्त')}
-              className="p-2 rounded-full bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 transition-colors"
+              className="p-2 rounded-full bg-amber-500/20 hover:bg-amber-500/40 text-amber-700 transition-colors"
               title="सुनें"
             >
               <Volume2 size={22} />
             </button>
           </h1>
-          <p className="text-amber-200/80 text-sm sm:text-base mt-2 leading-relaxed">
+          <p className="text-amber-800/80 text-sm sm:text-base mt-2 leading-relaxed">
             विवाह निमंत्रण पत्र (बापला नेवता साकाम), मांझी हाड़ाम हेतु आवेदन (आरजी), कुलही बैसी आमसभा नोटिस और भांडान शोक पत्र — शुद्ध संताली देवनागरी में संपादन, प्रतिलिपि और मुद्रण (A4 Print / PDF) हेतु तैयार।
           </p>
         </div>
@@ -221,20 +221,20 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
                 onClick={() => setSelectedLetter(item)}
                 className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                   isSelected
-                    ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-500 shadow-md scale-[1.01]'
-                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-amber-300 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                    ? 'bg-amber-50 dark:bg-amber-50/40 border-amber-500 shadow-md scale-[1.01]'
+                    : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-amber-300 hover:bg-slate-50 dark:hover:bg-slate-100/60'
                 }`}
               >
-                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300">
+                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-50/60 text-amber-800 dark:text-amber-700">
                   {item.categoryLabel}
                 </span>
-                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-1.5">
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-800 mt-1.5">
                   {item.titleDevanagari}
                 </h3>
-                <p className="text-xs text-amber-700 dark:text-amber-400 font-medium">
+                <p className="text-xs text-amber-700 dark:text-amber-600 font-medium">
                   {item.titleRoman}
                 </p>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-2">
+                <p className="text-xs text-slate-600 dark:text-slate-600 mt-2 line-clamp-2">
                   {item.description}
                 </p>
               </div>
@@ -244,16 +244,16 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
 
         {/* Right Preview & Action Area */}
         <div className="lg:col-span-8">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
-            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
+          <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-xl space-y-6">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-200 pb-5">
               <div>
-                <span className="px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-wider">
+                <span className="px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-50/50 text-amber-800 dark:text-amber-700 text-xs font-bold uppercase tracking-wider">
                   {selectedLetter.categoryLabel}
                 </span>
-                <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 mt-2">
+                <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-800 mt-2">
                   {selectedLetter.titleDevanagari}
                 </h2>
-                <p className="text-sm text-amber-700 dark:text-amber-400 font-semibold">
+                <p className="text-sm text-amber-700 dark:text-amber-600 font-semibold">
                   {selectedLetter.titleRoman}
                 </p>
               </div>
@@ -265,7 +265,7 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all border ${
                     starred
                       ? 'bg-amber-500 text-stone-950 border-amber-500 shadow'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200'
+                      : 'bg-slate-100 dark:bg-slate-100 text-slate-700 dark:text-slate-700 border-slate-200 dark:border-slate-200 hover:bg-slate-200'
                   }`}
                   title="डायरी में सुरक्षित करें"
                 >
@@ -274,14 +274,14 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-700 text-white hover:bg-amber-800 text-xs sm:text-sm font-semibold transition-colors shadow"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-700 text-white hover:bg-amber-100 text-xs sm:text-sm font-semibold transition-colors shadow"
                 >
                   {copied ? <Check size={16} /> : <Copy size={16} />}
                   <span>{copied ? 'कॉपी हो गया!' : 'कॉपी'}</span>
                 </button>
                 <button
                   onClick={() => setShowPrintModal(true)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 text-white dark:bg-amber-500 dark:text-stone-950 text-xs sm:text-sm font-semibold hover:opacity-90 transition-all shadow"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-50 text-slate-900 dark:bg-amber-500 dark:text-stone-950 text-xs sm:text-sm font-semibold hover:opacity-90 transition-all shadow"
                   title="A4 प्रिंट प्रीव्यू"
                 >
                   <Eye size={16} />
@@ -291,12 +291,12 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
             </div>
 
             {/* Cultural Note */}
-            <div className="p-3.5 rounded-2xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/30 text-xs sm:text-sm text-amber-900 dark:text-amber-300">
+            <div className="p-3.5 rounded-2xl bg-amber-50/60 dark:bg-amber-50/20 border border-amber-200/60 dark:border-amber-200/30 text-xs sm:text-sm text-amber-900 dark:text-amber-700">
               <strong>सांस्कृतिक परंपरा:</strong> {selectedLetter.culturalNote}
             </div>
 
             {/* Letter Document Preview Box */}
-            <div className="p-6 sm:p-8 rounded-2xl bg-amber-50/30 dark:bg-slate-950 border-2 border-amber-800/30 font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-200 whitespace-pre-wrap shadow-inner relative">
+            <div className="p-6 sm:p-8 rounded-2xl bg-amber-50/30 dark:bg-white border-2 border-amber-200/30 font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-800 whitespace-pre-wrap shadow-inner relative">
               <div className="absolute top-3 right-3 opacity-20 pointer-events-none">
                 <Scroll size={60} />
               </div>
@@ -304,8 +304,8 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
             </div>
 
             {/* Hindi Translation Note */}
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-600 dark:text-slate-300 space-y-1">
-              <span className="font-bold text-slate-900 dark:text-slate-100 block">
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-100/60 border border-slate-200 dark:border-slate-200 text-xs sm:text-sm text-slate-600 dark:text-slate-700 space-y-1">
+              <span className="font-bold text-slate-900 dark:text-slate-800 block">
                 हिन्दी भावार्थ व उद्देश्य:
               </span>
               <p>{selectedLetter.templateHindiMeaning}</p>
@@ -317,11 +317,11 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
       {/* Modal: A4 Formatted Print & Export View */}
       {showPrintModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white text-slate-900 max-w-3xl w-full rounded-3xl shadow-2xl overflow-hidden border border-amber-800/30 flex flex-col max-h-[90vh]">
+          <div className="bg-white text-slate-900 max-w-3xl w-full rounded-3xl shadow-2xl overflow-hidden border border-amber-200/30 flex flex-col max-h-[90vh]">
             {/* Modal Header */}
-            <div className="bg-stone-900 text-white p-4 px-6 flex items-center justify-between border-b border-stone-800">
+            <div className="bg-stone-50 text-slate-900 p-4 px-6 flex items-center justify-between border-b border-stone-200">
               <div className="flex items-center gap-2">
-                <FileText size={18} className="text-amber-400" />
+                <FileText size={18} className="text-amber-600" />
                 <span className="font-bold text-sm sm:text-base">
                   A4 आधिकारिक प्रिंट लेआउट • {selectedLetter.titleDevanagari}
                 </span>
@@ -336,7 +336,7 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setShowPrintModal(false)}
-                  className="p-1.5 rounded-full hover:bg-stone-800 text-slate-300"
+                  className="p-1.5 rounded-full hover:bg-stone-100 text-slate-700"
                 >
                   <X size={18} />
                 </button>
@@ -345,9 +345,9 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
 
             {/* A4 Document Area */}
             <div className="p-8 sm:p-12 overflow-y-auto bg-amber-50/20 font-serif space-y-6">
-              <div className="border-4 border-amber-900/60 p-8 sm:p-10 rounded-xl bg-white shadow-sm relative">
+              <div className="border-4 border-amber-200/60 p-8 sm:p-10 rounded-xl bg-white shadow-sm relative">
                 {/* Formal Tribal Seal Top Decoration */}
-                <div className="text-center border-b-2 border-amber-800 pb-4 mb-6">
+                <div className="text-center border-b-2 border-amber-200 pb-4 mb-6">
                   <div className="text-xs uppercase tracking-widest text-amber-900 font-bold">
                     ॥ संताल परगना स्वायत्त सामाजिक व सांस्कृतिक धरोहर ॥
                   </div>
@@ -368,11 +368,11 @@ export const SantaliFormalLetterTemplates: React.FC = () => {
                 <div className="mt-12 pt-6 border-t border-dashed border-stone-400 grid grid-cols-2 text-xs sm:text-sm text-stone-700">
                   <div>
                     <span className="block font-bold">मांझी बाबा / कुलही मुहर:</span>
-                    <span className="block mt-6 text-stone-400">....................................</span>
+                    <span className="block mt-6 text-stone-600">....................................</span>
                   </div>
                   <div className="text-right">
                     <span className="block font-bold">आवेदक / निमंत्रक हस्ताक्षर:</span>
-                    <span className="block mt-6 text-stone-400">....................................</span>
+                    <span className="block mt-6 text-stone-600">....................................</span>
                   </div>
                 </div>
               </div>

@@ -95,29 +95,29 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-stone-900 via-amber-950 to-neutral-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-amber-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-stone-50 via-amber-50 to-neutral-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-xl border border-amber-200/40 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-500/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-500/30">
               <Scale className="w-4 h-4" />
               किरिया आर जोम जाति • Customary Oaths & Restorative Justice
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-amber-50">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-amber-900">
               संताली पावन शपथ, साक्षी व शुद्धिकरण विधान
             </h1>
-            <p className="mt-2 text-amber-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="mt-2 text-amber-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               गुरी-घांस, बाहा दाः, सार-कापी की अकाट्य किरिया (शपथ), मांझी थान की न्याय-प्रक्रिया और जोम जाति (सामुदायिक पुनर्प्रवेश भोज) का मानवीय संस्कार।
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-stone-950/70 p-1.5 rounded-2xl border border-amber-700/50">
+          <div className="flex items-center gap-2 bg-white/70 p-1.5 rounded-2xl border border-amber-200/50">
             <button
               onClick={() => setActiveTab('oaths')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'oaths'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-amber-300 hover:text-white'
+                  : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               पवित्र शपथ (किरिया)
@@ -127,7 +127,7 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'jom_jati'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-amber-300 hover:text-white'
+                  : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               जोम जाति (पुनर्प्रवेश)
@@ -137,7 +137,7 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'jurisprudence'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-amber-300 hover:text-white'
+                  : 'text-amber-700 hover:text-slate-900'
               }`}
             >
               न्याय दर्शन
@@ -151,7 +151,7 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Oath Selection List */}
           <div className="lg:col-span-5 space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 px-1 flex items-center gap-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-amber-900 dark:text-amber-700 px-1 flex items-center gap-2">
               <Scale className="w-4 h-4 text-amber-600" />
               ४ प्रमुख पारंपरिक किरिया (शपथ):
             </h2>
@@ -165,20 +165,20 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
                     onClick={() => setSelectedOath(oath)}
                     className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                       isSelected
-                        ? 'bg-amber-50/80 dark:bg-amber-950/40 border-amber-600 shadow-md ring-2 ring-amber-500/20'
-                        : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-amber-300'
+                        ? 'bg-amber-50/80 dark:bg-amber-50/40 border-amber-300 shadow-md ring-2 ring-amber-500/20'
+                        : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-amber-300'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl p-2 bg-amber-100 dark:bg-amber-900/60 rounded-xl">
+                        <span className="text-2xl p-2 bg-amber-100 dark:bg-amber-50/60 rounded-xl">
                           {oath.visualSymbol}
                         </span>
                         <div>
-                          <div className="font-bold text-slate-900 dark:text-white text-base">
+                          <div className="font-bold text-slate-900 dark:text-slate-900 text-base">
                             {oath.nameSantali}
                           </div>
-                          <div className="text-xs text-amber-700 dark:text-amber-400 font-semibold font-mono">
+                          <div className="text-xs text-amber-700 dark:text-amber-600 font-semibold font-mono">
                             {oath.nameHindi}
                           </div>
                         </div>
@@ -188,7 +188,7 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
                           e.stopPropagation();
                           speakText(`${oath.nameSantali}. ${oath.nameHindi}. ${oath.significance}`);
                         }}
-                        className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-900/50"
+                        className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-50/50"
                         title="विवरण सुनें"
                       >
                         <Volume2 className="w-4 h-4" />
@@ -200,8 +200,8 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
             </div>
 
             {/* Sacred truth warning */}
-            <div className="p-4 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 text-xs text-slate-700 dark:text-slate-300 space-y-1">
-              <div className="font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+            <div className="p-4 rounded-2xl bg-stone-100 dark:bg-stone-100/50 border border-stone-200 dark:border-stone-200 text-xs text-slate-700 dark:text-slate-700 space-y-1">
+              <div className="font-bold text-amber-800 dark:text-amber-700 flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4 text-amber-600" />
                 मौखिक सत्य की सर्वोच्च महत्ता:
               </div>
@@ -211,22 +211,22 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
 
           {/* Oath Deep-dive */}
           <div className="lg:col-span-7 space-y-5">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 border border-slate-200 dark:border-slate-200 shadow-sm space-y-5">
+              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-200 pb-4">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 text-xs font-bold mb-2">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-50 text-amber-800 dark:text-amber-700 text-xs font-bold mb-2">
                     पवित्र द्रव्य: {selectedOath.sacredElement}
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
                     {selectedOath.visualSymbol} {selectedOath.nameSantali}
                   </h3>
-                  <p className="text-sm text-amber-700 dark:text-amber-400 font-medium">
+                  <p className="text-sm text-amber-700 dark:text-amber-600 font-medium">
                     {selectedOath.nameHindi}
                   </p>
                 </div>
                 <button
                   onClick={() => speakText(`${selectedOath.nameSantali}. प्रक्रिया: ${selectedOath.procedure}. परिणाम: ${selectedOath.consequencesOfFalsehood}`)}
-                  className="px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-amber-900/40 hover:bg-amber-100 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  className="px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-amber-50/40 hover:bg-amber-100 text-amber-700 dark:text-amber-700 text-xs font-semibold flex items-center gap-1.5 transition-all"
                 >
                   <Volume2 className="w-4 h-4" />
                   ऑडियो सुनें
@@ -236,31 +236,31 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
               {/* Data Fields */}
               <div className="space-y-4 text-sm">
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-amber-600"></span>
                     धार्मिक व सांस्कृतिक पृष्ठभूमि (Spiritual Significance):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedOath.significance}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-teal-500"></span>
                     सभा में शपथ लेने की पूर्ण विधि (Ceremonial Procedure):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedOath.procedure}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-rose-500"></span>
                     असत्य वाचन पर लोक-विश्वास व बोंगा दंड:
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-rose-50/50 dark:bg-rose-950/20 p-3.5 rounded-2xl border border-rose-200/60 dark:border-rose-900/30">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-rose-50/50 dark:bg-rose-50/20 p-3.5 rounded-2xl border border-rose-200/60 dark:border-rose-200/30">
                     {selectedOath.consequencesOfFalsehood}
                   </p>
                 </div>
@@ -272,13 +272,13 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
 
       {/* Main Tab: Jom Jati (Restorative Justice) */}
       {activeTab === 'jom_jati' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <HeartHandshake className="w-5 h-5 text-amber-600" />
               जोम जाति (Jom Jati): आदिम पुनर्स्थापन न्याय का स्वर्णिम नियम
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               संताली न्याय दंड देने के लिए नहीं, बल्कि व्यक्ति का सुधार करके उसे पुनः समाज की मुख्यधारा में सम्मानपूर्वक जोड़ने (Restorative Reintegration) के लिए बना है।
             </p>
           </div>
@@ -287,17 +287,17 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
             {JOM_JATI_STEPS.map((stepItem) => (
               <div
                 key={stepItem.step}
-                className="p-5 rounded-2xl bg-amber-50/40 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-800/40 space-y-2"
+                className="p-5 rounded-2xl bg-amber-50/40 dark:bg-amber-50/20 border border-amber-200/60 dark:border-amber-200/40 space-y-2"
               >
                 <div className="flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-amber-600 text-white text-xs font-bold flex items-center justify-center">
                     {stepItem.step}
                   </span>
-                  <h3 className="font-bold text-amber-950 dark:text-amber-200 text-base">
+                  <h3 className="font-bold text-amber-950 dark:text-amber-800 text-base">
                     {stepItem.title}
                   </h3>
                 </div>
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                   {stepItem.description}
                 </p>
               </div>
@@ -308,44 +308,44 @@ export const SantaliCustomaryOathsJustice: React.FC = () => {
 
       {/* Main Tab: Jurisprudence */}
       {activeTab === 'jurisprudence' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-amber-600" />
               संताली रूढ़िवादी विधि-संहिता के ३ बुनियादी स्तंभ
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               बिना किसी जेल, हथकड़ी या पुलिस के हजारों वर्षों तक शांतिपूर्ण सामाजिक संतुलन बनाए रखने वाले संताली सिद्धांत।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🤝</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 सर्वसम्मति (Abo Ren Katha)
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 फैसला बहुमत से नहीं, बल्कि तब तक विचार-विमर्श करके लिया जाता है जब तक कि दोनों पक्ष और गांव के बुजुर्ग संतुष्ट न हो जाएं।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🌳</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 मांझी थान: खुली अदालत
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 कोई भी सुनवाई बंद कमरों में नहीं होती। गांव के मध्य स्थित खुले मांझी थान पर हर ग्रामीण को उपस्थित रहने और बोलने का हक होता है।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🕊️</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 स्थायी बैर का अंत
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 फैसले के बाद दोनों पक्ष एक-दूसरे को 'डोबोक जोहार' करते हैं और हंडिया का साझा तर्पण करते हैं ताकि पीढ़ियों तक चलने वाला द्वेष समाप्त हो।
               </p>
             </div>

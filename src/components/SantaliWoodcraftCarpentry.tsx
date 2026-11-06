@@ -226,19 +226,19 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-stone-900 text-stone-100 p-4 md:p-8">
+    <div className="min-h-screen bg-stone-50 text-stone-800 p-4 md:p-8">
       {/* Top Banner & Header */}
       <div className="max-w-6xl mx-auto mb-8">
-        <div className="bg-gradient-to-r from-amber-950/80 via-stone-900 to-yellow-950/60 border border-amber-800/40 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+        <div className="bg-gradient-to-r from-amber-50/80 via-stone-50 to-yellow-50/60 border border-amber-200/40 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-3">
-                <Trees className="w-3.5 h-3.5 text-amber-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 text-xs font-semibold mb-3">
+                <Trees className="w-3.5 h-3.5 text-amber-600" />
                 <span>पारंपरिक काष्ठ-कला, बढ़ईगीरी व नक्काशी विरासत (Santali Woodcraft & Indigenous Carpentry)</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-black text-amber-100 tracking-tight flex items-center gap-3">
+              <h1 className="text-3xl md:text-4xl font-black text-amber-800 tracking-tight flex items-center gap-3">
                 ढेंकी, नाहेल, पारकोम व संताली काठ-शिल्प
                 <button
                   onClick={() =>
@@ -246,13 +246,13 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                   'संताली पारंपरिक काष्ठ-कला, ढेंकी नाहेल पारकोम तोका एवं काठ-शिल्प विज्ञान'
                 )
               }
-                  className="p-2 rounded-lg bg-amber-800/40 hover:bg-amber-700/60 text-amber-300 transition-colors"
+                  className="p-2 rounded-lg bg-amber-100/40 hover:bg-amber-200/60 text-amber-700 transition-colors"
                   title="उच्चारण सुनें"
                 >
                   <Volume2 className="w-5 h-5" />
                 </button>
               </h1>
-              <p className="text-stone-300 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
+              <p className="text-stone-700 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
                 साल और शीशम के वनों से उपजा संताली बढ़ईगीरी ज्ञान: पैर से चलने वाली वैज्ञानिक ढेंकी, कठोर पथरीली मिट्टी चीरने वाला नाहेल (हल), सबई घास से बुनी पारकोम-माची, वन में प्रतिध्वनित होने वाली काष्ठ तोका और मांझी थान के पवित्र नक्काशीदार स्तंभ।
               </p>
             </div>
@@ -268,7 +268,7 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                 </button>
                 <button
                   onClick={handleResetToDefault}
-                  className="p-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white rounded-xl border border-stone-700 transition-colors"
+                  className="p-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-slate-900 rounded-xl border border-stone-200 transition-colors"
                   title="डिफ़ॉल्ट पर रीसेट करें"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -278,8 +278,8 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
           </div>
 
           {feedbackMsg && (
-            <div className="mt-4 p-3 bg-amber-500/20 border border-amber-500/40 rounded-xl text-amber-200 text-sm flex items-center gap-2 animate-fade-in">
-              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-amber-400" />
+            <div className="mt-4 p-3 bg-amber-500/20 border border-amber-500/40 rounded-xl text-amber-800 text-sm flex items-center gap-2 animate-fade-in">
+              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-amber-600" />
               <span>{feedbackMsg}</span>
             </div>
           )}
@@ -288,15 +288,15 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
 
       {/* Interactive Woodcraft Anatomy Showcase */}
       <div className="max-w-6xl mx-auto mb-10">
-        <div className="bg-stone-900/90 border border-amber-900/40 rounded-2xl p-6 shadow-xl">
+        <div className="bg-stone-50/90 border border-amber-200/40 rounded-2xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <Hammer className="w-5 h-5 text-amber-400" />
-              <h2 className="text-xl font-bold text-amber-100">
+              <Hammer className="w-5 h-5 text-amber-600" />
+              <h2 className="text-xl font-bold text-amber-800">
                 काष्ठ उपकरण संरचना व भौतिकी (Woodcraft Mechanics)
               </h2>
             </div>
-            <span className="text-xs text-stone-400 bg-stone-800 px-3 py-1 rounded-full border border-stone-700">
+            <span className="text-xs text-stone-600 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
               घटक चुनकर लकड़ी की विशेषता और संतुलन विधि देखें
             </span>
           </div>
@@ -309,32 +309,32 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                 onClick={() => setSelectedPart(idx)}
                 className={`p-3.5 rounded-xl border text-left transition-all relative overflow-hidden ${
                   selectedPart === idx
-                    ? 'bg-amber-950/70 border-amber-500 text-amber-100 shadow-md ring-1 ring-amber-500/50'
-                    : 'bg-stone-800/60 border-stone-700/60 text-stone-400 hover:bg-stone-800 hover:text-stone-200'
+                    ? 'bg-amber-50/70 border-amber-500 text-amber-800 shadow-md ring-1 ring-amber-500/50'
+                    : 'bg-stone-100/60 border-stone-200/60 text-stone-600 hover:bg-stone-100 hover:text-stone-800'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-bold text-amber-400">घटक #{idx + 1}</span>
+                  <span className="text-xs font-bold text-amber-600">घटक #{idx + 1}</span>
                   {selectedPart === idx && (
-                    <CircleDot className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                    <CircleDot className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
                   )}
                 </div>
-                <div className="text-xs font-bold text-stone-200 truncate">{pt.partName}</div>
-                <div className="text-[11px] text-stone-400 truncate mt-1">{pt.timber}</div>
+                <div className="text-xs font-bold text-stone-800 truncate">{pt.partName}</div>
+                <div className="text-[11px] text-stone-600 truncate mt-1">{pt.timber}</div>
               </button>
             ))}
           </div>
 
           {/* Selected Step Detail Showcase */}
-          <div className="bg-gradient-to-r from-amber-950/40 to-stone-900 border border-amber-800/30 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="bg-gradient-to-r from-amber-50/40 to-stone-50 border border-amber-200/30 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-2 flex-1">
-              <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wide">
+              <div className="flex items-center gap-2 text-xs font-bold text-amber-600 uppercase tracking-wide">
                 <span>काठ प्रजाति: {WOODCRAFT_PARTS[selectedPart].timber}</span>
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-amber-100">
+              <h3 className="text-lg md:text-xl font-bold text-amber-800">
                 {WOODCRAFT_PARTS[selectedPart].partName}
               </h3>
-              <p className="text-stone-300 text-sm leading-relaxed">
+              <p className="text-stone-700 text-sm leading-relaxed">
                 {WOODCRAFT_PARTS[selectedPart].function}
               </p>
             </div>
@@ -344,7 +344,7 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                   `${WOODCRAFT_PARTS[selectedPart].partName}। लकड़ी: ${WOODCRAFT_PARTS[selectedPart].timber}। कार्य: ${WOODCRAFT_PARTS[selectedPart].function}`
                 )
               }
-              className="flex items-center gap-2 px-4 py-2 bg-amber-800/40 hover:bg-amber-700/50 text-amber-200 rounded-lg border border-amber-700/50 text-xs font-semibold transition-colors flex-shrink-0"
+              className="flex items-center gap-2 px-4 py-2 bg-amber-100/40 hover:bg-amber-200/50 text-amber-800 rounded-lg border border-amber-200/50 text-xs font-semibold transition-colors flex-shrink-0"
             >
               <Volume2 className="w-4 h-4" />
               विवरण सुनें
@@ -369,7 +369,7 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                 activeCategory === cat.id
                   ? 'bg-amber-600 text-white'
-                  : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+                  : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
               }`}
             >
               {cat.label}
@@ -383,7 +383,7 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
             placeholder="खोजें (जैसे ढेंकी, नाहेल, पारकोम, तोका)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-3.5 py-2 bg-stone-800/90 border border-stone-700 rounded-xl text-xs text-stone-100 placeholder-stone-500 focus:outline-none focus:border-amber-500"
+            className="w-full px-3.5 py-2 bg-stone-100/90 border border-stone-200 rounded-xl text-xs text-stone-800 placeholder-stone-500 focus:outline-none focus:border-amber-500"
           />
         </div>
       </div>
@@ -393,21 +393,21 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            className="bg-stone-900 border border-stone-800 hover:border-amber-700/60 rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-all group hover:-translate-y-1"
+            className="bg-stone-50 border border-stone-200 hover:border-amber-200/60 rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-all group hover:-translate-y-1"
           >
             <div>
               {/* Header Badge & Category */}
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-bold">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 text-[11px] font-bold">
                   {item.badge}
                 </span>
-                <span className="text-stone-400 text-[11px] font-medium">{item.categoryLabel}</span>
+                <span className="text-stone-600 text-[11px] font-medium">{item.categoryLabel}</span>
               </div>
 
               {/* Title & Phonetic */}
               <div className="mb-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-lg font-bold text-amber-100 group-hover:text-amber-200 transition-colors">
+                  <h3 className="text-lg font-bold text-amber-800 group-hover:text-amber-800 transition-colors">
                     {item.nameDevanagari}
                   </h3>
                   <button
@@ -416,34 +416,34 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                         `${item.nameDevanagari}। ${item.titleHindi}। लकड़ी: ${item.timberSpecies}।`
                       )
                     }
-                    className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-amber-400 transition-colors flex-shrink-0"
+                    className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-amber-600 transition-colors flex-shrink-0"
                     title="उच्चारण सुनें"
                   >
                     <Volume2 className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="text-xs font-mono text-amber-400/80 mt-0.5">{item.nameRoman}</div>
-                <div className="text-xs font-semibold text-stone-300 mt-1">{item.titleHindi}</div>
+                <div className="text-xs font-mono text-amber-600/80 mt-0.5">{item.nameRoman}</div>
+                <div className="text-xs font-semibold text-stone-700 mt-1">{item.titleHindi}</div>
               </div>
 
               {/* Timber Species */}
-              <div className="mb-3 p-2.5 rounded-xl bg-stone-950/60 border border-stone-800 text-xs">
-                <div className="text-stone-400 font-semibold mb-0.5">उपयुक्त काठ प्रजाति (Timber):</div>
-                <div className="text-amber-300 font-medium">{item.timberSpecies}</div>
+              <div className="mb-3 p-2.5 rounded-xl bg-white/60 border border-stone-200 text-xs">
+                <div className="text-stone-600 font-semibold mb-0.5">उपयुक्त काठ प्रजाति (Timber):</div>
+                <div className="text-amber-700 font-medium">{item.timberSpecies}</div>
               </div>
 
               {/* Design & Lore */}
-              <div className="space-y-2 text-xs text-stone-300 leading-relaxed mb-4">
+              <div className="space-y-2 text-xs text-stone-700 leading-relaxed mb-4">
                 <div>
-                  <span className="font-bold text-stone-200">यंत्र रचना व संतुलन: </span>
+                  <span className="font-bold text-stone-800">यंत्र रचना व संतुलन: </span>
                   {item.ergonomicDesign}
                 </div>
                 <div>
-                  <span className="font-bold text-stone-200">पारंपरिक व सामाजिक महत्व: </span>
+                  <span className="font-bold text-stone-800">पारंपरिक व सामाजिक महत्व: </span>
                   {item.traditionalSignificance}
                 </div>
-                <div className="bg-amber-950/20 p-2 rounded-lg border-l-2 border-amber-500 text-amber-200/90">
-                  <span className="font-bold text-amber-300">देखभाल व स्थायित्व ज्ञान: </span>
+                <div className="bg-amber-50/20 p-2 rounded-lg border-l-2 border-amber-500 text-amber-800/90">
+                  <span className="font-bold text-amber-700">देखभाल व स्थायित्व ज्ञान: </span>
                   {item.maintenanceLore}
                 </div>
               </div>
@@ -451,17 +451,17 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
 
             {/* Admin Controls */}
             {isAdmin && (
-              <div className="pt-3 border-t border-stone-800/80 flex items-center justify-end gap-2 mt-2">
+              <div className="pt-3 border-t border-stone-200/80 flex items-center justify-end gap-2 mt-2">
                 <button
                   onClick={() => handleOpenEdit(item)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-amber-600/30 text-amber-300 text-xs font-semibold border border-stone-700 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-amber-200/30 text-amber-700 text-xs font-semibold border border-stone-200 transition-colors"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                   संपादित करें
                 </button>
                 <button
                   onClick={() => handleDeleteItem(item.id, item.titleHindi)}
-                  className="p-1.5 rounded-lg bg-stone-800 hover:bg-rose-900/40 text-stone-400 hover:text-rose-300 border border-stone-700 transition-colors"
+                  className="p-1.5 rounded-lg bg-stone-100 hover:bg-rose-50/40 text-stone-600 hover:text-rose-700 border border-stone-200 transition-colors"
                   title="हटाएं"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -473,7 +473,7 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
       </div>
 
       {filteredItems.length === 0 && (
-        <div className="max-w-md mx-auto text-center py-16 text-stone-400">
+        <div className="max-w-md mx-auto text-center py-16 text-stone-600">
           <HelpCircle className="w-12 h-12 mx-auto mb-3 text-stone-600" />
           <p className="text-sm font-semibold">कोई काष्ठ शिल्प प्रविष्टि नहीं मिली।</p>
           <button
@@ -491,17 +491,17 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
       {/* Admin Add/Edit Modal */}
       {isModalOpen && editingItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-stone-900 border border-stone-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
-            <div className="flex items-center justify-between pb-4 border-b border-stone-800 mb-4">
-              <h3 className="text-xl font-bold text-amber-200 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-amber-400" />
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
+            <div className="flex items-center justify-between pb-4 border-b border-stone-200 mb-4">
+              <h3 className="text-xl font-bold text-amber-800 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-amber-600" />
                 {items.some((it) => it.id === editingItem.id)
                   ? 'काष्ठ शिल्प संपादित करें'
                   : 'नया काष्ठ शिल्प जोड़ें'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800"
+                className="p-2 text-stone-600 hover:text-slate-900 rounded-lg hover:bg-stone-100"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -510,7 +510,7 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
             <form onSubmit={handleSaveModal} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     देवनागरी नाम *
                   </label>
                   <input
@@ -521,11 +521,11 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                       setEditingItem({ ...editingItem, nameDevanagari: e.target.value })
                     }
                     placeholder="उदा. ढेंकी व समठ (Dhenki ar Samot')"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     रोमन नाम (Roman Name)
                   </label>
                   <input
@@ -535,14 +535,14 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                       setEditingItem({ ...editingItem, nameRoman: e.target.value })
                     }
                     placeholder="उदा. Dhenki ar Samot'"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     हिंदी शीर्षक *
                   </label>
                   <input
@@ -553,11 +553,11 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                       setEditingItem({ ...editingItem, titleHindi: e.target.value })
                     }
                     placeholder="उदा. पारंपरिक पैर से चलने वाला काष्ठ धान कूटक यंत्र"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     श्रेणी (Category)
                   </label>
                   <select
@@ -576,7 +576,7 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                         categoryLabel: labels[val]
                       });
                     }}
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   >
                     <option value="farming_tool">कृषि काष्ठ उपकरण</option>
                     <option value="domestic_furniture">घरेलू काष्ठ यंत्र</option>
@@ -588,7 +588,7 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     काठ प्रजाति (Timber Species)
                   </label>
                   <input
@@ -598,11 +598,11 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                       setEditingItem({ ...editingItem, timberSpecies: e.target.value })
                     }
                     placeholder="उदा. साल, महुआ, शीशम"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     बैज / उपनाम (Badge)
                   </label>
                   <input
@@ -612,13 +612,13 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                       setEditingItem({ ...editingItem, badge: e.target.value })
                     }
                     placeholder="उदा. गृह-शिल्प"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   यंत्र रचना व संतुलन विवरण
                 </label>
                 <textarea
@@ -628,12 +628,12 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                     setEditingItem({ ...editingItem, ergonomicDesign: e.target.value })
                   }
                   placeholder="लीवर सिद्धांत, झुकाव या संयोजन का विवरण..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   पारंपरिक व सामाजिक महत्व
                 </label>
                 <textarea
@@ -643,12 +643,12 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                     setEditingItem({ ...editingItem, traditionalSignificance: e.target.value })
                   }
                   placeholder="पर्व, विवाह या आतिथ्य में इसका उपयोग..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   देखभाल व स्थायित्व ज्ञान
                 </label>
                 <textarea
@@ -658,15 +658,15 @@ export const SantaliWoodcraftCarpentry: React.FC = () => {
                     setEditingItem({ ...editingItem, maintenanceLore: e.target.value })
                   }
                   placeholder="तेल लगाना, दीमक से बचाव या मरम्मत की विधि..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-stone-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-stone-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 text-sm font-semibold rounded-xl"
+                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-semibold rounded-xl"
                 >
                   रद्द करें
                 </button>

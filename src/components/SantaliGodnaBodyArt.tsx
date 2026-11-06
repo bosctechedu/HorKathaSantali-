@@ -298,16 +298,16 @@ export const SantaliGodnaBodyArt: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-emerald-950 border border-amber-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-amber-50 via-stone-50 to-emerald-50 border border-amber-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-800/60 border border-amber-600/40 rounded-full text-xs font-semibold text-amber-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100/60 border border-amber-300/40 rounded-full text-xs font-semibold text-amber-800 mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>अमर देह कला व कबीलाई पहचान (Immortal Ancestral Marks)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-800">
             सिका दागा व गोदना: संथाल देह-कला व हाना पुरी दर्शन
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             "दाना-पानी, गहना-जेवर सब धरती पर छूट जाएगा, केवल सिका और गोदना ही जीवात्मा के साथ परलोक (हाना पुरी) तक जाएगा।" जानिए संथाल पुरुषों के बांह के सिका (३, ५, ७ दागा) व महिलाओं के पवित्र गोदना प्रतीकों का रहस्य।
           </p>
 
@@ -318,7 +318,7 @@ export const SantaliGodnaBodyArt: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'studio'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               डिजिटल सिका व गोदना स्टूडियो
@@ -328,7 +328,7 @@ export const SantaliGodnaBodyArt: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'cultural_lore'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               सिका व गोदना का दर्शन व इतिहास
@@ -338,7 +338,7 @@ export const SantaliGodnaBodyArt: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'songs'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               पारंपरिक गोदना लोकगीत व धुन
@@ -352,25 +352,25 @@ export const SantaliGodnaBodyArt: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Motifs Selector Panel */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-4">
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-stone-800">
-                <span className="text-sm font-bold text-amber-200">पारंपरिक प्रतीक चुनें</span>
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4">
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-stone-200">
+                <span className="text-sm font-bold text-amber-800">पारंपरिक प्रतीक चुनें</span>
                 <div className="flex gap-1 text-xs">
                   <button
                     onClick={() => setSelectedCategory('all')}
-                    className={`px-2.5 py-1 rounded-md ${selectedCategory === 'all' ? 'bg-amber-600 text-white' : 'bg-stone-800 text-stone-300'}`}
+                    className={`px-2.5 py-1 rounded-md ${selectedCategory === 'all' ? 'bg-amber-600 text-white' : 'bg-stone-100 text-stone-700'}`}
                   >
                     सभी
                   </button>
                   <button
                     onClick={() => setSelectedCategory('sika')}
-                    className={`px-2.5 py-1 rounded-md ${selectedCategory === 'sika' ? 'bg-amber-600 text-white' : 'bg-stone-800 text-stone-300'}`}
+                    className={`px-2.5 py-1 rounded-md ${selectedCategory === 'sika' ? 'bg-amber-600 text-white' : 'bg-stone-100 text-stone-700'}`}
                   >
                     सिका (पुरुष)
                   </button>
                   <button
                     onClick={() => setSelectedCategory('women_godna')}
-                    className={`px-2.5 py-1 rounded-md ${selectedCategory === 'women_godna' ? 'bg-amber-600 text-white' : 'bg-stone-800 text-stone-300'}`}
+                    className={`px-2.5 py-1 rounded-md ${selectedCategory === 'women_godna' ? 'bg-amber-600 text-white' : 'bg-stone-100 text-stone-700'}`}
                   >
                     गोदना (महिला)
                   </button>
@@ -386,15 +386,15 @@ export const SantaliGodnaBodyArt: React.FC = () => {
                       onClick={() => setActiveMotif(motif)}
                       className={`p-3 rounded-xl cursor-pointer border transition-all ${
                         isSelected
-                          ? 'bg-amber-950/70 border-amber-500 shadow-md'
-                          : 'bg-stone-950/60 hover:bg-stone-800/60 border-stone-800'
+                          ? 'bg-amber-50/70 border-amber-500 shadow-md'
+                          : 'bg-white/60 hover:bg-stone-100/60 border-stone-200'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-bold text-stone-100">{motif.nameDev}</span>
-                        <span className="text-xs text-amber-400 font-mono">({motif.nameRom})</span>
+                        <span className="text-sm font-bold text-stone-800">{motif.nameDev}</span>
+                        <span className="text-xs text-amber-600 font-mono">({motif.nameRom})</span>
                       </div>
-                      <p className="text-xs text-stone-400 mt-1">{motif.meaning}</p>
+                      <p className="text-xs text-stone-600 mt-1">{motif.meaning}</p>
                     </div>
                   );
                 })}
@@ -402,8 +402,8 @@ export const SantaliGodnaBodyArt: React.FC = () => {
             </div>
 
             {/* Customizer Controls */}
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-4 space-y-3">
-              <div className="text-xs font-bold text-stone-300">त्वचा / कैनवास रंग</div>
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 space-y-3">
+              <div className="text-xs font-bold text-stone-700">त्वचा / कैनवास रंग</div>
               <div className="flex gap-2">
                 {[
                   { label: 'सांवला (Dusky)', color: '#966a4f' },
@@ -423,7 +423,7 @@ export const SantaliGodnaBodyArt: React.FC = () => {
                 ))}
               </div>
 
-              <div className="text-xs font-bold text-stone-300 mt-3">गोदना स्याही (पारंपरिक काजल व नील)</div>
+              <div className="text-xs font-bold text-stone-700 mt-3">गोदना स्याही (पारंपरिक काजल व नील)</div>
               <div className="flex gap-2">
                 {[
                   { label: 'नील-काजल (Indigo Black)', color: '#102319' },
@@ -435,7 +435,7 @@ export const SantaliGodnaBodyArt: React.FC = () => {
                     onClick={() => setInkColor(item.color)}
                     style={{ backgroundColor: item.color }}
                     className={`flex-1 h-8 rounded-lg border-2 text-xs transition-transform ${
-                      inkColor === item.color ? 'border-amber-400 scale-105' : 'border-stone-700'
+                      inkColor === item.color ? 'border-amber-400 scale-105' : 'border-stone-200'
                     }`}
                     title={item.label}
                   />
@@ -446,13 +446,13 @@ export const SantaliGodnaBodyArt: React.FC = () => {
 
           {/* Interactive Canvas Center */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-5 shadow-xl text-center">
-              <div className="flex items-center justify-between mb-3 text-xs text-stone-400">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-5 shadow-xl text-center">
+              <div className="flex items-center justify-between mb-3 text-xs text-stone-600">
                 <span>कैनवास पर कहीं भी क्लिक करके "{activeMotif.nameDev}" अंकित करें</span>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleClearCanvas}
-                    className="flex items-center gap-1 px-3 py-1 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-lg text-xs"
+                    className="flex items-center gap-1 px-3 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg text-xs"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     <span>खाली करें</span>
@@ -474,22 +474,22 @@ export const SantaliGodnaBodyArt: React.FC = () => {
                   width={500}
                   height={420}
                   onClick={handleCanvasClick}
-                  className="rounded-xl shadow-2xl cursor-crosshair border-2 border-stone-700 max-w-full h-auto"
+                  className="rounded-xl shadow-2xl cursor-crosshair border-2 border-stone-200 max-w-full h-auto"
                 />
               </div>
 
               {/* Active Motif Lore Box */}
-              <div className="mt-4 p-4 bg-stone-950/80 border border-stone-800 rounded-xl text-left">
+              <div className="mt-4 p-4 bg-white/80 border border-stone-200 rounded-xl text-left">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-amber-300">{activeMotif.nameDev}</span>
+                  <span className="text-sm font-bold text-amber-700">{activeMotif.nameDev}</span>
                   <button
                     onClick={() => speakText(activeMotif.nameDev + ': ' + activeMotif.meaning)}
-                    className="p-1 bg-amber-900/40 text-amber-200 rounded hover:bg-amber-800/60"
+                    className="p-1 bg-amber-50/40 text-amber-800 rounded hover:bg-amber-100/60"
                   >
                     <Volume2 className="w-4 h-4" />
                   </button>
                 </div>
-                <p className="text-xs text-stone-300 mt-1 leading-relaxed">{activeMotif.culturalLore}</p>
+                <p className="text-xs text-stone-700 mt-1 leading-relaxed">{activeMotif.culturalLore}</p>
               </div>
             </div>
           </div>
@@ -499,30 +499,30 @@ export const SantaliGodnaBodyArt: React.FC = () => {
       {/* Tab 2: Cultural Lore */}
       {activeTab === 'cultural_lore' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 space-y-4">
-            <h3 className="text-lg font-bold text-amber-300 flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-amber-400" />
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 space-y-4">
+            <h3 className="text-lg font-bold text-amber-700 flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-amber-600" />
               <span>सिका दागा (पुरुषों की कलाई का अमर निशान)</span>
             </h3>
-            <p className="text-stone-300 text-sm leading-relaxed">
+            <p className="text-stone-700 text-sm leading-relaxed">
               संथाल समाज में हर बालक जब १०-१४ वर्ष का होता है, तो उसके मामा या गांव के वरिष्ठ बुजुर्ग उसकी बायीं कलाई के अग्रभाग पर जलते हुए सूती कपड़े के छोर (बोंगा लुगुम) से दाग लगाते हैं।
             </p>
-            <div className="space-y-2 text-xs text-stone-300 bg-stone-950 p-4 rounded-xl border border-stone-800">
+            <div className="space-y-2 text-xs text-stone-700 bg-white p-4 rounded-xl border border-stone-200">
               <p>• <strong>विषम संख्या का नियम:</strong> सिका हमेशा ३, ५ या ७ की विषम संख्या में ही होता है। सम संख्या (२, ४) संथाल दर्शन में अपूर्ण या अशुभ मानी जाती है।</p>
               <p>• <strong>विवाह की पात्रता:</strong> बिना सिका के किसी भी संथाल युवक का पारंपरिक संथाली विवाह (बापला) संपन्न नहीं हो सकता।</p>
               <p>• <strong>परलोक (हाना पुरी) में पहचान:</strong> पूर्वजों की मान्यता है कि मरने के बाद आत्मा जब वैतरणी पार करती है, तो सिका देखकर ही पुरखे उसे गले लगाते हैं।</p>
             </div>
           </div>
 
-          <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 space-y-4">
-            <h3 className="text-lg font-bold text-emerald-300 flex items-center gap-2">
-              <Heart className="w-5 h-5 text-emerald-400" />
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 space-y-4">
+            <h3 className="text-lg font-bold text-emerald-700 flex items-center gap-2">
+              <Heart className="w-5 h-5 text-emerald-600" />
               <span>गोदना (संथाल नारियों का अविनाशी आभूषण)</span>
             </h3>
-            <p className="text-stone-300 text-sm leading-relaxed">
+            <p className="text-stone-700 text-sm leading-relaxed">
               पारंपरिक रूप से महुआ के फूल के रस, बबूल के कांटे या तीन सुइयों और सरसों तेल के काजल व नील से गोदना गोदा जाता था।
             </p>
-            <div className="space-y-2 text-xs text-stone-300 bg-stone-950 p-4 rounded-xl border border-stone-800">
+            <div className="space-y-2 text-xs text-stone-700 bg-white p-4 rounded-xl border border-stone-200">
               <p>• <strong>अमर धन:</strong> "माटी का शरीर माटी में मिल जाएगा, सोना-चांदी छीना जा सकता है, पर गोदना कभी नहीं छिन सकता।"</p>
               <p>• <strong>प्रकृति से तादात्म्य:</strong> गोदना के सभी रूपांकन साल के वृक्ष, मोर पंख, नदी की मछलियों और धान की बालियों पर आधारित होते हैं।</p>
               <p>• <strong>स्वास्थ्य लाभ:</strong> एक्यूप्रेशर बिंदुओं पर गोदना गुदवाने से जोड़ों के दर्द और वात रोग से रक्षा का प्राचीन अनुभव जुड़ा है।</p>
@@ -533,29 +533,29 @@ export const SantaliGodnaBodyArt: React.FC = () => {
 
       {/* Tab 3: Ancestral Godna Songs */}
       {activeTab === 'songs' && (
-        <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 space-y-6 max-w-3xl mx-auto">
+        <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 space-y-6 max-w-3xl mx-auto">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-amber-200">गोदना गोदाय के पारंपरिक सेरेंग</h3>
-            <p className="text-xs text-stone-400 mt-1">संथाल युवतियों द्वारा गोदना गुदवाते समय गाए जाने वाले करुण व उल्लासमय लोकगीत</p>
+            <h3 className="text-xl font-bold text-amber-800">गोदना गोदाय के पारंपरिक सेरेंग</h3>
+            <p className="text-xs text-stone-600 mt-1">संथाल युवतियों द्वारा गोदना गुदवाते समय गाए जाने वाले करुण व उल्लासमय लोकगीत</p>
           </div>
 
-          <div className="p-5 bg-stone-950 rounded-xl border border-stone-800 space-y-3">
+          <div className="p-5 bg-white rounded-xl border border-stone-200 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-base font-bold text-emerald-300">हाना पुरी रे बोंगा को कुली-मेया</span>
+              <span className="text-base font-bold text-emerald-700">हाना पुरी रे बोंगा को कुली-मेया</span>
               <button
                 onClick={() => speakText("गोदना गोदाइ लेबय गे, हाना पुरी रे बोंगा को कुली-मेया")}
-                className="p-1.5 bg-emerald-900/50 text-emerald-200 rounded-lg hover:bg-emerald-800"
+                className="p-1.5 bg-emerald-50/50 text-emerald-800 rounded-lg hover:bg-emerald-100"
               >
                 <Volume2 className="w-4 h-4" />
               </button>
             </div>
-            <p className="text-sm text-amber-100 font-serif leading-relaxed italic">
+            <p className="text-sm text-amber-800 font-serif leading-relaxed italic">
               "गोदना गोदाइ लेबय गे माई रे,<br />
               हाना पुरी रे बोंगा को कुली-मेया...<br />
               चेले काते सेतेर अकाना-म?<br />
               सिका चिन्हा सांव-ते, गोदना सांव-ते पारोम-ओक्-आ।"
             </p>
-            <div className="text-xs text-stone-400 pt-2 border-t border-stone-800">
+            <div className="text-xs text-stone-600 pt-2 border-t border-stone-200">
               <strong>भावार्थ:</strong> हे बिटिया! अपने हाथों में गोदना सजवा ले, क्योंकि परलोक में देवता तुमसे पूछेंगे कि तुम किस पहचान के साथ आई हो? तब तुम्हारे हाथों का सिका और गोदना ही तुम्हारी सच्ची पहचान बनकर पार उतारेगा।
             </div>
           </div>

@@ -334,19 +334,19 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-emerald-950 via-teal-900 to-amber-950 border border-emerald-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-amber-50 border border-emerald-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="absolute right-0 top-0 w-80 h-full opacity-10 pointer-events-none flex items-center justify-center">
-          <Feather className="w-64 h-64 text-emerald-300" />
+          <Feather className="w-64 h-64 text-emerald-700" />
         </div>
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-800/60 border border-emerald-600/40 rounded-full text-xs font-semibold text-emerald-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100/60 border border-emerald-300/40 rounded-full text-xs font-semibold text-emerald-800 mb-3">
             <Feather className="w-3.5 h-3.5" />
             <span>संथाल नृ-पक्षीविज्ञान (Santali Ethno-Ornithology)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-emerald-50">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-emerald-900">
             चेँड़े चिन्हा: संथाल पक्षी दर्शन व बोलियों का अर्थ
           </h1>
-          <p className="text-emerald-200/90 text-sm mt-2 leading-relaxed">
+          <p className="text-emerald-800/90 text-sm mt-2 leading-relaxed">
             संथाल संस्कृति में वन-पक्षी केवल प्राणी नहीं, अपितु ऋतु-परिवर्तन, वर्षा आगमन, पितृ-संदेश और कबीलाई टोटेम के जीवित मार्गदर्शक हैं। जानिए 9 पावन पक्षियों के रहस्य व उनकी बोलियों की ध्वनि।
           </p>
 
@@ -357,7 +357,7 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'encyclopedia'
                   ? 'bg-emerald-600 text-white shadow-md'
-                  : 'bg-emerald-900/60 hover:bg-emerald-800/60 text-emerald-200 border border-emerald-700/50'
+                  : 'bg-emerald-50/60 hover:bg-emerald-100/60 text-emerald-800 border border-emerald-200/50'
               }`}
             >
               पक्षी ज्ञानकोश व बोली सिंथेसाइज़र
@@ -367,7 +367,7 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'sound_quiz'
                   ? 'bg-emerald-600 text-white shadow-md'
-                  : 'bg-emerald-900/60 hover:bg-emerald-800/60 text-emerald-200 border border-emerald-700/50'
+                  : 'bg-emerald-50/60 hover:bg-emerald-100/60 text-emerald-800 border border-emerald-200/50'
               }`}
             >
               बोली पहचानो क्विज (Interactive Sound Quiz)
@@ -377,7 +377,7 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'omens_guide'
                   ? 'bg-emerald-600 text-white shadow-md'
-                  : 'bg-emerald-900/60 hover:bg-emerald-800/60 text-emerald-200 border border-emerald-700/50'
+                  : 'bg-emerald-50/60 hover:bg-emerald-100/60 text-emerald-800 border border-emerald-200/50'
               }`}
             >
               मौसम व शकुन निर्देशिका
@@ -391,13 +391,13 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Bird List Sidebar */}
           <div className="lg:col-span-5 space-y-3">
-            <div className="bg-stone-900/90 border border-stone-800 rounded-xl p-4">
+            <div className="bg-stone-50/90 border border-stone-200 rounded-xl p-4">
               <input
                 type="text"
                 placeholder="पक्षी का नाम या संकेत खोजें..."
                 value={filterSearch}
                 onChange={e => setFilterSearch(e.target.value)}
-                className="w-full bg-stone-950 border border-stone-700 rounded-lg px-3 py-2 text-sm text-stone-200 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white border border-stone-200 rounded-lg px-3 py-2 text-sm text-stone-800 focus:outline-none focus:border-emerald-500"
               />
             </div>
 
@@ -410,23 +410,23 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
                     onClick={() => setSelectedBird(bird)}
                     className={`p-3.5 rounded-xl cursor-pointer transition-all border flex items-center justify-between ${
                       isSelected
-                        ? 'bg-emerald-950/70 border-emerald-500/80 shadow-md'
-                        : 'bg-stone-900/70 hover:bg-stone-800/70 border-stone-800'
+                        ? 'bg-emerald-50/70 border-emerald-500/80 shadow-md'
+                        : 'bg-stone-50/70 hover:bg-stone-100/70 border-stone-200'
                     }`}
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-base font-bold text-amber-200">{bird.santaliDev}</span>
-                        <span className="text-xs text-stone-400 font-mono">({bird.santaliRom})</span>
+                        <span className="text-base font-bold text-amber-800">{bird.santaliDev}</span>
+                        <span className="text-xs text-stone-600 font-mono">({bird.santaliRom})</span>
                       </div>
-                      <p className="text-xs text-stone-300 mt-0.5">{bird.hindiName} • {bird.englishName}</p>
+                      <p className="text-xs text-stone-700 mt-0.5">{bird.hindiName} • {bird.englishName}</p>
                     </div>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         playBirdSound(bird);
                       }}
-                      className="p-2 bg-emerald-800/50 hover:bg-emerald-700 text-emerald-200 rounded-lg transition-colors border border-emerald-600/40"
+                      className="p-2 bg-emerald-100/50 hover:bg-emerald-200 text-emerald-800 rounded-lg transition-colors border border-emerald-300/40"
                       title="बोली सुनें"
                     >
                       <Volume2 className="w-4 h-4" />
@@ -439,22 +439,22 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
 
           {/* Detailed Bird Profile & Synthesizer Card */}
           <div className="lg:col-span-7">
-            <div className="bg-stone-900/95 border border-stone-800 rounded-2xl p-6 shadow-xl relative">
+            <div className="bg-stone-50/95 border border-stone-200 rounded-2xl p-6 shadow-xl relative">
               {/* Top Details */}
-              <div className="flex flex-wrap items-start justify-between gap-4 pb-5 border-b border-stone-800">
+              <div className="flex flex-wrap items-start justify-between gap-4 pb-5 border-b border-stone-200">
                 <div>
                   <div className="flex items-center gap-3">
-                    <h2 className="text-2xl font-bold text-amber-300">{selectedBird.santaliDev}</h2>
+                    <h2 className="text-2xl font-bold text-amber-700">{selectedBird.santaliDev}</h2>
                     <button
                       onClick={() => speakSantali(selectedBird.santaliDev)}
-                      className="p-1.5 bg-amber-900/40 hover:bg-amber-800/60 text-amber-200 rounded-md border border-amber-700/50"
+                      className="p-1.5 bg-amber-50/40 hover:bg-amber-100/60 text-amber-800 rounded-md border border-amber-200/50"
                       title="संथाली उच्चारण सुनें"
                     >
                       <Volume2 className="w-4 h-4" />
                     </button>
                   </div>
-                  <p className="text-stone-400 text-sm font-mono mt-0.5">{selectedBird.santaliRom} | {selectedBird.scientificName}</p>
-                  <p className="text-emerald-400 font-medium text-sm mt-1">{selectedBird.hindiName} ({selectedBird.englishName})</p>
+                  <p className="text-stone-600 text-sm font-mono mt-0.5">{selectedBird.santaliRom} | {selectedBird.scientificName}</p>
+                  <p className="text-emerald-600 font-medium text-sm mt-1">{selectedBird.hindiName} ({selectedBird.englishName})</p>
                 </div>
 
                 {/* Big Synthesizer Button */}
@@ -474,43 +474,43 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
 
               {/* Cultural Role & Ancestral Significance */}
               <div className="mt-5 space-y-4">
-                <div className="bg-stone-950/80 rounded-xl p-4 border border-stone-800">
-                  <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm mb-1.5">
+                <div className="bg-white/80 rounded-xl p-4 border border-stone-200">
+                  <div className="flex items-center gap-2 text-emerald-600 font-semibold text-sm mb-1.5">
                     <Sparkles className="w-4 h-4" />
                     <span>संथाल संस्कृति व लोकजीवन में स्थान</span>
                   </div>
-                  <p className="text-stone-300 text-sm leading-relaxed">{selectedBird.culturalRole}</p>
+                  <p className="text-stone-700 text-sm leading-relaxed">{selectedBird.culturalRole}</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Omen / Weather Forecast */}
-                  <div className="bg-amber-950/30 border border-amber-800/40 rounded-xl p-4">
-                    <div className="flex items-center gap-2 text-amber-300 font-semibold text-sm mb-1.5">
+                  <div className="bg-amber-50/30 border border-amber-200/40 rounded-xl p-4">
+                    <div className="flex items-center gap-2 text-amber-700 font-semibold text-sm mb-1.5">
                       <Info className="w-4 h-4" />
                       <span>शकुन व मौसम संकेत</span>
                     </div>
-                    <p className="text-amber-100/90 text-xs leading-relaxed">{selectedBird.omenMeaning}</p>
+                    <p className="text-amber-800/90 text-xs leading-relaxed">{selectedBird.omenMeaning}</p>
                   </div>
 
                   {/* Habitat */}
-                  <div className="bg-stone-950/80 border border-stone-800 rounded-xl p-4">
-                    <div className="flex items-center gap-2 text-stone-300 font-semibold text-sm mb-1.5">
+                  <div className="bg-white/80 border border-stone-200 rounded-xl p-4">
+                    <div className="flex items-center gap-2 text-stone-700 font-semibold text-sm mb-1.5">
                       <Feather className="w-4 h-4" />
                       <span>आवास व विचरण क्षेत्र</span>
                     </div>
-                    <p className="text-stone-400 text-xs leading-relaxed">{selectedBird.habitat}</p>
+                    <p className="text-stone-600 text-xs leading-relaxed">{selectedBird.habitat}</p>
                   </div>
                 </div>
 
                 {/* Traditional Proverb / Menkatha */}
-                <div className="bg-gradient-to-r from-emerald-950/60 to-stone-950 border border-emerald-700/50 rounded-xl p-4">
-                  <div className="text-xs uppercase tracking-wider text-emerald-400 font-semibold mb-1">
+                <div className="bg-gradient-to-r from-emerald-50/60 to-stone-50 border border-emerald-200/50 rounded-xl p-4">
+                  <div className="text-xs uppercase tracking-wider text-emerald-600 font-semibold mb-1">
                     संथाल लोक कहावत (मेनकाथा)
                   </div>
-                  <div className="text-base font-bold text-amber-200">
+                  <div className="text-base font-bold text-amber-800">
                     "{selectedBird.proverb}"
                   </div>
-                  <div className="text-xs text-stone-300 mt-1 italic">
+                  <div className="text-xs text-stone-700 mt-1 italic">
                     अर्थ: {selectedBird.proverbMeaning}
                   </div>
                 </div>
@@ -522,21 +522,21 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
 
       {/* Tab 2: Interactive Sound Quiz */}
       {activeTab === 'sound_quiz' && (
-        <div className="max-w-2xl mx-auto bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl text-center">
-          <div className="flex items-center justify-between mb-6 pb-3 border-b border-stone-800">
-            <div className="flex items-center gap-2 text-amber-300 font-semibold text-sm">
+        <div className="max-w-2xl mx-auto bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl text-center">
+          <div className="flex items-center justify-between mb-6 pb-3 border-b border-stone-200">
+            <div className="flex items-center gap-2 text-amber-700 font-semibold text-sm">
               <Award className="w-4 h-4" />
               <span>प्रश्नोत्तरी संख्या #{quizQuestionIdx + 1}</span>
             </div>
-            <div className="px-3 py-1 bg-emerald-950 border border-emerald-700/60 rounded-full text-emerald-300 text-xs font-bold">
+            <div className="px-3 py-1 bg-emerald-50 border border-emerald-200/60 rounded-full text-emerald-700 text-xs font-bold">
               अंक: {quizScore}
             </div>
           </div>
 
-          <h3 className="text-xl font-bold text-stone-100 mb-2">
+          <h3 className="text-xl font-bold text-stone-800 mb-2">
             ध्वनि सुनकर पहचानें: यह किस पक्षी की आवाज है?
           </h3>
-          <p className="text-stone-400 text-xs mb-6">
+          <p className="text-stone-600 text-xs mb-6">
             नीचे दिए गए बटन को दबाकर पक्षी की बोली सुनें, फिर सही संथाली नाम चुनें।
           </p>
 
@@ -555,12 +555,12 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
               const isSelected = quizAnswered !== null;
               const isCorrect = opt.id === currentQuizBird.id;
 
-              let btnStyle = 'bg-stone-800 hover:bg-stone-700 border-stone-700 text-stone-200';
+              let btnStyle = 'bg-stone-100 hover:bg-stone-200 border-stone-200 text-stone-800';
               if (isSelected) {
                 if (isCorrect) {
-                  btnStyle = 'bg-emerald-900 border-emerald-500 text-emerald-100 font-bold';
+                  btnStyle = 'bg-emerald-50 border-emerald-500 text-emerald-800 font-bold';
                 } else {
-                  btnStyle = 'bg-stone-900 border-stone-800 text-stone-500 opacity-60';
+                  btnStyle = 'bg-stone-50 border-stone-200 text-stone-500 opacity-60';
                 }
               }
 
@@ -575,7 +575,7 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
                     <span className="text-base font-bold block">{opt.santaliDev}</span>
                     <span className="text-xs opacity-75">{opt.hindiName} ({opt.englishName})</span>
                   </div>
-                  {isSelected && isCorrect && <CheckCircle className="w-5 h-5 text-emerald-400" />}
+                  {isSelected && isCorrect && <CheckCircle className="w-5 h-5 text-emerald-600" />}
                 </button>
               );
             })}
@@ -583,8 +583,8 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
 
           {/* Result Feedback */}
           {quizAnswered !== null && (
-            <div className="mt-6 pt-4 border-t border-stone-800">
-              <p className={`text-sm font-bold mb-3 ${quizAnswered ? 'text-emerald-400' : 'text-amber-400'}`}>
+            <div className="mt-6 pt-4 border-t border-stone-200">
+              <p className={`text-sm font-bold mb-3 ${quizAnswered ? 'text-emerald-600' : 'text-amber-600'}`}>
                 {quizAnswered
                   ? 'शाबाश! सही पहचान! +10 अंक'
                   : `गलत उत्तर! यह "${currentQuizBird.santaliDev}" (${currentQuizBird.hindiName}) की आवाज थी।`}
@@ -604,16 +604,16 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
       {activeTab === 'omens_guide' && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {BIRD_DATABASE.map(bird => (
-            <div key={bird.id} className="bg-stone-900/90 border border-stone-800 rounded-xl p-5 hover:border-emerald-600/60 transition-colors">
+            <div key={bird.id} className="bg-stone-50/90 border border-stone-200 rounded-xl p-5 hover:border-emerald-300/60 transition-colors">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-lg font-bold text-amber-300">{bird.santaliDev}</span>
-                <span className="text-xs text-stone-400">{bird.hindiName}</span>
+                <span className="text-lg font-bold text-amber-700">{bird.santaliDev}</span>
+                <span className="text-xs text-stone-600">{bird.hindiName}</span>
               </div>
-              <div className="bg-stone-950/80 rounded-lg p-3 border border-stone-800 mb-3 text-xs text-stone-300">
-                <strong className="text-emerald-400 block mb-1">संकेत व लोक विश्वास:</strong>
+              <div className="bg-white/80 rounded-lg p-3 border border-stone-200 mb-3 text-xs text-stone-700">
+                <strong className="text-emerald-600 block mb-1">संकेत व लोक विश्वास:</strong>
                 {bird.omenMeaning}
               </div>
-              <div className="text-xs text-amber-200/90 italic">
+              <div className="text-xs text-amber-800/90 italic">
                 "{bird.proverb}"
               </div>
             </div>

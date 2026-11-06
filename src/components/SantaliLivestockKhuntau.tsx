@@ -226,19 +226,19 @@ export const SantaliLivestockKhuntau: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-stone-900 text-stone-100 p-4 md:p-8">
+    <div className="min-h-screen bg-stone-50 text-stone-800 p-4 md:p-8">
       {/* Top Banner & Header */}
       <div className="max-w-6xl mx-auto mb-8">
-        <div className="bg-gradient-to-r from-orange-950/80 via-stone-900 to-amber-950/70 border border-orange-800/40 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+        <div className="bg-gradient-to-r from-orange-50/80 via-stone-50 to-amber-50/70 border border-orange-200/40 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-300 text-xs font-semibold mb-3">
-                <HeartHandshake className="w-3.5 h-3.5 text-orange-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-700 text-xs font-semibold mb-3">
+                <HeartHandshake className="w-3.5 h-3.5 text-orange-600" />
                 <span>संताली गोड़ा-पशुधन ज्ञान, 'खूंटाव' परंपरा व गौ-रान (Cattle Lore & Ethno-Veterinary)</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-black text-orange-100 tracking-tight flex items-center gap-3">
+              <h1 className="text-3xl md:text-4xl font-black text-orange-800 tracking-tight flex items-center gap-3">
                 खूंटाव परंपरा, दांगरा बाखेड़ व देशी गौ-रान
                 <button
                   onClick={() =>
@@ -246,13 +246,13 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                   'संताली गोड़ा पशुधन ज्ञान, खूंटाव परंपरा, दांगरा बाखेड़ एवं पारंपरिक गौ-रान चिकित्सा'
                 )
               }
-                  className="p-2 rounded-lg bg-orange-800/40 hover:bg-orange-700/60 text-orange-300 transition-colors"
+                  className="p-2 rounded-lg bg-orange-100/40 hover:bg-orange-200/60 text-orange-700 transition-colors"
                   title="उच्चारण सुनें"
                 >
                   <Volume2 className="w-5 h-5" />
                 </button>
               </h1>
-              <p className="text-stone-300 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
+              <p className="text-stone-700 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
                 सोहराय महापर्व में पशुधन का सजीव वंदन, कुल्ही में खूंटाव नृत्य, सींगों पर महुआ तेल-सिंदूर की रंगाई, 'दांगरा बाखेड़' प्रार्थना और जंगल की जड़ी-बूटियों से निर्मित सदियों पुरानी देशी पशु-चिकित्सा (गौ-रान)।
               </p>
             </div>
@@ -268,7 +268,7 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                 </button>
                 <button
                   onClick={handleResetToDefault}
-                  className="p-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white rounded-xl border border-stone-700 transition-colors"
+                  className="p-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-slate-900 rounded-xl border border-stone-200 transition-colors"
                   title="डिफ़ॉल्ट पर रीसेट करें"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -278,8 +278,8 @@ export const SantaliLivestockKhuntau: React.FC = () => {
           </div>
 
           {feedbackMsg && (
-            <div className="mt-4 p-3 bg-orange-500/20 border border-orange-500/40 rounded-xl text-orange-200 text-sm flex items-center gap-2 animate-fade-in">
-              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-orange-400" />
+            <div className="mt-4 p-3 bg-orange-500/20 border border-orange-500/40 rounded-xl text-orange-800 text-sm flex items-center gap-2 animate-fade-in">
+              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-orange-600" />
               <span>{feedbackMsg}</span>
             </div>
           )}
@@ -288,15 +288,15 @@ export const SantaliLivestockKhuntau: React.FC = () => {
 
       {/* Interactive 4-Stage Khuntau Ritual Simulator */}
       <div className="max-w-6xl mx-auto mb-10">
-        <div className="bg-stone-900/90 border border-orange-900/40 rounded-2xl p-6 shadow-xl">
+        <div className="bg-stone-50/90 border border-orange-200/40 rounded-2xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <Activity className="w-5 h-5 text-orange-400" />
-              <h2 className="text-xl font-bold text-orange-100">
+              <Activity className="w-5 h-5 text-orange-600" />
+              <h2 className="text-xl font-bold text-orange-800">
                 खूंटाव अनुष्ठान के ४ मुख्य चरण (Khuntau 4-Stage Ritual)
               </h2>
             </div>
-            <span className="text-xs text-stone-400 bg-stone-800 px-3 py-1 rounded-full border border-stone-700">
+            <span className="text-xs text-stone-600 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
               प्रत्येक चरण पर क्लिक करके संताली परंपरा जानें
             </span>
           </div>
@@ -309,34 +309,34 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                 onClick={() => setActiveStep(idx)}
                 className={`p-3.5 rounded-xl border text-left transition-all relative overflow-hidden ${
                   activeStep === idx
-                    ? 'bg-orange-950/70 border-orange-500 text-orange-100 shadow-md ring-1 ring-orange-500/50'
-                    : 'bg-stone-800/60 border-stone-700/60 text-stone-400 hover:bg-stone-800 hover:text-stone-200'
+                    ? 'bg-orange-50/70 border-orange-500 text-orange-800 shadow-md ring-1 ring-orange-500/50'
+                    : 'bg-stone-100/60 border-stone-200/60 text-stone-600 hover:bg-stone-100 hover:text-stone-800'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-bold text-orange-400">{st.step}</span>
+                  <span className="text-xs font-bold text-orange-600">{st.step}</span>
                   {activeStep === idx && (
-                    <CircleDot className="w-3.5 h-3.5 text-orange-400 animate-pulse" />
+                    <CircleDot className="w-3.5 h-3.5 text-orange-600 animate-pulse" />
                   )}
                 </div>
-                <div className="text-xs font-bold text-stone-200">{st.santaliTerm}</div>
-                <div className="text-[11px] text-stone-400 truncate mt-1">{st.desc}</div>
+                <div className="text-xs font-bold text-stone-800">{st.santaliTerm}</div>
+                <div className="text-[11px] text-stone-600 truncate mt-1">{st.desc}</div>
               </button>
             ))}
           </div>
 
           {/* Selected Step Detail Showcase */}
-          <div className="bg-gradient-to-r from-orange-950/40 to-stone-900 border border-orange-800/30 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="bg-gradient-to-r from-orange-50/40 to-stone-50 border border-orange-200/30 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-2 flex-1">
-              <div className="flex items-center gap-2 text-xs font-bold text-orange-400 uppercase tracking-wide">
+              <div className="flex items-center gap-2 text-xs font-bold text-orange-600 uppercase tracking-wide">
                 <span>{KHUNTAU_STEPS[activeStep].step}</span>
                 <span>•</span>
                 <span>{KHUNTAU_STEPS[activeStep].santaliTerm}</span>
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-orange-100">
+              <h3 className="text-lg md:text-xl font-bold text-orange-800">
                 {KHUNTAU_STEPS[activeStep].santaliTerm}
               </h3>
-              <p className="text-stone-300 text-sm leading-relaxed">
+              <p className="text-stone-700 text-sm leading-relaxed">
                 {KHUNTAU_STEPS[activeStep].desc}
               </p>
             </div>
@@ -346,7 +346,7 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                   `${KHUNTAU_STEPS[activeStep].step}। ${KHUNTAU_STEPS[activeStep].santaliTerm}। ${KHUNTAU_STEPS[activeStep].desc}`
                 )
               }
-              className="flex items-center gap-2 px-4 py-2 bg-orange-800/40 hover:bg-orange-700/50 text-orange-200 rounded-lg border border-orange-700/50 text-xs font-semibold transition-colors flex-shrink-0"
+              className="flex items-center gap-2 px-4 py-2 bg-orange-100/40 hover:bg-orange-200/50 text-orange-800 rounded-lg border border-orange-200/50 text-xs font-semibold transition-colors flex-shrink-0"
             >
               <Volume2 className="w-4 h-4" />
               अनुष्ठान सुनें
@@ -371,7 +371,7 @@ export const SantaliLivestockKhuntau: React.FC = () => {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                 activeCategory === cat.id
                   ? 'bg-orange-600 text-white'
-                  : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+                  : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
               }`}
             >
               {cat.label}
@@ -385,7 +385,7 @@ export const SantaliLivestockKhuntau: React.FC = () => {
             placeholder="खोजें (जैसे खूंटाव, बाखेड़, रान)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-3.5 py-2 bg-stone-800/90 border border-stone-700 rounded-xl text-xs text-stone-100 placeholder-stone-500 focus:outline-none focus:border-orange-500"
+            className="w-full px-3.5 py-2 bg-stone-100/90 border border-stone-200 rounded-xl text-xs text-stone-800 placeholder-stone-500 focus:outline-none focus:border-orange-500"
           />
         </div>
       </div>
@@ -395,21 +395,21 @@ export const SantaliLivestockKhuntau: React.FC = () => {
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            className="bg-stone-900 border border-stone-800 hover:border-orange-700/60 rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-all group hover:-translate-y-1"
+            className="bg-stone-50 border border-stone-200 hover:border-orange-200/60 rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-all group hover:-translate-y-1"
           >
             <div>
               {/* Header Badge & Category */}
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="px-2.5 py-0.5 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-300 text-[11px] font-bold">
+                <span className="px-2.5 py-0.5 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-700 text-[11px] font-bold">
                   {item.badge}
                 </span>
-                <span className="text-stone-400 text-[11px] font-medium">{item.categoryLabel}</span>
+                <span className="text-stone-600 text-[11px] font-medium">{item.categoryLabel}</span>
               </div>
 
               {/* Title & Phonetic */}
               <div className="mb-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-lg font-bold text-orange-100 group-hover:text-orange-200 transition-colors">
+                  <h3 className="text-lg font-bold text-orange-800 group-hover:text-orange-800 transition-colors">
                     {item.nameDevanagari}
                   </h3>
                   <button
@@ -418,34 +418,34 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                         `${item.nameDevanagari}। ${item.titleHindi}। मौसम: ${item.ritualSeason}।`
                       )
                     }
-                    className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-orange-400 transition-colors flex-shrink-0"
+                    className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-orange-600 transition-colors flex-shrink-0"
                     title="उच्चारण सुनें"
                   >
                     <Volume2 className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="text-xs font-mono text-orange-400/80 mt-0.5">{item.nameRoman}</div>
-                <div className="text-xs font-semibold text-stone-300 mt-1">{item.titleHindi}</div>
+                <div className="text-xs font-mono text-orange-600/80 mt-0.5">{item.nameRoman}</div>
+                <div className="text-xs font-semibold text-stone-700 mt-1">{item.titleHindi}</div>
               </div>
 
               {/* Season */}
-              <div className="mb-3 p-2.5 rounded-xl bg-stone-950/60 border border-stone-800 text-xs">
-                <div className="text-stone-400 font-semibold mb-0.5">पर्व / ऋतु काल:</div>
-                <div className="text-orange-300 font-medium">{item.ritualSeason}</div>
+              <div className="mb-3 p-2.5 rounded-xl bg-white/60 border border-stone-200 text-xs">
+                <div className="text-stone-600 font-semibold mb-0.5">पर्व / ऋतु काल:</div>
+                <div className="text-orange-700 font-medium">{item.ritualSeason}</div>
               </div>
 
               {/* Chants & Lore */}
-              <div className="space-y-2 text-xs text-stone-300 leading-relaxed mb-4">
-                <div className="bg-orange-950/20 p-2 rounded-lg border-l-2 border-orange-500 text-orange-200/90 italic">
-                  <span className="font-bold text-orange-300 not-italic">मंत्र / गीत / सार: </span>
+              <div className="space-y-2 text-xs text-stone-700 leading-relaxed mb-4">
+                <div className="bg-orange-50/20 p-2 rounded-lg border-l-2 border-orange-500 text-orange-800/90 italic">
+                  <span className="font-bold text-orange-700 not-italic">मंत्र / गीत / सार: </span>
                   {item.santaliChantOrLore}
                 </div>
                 <div>
-                  <span className="font-bold text-stone-200">तैयारी व विधि: </span>
+                  <span className="font-bold text-stone-800">तैयारी व विधि: </span>
                   {item.traditionalPreparation}
                 </div>
                 <div>
-                  <span className="font-bold text-stone-200">पारंपरिक पारिस्थितिकी ज्ञान: </span>
+                  <span className="font-bold text-stone-800">पारंपरिक पारिस्थितिकी ज्ञान: </span>
                   {item.culturalEcologyLore}
                 </div>
               </div>
@@ -453,17 +453,17 @@ export const SantaliLivestockKhuntau: React.FC = () => {
 
             {/* Admin Controls */}
             {isAdmin && (
-              <div className="pt-3 border-t border-stone-800/80 flex items-center justify-end gap-2 mt-2">
+              <div className="pt-3 border-t border-stone-200/80 flex items-center justify-end gap-2 mt-2">
                 <button
                   onClick={() => handleOpenEdit(item)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-orange-600/30 text-orange-300 text-xs font-semibold border border-stone-700 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-orange-200/30 text-orange-700 text-xs font-semibold border border-stone-200 transition-colors"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                   संपादित करें
                 </button>
                 <button
                   onClick={() => handleDeleteItem(item.id, item.titleHindi)}
-                  className="p-1.5 rounded-lg bg-stone-800 hover:bg-rose-900/40 text-stone-400 hover:text-rose-300 border border-stone-700 transition-colors"
+                  className="p-1.5 rounded-lg bg-stone-100 hover:bg-rose-50/40 text-stone-600 hover:text-rose-700 border border-stone-200 transition-colors"
                   title="हटाएं"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -475,7 +475,7 @@ export const SantaliLivestockKhuntau: React.FC = () => {
       </div>
 
       {filteredItems.length === 0 && (
-        <div className="max-w-md mx-auto text-center py-16 text-stone-400">
+        <div className="max-w-md mx-auto text-center py-16 text-stone-600">
           <HelpCircle className="w-12 h-12 mx-auto mb-3 text-stone-600" />
           <p className="text-sm font-semibold">कोई पशुधन ज्ञान प्रविष्टि नहीं मिली।</p>
           <button
@@ -493,17 +493,17 @@ export const SantaliLivestockKhuntau: React.FC = () => {
       {/* Admin Add/Edit Modal */}
       {isModalOpen && editingItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-stone-900 border border-stone-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
-            <div className="flex items-center justify-between pb-4 border-b border-stone-800 mb-4">
-              <h3 className="text-xl font-bold text-orange-200 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-orange-400" />
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
+            <div className="flex items-center justify-between pb-4 border-b border-stone-200 mb-4">
+              <h3 className="text-xl font-bold text-orange-800 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-orange-600" />
                 {items.some((it) => it.id === editingItem.id)
                   ? 'पशुधन ज्ञान संपादित करें'
                   : 'नया पशुधन ज्ञान जोड़ें'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800"
+                className="p-2 text-stone-600 hover:text-slate-900 rounded-lg hover:bg-stone-100"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -512,7 +512,7 @@ export const SantaliLivestockKhuntau: React.FC = () => {
             <form onSubmit={handleSaveModal} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     देवनागरी नाम *
                   </label>
                   <input
@@ -523,11 +523,11 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                       setEditingItem({ ...editingItem, nameDevanagari: e.target.value })
                     }
                     placeholder="उदा. खूंटाव पर्व व गाय जगावे"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     रोमन नाम (Roman Name)
                   </label>
                   <input
@@ -537,14 +537,14 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                       setEditingItem({ ...editingItem, nameRoman: e.target.value })
                     }
                     placeholder="उदा. Khuntau Parab"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     हिंदी शीर्षक *
                   </label>
                   <input
@@ -555,11 +555,11 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                       setEditingItem({ ...editingItem, titleHindi: e.target.value })
                     }
                     placeholder="उदा. सोहराय का ऐतिहासिक बैल-नृत्य अनुष्ठान"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     श्रेणी (Category)
                   </label>
                   <select
@@ -578,7 +578,7 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                         categoryLabel: labels[val]
                       });
                     }}
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                   >
                     <option value="khuntau_ritual">खूंटाव अनुष्ठान</option>
                     <option value="dangra_bakher">पवित्र प्रार्थना (बाखेड़)</option>
@@ -590,7 +590,7 @@ export const SantaliLivestockKhuntau: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     ऋतु / अवसर (Season)
                   </label>
                   <input
@@ -600,11 +600,11 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                       setEditingItem({ ...editingItem, ritualSeason: e.target.value })
                     }
                     placeholder="उदा. सोहराय महापर्व"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     बैज / उपनाम (Badge)
                   </label>
                   <input
@@ -614,13 +614,13 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                       setEditingItem({ ...editingItem, badge: e.target.value })
                     }
                     placeholder="उदा. पवित्र खूंटाव"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   मंत्र / गीत / नुस्खा सूत्र
                 </label>
                 <textarea
@@ -630,12 +630,12 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                     setEditingItem({ ...editingItem, santaliChantOrLore: e.target.value })
                   }
                   placeholder="बाखेड़ मंत्र या पारंपरिक सेरेञ बोल..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   तैयारी व विधि विवरण
                 </label>
                 <textarea
@@ -645,12 +645,12 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                     setEditingItem({ ...editingItem, traditionalPreparation: e.target.value })
                   }
                   placeholder="खूंटा सजाने या औषधि काढ़ा तैयार करने की विधि..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   पारंपरिक पारिस्थितिकी व सामाजिक ज्ञान
                 </label>
                 <textarea
@@ -660,15 +660,15 @@ export const SantaliLivestockKhuntau: React.FC = () => {
                     setEditingItem({ ...editingItem, culturalEcologyLore: e.target.value })
                   }
                   placeholder="संताल पुरखों की मान्यता व सामाजिक महत्व..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-orange-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-orange-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-stone-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-stone-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 text-sm font-semibold rounded-xl"
+                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-semibold rounded-xl"
                 >
                   रद्द करें
                 </button>

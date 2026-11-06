@@ -31,7 +31,7 @@ const EARTH_PIGMENTS: EarthPigment[] = [
     symbolism: 'जीवन-ऊर्जा, मातृशक्ति, पृथ्वी की उर्वरता और पशुधन के प्रति कृतज्ञता।',
     extractionProcess: 'लाल पत्थरों को सिलबट्टे पर बारीक पीसा जाता है और महुआ के बीजों के तेल की कुछ बूंदें मिलाकर गाढ़ा लेप तैयार होता है।',
     hexColor: '#9C3424',
-    cssBackground: 'bg-red-800 text-white'
+    cssBackground: 'bg-red-100 text-slate-900'
   },
   {
     id: 'hende',
@@ -41,7 +41,7 @@ const EARTH_PIGMENTS: EarthPigment[] = [
     symbolism: 'पूर्वज बोंगा, गहन अंतरिक्ष और बुरी शक्तियों से घर की रक्षा करने वाली दिव्य ढाल।',
     extractionProcess: 'साल लकड़ी के कोयले को कूटकर पके हुए भात के मांड़ (दाका दाः) के साथ घोंटकर गहरा काला जलरोधक रंग तैयार किया जाता है।',
     hexColor: '#1F1F1F',
-    cssBackground: 'bg-neutral-900 text-white'
+    cssBackground: 'bg-neutral-50 text-slate-900'
   },
   {
     id: 'sasang',
@@ -202,18 +202,18 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-red-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-amber-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-amber-50 via-stone-50 to-red-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-xl border border-amber-200/40 relative overflow-hidden">
         <div className="absolute -right-10 -bottom-10 w-80 h-80 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-500/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-500/30">
               <Palette className="w-4 h-4" />
               सोहराय माटी रसायन • Indigenous Mineral Pigments
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-amber-50">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-amber-900">
               प्राकृतिक भित्ति वर्ण द्रव्य व सोहराय माटी रसायन
             </h1>
-            <p className="mt-2 text-amber-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="mt-2 text-amber-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               दुधी माटी, लाल हासबा (गेरू), हेन्डे हासबा (काला मैंगनीज) व पीली गेरू की भू-रसायन विद्या, दातुन कूची शिल्प और सजीव डिजिटल भित्ति कैनवास।
             </p>
           </div>
@@ -224,7 +224,7 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Pigments List */}
         <div className="lg:col-span-5 space-y-4">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 px-1 flex items-center gap-2">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-amber-900 dark:text-amber-700 px-1 flex items-center gap-2">
             <Layers className="w-4 h-4 text-amber-600" />
             पारंपरिक चार प्राकृतिक खनिज वर्ण:
           </h2>
@@ -241,8 +241,8 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
                   }}
                   className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                     isSelected
-                      ? 'bg-amber-50/80 dark:bg-amber-950/40 border-amber-600 shadow-md ring-2 ring-amber-500/20'
-                      : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-amber-300'
+                      ? 'bg-amber-50/80 dark:bg-amber-50/40 border-amber-300 shadow-md ring-2 ring-amber-500/20'
+                      : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-amber-300'
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -252,13 +252,13 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
                         style={{ backgroundColor: pigment.hexColor }}
                       />
                       <div>
-                        <div className="font-bold text-slate-900 dark:text-white text-base">
+                        <div className="font-bold text-slate-900 dark:text-slate-900 text-base">
                           {pigment.santaliName}
                         </div>
-                        <div className="text-xs text-amber-700 dark:text-amber-400 font-semibold">
+                        <div className="text-xs text-amber-700 dark:text-amber-600 font-semibold">
                           {pigment.hindiName}
                         </div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                        <div className="text-xs text-slate-500 dark:text-slate-600 mt-1 line-clamp-2">
                           {pigment.symbolism}
                         </div>
                       </div>
@@ -268,7 +268,7 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
                         e.stopPropagation();
                         speakText(`${pigment.santaliName}. ${pigment.hindiName}. ${pigment.symbolism}`);
                       }}
-                      className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-900/50"
+                      className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-50/50"
                       title="विवरण सुनें"
                     >
                       <Volume2 className="w-4 h-4" />
@@ -280,17 +280,17 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
           </div>
 
           {/* Traditional Tools Overview */}
-          <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+          <div className="bg-white dark:bg-slate-50 p-5 rounded-2xl border border-slate-200 dark:border-slate-200 shadow-sm space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-700 flex items-center gap-1.5">
               <Brush className="w-4 h-4 text-amber-600" />
               पारंपरिक कूची व टूल्स:
             </h3>
             <div className="space-y-2.5">
               {TRADITIONAL_TOOLS.map((tool, idx) => (
-                <div key={idx} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 text-xs">
-                  <span className="font-bold text-slate-800 dark:text-slate-200">{tool.nameSantali}</span>
-                  <span className="text-slate-500 dark:text-slate-400"> - {tool.nameHindi}</span>
-                  <p className="text-slate-600 dark:text-slate-300 mt-0.5">{tool.details}</p>
+                <div key={idx} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-100/40 border border-slate-100 dark:border-slate-200 text-xs">
+                  <span className="font-bold text-slate-800 dark:text-slate-800">{tool.nameSantali}</span>
+                  <span className="text-slate-500 dark:text-slate-600"> - {tool.nameHindi}</span>
+                  <p className="text-slate-600 dark:text-slate-700 mt-0.5">{tool.details}</p>
                 </div>
               ))}
             </div>
@@ -299,14 +299,14 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
 
         {/* Right Column: Interactive Clay Wall Canvas & Toolset */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+          <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 border border-slate-200 dark:border-slate-200 shadow-sm space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-200 pb-3">
               <div>
-                <h3 className="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
+                <h3 className="font-bold text-lg text-slate-900 dark:text-slate-900 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-amber-500" />
                   सोहराय भित्ति चित्रकारी कैनवास (Mural Sandbox)
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-slate-500 dark:text-slate-600">
                   माटी की दीवार पर प्राकृतिक खनिज रंगों और दातुन कूची से चित्र बनाएं
                 </p>
               </div>
@@ -314,7 +314,7 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
               {/* Reset Canvas Button */}
               <button
                 onClick={initCanvas}
-                className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-100 hover:bg-slate-200 text-slate-700 dark:text-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-colors"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 दीवार पुनः लेपें
@@ -322,15 +322,15 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
             </div>
 
             {/* Canvas Toolbar */}
-            <div className="flex flex-wrap items-center gap-3 p-3 rounded-2xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-800/40">
+            <div className="flex flex-wrap items-center gap-3 p-3 rounded-2xl bg-amber-50/60 dark:bg-amber-50/20 border border-amber-200/60 dark:border-amber-200/40">
               {/* Tool selection */}
-              <div className="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+              <div className="flex items-center gap-1 bg-white dark:bg-slate-100 p-1 rounded-xl border border-slate-200 dark:border-slate-200">
                 <button
                   onClick={() => setBrushTool('kuchi')}
                   className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 ${
                     brushTool === 'kuchi'
                       ? 'bg-amber-600 text-white'
-                      : 'text-slate-600 dark:text-slate-300'
+                      : 'text-slate-600 dark:text-slate-700'
                   }`}
                   title="दातुन कूची ब्रश"
                 >
@@ -342,7 +342,7 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
                   className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 ${
                     brushTool === 'comb'
                       ? 'bg-amber-600 text-white'
-                      : 'text-slate-600 dark:text-slate-300'
+                      : 'text-slate-600 dark:text-slate-700'
                   }`}
                   title="नाखी कंधी (कंगी खुरचन)"
                 >
@@ -353,7 +353,7 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
                   className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 ${
                     brushTool === 'eraser'
                       ? 'bg-amber-600 text-white'
-                      : 'text-slate-600 dark:text-slate-300'
+                      : 'text-slate-600 dark:text-slate-700'
                   }`}
                   title="मिटाएं"
                 >
@@ -374,7 +374,7 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
                     style={{ backgroundColor: p.hexColor }}
                     className={`w-7 h-7 rounded-full border-2 transition-transform ${
                       activeBrushColor === p.hexColor && brushTool !== 'eraser'
-                        ? 'border-amber-900 scale-110 shadow-md ring-2 ring-amber-400'
+                        ? 'border-amber-200 scale-110 shadow-md ring-2 ring-amber-400'
                         : 'border-white/80 opacity-90'
                     }`}
                     title={p.santaliName}
@@ -383,7 +383,7 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
               </div>
 
               {/* Brush size slider */}
-              <div className="flex items-center gap-2 ml-auto text-xs text-slate-600 dark:text-slate-300">
+              <div className="flex items-center gap-2 ml-auto text-xs text-slate-600 dark:text-slate-700">
                 <span>मोटाई:</span>
                 <input
                   type="range"
@@ -398,7 +398,7 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
             </div>
 
             {/* Drawing Canvas */}
-            <div className="relative rounded-2xl overflow-hidden shadow-inner border-4 border-amber-900/20 bg-[#E8E0D2] touch-none">
+            <div className="relative rounded-2xl overflow-hidden shadow-inner border-4 border-amber-200/20 bg-[#E8E0D2] touch-none">
               <canvas
                 ref={canvasRef}
                 width={640}
@@ -415,15 +415,15 @@ export const SantaliNaturalPigmentsCraft: React.FC = () => {
             </div>
 
             {/* Selected Pigment Detail Card */}
-            <div className="p-4 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-900/40 text-xs space-y-2">
-              <div className="font-bold text-amber-900 dark:text-amber-200 text-sm flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-amber-50/50 dark:bg-amber-50/20 border border-amber-200/50 dark:border-amber-200/40 text-xs space-y-2">
+              <div className="font-bold text-amber-900 dark:text-amber-800 text-sm flex items-center justify-between">
                 <span>चुने गए रंग का भू-रासायनिक स्रोत: {selectedPigment.hindiName}</span>
-                <span className="font-mono text-xs text-amber-700 dark:text-amber-400">{selectedPigment.hexColor}</span>
+                <span className="font-mono text-xs text-amber-700 dark:text-amber-600">{selectedPigment.hexColor}</span>
               </div>
-              <p className="text-slate-600 dark:text-slate-300">
+              <p className="text-slate-600 dark:text-slate-700">
                 <strong>प्राप्ति व शोधन विधि:</strong> {selectedPigment.extractionProcess}
               </p>
-              <p className="text-slate-600 dark:text-slate-300">
+              <p className="text-slate-600 dark:text-slate-700">
                 <strong>पारंपरिक विश्वास:</strong> {selectedPigment.mineralSource}
               </p>
             </div>

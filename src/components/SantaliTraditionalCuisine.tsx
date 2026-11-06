@@ -213,33 +213,33 @@ export const SantaliTraditionalCuisine: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-amber-900 via-orange-950 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-amber-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-emerald-50 text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-amber-200/40 relative overflow-hidden">
         <div className="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
           <UtensilsCrossed size={280} />
         </div>
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-700 border border-amber-500/30 text-xs font-semibold mb-3">
             <Sparkles size={14} />
             <span>हड़ोप जामि - संताली पारंपरिक खानपान व पाक कला</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-100 flex items-center gap-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-800 flex items-center gap-3">
             <span>संताली पारंपरिक व्यंजन कोश</span>
             <button
               onClick={() => speakWithFemaleVoice('सांतार कोवाक् हाड़ोप जामि आर दाका-उत्')}
-              className="p-2 rounded-full bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 transition-colors"
+              className="p-2 rounded-full bg-amber-500/20 hover:bg-amber-500/40 text-amber-700 transition-colors"
               title="सुनें (Pronounce)"
             >
               <Volume2 size={22} />
             </button>
           </h1>
-          <p className="text-amber-200/80 text-sm sm:text-base mt-2 leading-relaxed">
+          <p className="text-amber-800/80 text-sm sm:text-base mt-2 leading-relaxed">
             साकाम पीठा, लेटे मंडी, रुगड़ा-ओत्, घोंघी-सुतली रसा और वन्य साग — बिना रसायन, मिट्टी के बर्तन और साल के पत्तों में पके पौष्टिक आदिवासी भोजन की सदियों पुरानी विधियां व स्वास्थ्य रहस्य।
           </p>
         </div>
       </div>
 
       {/* Filter Tabs & Search */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-slate-50 p-4 rounded-2xl border border-slate-200 dark:border-slate-200 shadow-sm">
         <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           {[
             { id: 'all', label: 'सभी व्यंजन (All)' },
@@ -255,7 +255,7 @@ export const SantaliTraditionalCuisine: React.FC = () => {
               className={`px-3 py-1.5 text-xs sm:text-sm font-medium rounded-xl transition-all ${
                 selectedCategory === cat.id
                   ? 'bg-amber-700 text-white shadow-md'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  : 'bg-slate-100 dark:bg-slate-100 text-slate-700 dark:text-slate-700 hover:bg-slate-200 dark:hover:bg-slate-200'
               }`}
             >
               {cat.label}
@@ -264,13 +264,13 @@ export const SantaliTraditionalCuisine: React.FC = () => {
         </div>
 
         <div className="relative w-full sm:w-64">
-          <Search className="absolute left-3 top-2.5 text-slate-400" size={16} />
+          <Search className="absolute left-3 top-2.5 text-slate-600" size={16} />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="व्यंजन खोजें (Search)..."
-            className="w-full pl-9 pr-4 py-1.5 text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full pl-9 pr-4 py-1.5 text-sm rounded-xl border border-slate-300 dark:border-slate-200 bg-slate-50 dark:bg-slate-100 text-slate-900 dark:text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
         </div>
       </div>
@@ -290,19 +290,19 @@ export const SantaliTraditionalCuisine: React.FC = () => {
                 onClick={() => setActiveItem(item)}
                 className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                   isSelected
-                    ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-500 shadow-md scale-[1.01]'
-                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-amber-300 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                    ? 'bg-amber-50 dark:bg-amber-50/40 border-amber-500 shadow-md scale-[1.01]'
+                    : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-amber-300 hover:bg-slate-50 dark:hover:bg-slate-100/60'
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300">
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-50/60 text-amber-800 dark:text-amber-700">
                       {item.categoryHindi}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-1">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-slate-800 mt-1">
                       {item.nameDevanagari}
                     </h3>
-                    <p className="text-xs text-amber-700 dark:text-amber-400 font-medium">
+                    <p className="text-xs text-amber-700 dark:text-amber-600 font-medium">
                       {item.nameRoman}
                     </p>
                   </div>
@@ -311,13 +311,13 @@ export const SantaliTraditionalCuisine: React.FC = () => {
                       e.stopPropagation();
                       speakWithFemaleVoice(item.nameDevanagari);
                     }}
-                    className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400"
+                    className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-100 text-slate-600 dark:text-slate-700 hover:text-amber-600 dark:hover:text-amber-600"
                     title="सुनें"
                   >
                     <Volume2 size={16} />
                   </button>
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-2">
+                <p className="text-xs text-slate-600 dark:text-slate-600 mt-2 line-clamp-2">
                   {item.description}
                 </p>
               </div>
@@ -327,16 +327,16 @@ export const SantaliTraditionalCuisine: React.FC = () => {
 
         {/* Right Detail Pane */}
         <div className="lg:col-span-7">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6 sticky top-6">
-            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
+          <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-xl space-y-6 sticky top-6">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-200 pb-5">
               <div>
-                <span className="px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-wider">
+                <span className="px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-50/50 text-amber-800 dark:text-amber-700 text-xs font-bold uppercase tracking-wider">
                   {activeItem.categoryHindi}
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-800 mt-2">
                   {activeItem.nameDevanagari}
                 </h2>
-                <p className="text-sm text-amber-700 dark:text-amber-400 font-semibold">
+                <p className="text-sm text-amber-700 dark:text-amber-600 font-semibold">
                   {activeItem.nameRoman}
                 </p>
               </div>
@@ -346,7 +346,7 @@ export const SantaliTraditionalCuisine: React.FC = () => {
                   className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all border ${
                     starred
                       ? 'bg-amber-500 text-stone-950 border-amber-500 shadow'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200'
+                      : 'bg-slate-100 dark:bg-slate-100 text-slate-700 dark:text-slate-700 border-slate-200 dark:border-slate-200 hover:bg-slate-200'
                   }`}
                   title="डायरी में सुरक्षित करें"
                 >
@@ -355,7 +355,7 @@ export const SantaliTraditionalCuisine: React.FC = () => {
                 </button>
                 <button
                   onClick={() => speakWithFemaleVoice(activeItem.nameDevanagari)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-700 text-white font-medium hover:bg-amber-800 transition-colors shadow"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-700 text-white font-medium hover:bg-amber-100 transition-colors shadow"
                 >
                   <Volume2 size={18} />
                   <span>उच्चारण सुनें</span>
@@ -363,30 +363,30 @@ export const SantaliTraditionalCuisine: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/30">
-              <h4 className="text-xs font-bold text-amber-900 dark:text-amber-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-50/20 border border-amber-200/60 dark:border-amber-200/30">
+              <h4 className="text-xs font-bold text-amber-900 dark:text-amber-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <BookOpen size={14} />
                 <span>संक्षिप्त परिचय</span>
               </h4>
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {activeItem.description}
               </p>
             </div>
 
             {/* Health Benefits */}
-            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/40">
-              <h4 className="text-xs font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-50/30 border border-emerald-200 dark:border-emerald-200/40">
+              <h4 className="text-xs font-bold text-emerald-900 dark:text-emerald-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Heart size={14} className="text-emerald-600" />
                 <span>स्वास्थ्य लाभ व पोषण रहस्य (Health Benefits)</span>
               </h4>
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {activeItem.healthBenefits}
               </p>
             </div>
 
             {/* Ingredients */}
             <div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-800 mb-3 flex items-center gap-2">
                 <Leaf size={16} className="text-amber-600" />
                 <span>मुख्य सामग्रियां (Essential Ingredients)</span>
               </h4>
@@ -394,7 +394,7 @@ export const SantaliTraditionalCuisine: React.FC = () => {
                 {activeItem.ingredients.map((ing, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-200"
+                    className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-100/60 border border-slate-200/80 dark:border-slate-200 text-xs font-medium text-slate-800 dark:text-slate-800"
                   >
                     <CheckCircle2 size={14} className="text-amber-600 shrink-0" />
                     <span>{ing}</span>
@@ -405,7 +405,7 @@ export const SantaliTraditionalCuisine: React.FC = () => {
 
             {/* Cooking Steps */}
             <div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-800 mb-3 flex items-center gap-2">
                 <Flame size={16} className="text-orange-600" />
                 <span>पारंपरिक पकाने की विधि (Preparation Method)</span>
               </h4>
@@ -413,7 +413,7 @@ export const SantaliTraditionalCuisine: React.FC = () => {
                 {activeItem.cookingSteps.map((step, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-300"
+                    className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-700"
                   >
                     <span className="flex items-center justify-center w-5 h-5 rounded-full bg-amber-700 text-white font-bold text-xs shrink-0 mt-0.5">
                       {idx + 1}
@@ -426,11 +426,11 @@ export const SantaliTraditionalCuisine: React.FC = () => {
 
             {/* Cultural Significance */}
             <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
-              <h4 className="text-xs font-bold text-amber-900 dark:text-amber-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+              <h4 className="text-xs font-bold text-amber-900 dark:text-amber-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Info size={14} />
                 <span>पर्व व सामाजिक महत्व (Cultural Significance)</span>
               </h4>
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {activeItem.culturalSignificance}
               </p>
             </div>

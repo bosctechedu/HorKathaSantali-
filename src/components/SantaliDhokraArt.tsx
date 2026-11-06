@@ -256,29 +256,29 @@ export const SantaliDhokraArt: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-stone-900 text-stone-100 p-4 md:p-8">
+    <div className="min-h-screen bg-stone-50 text-stone-800 p-4 md:p-8">
       {/* Top Banner & Header */}
       <div className="max-w-6xl mx-auto mb-8">
-        <div className="bg-gradient-to-r from-amber-950/80 via-stone-900 to-amber-900/60 border border-amber-800/40 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+        <div className="bg-gradient-to-r from-amber-50/80 via-stone-50 to-amber-50/60 border border-amber-200/40 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
           
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-3">
-                <Flame className="w-3.5 h-3.5 text-amber-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 text-xs font-semibold mb-3">
+                <Flame className="w-3.5 h-3.5 text-amber-600" />
                 <span>4000 वर्ष प्राचीन खोया-मोम धातु शिल्प (Lost-Wax Bell Metal)</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-black text-amber-200 tracking-tight flex items-center gap-3">
+              <h1 className="text-3xl md:text-4xl font-black text-amber-800 tracking-tight flex items-center gap-3">
                 संताली धोकरा धातु-कला व कमार विरासत
                 <button
                   onClick={() => speakWithFemaleVoice('संताली धोकरा धातु-कला एवं खोया-मोम ढलाई शिल्प')}
-                  className="p-2 rounded-lg bg-amber-800/40 hover:bg-amber-700/60 text-amber-300 transition-colors"
+                  className="p-2 rounded-lg bg-amber-100/40 hover:bg-amber-200/60 text-amber-700 transition-colors"
                   title="उच्चारण सुनें"
                 >
                   <Volume2 className="w-5 h-5" />
                 </button>
               </h1>
-              <p className="text-stone-300 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
+              <p className="text-stone-700 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
                 संताल परगना, मानभूम व मयूरभंज की प्राचीन ढोकरा (कांसा-पीतल ढलाई) परंपरा। मधुमक्खी के मोम (नेले मोम) के महीन तारों से बनी पाई-सेर, बोंगा थान के घोड़े-हाथी और नारी आभूषणों का सजीव शिल्प विधान।
               </p>
             </div>
@@ -294,7 +294,7 @@ export const SantaliDhokraArt: React.FC = () => {
                 </button>
                 <button
                   onClick={handleResetToDefault}
-                  className="p-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white rounded-xl border border-stone-700 transition-colors"
+                  className="p-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-slate-900 rounded-xl border border-stone-200 transition-colors"
                   title="डिफ़ॉल्ट पर रीसेट करें"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -304,8 +304,8 @@ export const SantaliDhokraArt: React.FC = () => {
           </div>
 
           {feedbackMsg && (
-            <div className="mt-4 p-3 bg-amber-500/20 border border-amber-500/40 rounded-xl text-amber-200 text-sm flex items-center gap-2 animate-fade-in">
-              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-amber-400" />
+            <div className="mt-4 p-3 bg-amber-500/20 border border-amber-500/40 rounded-xl text-amber-800 text-sm flex items-center gap-2 animate-fade-in">
+              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-amber-600" />
               <span>{feedbackMsg}</span>
             </div>
           )}
@@ -314,15 +314,15 @@ export const SantaliDhokraArt: React.FC = () => {
 
       {/* Interactive 6-Step Lost-Wax Process Visualizer */}
       <div className="max-w-6xl mx-auto mb-10">
-        <div className="bg-stone-900/90 border border-amber-900/40 rounded-2xl p-6 shadow-xl">
+        <div className="bg-stone-50/90 border border-amber-200/40 rounded-2xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <Layers className="w-5 h-5 text-amber-400" />
-              <h2 className="text-xl font-bold text-amber-100">
+              <Layers className="w-5 h-5 text-amber-600" />
+              <h2 className="text-xl font-bold text-amber-800">
                 खोया-मोम ढलाई प्रक्रिया (6-Step Cire-Perdue Method)
               </h2>
             </div>
-            <span className="text-xs text-stone-400 bg-stone-800 px-3 py-1 rounded-full border border-stone-700">
+            <span className="text-xs text-stone-600 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
               प्रत्येक चरण पर क्लिक करके संताली शिल्प विधि समझें
             </span>
           </div>
@@ -335,34 +335,34 @@ export const SantaliDhokraArt: React.FC = () => {
                 onClick={() => setSelectedProcessStep(idx)}
                 className={`p-3 rounded-xl border text-left transition-all relative overflow-hidden ${
                   selectedProcessStep === idx
-                    ? 'bg-amber-950/70 border-amber-500 text-amber-200 shadow-md ring-1 ring-amber-500/50'
-                    : 'bg-stone-800/60 border-stone-700/60 text-stone-400 hover:bg-stone-800 hover:text-stone-200'
+                    ? 'bg-amber-50/70 border-amber-500 text-amber-800 shadow-md ring-1 ring-amber-500/50'
+                    : 'bg-stone-100/60 border-stone-200/60 text-stone-600 hover:bg-stone-100 hover:text-stone-800'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-xs font-mono font-bold text-amber-500">{step.stepNumber}</span>
                   {selectedProcessStep === idx && (
-                    <CircleDot className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                    <CircleDot className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
                   )}
                 </div>
                 <div className="text-xs font-bold truncate">{step.titleHindi.split('(')[0]}</div>
-                <div className="text-[10px] text-stone-400 truncate mt-0.5">{step.santaliTerm}</div>
+                <div className="text-[10px] text-stone-600 truncate mt-0.5">{step.santaliTerm}</div>
               </button>
             ))}
           </div>
 
           {/* Selected Step Detail Showcase */}
-          <div className="bg-gradient-to-r from-amber-950/30 to-stone-900 border border-amber-800/30 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="bg-gradient-to-r from-amber-50/30 to-stone-50 border border-amber-200/30 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-1.5 flex-1">
-              <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wide">
+              <div className="flex items-center gap-2 text-xs font-bold text-amber-600 uppercase tracking-wide">
                 <span>चरण {DHOKRA_PROCESS_STEPS[selectedProcessStep].stepNumber}</span>
                 <span>•</span>
                 <span>{DHOKRA_PROCESS_STEPS[selectedProcessStep].santaliTerm}</span>
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-amber-100">
+              <h3 className="text-lg md:text-xl font-bold text-amber-800">
                 {DHOKRA_PROCESS_STEPS[selectedProcessStep].titleHindi}
               </h3>
-              <p className="text-stone-300 text-sm leading-relaxed">
+              <p className="text-stone-700 text-sm leading-relaxed">
                 {DHOKRA_PROCESS_STEPS[selectedProcessStep].description}
               </p>
             </div>
@@ -372,7 +372,7 @@ export const SantaliDhokraArt: React.FC = () => {
                   `${DHOKRA_PROCESS_STEPS[selectedProcessStep].titleHindi}। ${DHOKRA_PROCESS_STEPS[selectedProcessStep].description}`
                 )
               }
-              className="flex items-center gap-2 px-3.5 py-2 bg-amber-800/40 hover:bg-amber-700/50 text-amber-200 rounded-lg border border-amber-700/50 text-xs font-semibold transition-colors flex-shrink-0"
+              className="flex items-center gap-2 px-3.5 py-2 bg-amber-100/40 hover:bg-amber-200/50 text-amber-800 rounded-lg border border-amber-200/50 text-xs font-semibold transition-colors flex-shrink-0"
             >
               <Volume2 className="w-4 h-4" />
               चरण ऑडियो सुनें
@@ -397,7 +397,7 @@ export const SantaliDhokraArt: React.FC = () => {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                 activeCategory === cat.id
                   ? 'bg-amber-600 text-white'
-                  : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+                  : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
               }`}
             >
               {cat.label}
@@ -411,7 +411,7 @@ export const SantaliDhokraArt: React.FC = () => {
             placeholder="खोजें (जैसे पाई, हांसली, कांसा)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-3.5 py-2 bg-stone-800/90 border border-stone-700 rounded-xl text-xs text-stone-100 placeholder-stone-500 focus:outline-none focus:border-amber-500"
+            className="w-full px-3.5 py-2 bg-stone-100/90 border border-stone-200 rounded-xl text-xs text-stone-800 placeholder-stone-500 focus:outline-none focus:border-amber-500"
           />
         </div>
       </div>
@@ -421,21 +421,21 @@ export const SantaliDhokraArt: React.FC = () => {
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            className="bg-stone-900 border border-stone-800 hover:border-amber-700/60 rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-all group hover:-translate-y-1"
+            className="bg-stone-50 border border-stone-200 hover:border-amber-200/60 rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-all group hover:-translate-y-1"
           >
             <div>
               {/* Header Badge & Category */}
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-bold">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 text-[11px] font-bold">
                   {item.badge}
                 </span>
-                <span className="text-stone-400 text-[11px] font-medium">{item.categoryLabel}</span>
+                <span className="text-stone-600 text-[11px] font-medium">{item.categoryLabel}</span>
               </div>
 
               {/* Title & Phonetic */}
               <div className="mb-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-lg font-bold text-amber-100 group-hover:text-amber-200 transition-colors">
+                  <h3 className="text-lg font-bold text-amber-800 group-hover:text-amber-800 transition-colors">
                     {item.nameDevanagari}
                   </h3>
                   <button
@@ -444,34 +444,34 @@ export const SantaliDhokraArt: React.FC = () => {
                         `${item.nameDevanagari}। ${item.titleHindi}। धातु संरचना: ${item.metalComposition}।`
                       )
                     }
-                    className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-amber-400 transition-colors flex-shrink-0"
+                    className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-amber-600 transition-colors flex-shrink-0"
                     title="उच्चारण सुनें"
                   >
                     <Volume2 className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="text-xs font-mono text-amber-400/80 mt-0.5">{item.nameRoman}</div>
-                <div className="text-xs font-semibold text-stone-300 mt-1">{item.titleHindi}</div>
+                <div className="text-xs font-mono text-amber-600/80 mt-0.5">{item.nameRoman}</div>
+                <div className="text-xs font-semibold text-stone-700 mt-1">{item.titleHindi}</div>
               </div>
 
               {/* Composition */}
-              <div className="mb-3 p-2.5 rounded-xl bg-stone-950/60 border border-stone-800 text-xs">
-                <div className="text-stone-400 font-semibold mb-0.5">धातु मिश्रण व संघटन:</div>
-                <div className="text-amber-300 font-medium">{item.metalComposition}</div>
+              <div className="mb-3 p-2.5 rounded-xl bg-white/60 border border-stone-200 text-xs">
+                <div className="text-stone-600 font-semibold mb-0.5">धातु मिश्रण व संघटन:</div>
+                <div className="text-amber-700 font-medium">{item.metalComposition}</div>
               </div>
 
               {/* Cultural Significance & Technique */}
-              <div className="space-y-2 text-xs text-stone-300 leading-relaxed mb-4">
+              <div className="space-y-2 text-xs text-stone-700 leading-relaxed mb-4">
                 <div>
-                  <span className="font-bold text-stone-200">सामाजिक व सांस्कृतिक महत्व: </span>
+                  <span className="font-bold text-stone-800">सामाजिक व सांस्कृतिक महत्व: </span>
                   {item.culturalSignificance}
                 </div>
                 <div>
-                  <span className="font-bold text-stone-200">निर्माण तकनीक: </span>
+                  <span className="font-bold text-stone-800">निर्माण तकनीक: </span>
                   {item.craftingTechnique}
                 </div>
-                <div className="bg-amber-950/20 p-2 rounded-lg border-l-2 border-amber-500 text-amber-200/90">
-                  <span className="font-bold text-amber-300">संताली लोक-विश्वास: </span>
+                <div className="bg-amber-50/20 p-2 rounded-lg border-l-2 border-amber-500 text-amber-800/90">
+                  <span className="font-bold text-amber-700">संताली लोक-विश्वास: </span>
                   {item.santaliUsageLore}
                 </div>
               </div>
@@ -479,17 +479,17 @@ export const SantaliDhokraArt: React.FC = () => {
 
             {/* Admin Controls */}
             {isAdmin && (
-              <div className="pt-3 border-t border-stone-800/80 flex items-center justify-end gap-2 mt-2">
+              <div className="pt-3 border-t border-stone-200/80 flex items-center justify-end gap-2 mt-2">
                 <button
                   onClick={() => handleOpenEdit(item)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-amber-600/30 text-amber-300 text-xs font-semibold border border-stone-700 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-amber-200/30 text-amber-700 text-xs font-semibold border border-stone-200 transition-colors"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                   संपादित करें
                 </button>
                 <button
                   onClick={() => handleDeleteItem(item.id, item.titleHindi)}
-                  className="p-1.5 rounded-lg bg-stone-800 hover:bg-rose-900/40 text-stone-400 hover:text-rose-300 border border-stone-700 transition-colors"
+                  className="p-1.5 rounded-lg bg-stone-100 hover:bg-rose-50/40 text-stone-600 hover:text-rose-700 border border-stone-200 transition-colors"
                   title="हटाएं"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -501,7 +501,7 @@ export const SantaliDhokraArt: React.FC = () => {
       </div>
 
       {filteredItems.length === 0 && (
-        <div className="max-w-md mx-auto text-center py-16 text-stone-400">
+        <div className="max-w-md mx-auto text-center py-16 text-stone-600">
           <HelpCircle className="w-12 h-12 mx-auto mb-3 text-stone-600" />
           <p className="text-sm font-semibold">कोई धोकरा कलाकृति नहीं मिली।</p>
           <button
@@ -519,17 +519,17 @@ export const SantaliDhokraArt: React.FC = () => {
       {/* Admin Add/Edit Modal */}
       {isModalOpen && editingItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-stone-900 border border-stone-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
-            <div className="flex items-center justify-between pb-4 border-b border-stone-800 mb-4">
-              <h3 className="text-xl font-bold text-amber-200 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-amber-400" />
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
+            <div className="flex items-center justify-between pb-4 border-b border-stone-200 mb-4">
+              <h3 className="text-xl font-bold text-amber-800 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-amber-600" />
                 {items.some((it) => it.id === editingItem.id)
                   ? 'धोकरा कलाकृति संपादित करें'
                   : 'नई धोकरा कलाकृति जोड़ें'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800"
+                className="p-2 text-stone-600 hover:text-slate-900 rounded-lg hover:bg-stone-100"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -538,7 +538,7 @@ export const SantaliDhokraArt: React.FC = () => {
             <form onSubmit={handleSaveModal} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     देवनागरी नाम *
                   </label>
                   <input
@@ -549,11 +549,11 @@ export const SantaliDhokraArt: React.FC = () => {
                       setEditingItem({ ...editingItem, nameDevanagari: e.target.value })
                     }
                     placeholder="उदा. पाई व सेर (Pai ar Ser)"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     रोमन नाम (Roman Name)
                   </label>
                   <input
@@ -563,14 +563,14 @@ export const SantaliDhokraArt: React.FC = () => {
                       setEditingItem({ ...editingItem, nameRoman: e.target.value })
                     }
                     placeholder="उदा. Pai ar Ser"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     हिंदी शीर्षक *
                   </label>
                   <input
@@ -581,11 +581,11 @@ export const SantaliDhokraArt: React.FC = () => {
                       setEditingItem({ ...editingItem, titleHindi: e.target.value })
                     }
                     placeholder="उदा. पारंपरिक ढोकरा धातु का बना अन्न माप पात्र"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     श्रेणी (Category)
                   </label>
                   <select
@@ -604,7 +604,7 @@ export const SantaliDhokraArt: React.FC = () => {
                         categoryLabel: labels[val]
                       });
                     }}
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   >
                     <option value="utilitarian_measure">पारंपरिक माप पात्र</option>
                     <option value="sacred_sculpture">धार्मिक मूर्तिशिल्प</option>
@@ -616,7 +616,7 @@ export const SantaliDhokraArt: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     धातु मिश्रण (Metal Composition)
                   </label>
                   <input
@@ -626,11 +626,11 @@ export const SantaliDhokraArt: React.FC = () => {
                       setEditingItem({ ...editingItem, metalComposition: e.target.value })
                     }
                     placeholder="उदा. कांसा, पीतल व रांगा"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     बैज / उपनाम (Badge)
                   </label>
                   <input
@@ -640,13 +640,13 @@ export const SantaliDhokraArt: React.FC = () => {
                       setEditingItem({ ...editingItem, badge: e.target.value })
                     }
                     placeholder="उदा. अन्न-लक्ष्मी माप"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   सांस्कृतिक महत्व (Cultural Significance)
                 </label>
                 <textarea
@@ -656,12 +656,12 @@ export const SantaliDhokraArt: React.FC = () => {
                     setEditingItem({ ...editingItem, culturalSignificance: e.target.value })
                   }
                   placeholder="विवाह, पूजा या सामाजिक उत्सवों में इस वस्तु का उपयोग..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   शिल्प तकनीक (Crafting Technique)
                 </label>
                 <textarea
@@ -671,12 +671,12 @@ export const SantaliDhokraArt: React.FC = () => {
                     setEditingItem({ ...editingItem, craftingTechnique: e.target.value })
                   }
                   placeholder="मोम तार विधि, नक्काशी व सांचा निर्माण का विवरण..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   संताली लोक-विश्वास व उपयोग कथा (Santali Lore)
                 </label>
                 <textarea
@@ -686,15 +686,15 @@ export const SantaliDhokraArt: React.FC = () => {
                     setEditingItem({ ...editingItem, santaliUsageLore: e.target.value })
                   }
                   placeholder="पूर्वजों की मान्यता, लोकगीत या बोंगा पूजा से जुड़ी कथा..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-amber-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-stone-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-stone-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 text-sm font-semibold rounded-xl"
+                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-semibold rounded-xl"
                 >
                   रद्द करें
                 </button>

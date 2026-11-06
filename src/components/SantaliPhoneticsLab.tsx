@@ -211,19 +211,19 @@ export const SantaliPhoneticsLab: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-stone-900 text-stone-100 p-4 md:p-8">
+    <div className="min-h-screen bg-stone-50 text-stone-800 p-4 md:p-8">
       {/* Top Banner & Header */}
       <div className="max-w-6xl mx-auto mb-8">
-        <div className="bg-gradient-to-r from-violet-950/80 via-stone-900 to-indigo-950/60 border border-violet-800/40 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+        <div className="bg-gradient-to-r from-violet-50/80 via-stone-50 to-indigo-50/60 border border-violet-200/40 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-300 text-xs font-semibold mb-3">
-                <Mic className="w-3.5 h-3.5 text-violet-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-700 text-xs font-semibold mb-3">
+                <Mic className="w-3.5 h-3.5 text-violet-600" />
                 <span>संताली भाषाविज्ञान व ४ अद्वितीय रुद्ध कंठ ध्वनियां (Checked Glottal Consonants Studio)</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-black text-violet-100 tracking-tight flex items-center gap-3">
+              <h1 className="text-3xl md:text-4xl font-black text-violet-800 tracking-tight flex items-center gap-3">
                 संताली ४ रुद्ध ध्वनियां व उच्चारण प्रयोगशाला
                 <button
                   onClick={() =>
@@ -231,13 +231,13 @@ export const SantaliPhoneticsLab: React.FC = () => {
                   'संताली भाषाविज्ञान, चार अद्वितीय रुद्ध कंठ ध्वनियां एवं उच्चारण प्रयोगशाला'
                 )
               }
-                  className="p-2 rounded-lg bg-violet-800/40 hover:bg-violet-700/60 text-violet-300 transition-colors"
+                  className="p-2 rounded-lg bg-violet-100/40 hover:bg-violet-200/60 text-violet-700 transition-colors"
                   title="उच्चारण सुनें"
                 >
                   <Volume2 className="w-5 h-5" />
                 </button>
               </h1>
-              <p className="text-stone-300 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
+              <p className="text-stone-700 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
                 संताली भाषा की विश्व-प्रसिद्ध ध्वन्यात्मक विशेषता: चार अचेत/रुद्ध व्यंजन (क', च', त', प') जहां फेफड़ों की सांस कंठ में क्षणभर के लिए रोक ली जाती है। न्यूनतम युग्म (Minimal Pairs), सचेत रूपांतरण और सटीक उच्चारण अभ्यास।
               </p>
             </div>
@@ -253,7 +253,7 @@ export const SantaliPhoneticsLab: React.FC = () => {
                 </button>
                 <button
                   onClick={handleResetToDefault}
-                  className="p-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white rounded-xl border border-stone-700 transition-colors"
+                  className="p-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-slate-900 rounded-xl border border-stone-200 transition-colors"
                   title="डिफ़ॉल्ट पर रीसेट करें"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -263,8 +263,8 @@ export const SantaliPhoneticsLab: React.FC = () => {
           </div>
 
           {feedbackMsg && (
-            <div className="mt-4 p-3 bg-violet-500/20 border border-violet-500/40 rounded-xl text-violet-200 text-sm flex items-center gap-2 animate-fade-in">
-              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-violet-400" />
+            <div className="mt-4 p-3 bg-violet-500/20 border border-violet-500/40 rounded-xl text-violet-800 text-sm flex items-center gap-2 animate-fade-in">
+              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-violet-600" />
               <span>{feedbackMsg}</span>
             </div>
           )}
@@ -273,15 +273,15 @@ export const SantaliPhoneticsLab: React.FC = () => {
 
       {/* Interactive Phonetic Mechanics Guide */}
       <div className="max-w-6xl mx-auto mb-10">
-        <div className="bg-stone-900/90 border border-violet-900/40 rounded-2xl p-6 shadow-xl">
+        <div className="bg-stone-50/90 border border-violet-200/40 rounded-2xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <Activity className="w-5 h-5 text-violet-400" />
-              <h2 className="text-xl font-bold text-violet-100">
+              <Activity className="w-5 h-5 text-violet-600" />
+              <h2 className="text-xl font-bold text-violet-800">
                 रुद्ध ध्वनि कार्यप्रणाली (Acoustic Mechanics of Checked Consonants)
               </h2>
             </div>
-            <span className="text-xs text-stone-400 bg-stone-800 px-3 py-1 rounded-full border border-stone-700">
+            <span className="text-xs text-stone-600 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
               प्रत्येक सिद्धांत पर क्लिक करके भाषावैज्ञानिक नियम समझें
             </span>
           </div>
@@ -294,31 +294,31 @@ export const SantaliPhoneticsLab: React.FC = () => {
                 onClick={() => setSelectedMode(idx)}
                 className={`p-3.5 rounded-xl border text-left transition-all relative overflow-hidden ${
                   selectedMode === idx
-                    ? 'bg-violet-950/70 border-violet-500 text-violet-100 shadow-md ring-1 ring-violet-500/50'
-                    : 'bg-stone-800/60 border-stone-700/60 text-stone-400 hover:bg-stone-800 hover:text-stone-200'
+                    ? 'bg-violet-50/70 border-violet-500 text-violet-800 shadow-md ring-1 ring-violet-500/50'
+                    : 'bg-stone-100/60 border-stone-200/60 text-stone-600 hover:bg-stone-100 hover:text-stone-800'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-base">{md.icon}</span>
                   {selectedMode === idx && (
-                    <CircleDot className="w-3.5 h-3.5 text-violet-400 animate-pulse" />
+                    <CircleDot className="w-3.5 h-3.5 text-violet-600 animate-pulse" />
                   )}
                 </div>
-                <div className="text-xs font-bold text-stone-200 truncate">{md.mode}</div>
+                <div className="text-xs font-bold text-stone-800 truncate">{md.mode}</div>
               </button>
             ))}
           </div>
 
           {/* Selected Step Detail Showcase */}
-          <div className="bg-gradient-to-r from-violet-950/40 to-stone-900 border border-violet-800/30 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="bg-gradient-to-r from-violet-50/40 to-stone-50 border border-violet-200/30 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-2 flex-1">
-              <div className="flex items-center gap-2 text-xs font-bold text-violet-400 uppercase tracking-wide">
+              <div className="flex items-center gap-2 text-xs font-bold text-violet-600 uppercase tracking-wide">
                 <span>{PHONETIC_LAB_MODES[selectedMode].icon} {PHONETIC_LAB_MODES[selectedMode].mode}</span>
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-violet-100">
+              <h3 className="text-lg md:text-xl font-bold text-violet-800">
                 {PHONETIC_LAB_MODES[selectedMode].mode}
               </h3>
-              <p className="text-stone-300 text-sm leading-relaxed">
+              <p className="text-stone-700 text-sm leading-relaxed">
                 {PHONETIC_LAB_MODES[selectedMode].explanation}
               </p>
             </div>
@@ -328,7 +328,7 @@ export const SantaliPhoneticsLab: React.FC = () => {
                   `${PHONETIC_LAB_MODES[selectedMode].mode}। ${PHONETIC_LAB_MODES[selectedMode].explanation}`
                 )
               }
-              className="flex items-center gap-2 px-4 py-2 bg-violet-800/40 hover:bg-violet-700/50 text-violet-200 rounded-lg border border-violet-700/50 text-xs font-semibold transition-colors flex-shrink-0"
+              className="flex items-center gap-2 px-4 py-2 bg-violet-100/40 hover:bg-violet-200/50 text-violet-800 rounded-lg border border-violet-200/50 text-xs font-semibold transition-colors flex-shrink-0"
             >
               <Volume2 className="w-4 h-4" />
               सिद्धांत सुनें
@@ -339,7 +339,7 @@ export const SantaliPhoneticsLab: React.FC = () => {
 
       {/* Search Bar */}
       <div className="max-w-6xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="text-xs text-stone-400 font-semibold">
+        <div className="text-xs text-stone-600 font-semibold">
           संताली ४ मौलिक अचेत व्यंजन (4 Glottalized Plosives)
         </div>
 
@@ -349,7 +349,7 @@ export const SantaliPhoneticsLab: React.FC = () => {
             placeholder="खोजें (जैसे क', च', ओत, दाक')..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-3.5 py-2 bg-stone-800/90 border border-stone-700 rounded-xl text-xs text-stone-100 placeholder-stone-500 focus:outline-none focus:border-violet-500"
+            className="w-full px-3.5 py-2 bg-stone-100/90 border border-stone-200 rounded-xl text-xs text-stone-800 placeholder-stone-500 focus:outline-none focus:border-violet-500"
           />
         </div>
       </div>
@@ -359,15 +359,15 @@ export const SantaliPhoneticsLab: React.FC = () => {
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            className="bg-stone-900 border border-stone-800 hover:border-violet-700/60 rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-all group hover:-translate-y-1"
+            className="bg-stone-50 border border-stone-200 hover:border-violet-200/60 rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-all group hover:-translate-y-1"
           >
             <div>
               {/* Header Badge & Ol Chiki representation */}
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="px-2.5 py-0.5 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-300 text-[11px] font-bold">
+                <span className="px-2.5 py-0.5 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-700 text-[11px] font-bold">
                   {item.badge}
                 </span>
-                <span className="text-amber-400 text-xs font-mono font-bold bg-amber-950/40 px-2 py-0.5 rounded-md border border-amber-800/40">
+                <span className="text-amber-600 text-xs font-mono font-bold bg-amber-50/40 px-2 py-0.5 rounded-md border border-amber-200/40">
                   {item.olChikiChar} | {item.romanDiacritic}
                 </span>
               </div>
@@ -375,7 +375,7 @@ export const SantaliPhoneticsLab: React.FC = () => {
               {/* Title & Phonetic */}
               <div className="mb-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-xl font-bold text-violet-100 group-hover:text-violet-200 transition-colors">
+                  <h3 className="text-xl font-bold text-violet-800 group-hover:text-violet-800 transition-colors">
                     {item.consonantChar}
                   </h3>
                   <button
@@ -384,36 +384,36 @@ export const SantaliPhoneticsLab: React.FC = () => {
                         `${item.consonantChar}। उच्चारण स्थान: ${item.articulatoryPlace}। उदाहरण: ${item.santaliWordPair}।`
                       )
                     }
-                    className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-violet-400 transition-colors flex-shrink-0"
+                    className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-violet-600 transition-colors flex-shrink-0"
                     title="उच्चारण सुनें"
                   >
                     <Volume2 className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="text-xs font-semibold text-violet-300 mt-1">{item.linguisticTerm}</div>
+                <div className="text-xs font-semibold text-violet-700 mt-1">{item.linguisticTerm}</div>
               </div>
 
               {/* Articulatory Place */}
-              <div className="mb-3 p-2.5 rounded-xl bg-stone-950/60 border border-stone-800 text-xs">
-                <div className="text-stone-400 font-semibold mb-0.5">उच्चारण स्थान (Articulatory Place):</div>
-                <div className="text-violet-300 font-medium">{item.articulatoryPlace}</div>
+              <div className="mb-3 p-2.5 rounded-xl bg-white/60 border border-stone-200 text-xs">
+                <div className="text-stone-600 font-semibold mb-0.5">उच्चारण स्थान (Articulatory Place):</div>
+                <div className="text-violet-700 font-medium">{item.articulatoryPlace}</div>
               </div>
 
               {/* Minimal Pair Contrast */}
-              <div className="mb-3 p-3 rounded-xl bg-violet-950/25 border border-violet-900/40 text-xs">
-                <div className="text-amber-300 font-bold mb-1">न्यूनतम युग्म तुलना (Minimal Pair Contrast):</div>
-                <div className="text-stone-200 font-semibold mb-1">{item.santaliWordPair}</div>
-                <div className="text-stone-300 text-[11px] leading-relaxed">{item.meaningContrast}</div>
+              <div className="mb-3 p-3 rounded-xl bg-violet-50/25 border border-violet-200/40 text-xs">
+                <div className="text-amber-700 font-bold mb-1">न्यूनतम युग्म तुलना (Minimal Pair Contrast):</div>
+                <div className="text-stone-800 font-semibold mb-1">{item.santaliWordPair}</div>
+                <div className="text-stone-700 text-[11px] leading-relaxed">{item.meaningContrast}</div>
               </div>
 
               {/* Phonetic Rules & Tips */}
-              <div className="space-y-2 text-xs text-stone-300 leading-relaxed mb-4">
+              <div className="space-y-2 text-xs text-stone-700 leading-relaxed mb-4">
                 <div>
-                  <span className="font-bold text-stone-200">भाषावैज्ञानिक नियम: </span>
+                  <span className="font-bold text-stone-800">भाषावैज्ञानिक नियम: </span>
                   {item.phoneticRule}
                 </div>
-                <div className="bg-stone-950/40 p-2 rounded-lg border-l-2 border-violet-500 text-stone-300">
-                  <span className="font-bold text-violet-300">सटीक बोलने की युक्ति (Tip): </span>
+                <div className="bg-white/40 p-2 rounded-lg border-l-2 border-violet-500 text-stone-700">
+                  <span className="font-bold text-violet-700">सटीक बोलने की युक्ति (Tip): </span>
                   {item.pronunciationTip}
                 </div>
               </div>
@@ -421,17 +421,17 @@ export const SantaliPhoneticsLab: React.FC = () => {
 
             {/* Admin Controls */}
             {isAdmin && (
-              <div className="pt-3 border-t border-stone-800/80 flex items-center justify-end gap-2 mt-2">
+              <div className="pt-3 border-t border-stone-200/80 flex items-center justify-end gap-2 mt-2">
                 <button
                   onClick={() => handleOpenEdit(item)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-violet-600/30 text-violet-300 text-xs font-semibold border border-stone-700 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-violet-200/30 text-violet-700 text-xs font-semibold border border-stone-200 transition-colors"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                   संपादित करें
                 </button>
                 <button
                   onClick={() => handleDeleteItem(item.id, item.consonantChar)}
-                  className="p-1.5 rounded-lg bg-stone-800 hover:bg-rose-900/40 text-stone-400 hover:text-rose-300 border border-stone-700 transition-colors"
+                  className="p-1.5 rounded-lg bg-stone-100 hover:bg-rose-50/40 text-stone-600 hover:text-rose-700 border border-stone-200 transition-colors"
                   title="हटाएं"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -443,7 +443,7 @@ export const SantaliPhoneticsLab: React.FC = () => {
       </div>
 
       {filteredItems.length === 0 && (
-        <div className="max-w-md mx-auto text-center py-16 text-stone-400">
+        <div className="max-w-md mx-auto text-center py-16 text-stone-600">
           <HelpCircle className="w-12 h-12 mx-auto mb-3 text-stone-600" />
           <p className="text-sm font-semibold">कोई ध्वनि प्रविष्टि नहीं मिली।</p>
           <button
@@ -458,17 +458,17 @@ export const SantaliPhoneticsLab: React.FC = () => {
       {/* Admin Add/Edit Modal */}
       {isModalOpen && editingItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-stone-900 border border-stone-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
-            <div className="flex items-center justify-between pb-4 border-b border-stone-800 mb-4">
-              <h3 className="text-xl font-bold text-violet-200 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-violet-400" />
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
+            <div className="flex items-center justify-between pb-4 border-b border-stone-200 mb-4">
+              <h3 className="text-xl font-bold text-violet-800 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-violet-600" />
                 {items.some((it) => it.id === editingItem.id)
                   ? 'ध्वनि प्रविष्टि संपादित करें'
                   : 'नई ध्वनि प्रविष्टि जोड़ें'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800"
+                className="p-2 text-stone-600 hover:text-slate-900 rounded-lg hover:bg-stone-100"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -477,7 +477,7 @@ export const SantaliPhoneticsLab: React.FC = () => {
             <form onSubmit={handleSaveModal} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     देवनागरी वर्ण *
                   </label>
                   <input
@@ -488,11 +488,11 @@ export const SantaliPhoneticsLab: React.FC = () => {
                       setEditingItem({ ...editingItem, consonantChar: e.target.value })
                     }
                     placeholder="उदा. क' (अचेत क)"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     ओल चिकी वर्ण (Ol Chiki)
                   </label>
                   <input
@@ -502,14 +502,14 @@ export const SantaliPhoneticsLab: React.FC = () => {
                       setEditingItem({ ...editingItem, olChikiChar: e.target.value })
                     }
                     placeholder="उदा. ᱜ (Ag)"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     रोमन डायक्रिटिक (Roman)
                   </label>
                   <input
@@ -519,11 +519,11 @@ export const SantaliPhoneticsLab: React.FC = () => {
                       setEditingItem({ ...editingItem, romanDiacritic: e.target.value })
                     }
                     placeholder="उदा. k' / ḵ"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     भाषावैज्ञानिक नाम *
                   </label>
                   <input
@@ -534,14 +534,14 @@ export const SantaliPhoneticsLab: React.FC = () => {
                       setEditingItem({ ...editingItem, linguisticTerm: e.target.value })
                     }
                     placeholder="उदा. कंठ्य रुद्ध ध्वनि (Checked Velar Stop)"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     उच्चारण स्थान (Articulatory Place)
                   </label>
                   <input
@@ -551,11 +551,11 @@ export const SantaliPhoneticsLab: React.FC = () => {
                       setEditingItem({ ...editingItem, articulatoryPlace: e.target.value })
                     }
                     placeholder="उदा. कंठ व कोमल तालु"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-300 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
                     बैज / उपनाम (Badge)
                   </label>
                   <input
@@ -565,13 +565,13 @@ export const SantaliPhoneticsLab: React.FC = () => {
                       setEditingItem({ ...editingItem, badge: e.target.value })
                     }
                     placeholder="उदा. कंठ्य रुद्ध"
-                    className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   न्यूनतम युग्म शब्द तुलना (Word Pair)
                 </label>
                 <input
@@ -581,12 +581,12 @@ export const SantaliPhoneticsLab: React.FC = () => {
                     setEditingItem({ ...editingItem, santaliWordPair: e.target.value })
                   }
                   placeholder="उदा. दाक' (पानी) बनाम दाका (भात)"
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   अर्थ-भेद विवरण (Meaning Contrast)
                 </label>
                 <textarea
@@ -596,12 +596,12 @@ export const SantaliPhoneticsLab: React.FC = () => {
                     setEditingItem({ ...editingItem, meaningContrast: e.target.value })
                   }
                   placeholder="अर्थ में आने वाले अंतर का स्पष्ट विवरण..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   भाषावैज्ञानिक नियम
                 </label>
                 <textarea
@@ -611,12 +611,12 @@ export const SantaliPhoneticsLab: React.FC = () => {
                     setEditingItem({ ...editingItem, phoneticRule: e.target.value })
                   }
                   placeholder="अचेत से सचेत रूपांतरण या वायु प्रवाह का नियम..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-300 mb-1">
+                <label className="block text-xs font-bold text-stone-700 mb-1">
                   सटीक बोलने की युक्ति (Pronunciation Tip)
                 </label>
                 <textarea
@@ -626,15 +626,15 @@ export const SantaliPhoneticsLab: React.FC = () => {
                     setEditingItem({ ...editingItem, pronunciationTip: e.target.value })
                   }
                   placeholder="जीभ और मुंह की स्थिति का सरल सुझाव..."
-                  className="w-full px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-sm text-stone-100 focus:outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 bg-stone-100 border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-violet-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-stone-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-stone-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 text-sm font-semibold rounded-xl"
+                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-semibold rounded-xl"
                 >
                   रद्द करें
                 </button>

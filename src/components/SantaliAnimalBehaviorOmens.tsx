@@ -138,29 +138,29 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-emerald-950 via-teal-950 to-stone-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-teal-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-stone-50 rounded-3xl p-6 sm:p-8 text-slate-900 shadow-xl border border-teal-200/40 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-teal-500/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/20 text-teal-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-teal-500/30">
               <Radio className="w-4 h-4" />
               जीव-जिन्तु साडे आर सुगुन • Animal Ethno-Bioacoustics
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-teal-50">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-teal-900">
               संताली पशु-ध्वनि, जैव-संकेत व लोक-शकुन विद्या
             </h1>
-            <p className="mt-2 text-teal-200/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p className="mt-2 text-teal-800/90 text-sm sm:text-base max-w-2xl leading-relaxed">
               जंगली जीवों की चेतावनी पुकारें (Alarm Calls), मेंढक-चींटियों के वर्षा संकेत, यात्रा व सेंदरा के भागी-बाड़ीच् सुगुन (शकुन शास्त्र) और ऑडियो ध्वनि अनुकरण।
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-stone-950/80 p-1.5 rounded-2xl border border-teal-700/50">
+          <div className="flex items-center gap-2 bg-white/80 p-1.5 rounded-2xl border border-teal-200/50">
             <button
               onClick={() => setActiveTab('bioacoustics')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'bioacoustics'
                   ? 'bg-teal-600 text-white shadow-md'
-                  : 'text-teal-300 hover:text-white'
+                  : 'text-teal-700 hover:text-slate-900'
               }`}
             >
               पशु-ध्वनि विज्ञान
@@ -170,7 +170,7 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'travel_omens'
                   ? 'bg-teal-600 text-white shadow-md'
-                  : 'text-teal-300 hover:text-white'
+                  : 'text-teal-700 hover:text-slate-900'
               }`}
             >
               यात्रा शकुन (सुगुन)
@@ -180,7 +180,7 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 activeTab === 'weather'
                   ? 'bg-teal-600 text-white shadow-md'
-                  : 'text-teal-300 hover:text-white'
+                  : 'text-teal-700 hover:text-slate-900'
               }`}
             >
               वर्षा-पूर्वानुमान
@@ -193,7 +193,7 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
       {activeTab === 'bioacoustics' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-teal-900 dark:text-teal-300 px-1 flex items-center gap-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-teal-900 dark:text-teal-700 px-1 flex items-center gap-2">
               <Compass className="w-4 h-4 text-teal-600" />
               जीव-जंतुओं की विशिष्ट ध्वनियां:
             </h2>
@@ -207,20 +207,20 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
                     onClick={() => setSelectedOmen(omen)}
                     className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                       isSelected
-                        ? 'bg-teal-50/80 dark:bg-teal-950/40 border-teal-600 shadow-md ring-2 ring-teal-500/20'
-                        : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-teal-300'
+                        ? 'bg-teal-50/80 dark:bg-teal-50/40 border-teal-300 shadow-md ring-2 ring-teal-500/20'
+                        : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-teal-300'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl p-2 bg-teal-100 dark:bg-teal-900/60 rounded-xl">
+                        <span className="text-2xl p-2 bg-teal-100 dark:bg-teal-50/60 rounded-xl">
                           {omen.visualEmoji}
                         </span>
                         <div>
-                          <div className="font-bold text-slate-900 dark:text-white text-base">
+                          <div className="font-bold text-slate-900 dark:text-slate-900 text-base">
                             {omen.animalSantali}
                           </div>
-                          <div className="text-xs text-teal-700 dark:text-teal-400 font-semibold">
+                          <div className="text-xs text-teal-700 dark:text-teal-600 font-semibold">
                             {omen.animalHindi}
                           </div>
                         </div>
@@ -231,7 +231,7 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
                           playSynthesizedAnimalCall(omen.audioFreq, omen.waveType);
                           speakText(`${omen.animalSantali}. संकेत: ${omen.forestMeaning}`);
                         }}
-                        className="p-1.5 rounded-lg text-teal-600 hover:bg-teal-100 dark:hover:bg-teal-900/50"
+                        className="p-1.5 rounded-lg text-teal-600 hover:bg-teal-100 dark:hover:bg-teal-50/50"
                         title="ध्वनि सुनें"
                       >
                         <Volume2 className="w-4 h-4" />
@@ -245,13 +245,13 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
 
           {/* Omen Detail */}
           <div className="lg:col-span-7 space-y-5">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 border border-slate-200 dark:border-slate-200 shadow-sm space-y-5">
+              <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-200 pb-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
                     {selectedOmen.visualEmoji} {selectedOmen.animalSantali}
                   </h3>
-                  <p className="text-sm text-teal-700 dark:text-teal-400 font-medium">
+                  <p className="text-sm text-teal-700 dark:text-teal-600 font-medium">
                     {selectedOmen.animalHindi} ({selectedOmen.scientificGroup})
                   </p>
                 </div>
@@ -268,21 +268,21 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
               {/* Data Specifications */}
               <div className="space-y-4 text-sm">
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-teal-500"></span>
                     ध्वनि प्रकृति व अभिव्यक्ति (Acoustic Behavior):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-slate-50 dark:bg-slate-100/30 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-200">
                     {selectedOmen.soundDescription}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-1">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-800 flex items-center gap-2 mb-1">
                     <span className="w-2 h-2 rounded-full bg-amber-500"></span>
                     जंगल में इसका गहरा अर्थ (Forest Translation):
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed bg-amber-50/50 dark:bg-amber-950/20 p-3.5 rounded-2xl border border-amber-200/60 dark:border-amber-900/30">
+                  <p className="text-slate-600 dark:text-slate-700 leading-relaxed bg-amber-50/50 dark:bg-amber-50/20 p-3.5 rounded-2xl border border-amber-200/60 dark:border-amber-200/30">
                     {selectedOmen.forestMeaning}
                   </p>
                 </div>
@@ -294,13 +294,13 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
 
       {/* Main Tab: Travel Omens */}
       {activeTab === 'travel_omens' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <Compass className="w-5 h-5 text-teal-600" />
               संताली यात्रा व सेंदरा शकुन संहिता (Shugun Katha)
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               पूर्वजों द्वारा सदियों के अवलोकन से विकसित प्राकृतिक व मानवीय संकेत जो यात्रा की सफलता का संकेत देते हैं।
             </p>
           </div>
@@ -311,8 +311,8 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
                 key={idx}
                 className={`p-5 rounded-2xl border space-y-3 ${
                   rule.type === 'good'
-                    ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-200/60 dark:border-emerald-800/40'
-                    : 'bg-rose-50/40 dark:bg-rose-950/20 border-rose-200/60 dark:border-rose-800/40'
+                    ? 'bg-emerald-50/40 dark:bg-emerald-50/20 border-emerald-200/60 dark:border-emerald-200/40'
+                    : 'bg-rose-50/40 dark:bg-rose-50/20 border-rose-200/60 dark:border-rose-200/40'
                 }`}
               >
                 <div className="flex items-center gap-2 font-bold text-base">
@@ -321,14 +321,14 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
                   ) : (
                     <AlertCircle className="w-5 h-5 text-rose-600" />
                   )}
-                  <span className={rule.type === 'good' ? 'text-emerald-950 dark:text-emerald-200' : 'text-rose-950 dark:text-rose-200'}>
+                  <span className={rule.type === 'good' ? 'text-emerald-950 dark:text-emerald-800' : 'text-rose-950 dark:text-rose-800'}>
                     {rule.title}
                   </span>
                 </div>
-                <div className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+                <div className="space-y-2 text-xs text-slate-700 dark:text-slate-700">
                   {rule.examples.map((ex, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <span className="text-slate-400">•</span>
+                      <span className="text-slate-600">•</span>
                       <span>{ex}</span>
                     </div>
                   ))}
@@ -341,44 +341,44 @@ export const SantaliAnimalBehaviorOmens: React.FC = () => {
 
       {/* Main Tab: Weather Forecast */}
       {activeTab === 'weather' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-sm space-y-6">
           <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-teal-600" />
               जैविक मौसम पूर्वानुमान (Biometeorology Lore)
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
               मौसम रडार से सदियों पूर्व संताली किसान प्रकृति के इन मूक दूतों से वर्षा और तूफान का सटीक अनुमान लगाते थे।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🐜</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 चींटियों का अंडे लेकर चढ़ना
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 जब काली चींटियां (मुइ) पंक्तिबद्ध होकर अपने सफेद अंडों को मुंह में दबाकर वृक्षों के ऊंचे तनों पर चढ़ने लगें, तो ३ दिनों में भारी वर्षा निश्चित है।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🪺</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 बाबुई पक्षी का घोंसला
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 यदि बाबुई चिड़िया पेड़ की सबसे ऊंची डाल पर लटकता घोंसला बनाए तो उस वर्ष प्रचंड बाढ़ आएगी; यदि निचली डाल पर बनाए तो सूखा पड़ेगा।
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-100/50 border border-slate-200 dark:border-slate-200 space-y-2">
               <div className="text-2xl">🦚</div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+              <h3 className="font-bold text-slate-900 dark:text-slate-900 text-sm">
                 मोर का मेघ-नृत्य व केका-ध्वनि
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                 आषाढ़ के पहले बादल देखते ही मयूर का पंख पसारकर झूमना और तीखी 'पिहो-पिहो' ध्वनि करना वर्षा-ऋतु के आगमन का पावन शंखनाद है।
               </p>
             </div>

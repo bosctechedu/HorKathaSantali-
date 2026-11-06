@@ -202,16 +202,16 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-orange-950 via-stone-900 to-amber-950 border border-orange-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-orange-50 via-stone-50 to-amber-50 border border-orange-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-800/60 border border-orange-600/40 rounded-full text-xs font-semibold text-orange-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-100/60 border border-orange-300/40 rounded-full text-xs font-semibold text-orange-800 mb-3">
             <Trophy className="w-3.5 h-3.5" />
             <span>काटी एनेच व पारंपरिक खेल (Santali Indigenous Sports)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-orange-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-orange-800">
             काटी एनेच, बेझा तुन व संताली पारंपरिक लोक-खेल
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             संथाल समाज में काटी एनेच केवल मनोरंजन नहीं, बल्कि गांव बनाम गांव के बीच भाईचारा, एकाग्रता और शारीरिक सौष्ठव की महापरीक्षा है। खेलिए इंटरैक्टिव काटी निशाना सिमुलेटर और जानिए साकरात बेझा तुन तीरंदाजी परंपरा।
           </p>
 
@@ -221,7 +221,7 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'simulator'
                   ? 'bg-orange-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               इंटरैक्टिव काटी गोटी सिमुलेटर (Kati Game)
@@ -231,7 +231,7 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'sports_directory'
                   ? 'bg-orange-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               संताली खेल ज्ञानकोश व नियम
@@ -245,19 +245,19 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Panel */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-5 shadow-xl space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-stone-800">
-                <span className="text-sm font-bold text-amber-200">काटी फेंक नियंत्रक (Controls)</span>
-                <span className="px-3 py-1 bg-amber-950 text-amber-300 text-xs font-bold rounded-full border border-amber-800">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-5 shadow-xl space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-stone-200">
+                <span className="text-sm font-bold text-amber-800">काटी फेंक नियंत्रक (Controls)</span>
+                <span className="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full border border-amber-200">
                   स्कोर: {score} अंक
                 </span>
               </div>
 
               {/* Angle Slider */}
               <div className="space-y-1">
-                <div className="flex justify-between text-xs text-stone-300 font-medium">
+                <div className="flex justify-between text-xs text-stone-700 font-medium">
                   <span>दिशा कोण (Angle): {angle}°</span>
-                  <span className="text-stone-400">दाएं / बाएं</span>
+                  <span className="text-stone-600">दाएं / बाएं</span>
                 </div>
                 <input
                   type="range"
@@ -272,9 +272,9 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
 
               {/* Power Slider */}
               <div className="space-y-1">
-                <div className="flex justify-between text-xs text-stone-300 font-medium">
+                <div className="flex justify-between text-xs text-stone-700 font-medium">
                   <span>छड़ी का जोर (Force/Power): {power}%</span>
-                  <span className="text-stone-400">दूरी</span>
+                  <span className="text-stone-600">दूरी</span>
                 </div>
                 <input
                   type="range"
@@ -294,7 +294,7 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
                   disabled={isShooting}
                   className={`flex-1 py-3 rounded-xl font-bold text-sm shadow-lg transition-all ${
                     isShooting
-                      ? 'bg-stone-800 text-stone-500 cursor-not-allowed'
+                      ? 'bg-stone-100 text-stone-500 cursor-not-allowed'
                       : 'bg-orange-600 hover:bg-orange-500 text-white'
                   }`}
                 >
@@ -302,7 +302,7 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
                 </button>
                 <button
                   onClick={resetShooter}
-                  className="p-3 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-xl"
+                  className="p-3 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl"
                   title="पुनः स्थापित करें"
                 >
                   <RotateCcw className="w-5 h-5" />
@@ -314,8 +314,8 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
                 <div
                   className={`p-3 rounded-xl text-center text-xs font-bold ${
                     hitResult === 'hit'
-                      ? 'bg-emerald-950 border border-emerald-600 text-emerald-300'
-                      : 'bg-red-950 border border-red-800 text-red-300'
+                      ? 'bg-emerald-50 border border-emerald-300 text-emerald-700'
+                      : 'bg-red-50 border border-red-200 text-red-700'
                   }`}
                 >
                   {hitResult === 'hit'
@@ -326,20 +326,20 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
             </div>
 
             {/* Quick Lore */}
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-4 text-xs text-stone-300 space-y-1.5">
-              <span className="font-bold text-amber-300 block">काटी एनेच का नियम:</span>
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 text-xs text-stone-700 space-y-1.5">
+              <span className="font-bold text-amber-700 block">काटी एनेच का नियम:</span>
               <p>खिलाड़ी अपने बाएं पैर के अंगूठे पर काटी गोटी को टिकाकर बांस की छड़ी के धक्के से जमीन पर तेजी से सरकाते हैं।</p>
             </div>
           </div>
 
           {/* Canvas Field */}
           <div className="lg:col-span-7 flex justify-center">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-4 shadow-xl">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 shadow-xl">
               <canvas
                 ref={canvasRef}
                 width={480}
                 height={360}
-                className="rounded-xl border border-stone-700 max-w-full h-auto shadow-2xl"
+                className="rounded-xl border border-stone-200 max-w-full h-auto shadow-2xl"
               />
             </div>
           </div>
@@ -352,22 +352,22 @@ export const SantaliIndigenousSportsKati: React.FC = () => {
           {INDIGENOUS_SPORTS.map(sp => (
             <div
               key={sp.id}
-              className="bg-stone-900 border border-stone-800 rounded-2xl p-5 space-y-3 hover:border-orange-500/50 transition-colors"
+              className="bg-stone-50 border border-stone-200 rounded-2xl p-5 space-y-3 hover:border-orange-500/50 transition-colors"
             >
-              <div className="flex items-center justify-between pb-2 border-b border-stone-800">
-                <span className="text-lg font-bold text-amber-300">{sp.nameDev}</span>
-                <span className="text-xs px-2 py-0.5 rounded bg-orange-950 text-orange-300 border border-orange-800">
+              <div className="flex items-center justify-between pb-2 border-b border-stone-200">
+                <span className="text-lg font-bold text-amber-700">{sp.nameDev}</span>
+                <span className="text-xs px-2 py-0.5 rounded bg-orange-50 text-orange-700 border border-orange-200">
                   {sp.nameRom}
                 </span>
               </div>
-              <p className="text-xs text-stone-400 font-semibold">{sp.hindiName}</p>
-              <div className="text-xs text-stone-300 space-y-1 bg-stone-950 p-3 rounded-xl border border-stone-800">
+              <p className="text-xs text-stone-600 font-semibold">{sp.hindiName}</p>
+              <div className="text-xs text-stone-700 space-y-1 bg-white p-3 rounded-xl border border-stone-200">
                 <p><strong>ऋतु व पर्व:</strong> {sp.seasonFestival}</p>
                 <p><strong>खिलाड़ी:</strong> {sp.teamSize}</p>
                 <p><strong>उपकरण:</strong> {sp.equipment}</p>
               </div>
-              <p className="text-stone-300 text-xs leading-relaxed">{sp.rulesSummary}</p>
-              <div className="text-xs text-amber-200/90 italic pt-1">
+              <p className="text-stone-700 text-xs leading-relaxed">{sp.rulesSummary}</p>
+              <div className="text-xs text-amber-800/90 italic pt-1">
                 🏆 {sp.culturalValue}
               </div>
             </div>

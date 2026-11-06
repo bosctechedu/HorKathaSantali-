@@ -220,16 +220,16 @@ export const SantaliIpilConstellationsAstronomy: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-indigo-950 via-slate-900 to-emerald-950 border border-indigo-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border border-indigo-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-800/60 border border-indigo-600/40 rounded-full text-xs font-semibold text-indigo-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100/60 border border-indigo-300/40 rounded-full text-xs font-semibold text-indigo-800 mb-3">
             <Star className="w-3.5 h-3.5" />
             <span>इपिल व खगोल दर्शन (Santali Indigenous Sky Lore)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-indigo-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-indigo-800">
             इपिल: संथाल पारंपरिक खगोल, नक्षत्र व रात्रि नेविगेशन
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             संथाल समाज की अपनी समृद्ध खगोलीय मानचित्रावली है। आकाश में हल जोतता हुआ किसान (हर-काटा इपिल), बच्चों को समेटे मुर्गी (बुधु-बुधु इपिल) और ऐरावत हाथी का मार्ग (हती डाहार)। जानिए कैसे पूर्वज तारों से रात का पहर और बुआई का सटीक समय नापते थे।
           </p>
 
@@ -239,7 +239,7 @@ export const SantaliIpilConstellationsAstronomy: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'starmap'
                   ? 'bg-indigo-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               इंटरैक्टिव रात्रि तारा-मानचित्र (Sky Map)
@@ -249,7 +249,7 @@ export const SantaliIpilConstellationsAstronomy: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'halo_weather'
                   ? 'bg-indigo-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               बेर-बेड़े व चांदो-बेड़े (सूर्य-चंद्र प्रभामंडल मौसम संकेत)
@@ -263,7 +263,7 @@ export const SantaliIpilConstellationsAstronomy: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Constellations Selector */}
           <div className="lg:col-span-5 space-y-2">
-            <div className="text-xs font-bold text-stone-400 uppercase tracking-wider px-1 mb-2">
+            <div className="text-xs font-bold text-stone-600 uppercase tracking-wider px-1 mb-2">
               संथाली नक्षत्र मंडल चुनें:
             </div>
             {CONSTELLATIONS_DATA.map(item => {
@@ -274,17 +274,17 @@ export const SantaliIpilConstellationsAstronomy: React.FC = () => {
                   onClick={() => setSelectedConstellation(item)}
                   className={`p-3.5 rounded-xl cursor-pointer border transition-all ${
                     isSelected
-                      ? 'bg-indigo-950/70 border-indigo-500 shadow-md'
-                      : 'bg-stone-900/70 hover:bg-stone-800/60 border-stone-800'
+                      ? 'bg-indigo-50/70 border-indigo-500 shadow-md'
+                      : 'bg-stone-50/70 hover:bg-stone-100/60 border-stone-200'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-amber-200">{item.santaliDev}</span>
-                    <span className="text-xs px-2 py-0.5 rounded bg-stone-800 text-stone-400 font-mono">
+                    <span className="text-sm font-bold text-amber-800">{item.santaliDev}</span>
+                    <span className="text-xs px-2 py-0.5 rounded bg-stone-100 text-stone-600 font-mono">
                       {item.santaliRom}
                     </span>
                   </div>
-                  <p className="text-xs text-stone-400 mt-1">{item.hindiName}</p>
+                  <p className="text-xs text-stone-600 mt-1">{item.hindiName}</p>
                 </div>
               );
             })}
@@ -292,17 +292,17 @@ export const SantaliIpilConstellationsAstronomy: React.FC = () => {
 
           {/* Interactive Canvas & Lore */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-5 shadow-xl text-center">
-              <div className="flex items-center justify-between mb-3 text-xs text-stone-400">
-                <span className="font-semibold text-amber-300">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-5 shadow-xl text-center">
+              <div className="flex items-center justify-between mb-3 text-xs text-stone-600">
+                <span className="font-semibold text-amber-700">
                   {selectedConstellation.santaliDev}
                 </span>
                 <button
                   onClick={() => setShowOverlays(!showOverlays)}
                   className={`px-3 py-1 rounded-lg border text-xs transition-colors ${
                     showOverlays
-                      ? 'bg-indigo-900 border-indigo-500 text-indigo-200'
-                      : 'bg-stone-800 border-stone-700 text-stone-400'
+                      ? 'bg-indigo-50 border-indigo-500 text-indigo-800'
+                      : 'bg-stone-100 border-stone-200 text-stone-600'
                   }`}
                 >
                   नक्षत्र रेखाएं {showOverlays ? 'दिखाएं' : 'छिपाएं'}
@@ -315,31 +315,31 @@ export const SantaliIpilConstellationsAstronomy: React.FC = () => {
                   ref={canvasRef}
                   width={480}
                   height={340}
-                  className="rounded-xl border border-stone-700 max-w-full h-auto shadow-2xl"
+                  className="rounded-xl border border-stone-200 max-w-full h-auto shadow-2xl"
                 />
               </div>
 
               {/* Lore Description Box */}
-              <div className="mt-4 p-4 bg-stone-950/80 rounded-xl border border-stone-800 text-left space-y-2">
+              <div className="mt-4 p-4 bg-white/80 rounded-xl border border-stone-200 text-left space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-indigo-300 uppercase tracking-wide">
+                  <span className="text-xs font-bold text-indigo-700 uppercase tracking-wide">
                     {selectedConstellation.modernAstronomy}
                   </span>
                   <button
                     onClick={() => speakText(selectedConstellation.santaliDev + ': ' + selectedConstellation.folkloreMyth)}
-                    className="p-1 bg-indigo-900/40 text-indigo-200 rounded hover:bg-indigo-800"
+                    className="p-1 bg-indigo-50/40 text-indigo-800 rounded hover:bg-indigo-100"
                   >
                     <Volume2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
-                <p className="text-stone-300 text-xs leading-relaxed">
+                <p className="text-stone-700 text-xs leading-relaxed">
                   <strong>पौराणिक कथा:</strong> {selectedConstellation.folkloreMyth}
                 </p>
-                <div className="pt-2 border-t border-stone-800 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
-                  <div className="text-amber-200/90">
+                <div className="pt-2 border-t border-stone-200 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                  <div className="text-amber-800/90">
                     🌾 <strong>कृषि संकेत:</strong> {selectedConstellation.agriculturalSign}
                   </div>
-                  <div className="text-emerald-200/90">
+                  <div className="text-emerald-800/90">
                     ⏱️ <strong>समय ज्ञान:</strong> {selectedConstellation.nightTimingRole}
                   </div>
                 </div>
@@ -351,29 +351,29 @@ export const SantaliIpilConstellationsAstronomy: React.FC = () => {
 
       {/* Main Tab 2: Halo Weather Signs */}
       {activeTab === 'halo_weather' && (
-        <div className="max-w-3xl mx-auto bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-5">
+        <div className="max-w-3xl mx-auto bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-5">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-amber-200">बेर-बेड़े व चांदो-बेड़े: खगोलीय प्रभामंडल व वर्षा संकेत</h3>
-            <p className="text-xs text-stone-400 mt-1">सूर्य व चंद्रमा के चारों ओर बनने वाले वलय (Halo) से मौसम की सटीक भविष्यवाणी</p>
+            <h3 className="text-xl font-bold text-amber-800">बेर-बेड़े व चांदो-बेड़े: खगोलीय प्रभामंडल व वर्षा संकेत</h3>
+            <p className="text-xs text-stone-600 mt-1">सूर्य व चंद्रमा के चारों ओर बनने वाले वलय (Halo) से मौसम की सटीक भविष्यवाणी</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 space-y-2">
-              <span className="text-sm font-bold text-amber-400 block flex items-center gap-1.5">
-                <Sun className="w-4 h-4 text-amber-400" />
+            <div className="p-4 bg-white rounded-xl border border-stone-200 space-y-2">
+              <span className="text-sm font-bold text-amber-600 block flex items-center gap-1.5">
+                <Sun className="w-4 h-4 text-amber-600" />
                 <span>१. बेर-बेड़े (सूर्य के चारों ओर घेरा)</span>
               </span>
-              <p className="text-xs text-stone-300 leading-relaxed">
+              <p className="text-xs text-stone-700 leading-relaxed">
                 जब दोपहर में सूर्य के चारों ओर इंद्रधनुषी वलय बनता है, तो संथाल पूर्वजों के अनुसार वायुमंडल में अत्यधिक नमी है और २४ घंटे के भीतर भारी वर्षा या मेघ-गर्जन निश्चित है।
               </p>
             </div>
 
-            <div className="p-4 bg-stone-950 rounded-xl border border-stone-800 space-y-2">
-              <span className="text-sm font-bold text-sky-400 block flex items-center gap-1.5">
-                <Moon className="w-4 h-4 text-sky-400" />
+            <div className="p-4 bg-white rounded-xl border border-stone-200 space-y-2">
+              <span className="text-sm font-bold text-sky-600 block flex items-center gap-1.5">
+                <Moon className="w-4 h-4 text-sky-600" />
                 <span>२. चांदो-बेड़े (चंद्रमा का घेरा)</span>
               </span>
-              <p className="text-xs text-stone-300 leading-relaxed">
+              <p className="text-xs text-stone-700 leading-relaxed">
                 यदि रात में चंद्रमा के चारों ओर बड़ा घेरा बने और तारे धुंधले दिखें, तो यह दूर देश में वर्षा होने तथा स्थानीय क्षेत्र में तेज हवा या सूखा रहने का संकेत माना जाता है।
               </p>
             </div>

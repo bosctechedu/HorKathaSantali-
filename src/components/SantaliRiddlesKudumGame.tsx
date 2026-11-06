@@ -143,61 +143,61 @@ export const SantaliRiddlesKudumGame: React.FC = () => {
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-violet-950 via-purple-950 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-violet-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-violet-50 via-purple-50 to-indigo-50 text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-violet-200/40 relative overflow-hidden">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
           <HelpCircle size={260} />
         </div>
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-700 border border-violet-500/30 text-xs font-semibold mb-3">
             <Sparkles size={14} />
             <span>कुदुम खेल - संताली लोक पहेलियां व बौद्धिक मनोरंजन</span>
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-violet-100 flex items-center gap-3">
+            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-violet-800 flex items-center gap-3">
               <span>कुदुम (Kudum) पहेली प्रतियोगिता</span>
               <button
                 onClick={() => speakWithFemaleVoice('सांतार कुदुम खेल आर हापड़ाम कोवाक् अकिल')}
-                className="p-2 rounded-full bg-violet-500/20 hover:bg-violet-500/40 text-violet-300 transition-colors"
+                className="p-2 rounded-full bg-violet-500/20 hover:bg-violet-500/40 text-violet-700 transition-colors"
                 title="सुनें"
               >
                 <Volume2 size={22} />
               </button>
             </h1>
-            <div className="flex items-center gap-3 bg-violet-900/50 px-4 py-2 rounded-2xl border border-violet-700/50">
-              <Trophy className="text-amber-400" size={20} />
+            <div className="flex items-center gap-3 bg-violet-50/50 px-4 py-2 rounded-2xl border border-violet-200/50">
+              <Trophy className="text-amber-600" size={20} />
               <div>
-                <span className="text-xs text-violet-300 block">कुल स्कोर</span>
-                <span className="text-lg font-black text-amber-300">{score} अंक</span>
+                <span className="text-xs text-violet-700 block">कुल स्कोर</span>
+                <span className="text-lg font-black text-amber-700">{score} अंक</span>
               </div>
             </div>
           </div>
-          <p className="text-violet-200/80 text-sm sm:text-base mt-2 leading-relaxed">
+          <p className="text-violet-800/80 text-sm sm:text-base mt-2 leading-relaxed">
             संताली समाज में संध्या चौपाल पर हापड़ाम (बुजुर्ग) बच्चों की बुद्धि और प्रकृति-ज्ञान की परीक्षा लेने के लिए रोचक पहेलियां (कुदुम) पूछते हैं। सही विकल्प चुनें और अपनी मेधा परखें!
           </p>
         </div>
       </div>
 
       {/* Main Riddle Card */}
-      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
+      <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-xl space-y-6">
         {/* Navigation & Progress */}
-        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-200 pb-4">
           <div className="flex items-center gap-2">
             <BrainCircuit className="text-violet-600" size={20} />
-            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-700">
               पहेली संख्या {currentIndex + 1} / {KUDUM_RIDDLES.length}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowHint(!showHint)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-800 text-xs font-semibold hover:bg-amber-100 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-50/40 text-amber-700 dark:text-amber-700 border border-amber-300 dark:border-amber-200 text-xs font-semibold hover:bg-amber-100 transition-colors"
             >
               <Lightbulb size={14} />
               <span>{showHint ? 'इशारा छिपाएं' : 'संकेत (Hint)'}</span>
             </button>
             <button
               onClick={handleReset}
-              className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+              className="p-1.5 text-slate-600 hover:text-slate-600 dark:hover:text-slate-800 transition-colors"
               title="पुनः आरंभ करें"
             >
               <RefreshCw size={16} />
@@ -207,7 +207,7 @@ export const SantaliRiddlesKudumGame: React.FC = () => {
 
         {/* Hint Box */}
         {showHint && (
-          <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40 text-amber-900 dark:text-amber-200 text-xs sm:text-sm flex items-center gap-2">
+          <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-50/30 border border-amber-200 dark:border-amber-200/40 text-amber-900 dark:text-amber-800 text-xs sm:text-sm flex items-center gap-2">
             <Lightbulb size={16} className="text-amber-600 shrink-0" />
             <span>
               <strong>संकेत:</strong> {currentRiddle.hint}
@@ -216,29 +216,29 @@ export const SantaliRiddlesKudumGame: React.FC = () => {
         )}
 
         {/* Riddle Text */}
-        <div className="bg-violet-50/60 dark:bg-violet-950/20 p-6 rounded-2xl border border-violet-200/60 dark:border-violet-900/30 space-y-3">
+        <div className="bg-violet-50/60 dark:bg-violet-50/20 p-6 rounded-2xl border border-violet-200/60 dark:border-violet-200/30 space-y-3">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/50 text-violet-800 dark:text-violet-300 uppercase">
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-50/50 text-violet-800 dark:text-violet-700 uppercase">
                 संताली देवनागरी कुदुम
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 mt-2">
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-800 mt-2">
                 &ldquo;{currentRiddle.riddleSantaliDev}&rdquo;
               </h2>
-              <p className="text-sm font-semibold text-violet-700 dark:text-violet-400 mt-1">
+              <p className="text-sm font-semibold text-violet-700 dark:text-violet-600 mt-1">
                 {currentRiddle.riddleRoman}
               </p>
             </div>
             <button
               onClick={() => speakWithFemaleVoice(currentRiddle.riddleSantaliDev)}
-              className="p-3 rounded-2xl bg-violet-700 text-white hover:bg-violet-800 shadow-md transition-colors shrink-0"
+              className="p-3 rounded-2xl bg-violet-700 text-white hover:bg-violet-100 shadow-md transition-colors shrink-0"
               title="कुदुम सुनें"
             >
               <Volume2 size={20} />
             </button>
           </div>
-          <div className="pt-2 border-t border-violet-200/40 dark:border-violet-900/30">
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          <div className="pt-2 border-t border-violet-200/40 dark:border-violet-200/30">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-600">
               <strong>हिन्दी अर्थ:</strong> {currentRiddle.riddleHindiMeaning}
             </p>
           </div>
@@ -255,13 +255,13 @@ export const SantaliRiddlesKudumGame: React.FC = () => {
               const isCorrect = opt === currentRiddle.correctAnswerDev;
 
               let btnStyle =
-                'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:border-violet-400 hover:bg-violet-50/50 dark:hover:bg-slate-800';
+                'bg-slate-50 dark:bg-slate-100/60 border-slate-200 dark:border-slate-200 text-slate-800 dark:text-slate-800 hover:border-violet-400 hover:bg-violet-50/50 dark:hover:bg-slate-100';
 
               if (showAnswer) {
                 if (isCorrect) {
-                  btnStyle = 'bg-emerald-100 dark:bg-emerald-950/60 border-emerald-500 text-emerald-900 dark:text-emerald-200 font-bold';
+                  btnStyle = 'bg-emerald-100 dark:bg-emerald-50/60 border-emerald-500 text-emerald-900 dark:text-emerald-800 font-bold';
                 } else if (isChosen && !isCorrect) {
-                  btnStyle = 'bg-red-100 dark:bg-red-950/60 border-red-500 text-red-900 dark:text-red-200 font-bold';
+                  btnStyle = 'bg-red-100 dark:bg-red-50/60 border-red-500 text-red-900 dark:text-red-800 font-bold';
                 }
               }
 
@@ -283,34 +283,34 @@ export const SantaliRiddlesKudumGame: React.FC = () => {
 
         {/* Answer Breakdown & Cultural Note */}
         {showAnswer && (
-          <div className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800 animate-fadeIn">
-            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/40">
+          <div className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-200 animate-fadeIn">
+            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-50/30 border border-emerald-200 dark:border-emerald-200/40">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wide flex items-center gap-1.5">
+                <span className="text-xs font-bold text-emerald-900 dark:text-emerald-700 uppercase tracking-wide flex items-center gap-1.5">
                   <CheckCircle2 size={15} />
                   <span>सही उत्तर व रहस्य</span>
                 </span>
                 <button
                   onClick={() => speakWithFemaleVoice(currentRiddle.correctAnswerDev)}
-                  className="text-xs font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-1 hover:underline"
+                  className="text-xs font-bold text-emerald-700 dark:text-emerald-700 flex items-center gap-1 hover:underline"
                 >
                   <Volume2 size={14} />
                   <span>उत्तर सुनें</span>
                 </button>
               </div>
-              <p className="text-base font-bold text-emerald-900 dark:text-emerald-100 mt-1">
+              <p className="text-base font-bold text-emerald-900 dark:text-emerald-800 mt-1">
                 {currentRiddle.correctAnswerDev}
               </p>
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-700 mt-1 leading-relaxed">
                 {currentRiddle.explanationHindi}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-violet-50/70 dark:bg-violet-950/20 border border-violet-200/60 dark:border-violet-900/30">
-              <span className="text-xs font-bold text-violet-900 dark:text-violet-300 uppercase tracking-wide block mb-1">
+            <div className="p-4 rounded-2xl bg-violet-50/70 dark:bg-violet-50/20 border border-violet-200/60 dark:border-violet-200/30">
+              <span className="text-xs font-bold text-violet-900 dark:text-violet-700 uppercase tracking-wide block mb-1">
                 सांस्कृतिक संदर्भ (Cultural Heritage)
               </span>
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {currentRiddle.culturalNote}
               </p>
             </div>
@@ -318,10 +318,10 @@ export const SantaliRiddlesKudumGame: React.FC = () => {
         )}
 
         {/* Pagination Controls */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-200">
           <button
             onClick={handlePrev}
-            className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold transition-colors"
+            className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-100 text-slate-700 dark:text-slate-700 hover:bg-slate-200 dark:hover:bg-slate-200 text-xs sm:text-sm font-semibold transition-colors"
           >
             ← पिछली पहेली
           </button>
@@ -330,7 +330,7 @@ export const SantaliRiddlesKudumGame: React.FC = () => {
           </span>
           <button
             onClick={handleNext}
-            className="px-5 py-2 rounded-xl bg-violet-700 text-white hover:bg-violet-800 text-xs sm:text-sm font-semibold transition-colors shadow"
+            className="px-5 py-2 rounded-xl bg-violet-700 text-white hover:bg-violet-100 text-xs sm:text-sm font-semibold transition-colors shadow"
           >
             अगली पहेली →
           </button>

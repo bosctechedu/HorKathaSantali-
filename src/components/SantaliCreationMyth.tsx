@@ -49,7 +49,7 @@ export const CREATION_STAGES: CreationStage[] = [
     keyFigures: ['ठाकुर जिउ (सर्वोच्च सृष्टिकर्ता)', 'महाजल (Primordial Cosmic Ocean)'],
     philosophicalMeaning: 'संताल दर्शन में जल ही समस्त जीवन का आदि स्रोत और पवित्र चेतना का प्रतीक है।',
     themeColor: 'border-sky-500',
-    bgGradient: 'from-sky-900 via-blue-950 to-slate-950'
+    bgGradient: 'from-sky-50 via-blue-50 to-slate-50'
   },
   {
     id: 2,
@@ -64,7 +64,7 @@ export const CREATION_STAGES: CreationStage[] = [
     keyFigures: ['हाँस (पवित्र नर हंस)', 'हांसिल (पवित्र मादा हंसिनी)', 'ठाकुर जिउ'],
     philosophicalMeaning: 'पक्षी आकाश और आत्मा के मुक्त प्रवाह तथा जीवन की खोज का प्रतीक हैं।',
     themeColor: 'border-amber-400',
-    bgGradient: 'from-amber-900 via-orange-950 to-slate-950'
+    bgGradient: 'from-amber-50 via-orange-50 to-slate-50'
   },
   {
     id: 3,
@@ -79,7 +79,7 @@ export const CREATION_STAGES: CreationStage[] = [
     keyFigures: ['हरो (विशाल कछुआ)', 'लेंदेद (परिश्रमी केंचुआ)', 'राघो बोआर (मत्स्य)', 'काटकॉम (केकड़ा)'],
     philosophicalMeaning: 'छोटा से छोटा जीव भी सृष्टि के निर्माण में महान योगदान दे सकता है; प्रकृति में सब परस्पर जुड़े हैं।',
     themeColor: 'border-emerald-500',
-    bgGradient: 'from-emerald-900 via-teal-950 to-stone-950'
+    bgGradient: 'from-emerald-50 via-teal-50 to-stone-50'
   },
   {
     id: 4,
@@ -94,7 +94,7 @@ export const CREATION_STAGES: CreationStage[] = [
     keyFigures: ['पिलचु हाड़ाम (आदि पुरुष)', 'पिलचु बुढ़ी (आदि स्त्री)', 'करम दारे (जीवन वृक्ष)', 'सारजोम (साल)'],
     philosophicalMeaning: 'मनुष्य वृक्षों और प्रकृति की संतान है, इसलिए पेड़ों और जंगलों का सम्मान हमारी रगों में है।',
     themeColor: 'border-yellow-500',
-    bgGradient: 'from-yellow-900 via-amber-950 to-stone-950'
+    bgGradient: 'from-yellow-50 via-amber-50 to-stone-50'
   },
   {
     id: 5,
@@ -109,7 +109,7 @@ export const CREATION_STAGES: CreationStage[] = [
     keyFigures: ['७ पुत्र व ७ पुत्रियां', '१२ पवित्र पारिस (गोत्र)', 'हिहिड़ी-पिपिड़ी (आदि जन्मभूमि)'],
     philosophicalMeaning: 'पारिवारिक पवित्रता, सामाजिक गोत्र व्यवस्था और एक-दूसरे के प्रति अगाध आदर ही संताली संस्कृति की नींव है।',
     themeColor: 'border-rose-500',
-    bgGradient: 'from-rose-900 via-pink-950 to-stone-950'
+    bgGradient: 'from-rose-50 via-pink-50 to-stone-50'
   }
 ];
 
@@ -138,22 +138,22 @@ export const SantaliCreationMyth: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12 animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-stone-950 text-white p-6 sm:p-8 rounded-3xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-stone-50 text-slate-900 p-6 sm:p-8 rounded-3xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
           <div className="flex items-center gap-2">
             <span className="px-3 py-1 rounded-full bg-white/20 text-xs font-black uppercase tracking-wider flex items-center gap-1.5">
-              <Globe className="w-3.5 h-3.5 text-blue-300" />
+              <Globe className="w-3.5 h-3.5 text-blue-700" />
               सिरजोन काहनी (Sirjon Kahni) · सृष्टि रहस्य
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-blue-400/30 text-[11px] font-bold text-blue-200">
+            <span className="px-2.5 py-0.5 rounded-full bg-blue-400/30 text-[11px] font-bold text-blue-800">
               Santali Creation Epic
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-blue-100">
+          <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-blue-800">
             धरती की सृष्टि व मानव उत्पत्ति (सिरजोन काहनी)
           </h1>
-          <p className="text-xs sm:text-sm text-blue-200/90 leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-blue-800/90 leading-relaxed font-medium">
             ठाकुर जिउ के संकल्प, हांस-हांसिल के पवित्र उड़ानों, कछुए-केंचुए के त्याग और पिलचु हाड़ाम-पिलचु बुढ़ी से १२ गोत्रों के उद्भव की अमर गाथा।
           </p>
         </div>
@@ -195,7 +195,7 @@ export const SantaliCreationMyth: React.FC = () => {
 
       {/* Main Stage Display Card */}
       <div
-        className={`rounded-3xl p-6 sm:p-10 text-white bg-gradient-to-br ${stage.bgGradient} border-2 ${stage.themeColor} shadow-xl space-y-6 relative overflow-hidden`}
+        className={`rounded-3xl p-6 sm:p-10 text-slate-900 bg-gradient-to-br ${stage.bgGradient} border-2 ${stage.themeColor} shadow-xl space-y-6 relative overflow-hidden`}
       >
         {/* Stage Watermark Symbol */}
         <div className="absolute top-2 right-4 text-9xl opacity-10 select-none pointer-events-none">
@@ -205,16 +205,16 @@ export const SantaliCreationMyth: React.FC = () => {
         {/* Stage Title Header */}
         <div className="relative z-10 border-b border-white/20 pb-4 space-y-1">
           <div className="flex items-center justify-between">
-            <span className="px-3 py-1 rounded-full bg-white/20 text-xs font-black uppercase text-amber-200">
+            <span className="px-3 py-1 rounded-full bg-white/20 text-xs font-black uppercase text-amber-800">
               चरण {stage.id} / ५
             </span>
             <span className="text-3xl">{stage.symbol}</span>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-black font-serif text-amber-100 mt-2">
+          <h2 className="text-2xl sm:text-4xl font-black font-serif text-amber-800 mt-2">
             {stage.stageNameDevanagari}
           </h2>
-          <p className="text-xs sm:text-sm font-semibold text-blue-200 font-mono">
+          <p className="text-xs sm:text-sm font-semibold text-blue-800 font-mono">
             {stage.stageNameRoman} · {stage.subtitle}
           </p>
         </div>
@@ -222,32 +222,32 @@ export const SantaliCreationMyth: React.FC = () => {
         {/* Main Narrative Blocks */}
         <div className="relative z-10 space-y-4">
           {/* Santali Devanagari Sacred Text */}
-          <div className="p-4 rounded-2xl bg-black/25 border border-white/15 space-y-1">
-            <span className="text-[11px] font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <div className="p-4 rounded-2xl bg-white/25 border border-white/15 space-y-1">
+            <span className="text-[11px] font-black uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
               <span>संताली देवनागरी मूल गाथा (Santali Scripture):</span>
             </span>
-            <p className="text-base sm:text-lg font-serif font-black text-white leading-relaxed">
+            <p className="text-base sm:text-lg font-serif font-black text-slate-900 leading-relaxed">
               “{stage.narrativeSantali}”
             </p>
           </div>
 
           {/* Hindi Detailed Explanation */}
           <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-1.5">
-            <span className="text-[11px] font-black uppercase tracking-wider text-blue-200">
+            <span className="text-[11px] font-black uppercase tracking-wider text-blue-800">
               विस्तृत हिन्दी विवेचन:
             </span>
-            <p className="text-xs sm:text-sm font-medium text-slate-100 leading-relaxed">
+            <p className="text-xs sm:text-sm font-medium text-slate-800 leading-relaxed">
               {stage.narrativeHindi}
             </p>
           </div>
 
           {/* English Narrative */}
-          <div className="p-3.5 rounded-2xl bg-black/20 border border-white/10 space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
+          <div className="p-3.5 rounded-2xl bg-white/20 border border-white/10 space-y-1">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700">
               English Synopsis:
             </span>
-            <p className="text-xs text-slate-300 italic leading-relaxed">
+            <p className="text-xs text-slate-700 italic leading-relaxed">
               {stage.narrativeEnglish}
             </p>
           </div>
@@ -256,15 +256,15 @@ export const SantaliCreationMyth: React.FC = () => {
         {/* Key Figures & Philosophical Meaning Grid */}
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
           <div className="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2">
-            <span className="text-[11px] font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-[11px] font-black uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-amber-600" />
               <span>प्रमुख पात्र व दिव्य प्रतीक (Key Figures):</span>
             </span>
             <div className="flex flex-wrap gap-2">
               {stage.keyFigures.map((fig, i) => (
                 <span
                   key={i}
-                  className="px-2.5 py-1 rounded-xl bg-white/15 text-[11px] font-bold text-amber-100 border border-white/10"
+                  className="px-2.5 py-1 rounded-xl bg-white/15 text-[11px] font-bold text-amber-800 border border-white/10"
                 >
                   {fig}
                 </span>
@@ -273,11 +273,11 @@ export const SantaliCreationMyth: React.FC = () => {
           </div>
 
           <div className="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-1">
-            <span className="text-[11px] font-black uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
-              <TreePine className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="text-[11px] font-black uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
+              <TreePine className="w-3.5 h-3.5 text-emerald-600" />
               <span>सांस्कृतिक व दार्शनिक संदेश (Core Philosophy):</span>
             </span>
-            <p className="text-xs text-slate-200 font-medium leading-relaxed">
+            <p className="text-xs text-slate-800 font-medium leading-relaxed">
               {stage.philosophicalMeaning}
             </p>
           </div>
@@ -290,15 +290,15 @@ export const SantaliCreationMyth: React.FC = () => {
             disabled={currentStageIdx === 0}
             className={`px-4 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2 border transition-all cursor-pointer ${
               currentStageIdx === 0
-                ? 'opacity-40 cursor-not-allowed border-white/10 text-white/50'
-                : 'bg-white/15 hover:bg-white/25 border-white/30 text-white'
+                ? 'opacity-40 cursor-not-allowed border-white/10 text-slate-900/50'
+                : 'bg-white/15 hover:bg-white/25 border-white/30 text-slate-900'
             }`}
           >
             <ArrowLeft className="w-4 h-4" />
             <span>पिछला अध्याय</span>
           </button>
 
-          <div className="text-xs font-bold text-white/80">
+          <div className="text-xs font-bold text-slate-900/80">
             {currentStageIdx + 1} of {stagesList.length}
           </div>
 
@@ -307,7 +307,7 @@ export const SantaliCreationMyth: React.FC = () => {
             disabled={currentStageIdx === stagesList.length - 1}
             className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2 border transition-all cursor-pointer ${
               currentStageIdx === stagesList.length - 1
-                ? 'opacity-40 cursor-not-allowed border-white/10 text-white/50'
+                ? 'opacity-40 cursor-not-allowed border-white/10 text-slate-900/50'
                 : 'bg-amber-500 hover:bg-amber-600 border-amber-400 text-slate-950 font-black shadow-md'
             }`}
           >

@@ -158,16 +158,16 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-teal-950 via-stone-900 to-amber-950 border border-teal-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-teal-50 via-stone-50 to-amber-50 border border-teal-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-teal-800/60 border border-teal-600/40 rounded-full text-xs font-semibold text-teal-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-teal-100/60 border border-teal-300/40 rounded-full text-xs font-semibold text-teal-800 mb-3">
             <Users className="w-3.5 h-3.5" />
             <span>डोबोक जोहार व सामाजिक शिष्टाचार (Santali Kinship Etiquette)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-teal-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-teal-800">
             संथाल जोहार, नाता-गोता व पारंपरिक पारिवारिक शिष्टाचार
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             संथाल समाज में हर रिश्ते के अभिवादन की एक विशिष्ट मर्यादा, मुद्रा और संथाली संवाद निर्धारित है। जानिए डोबोक जोहार, बालाया जोहार, मामा-भांजा संबंध और जेठ-बहू की सामाजिक मर्यादाओं का दर्शन।
           </p>
 
@@ -177,7 +177,7 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'matrix'
                   ? 'bg-teal-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               रिश्तेदार अभिवादन सिमुलेटर
@@ -187,7 +187,7 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'taboos_guide'
                   ? 'bg-teal-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               सामाजिक वर्जनाएं (Taboos & Avoidances)
@@ -197,7 +197,7 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'quiz'
                   ? 'bg-teal-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               शिष्टाचार कसौटी (Interactive Quiz)
@@ -211,7 +211,7 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Relatives List */}
           <div className="lg:col-span-5 space-y-2">
-            <div className="text-xs font-bold text-stone-400 uppercase tracking-wider px-1">
+            <div className="text-xs font-bold text-stone-600 uppercase tracking-wider px-1">
               रिश्ता चुनें (Select Kinship Relationship):
             </div>
             {KINSHIP_DATA.map(rel => {
@@ -222,15 +222,15 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
                   onClick={() => setSelectedRelation(rel)}
                   className={`p-3.5 rounded-xl cursor-pointer border transition-all ${
                     isSelected
-                      ? 'bg-teal-950/70 border-teal-500 shadow-md'
-                      : 'bg-stone-900/70 hover:bg-stone-800/60 border-stone-800'
+                      ? 'bg-teal-50/70 border-teal-500 shadow-md'
+                      : 'bg-stone-50/70 hover:bg-stone-100/60 border-stone-200'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-teal-200">{rel.relationDev}</span>
-                    <span className="text-xs px-2 py-0.5 rounded bg-stone-800 text-stone-400 font-mono">{rel.relationRom}</span>
+                    <span className="text-sm font-bold text-teal-800">{rel.relationDev}</span>
+                    <span className="text-xs px-2 py-0.5 rounded bg-stone-100 text-stone-600 font-mono">{rel.relationRom}</span>
                   </div>
-                  <p className="text-xs text-stone-400 mt-1">{rel.hindiRelation} • {rel.greetingType}</p>
+                  <p className="text-xs text-stone-600 mt-1">{rel.hindiRelation} • {rel.greetingType}</p>
                 </div>
               );
             })}
@@ -238,71 +238,71 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
 
           {/* Details Card */}
           <div className="lg:col-span-7">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-5">
-              <div className="pb-4 border-b border-stone-800">
-                <span className="text-xs uppercase tracking-wider text-teal-400 font-bold block mb-1">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-5">
+              <div className="pb-4 border-b border-stone-200">
+                <span className="text-xs uppercase tracking-wider text-teal-600 font-bold block mb-1">
                   अभिवादन विधि: {selectedRelation.greetingType}
                 </span>
-                <h2 className="text-2xl font-bold text-amber-200">{selectedRelation.relationDev}</h2>
-                <p className="text-sm text-stone-300 mt-0.5">{selectedRelation.hindiRelation}</p>
+                <h2 className="text-2xl font-bold text-amber-800">{selectedRelation.relationDev}</h2>
+                <p className="text-sm text-stone-700 mt-0.5">{selectedRelation.hindiRelation}</p>
               </div>
 
               {/* Physical Gesture */}
-              <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-                <span className="text-xs font-bold text-teal-300 block mb-1">
+              <div className="bg-white p-4 rounded-xl border border-stone-200">
+                <span className="text-xs font-bold text-teal-700 block mb-1">
                   शारीरिक मुद्रा व प्रणाम विधि (Physical Gesture)
                 </span>
-                <p className="text-stone-300 text-sm leading-relaxed">{selectedRelation.gestureDescription}</p>
-                <div className="text-xs text-amber-400 mt-2 font-medium">
+                <p className="text-stone-700 text-sm leading-relaxed">{selectedRelation.gestureDescription}</p>
+                <div className="text-xs text-amber-600 mt-2 font-medium">
                   • पहल कौन करता है: {selectedRelation.whoBowsFirst}
                 </div>
               </div>
 
               {/* Spoken Dialogues */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="bg-teal-950/30 border border-teal-800/50 p-3.5 rounded-xl">
+                <div className="bg-teal-50/30 border border-teal-200/50 p-3.5 rounded-xl">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-bold text-teal-300">पहला संथाली संबोधन:</span>
+                    <span className="text-xs font-bold text-teal-700">पहला संथाली संबोधन:</span>
                     <button
                       onClick={() => speakText(selectedRelation.spokenSantaliPhrase)}
-                      className="p-1 bg-teal-900 text-teal-200 rounded hover:bg-teal-800"
+                      className="p-1 bg-teal-50 text-teal-800 rounded hover:bg-teal-100"
                     >
                       <Volume2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                  <p className="text-amber-200 font-medium text-xs font-serif">"{selectedRelation.spokenSantaliPhrase}"</p>
+                  <p className="text-amber-800 font-medium text-xs font-serif">"{selectedRelation.spokenSantaliPhrase}"</p>
                 </div>
 
-                <div className="bg-stone-950 p-3.5 rounded-xl border border-stone-800">
+                <div className="bg-white p-3.5 rounded-xl border border-stone-200">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-bold text-stone-400">प्रति-उत्तर (आशीर्वाद):</span>
+                    <span className="text-xs font-bold text-stone-600">प्रति-उत्तर (आशीर्वाद):</span>
                     <button
                       onClick={() => speakText(selectedRelation.reciprocalPhrase)}
-                      className="p-1 bg-stone-800 text-stone-300 rounded hover:bg-stone-700"
+                      className="p-1 bg-stone-100 text-stone-700 rounded hover:bg-stone-200"
                     >
                       <Volume2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                  <p className="text-stone-300 font-medium text-xs font-serif">"{selectedRelation.reciprocalPhrase}"</p>
+                  <p className="text-stone-700 font-medium text-xs font-serif">"{selectedRelation.reciprocalPhrase}"</p>
                 </div>
               </div>
 
               {/* Taboo Warning if exists */}
               {selectedRelation.tabooWarning && (
-                <div className="p-4 bg-red-950/40 border border-red-700/60 rounded-xl flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-                  <p className="text-xs text-red-200 leading-relaxed font-medium">
+                <div className="p-4 bg-red-50/40 border border-red-200/60 rounded-xl flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                  <p className="text-xs text-red-800 leading-relaxed font-medium">
                     {selectedRelation.tabooWarning}
                   </p>
                 </div>
               )}
 
               {/* Cultural Wisdom */}
-              <div className="bg-gradient-to-r from-amber-950/40 to-stone-950 p-4 rounded-xl border border-amber-800/40">
-                <span className="text-xs font-bold text-amber-300 uppercase tracking-wider block mb-1">
+              <div className="bg-gradient-to-r from-amber-50/40 to-stone-50 p-4 rounded-xl border border-amber-200/40">
+                <span className="text-xs font-bold text-amber-700 uppercase tracking-wider block mb-1">
                   पारंपरिक सामाजिक दर्शन
                 </span>
-                <p className="text-xs text-stone-300 leading-relaxed">{selectedRelation.culturalWisdom}</p>
+                <p className="text-xs text-stone-700 leading-relaxed">{selectedRelation.culturalWisdom}</p>
               </div>
             </div>
           </div>
@@ -311,30 +311,30 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
 
       {/* Tab 2: Taboos Guide */}
       {activeTab === 'taboos_guide' && (
-        <div className="max-w-3xl mx-auto bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-5">
+        <div className="max-w-3xl mx-auto bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-5">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-amber-200">संथाल समाज की पवित्र मर्यादाएं व वर्जनाएं (Avoidance Taboos)</h3>
-            <p className="text-xs text-stone-400 mt-1">पारिवारिक शांति व कबीलाई अनुशासन बनाए रखने वाले पारंपरिक सामाजिक नियम</p>
+            <h3 className="text-xl font-bold text-amber-800">संथाल समाज की पवित्र मर्यादाएं व वर्जनाएं (Avoidance Taboos)</h3>
+            <p className="text-xs text-stone-600 mt-1">पारिवारिक शांति व कबीलाई अनुशासन बनाए रखने वाले पारंपरिक सामाजिक नियम</p>
           </div>
 
           <div className="space-y-3">
-            <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-              <span className="text-sm font-bold text-amber-400 block mb-1">१. जेठ-बहू (Bhojhar-Teang) मर्यादा</span>
-              <p className="text-xs text-stone-300 leading-relaxed">
+            <div className="bg-white p-4 rounded-xl border border-stone-200">
+              <span className="text-sm font-bold text-amber-600 block mb-1">१. जेठ-बहू (Bhojhar-Teang) मर्यादा</span>
+              <p className="text-xs text-stone-700 leading-relaxed">
                 संथाल परिवार में बड़े भाई (जेठ) और छोटे भाई की पत्नी के बीच प्रत्यक्ष स्पर्श, एक चटाई पर बैठना, या नाम लेना पूर्णतः निषिद्ध है। यह मर्यादा घर की स्त्रियों की गरिमा की रक्षा के लिए सदियों से अक्षुण्ण है।
               </p>
             </div>
 
-            <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-              <span className="text-sm font-bold text-amber-400 block mb-1">२. सगोत्र (Same Clan) विवाह का निषेध</span>
-              <p className="text-xs text-stone-300 leading-relaxed">
+            <div className="bg-white p-4 rounded-xl border border-stone-200">
+              <span className="text-sm font-bold text-amber-600 block mb-1">२. सगोत्र (Same Clan) विवाह का निषेध</span>
+              <p className="text-xs text-stone-700 leading-relaxed">
                 एक ही पारिस (गोत्र) जैसे मुर्मू-मुर्मू, हांसदा-हांसदा के बीच विवाह को महापाप माना जाता है। इसे भाई-बहन के समान पवित्र संबंध मानकर कड़ाई से वर्जित रखा गया है।
               </p>
             </div>
 
-            <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-              <span className="text-sm font-bold text-amber-400 block mb-1">३. जाहेर थान व कुलदेवता (ओड़ाक् बोंगा) का आदर</span>
-              <p className="text-xs text-stone-300 leading-relaxed">
+            <div className="bg-white p-4 rounded-xl border border-stone-200">
+              <span className="text-sm font-bold text-amber-600 block mb-1">३. जाहेर थान व कुलदेवता (ओड़ाक् बोंगा) का आदर</span>
+              <p className="text-xs text-stone-700 leading-relaxed">
                 घर के कुलदेवता के कमरे में परिवार की विवाहित पुत्रियों को विवाह के बाद प्रवेश की अनुमति नहीं होती, क्योंकि वे अब दूसरे कुल (ससुराल के बोंगा) की हो चुकी होती हैं।
               </p>
             </div>
@@ -344,25 +344,25 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
 
       {/* Tab 3: Interactive Quiz */}
       {activeTab === 'quiz' && (
-        <div className="max-w-2xl mx-auto bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl text-center">
-          <div className="flex items-center justify-between pb-3 border-b border-stone-800 mb-5">
-            <span className="text-xs font-bold text-teal-400">प्रश्न #{quizIdx + 1}</span>
-            <span className="text-xs font-bold text-amber-300 bg-amber-950 px-3 py-1 rounded-full border border-amber-800">
+        <div className="max-w-2xl mx-auto bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl text-center">
+          <div className="flex items-center justify-between pb-3 border-b border-stone-200 mb-5">
+            <span className="text-xs font-bold text-teal-600">प्रश्न #{quizIdx + 1}</span>
+            <span className="text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
               अंक: {quizScore}
             </span>
           </div>
 
-          <h3 className="text-lg font-bold text-stone-100 mb-6">{currentQ.q}</h3>
+          <h3 className="text-lg font-bold text-stone-800 mb-6">{currentQ.q}</h3>
 
           <div className="space-y-3">
             {currentQ.options.map((opt, i) => {
               const isSelected = quizAnswered !== null;
               const isCorrect = i === currentQ.correctIdx;
 
-              let btnStyle = 'bg-stone-800 hover:bg-stone-700 text-stone-200 border-stone-700';
+              let btnStyle = 'bg-stone-100 hover:bg-stone-200 text-stone-800 border-stone-200';
               if (isSelected) {
-                if (isCorrect) btnStyle = 'bg-teal-900 text-teal-100 border-teal-500 font-bold';
-                else btnStyle = 'bg-stone-950 text-stone-500 opacity-60 border-stone-900';
+                if (isCorrect) btnStyle = 'bg-teal-50 text-teal-800 border-teal-500 font-bold';
+                else btnStyle = 'bg-white text-stone-500 opacity-60 border-stone-200';
               }
 
               return (
@@ -379,11 +379,11 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
           </div>
 
           {quizAnswered !== null && (
-            <div className="mt-5 pt-4 border-t border-stone-800">
-              <p className={`text-sm font-bold mb-2 ${quizAnswered ? 'text-teal-400' : 'text-amber-400'}`}>
+            <div className="mt-5 pt-4 border-t border-stone-200">
+              <p className={`text-sm font-bold mb-2 ${quizAnswered ? 'text-teal-600' : 'text-amber-600'}`}>
                 {quizAnswered ? 'शाबाश! बिल्कुल सही उत्तर! (+10 अंक)' : 'गलत उत्तर!'}
               </p>
-              <p className="text-xs text-stone-300 mb-4">{currentQ.explanation}</p>
+              <p className="text-xs text-stone-700 mb-4">{currentQ.explanation}</p>
               <button
                 onClick={nextQuiz}
                 className="px-6 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-xl text-sm font-semibold shadow"

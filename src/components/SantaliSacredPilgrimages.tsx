@@ -147,33 +147,33 @@ export const SantaliSacredPilgrimages: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-emerald-950 via-teal-950 to-slate-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-emerald-800/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-slate-50 text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-emerald-200/40 relative overflow-hidden">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
           <Mountain size={280} />
         </div>
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-700 border border-emerald-500/30 text-xs font-semibold mb-3">
             <Sparkles size={14} />
             <span>पुन्य थान आर ऐतिहासिक गढ़ - संताली पावन महातीर्थ दर्शन</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-emerald-100 flex items-center gap-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-emerald-800 flex items-center gap-3">
             <span>संताली पावन तीर्थ व ऐतिहासिक गढ़</span>
             <button
               onClick={() => speakWithFemaleVoice('सांतार कोवाक् पुन्य थान आर ऐतिहासिक बुरु-गढ़')}
-              className="p-2 rounded-full bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-300 transition-colors"
+              className="p-2 rounded-full bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-700 transition-colors"
               title="सुनें"
             >
               <Volume2 size={22} />
             </button>
           </h1>
-          <p className="text-emerald-200/80 text-sm sm:text-base mt-2 leading-relaxed">
+          <p className="text-emerald-800/80 text-sm sm:text-base mt-2 leading-relaxed">
             लुगु बुरु घांटाबाड़ी धोरोमगाढ़, अयोध्या बुरु, भोगनाडीह हूल स्मारक, चांपा गढ़, मरांग बुरु पारसनाथ व बादामपहाड़ — संताल समाज की आस्था, शौर्य और धर्म के पावन तीर्थों का संपूर्ण प्रामाणिक परिचय।
           </p>
         </div>
       </div>
 
       {/* State Filter */}
-      <div className="flex items-center gap-2 bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-x-auto">
+      <div className="flex items-center gap-2 bg-white dark:bg-slate-50 p-3 rounded-2xl border border-slate-200 dark:border-slate-200 shadow-sm overflow-x-auto">
         <span className="text-xs font-bold text-slate-500 uppercase px-2 shrink-0">
           राज्य अनुसार (State):
         </span>
@@ -188,8 +188,8 @@ export const SantaliSacredPilgrimages: React.FC = () => {
             onClick={() => setFilterState(f.id)}
             className={`px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-xl shrink-0 transition-all ${
               filterState === f.id
-                ? 'bg-emerald-800 text-white shadow-md'
-                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                ? 'bg-emerald-100 text-slate-900 shadow-md'
+                : 'text-slate-600 dark:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-100'
             }`}
           >
             {f.label}
@@ -212,19 +212,19 @@ export const SantaliSacredPilgrimages: React.FC = () => {
                 onClick={() => setSelectedSite(site)}
                 className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                   isSelected
-                    ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 shadow-md scale-[1.01]'
-                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-emerald-300 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                    ? 'bg-emerald-50 dark:bg-emerald-50/40 border-emerald-500 shadow-md scale-[1.01]'
+                    : 'bg-white dark:bg-slate-50 border-slate-200 dark:border-slate-200 hover:border-emerald-300 hover:bg-slate-50 dark:hover:bg-slate-100/60'
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300">
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-50/60 text-emerald-800 dark:text-emerald-700">
                       {site.locationState} • {site.geographicDistrict}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-1.5">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-slate-800 mt-1.5">
                       {site.nameDevanagari}
                     </h3>
-                    <p className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">
+                    <p className="text-xs text-emerald-700 dark:text-emerald-600 font-medium">
                       {site.nameRoman}
                     </p>
                   </div>
@@ -233,13 +233,13 @@ export const SantaliSacredPilgrimages: React.FC = () => {
                       e.stopPropagation();
                       speakWithFemaleVoice(site.nameDevanagari);
                     }}
-                    className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-emerald-600"
+                    className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-100 text-slate-600 dark:text-slate-700 hover:text-emerald-600"
                     title="सुनें"
                   >
                     <Volume2 size={16} />
                   </button>
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-2">
+                <p className="text-xs text-slate-600 dark:text-slate-600 mt-2 line-clamp-2">
                   {site.description}
                 </p>
               </div>
@@ -249,16 +249,16 @@ export const SantaliSacredPilgrimages: React.FC = () => {
 
         {/* Right Detail Pane */}
         <div className="lg:col-span-7">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6 sticky top-6">
-            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
+          <div className="bg-white dark:bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-200 shadow-xl space-y-6 sticky top-6">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-200 pb-5">
               <div>
-                <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-50/50 text-emerald-800 dark:text-emerald-700 text-xs font-bold uppercase tracking-wider">
                   {selectedSite.categoryLabel}
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-800 mt-2">
                   {selectedSite.nameDevanagari}
                 </h2>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-emerald-700 dark:text-emerald-400 font-semibold mt-1">
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-emerald-700 dark:text-emerald-600 font-semibold mt-1">
                   <MapPin size={15} />
                   <span>
                     {selectedSite.locationState} | जिला: {selectedSite.geographicDistrict}
@@ -271,7 +271,7 @@ export const SantaliSacredPilgrimages: React.FC = () => {
                   className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all border ${
                     starred
                       ? 'bg-amber-500 text-stone-950 border-amber-500 shadow'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200'
+                      : 'bg-slate-100 dark:bg-slate-100 text-slate-700 dark:text-slate-700 border-slate-200 dark:border-slate-200 hover:bg-slate-200'
                   }`}
                   title="डायरी में सुरक्षित करें"
                 >
@@ -280,7 +280,7 @@ export const SantaliSacredPilgrimages: React.FC = () => {
                 </button>
                 <button
                   onClick={() => speakWithFemaleVoice(selectedSite.nameDevanagari)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-800 text-white font-medium hover:bg-emerald-900 transition-colors shadow"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-100 text-slate-900 font-medium hover:bg-emerald-50 transition-colors shadow"
                 >
                   <Volume2 size={18} />
                   <span>नाम सुनें</span>
@@ -289,41 +289,41 @@ export const SantaliSacredPilgrimages: React.FC = () => {
             </div>
 
             {/* Description */}
-            <div className="p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/30">
-              <h4 className="text-xs font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-50/20 border border-emerald-200/60 dark:border-emerald-200/30">
+              <h4 className="text-xs font-bold text-emerald-900 dark:text-emerald-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Compass size={14} />
                 <span>परिचय व भौगोलिक महत्व</span>
               </h4>
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {selectedSite.description}
               </p>
             </div>
 
             {/* Mythological & Historical Context */}
-            <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/30">
-              <h4 className="text-xs font-bold text-amber-900 dark:text-amber-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-50/20 border border-amber-200/60 dark:border-amber-200/30">
+              <h4 className="text-xs font-bold text-amber-900 dark:text-amber-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Mountain size={14} className="text-amber-600" />
                 <span>पौराणिक व ऐतिहासिक गाथा (Sacred History)</span>
               </h4>
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {selectedSite.mythologicalHistory}
               </p>
             </div>
 
             {/* Annual Gathering */}
-            <div className="p-4 rounded-2xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200 dark:border-teal-900/40">
-              <h4 className="text-xs font-bold text-teal-900 dark:text-teal-300 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-teal-50 dark:bg-teal-50/20 border border-teal-200 dark:border-teal-200/40">
+              <h4 className="text-xs font-bold text-teal-900 dark:text-teal-700 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Calendar size={14} className="text-teal-600" />
                 <span>वार्षिक महाजुटान व मेला (Gathering & Festivals)</span>
               </h4>
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-700 leading-relaxed">
                 {selectedSite.annualGatheringFestival}
               </p>
             </div>
 
             {/* Key Spots */}
             <div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-800 mb-3 flex items-center gap-2">
                 <Layers size={16} className="text-emerald-600" />
                 <span>मुख्य दर्शनीय व पावन स्थल (Key Sacred Spots)</span>
               </h4>
@@ -331,7 +331,7 @@ export const SantaliSacredPilgrimages: React.FC = () => {
                 {selectedSite.keySpots.map((spot, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-200"
+                    className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-100/60 border border-slate-200/80 dark:border-slate-200 text-xs font-medium text-slate-800 dark:text-slate-800"
                   >
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                     <span>{spot}</span>
@@ -341,12 +341,12 @@ export const SantaliSacredPilgrimages: React.FC = () => {
             </div>
 
             {/* Pilgrim Etiquette */}
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-              <h4 className="text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-100/60 border border-slate-200 dark:border-slate-200">
+              <h4 className="text-xs font-bold text-slate-900 dark:text-slate-800 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Shield size={14} className="text-emerald-600" />
                 <span>तीर्थयात्री आचार-संहिता व नियम (Pilgrim Etiquette)</span>
               </h4>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-600 leading-relaxed">
                 {selectedSite.pilgrimEtiquette}
               </p>
             </div>

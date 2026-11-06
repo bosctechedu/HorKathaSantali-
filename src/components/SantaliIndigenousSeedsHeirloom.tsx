@@ -135,16 +135,16 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-emerald-950 border border-amber-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-amber-50 via-stone-50 to-emerald-50 border border-amber-200/40 rounded-2xl p-6 text-slate-900 shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-800/60 border border-amber-600/40 rounded-full text-xs font-semibold text-amber-200 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100/60 border border-amber-300/40 rounded-full text-xs font-semibold text-amber-800 mb-3">
             <Sprout className="w-3.5 h-3.5" />
             <span>हसली हेर साकाम: संथाल देशज बीज धरोहर</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-100">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-amber-800">
             संथाल देशज धान, मिलेट्स व "बंधी" बीज संरक्षण वास्तुकला
           </h1>
-          <p className="text-stone-300 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-700 text-sm mt-2 leading-relaxed">
             संथाल समाज की प्राचीन कृषि बुद्धिमत्ता ने सहस्राब्दियों से ऐसे चमत्कारी धान व मिलेट्स सहेज कर रखे हैं जो सूखा, बाढ़ और कीटों से बिना किसी रासायनिक खाद के लड़ते हैं। जानिए देसी बीजों और ५ वर्ष तक सुरक्षित रखने वाली "बंधी" तकनीक का रहस्य।
           </p>
 
@@ -154,7 +154,7 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'varieties'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               देसी धान व मिलेट ज्ञानकोश
@@ -164,7 +164,7 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'bandhi_storage'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               "बंधी" (Bandhi) बीज बैंक वास्तुकला
@@ -174,7 +174,7 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'erok_sim_rituals'
                   ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-stone-900/60 hover:bg-stone-800/60 text-stone-200 border border-stone-700/50'
+                  : 'bg-stone-50/60 hover:bg-stone-100/60 text-stone-800 border border-stone-200/50'
               }`}
             >
               एरोक सिम (बुआई पूर्व पावन अनुष्ठान)
@@ -188,7 +188,7 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Seeds List */}
           <div className="lg:col-span-5 space-y-3">
-            <div className="bg-stone-900 border border-stone-800 rounded-xl p-3 flex flex-wrap gap-1 text-xs">
+            <div className="bg-stone-50 border border-stone-200 rounded-xl p-3 flex flex-wrap gap-1 text-xs">
               {[
                 { id: 'all', label: 'सभी बीज' },
                 { id: 'medicinal_rice', label: 'औषधीय धान' },
@@ -201,7 +201,7 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
                   key={cat.id}
                   onClick={() => setFilterCategory(cat.id)}
                   className={`px-2.5 py-1 rounded-md transition-colors ${
-                    filterCategory === cat.id ? 'bg-amber-600 text-white font-bold' : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+                    filterCategory === cat.id ? 'bg-amber-600 text-white font-bold' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
                   }`}
                 >
                   {cat.label}
@@ -218,15 +218,15 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
                     onClick={() => setSelectedSeed(seed)}
                     className={`p-3.5 rounded-xl cursor-pointer border transition-all ${
                       isSelected
-                        ? 'bg-amber-950/70 border-amber-500 shadow-md'
-                        : 'bg-stone-900/70 hover:bg-stone-800/60 border-stone-800'
+                        ? 'bg-amber-50/70 border-amber-500 shadow-md'
+                        : 'bg-stone-50/70 hover:bg-stone-100/60 border-stone-200'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold text-amber-200">{seed.nameDev}</span>
-                      <span className="text-xs px-2 py-0.5 rounded bg-stone-800 text-stone-300">{seed.durationDays} दिन</span>
+                      <span className="text-sm font-bold text-amber-800">{seed.nameDev}</span>
+                      <span className="text-xs px-2 py-0.5 rounded bg-stone-100 text-stone-700">{seed.durationDays} दिन</span>
                     </div>
-                    <p className="text-xs text-stone-400 mt-1 line-clamp-1">{seed.characteristics}</p>
+                    <p className="text-xs text-stone-600 mt-1 line-clamp-1">{seed.characteristics}</p>
                   </div>
                 );
               })}
@@ -235,76 +235,76 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
 
           {/* Seed Details Card */}
           <div className="lg:col-span-7">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-5">
-              <div className="flex items-start justify-between pb-4 border-b border-stone-800">
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-5">
+              <div className="flex items-start justify-between pb-4 border-b border-stone-200">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-2xl font-bold text-amber-300">{selectedSeed.nameDev}</h2>
+                    <h2 className="text-2xl font-bold text-amber-700">{selectedSeed.nameDev}</h2>
                     <button
                       onClick={() => speakText(selectedSeed.nameDev)}
-                      className="p-1.5 bg-amber-900/40 hover:bg-amber-800 text-amber-200 rounded-lg"
+                      className="p-1.5 bg-amber-50/40 hover:bg-amber-100 text-amber-800 rounded-lg"
                     >
                       <Volume2 className="w-4 h-4" />
                     </button>
                   </div>
-                  <p className="text-stone-400 text-sm font-mono mt-0.5">{selectedSeed.nameRom}</p>
+                  <p className="text-stone-600 text-sm font-mono mt-0.5">{selectedSeed.nameRom}</p>
                 </div>
 
                 <div className="text-right">
-                  <span className="text-xs text-stone-400 block">परिपक्वता अवधि</span>
-                  <span className="text-lg font-bold text-emerald-400">{selectedSeed.durationDays} दिन</span>
+                  <span className="text-xs text-stone-600 block">परिपक्वता अवधि</span>
+                  <span className="text-lg font-bold text-emerald-600">{selectedSeed.durationDays} दिन</span>
                 </div>
               </div>
 
               {/* Metrics Grid */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <div className="bg-stone-950 p-3 rounded-xl border border-stone-800">
-                  <span className="text-xs text-stone-400 block flex items-center gap-1">
-                    <Droplets className="w-3.5 h-3.5 text-blue-400" />
+                <div className="bg-white p-3 rounded-xl border border-stone-200">
+                  <span className="text-xs text-stone-600 block flex items-center gap-1">
+                    <Droplets className="w-3.5 h-3.5 text-blue-600" />
                     <span>जल आवश्यकता</span>
                   </span>
-                  <span className="text-sm font-semibold text-stone-200 mt-1 block">{selectedSeed.waterNeed}</span>
+                  <span className="text-sm font-semibold text-stone-800 mt-1 block">{selectedSeed.waterNeed}</span>
                 </div>
 
-                <div className="bg-stone-950 p-3 rounded-xl border border-stone-800">
-                  <span className="text-xs text-stone-400 block flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="bg-white p-3 rounded-xl border border-stone-200">
+                  <span className="text-xs text-stone-600 block flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                     <span>रोग प्रतिरोध</span>
                   </span>
-                  <span className="text-sm font-semibold text-stone-200 mt-1 block">अत्यंत उच्च (देसी)</span>
+                  <span className="text-sm font-semibold text-stone-800 mt-1 block">अत्यंत उच्च (देसी)</span>
                 </div>
 
-                <div className="bg-stone-950 p-3 rounded-xl border border-stone-800">
-                  <span className="text-xs text-stone-400 block flex items-center gap-1">
-                    <Layers className="w-3.5 h-3.5 text-amber-400" />
+                <div className="bg-white p-3 rounded-xl border border-stone-200">
+                  <span className="text-xs text-stone-600 block flex items-center gap-1">
+                    <Layers className="w-3.5 h-3.5 text-amber-600" />
                     <span>उपयुक्त भूमि</span>
                   </span>
-                  <span className="text-sm font-semibold text-stone-200 mt-1 block">टांड़ व जोभड़ा</span>
+                  <span className="text-sm font-semibold text-stone-800 mt-1 block">टांड़ व जोभड़ा</span>
                 </div>
               </div>
 
               {/* Biological Traits */}
-              <div className="bg-stone-950 p-4 rounded-xl border border-stone-800">
-                <span className="text-xs font-bold text-amber-400 uppercase tracking-wide block mb-1">
+              <div className="bg-white p-4 rounded-xl border border-stone-200">
+                <span className="text-xs font-bold text-amber-600 uppercase tracking-wide block mb-1">
                   वानस्पतिक विशेषताएं व क्षमता
                 </span>
-                <p className="text-stone-300 text-sm leading-relaxed">{selectedSeed.characteristics}</p>
+                <p className="text-stone-700 text-sm leading-relaxed">{selectedSeed.characteristics}</p>
               </div>
 
               {/* Cultural & Ritual Role */}
-              <div className="bg-amber-950/30 border border-amber-800/40 p-4 rounded-xl">
-                <span className="text-xs font-bold text-amber-300 uppercase tracking-wide block mb-1">
+              <div className="bg-amber-50/30 border border-amber-200/40 p-4 rounded-xl">
+                <span className="text-xs font-bold text-amber-700 uppercase tracking-wide block mb-1">
                   संथाल सांस्कृतिक अनुष्ठान व सामाजिक उपयोग
                 </span>
-                <p className="text-amber-100/90 text-sm leading-relaxed">{selectedSeed.culturalRitual}</p>
+                <p className="text-amber-800/90 text-sm leading-relaxed">{selectedSeed.culturalRitual}</p>
               </div>
 
               {/* Nutritional Lore */}
-              <div className="bg-emerald-950/30 border border-emerald-800/40 p-4 rounded-xl">
-                <span className="text-xs font-bold text-emerald-300 uppercase tracking-wide block mb-1">
+              <div className="bg-emerald-50/30 border border-emerald-200/40 p-4 rounded-xl">
+                <span className="text-xs font-bold text-emerald-700 uppercase tracking-wide block mb-1">
                   पारंपरिक औषधीय व पोषण मूल्य
                 </span>
-                <p className="text-emerald-100/90 text-sm leading-relaxed">{selectedSeed.nutritionalValue}</p>
+                <p className="text-emerald-800/90 text-sm leading-relaxed">{selectedSeed.nutritionalValue}</p>
               </div>
             </div>
           </div>
@@ -313,40 +313,40 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
 
       {/* Tab 2: Bandhi Seed Storage */}
       {activeTab === 'bandhi_storage' && (
-        <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-6 max-w-4xl mx-auto">
+        <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-6 max-w-4xl mx-auto">
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-amber-300">"बंधी" (Bandhi) - ५ वर्ष तक जीवित रहने वाली देसी बीज बैंक तकनीक</h3>
-            <p className="text-stone-300 text-sm mt-1 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-amber-700">"बंधी" (Bandhi) - ५ वर्ष तक जीवित रहने वाली देसी बीज बैंक तकनीक</h3>
+            <p className="text-stone-700 text-sm mt-1 max-w-2xl mx-auto">
               संथाल पूर्वजों ने बिना किसी रासायनिक कीटनाशक के धान के बीजों को ५ से ७ वर्षों तक १००% अंकुरण क्षमता के साथ सुरक्षित रखने की यह अनूठी तकनीक खोजी थी।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-stone-950 p-5 rounded-xl border border-stone-800 space-y-2">
-              <span className="text-amber-400 font-bold text-base block">१. पुआल की मोटी रस्सी (बोड़)</span>
-              <p className="text-stone-300 text-xs leading-relaxed">
+            <div className="bg-white p-5 rounded-xl border border-stone-200 space-y-2">
+              <span className="text-amber-600 font-bold text-base block">१. पुआल की मोटी रस्सी (बोड़)</span>
+              <p className="text-stone-700 text-xs leading-relaxed">
                 धान के सूखे पुआल को हाथ से ऐंठकर २०-३० मीटर लंबी मजबूत रस्सी 'बोड़' बनाई जाती है। यह पुआल बाहरी नमी और फंगस को बीजों तक पहुंचने से रोकता है।
               </p>
             </div>
 
-            <div className="bg-stone-950 p-5 rounded-xl border border-stone-800 space-y-2">
-              <span className="text-amber-400 font-bold text-base block">२. नीम, करंज व करहानी परत</span>
-              <p className="text-stone-300 text-xs leading-relaxed">
+            <div className="bg-white p-5 rounded-xl border border-stone-200 space-y-2">
+              <span className="text-amber-600 font-bold text-base block">२. नीम, करंज व करहानी परत</span>
+              <p className="text-stone-700 text-xs leading-relaxed">
                 अंदर बीजों के बीच सूखी नीम की पत्तियां, करंज की खली और करहानी धान की भूसी का लेप मिलाया जाता है, जिससे घुन और दीमक पास नहीं फटकते।
               </p>
             </div>
 
-            <div className="bg-stone-950 p-5 rounded-xl border border-stone-800 space-y-2">
-              <span className="text-amber-400 font-bold text-base block">३. वायुरोधी संपीड़न (Air-Tight)</span>
-              <p className="text-stone-300 text-xs leading-relaxed">
+            <div className="bg-white p-5 rounded-xl border border-stone-200 space-y-2">
+              <span className="text-amber-600 font-bold text-base block">३. वायुरोधी संपीड़न (Air-Tight)</span>
+              <p className="text-stone-700 text-xs leading-relaxed">
                 बोड़ रस्सी को गोल-गोल लपेटकर अंदर बीजों को दबाकर भरा जाता है। अंदर ऑक्सीजन की मात्रा नगण्य होने के कारण बीज सुषुप्तावस्था (dormancy) में चले जाते हैं।
               </p>
             </div>
           </div>
 
-          <div className="bg-stone-950 p-5 rounded-xl border border-stone-800">
-            <h4 className="text-base font-bold text-emerald-400 mb-2">बंधी का महत्व: अकाल के समय गांव का सहारा</h4>
-            <p className="text-stone-300 text-xs leading-relaxed">
+          <div className="bg-white p-5 rounded-xl border border-stone-200">
+            <h4 className="text-base font-bold text-emerald-600 mb-2">बंधी का महत्व: अकाल के समय गांव का सहारा</h4>
+            <p className="text-stone-700 text-xs leading-relaxed">
               संथाल गांव में जब किसी किसान का घर जल जाता था या अकाल पड़ता था, तो मांझी बाबा गांव की आरक्षित 'मांझी बंधी' खोलकर पूरे गांव में प्रति परिवार १ पाई बीज वितरित करते थे। इसे 'हापड़ाम कोवाः हसली' (पुरखों का बीज-धन) कहा जाता है।
             </p>
           </div>
@@ -355,29 +355,29 @@ export const SantaliIndigenousSeedsHeirloom: React.FC = () => {
 
       {/* Tab 3: Erok Sim Ritual */}
       {activeTab === 'erok_sim_rituals' && (
-        <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-6 max-w-3xl mx-auto">
+        <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 shadow-xl space-y-6 max-w-3xl mx-auto">
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-amber-200">एरोक सिम (Erok Sim) - प्रथम बुआई पूजा</h3>
-            <p className="text-stone-400 text-xs mt-1">आषाढ़ माह में खेतों में हल चलाने और बीज डालने से पहले जाहेर थान में होने वाली सामूहिक प्रार्थना</p>
+            <h3 className="text-2xl font-bold text-amber-800">एरोक सिम (Erok Sim) - प्रथम बुआई पूजा</h3>
+            <p className="text-stone-600 text-xs mt-1">आषाढ़ माह में खेतों में हल चलाने और बीज डालने से पहले जाहेर थान में होने वाली सामूहिक प्रार्थना</p>
           </div>
 
-          <div className="bg-stone-950 p-5 rounded-xl border border-stone-800 space-y-4">
+          <div className="bg-white p-5 rounded-xl border border-stone-200 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-emerald-400">नायके बाबा की पावन प्रार्थना (संथाली उच्चारण)</span>
+              <span className="text-sm font-bold text-emerald-600">नायके बाबा की पावन प्रार्थना (संथाली उच्चारण)</span>
               <button
                 onClick={() => speakText("जाहेर एरा, मारंग बुरु, मोड़ेको-तुरूइको, अबोवाः खेत रे दाक्-जपाय दहो-काक-पे, बिद दाना हेर-अकाद-आले")}
-                className="p-1.5 bg-emerald-900/50 text-emerald-200 rounded-lg hover:bg-emerald-800"
+                className="p-1.5 bg-emerald-50/50 text-emerald-800 rounded-lg hover:bg-emerald-100"
               >
                 <Volume2 className="w-4 h-4" />
               </button>
             </div>
-            <p className="text-amber-100 font-serif text-sm leading-relaxed italic">
+            <p className="text-amber-800 font-serif text-sm leading-relaxed italic">
               "जोहार गो जाहेर एरा! जोहार मारंग बुरु!<br />
               अबोवाः दिशोम रे, अबोवाः आतु रे<br />
               दाक्-जपाय खाराप आलो हुयुक्-मा...<br />
               मित्-टांग दाना हेर-लेरे, गेल-टांग गोछा ओड़ोक-मा!"
             </p>
-            <div className="text-xs text-stone-300 pt-3 border-t border-stone-800">
+            <div className="text-xs text-stone-700 pt-3 border-t border-stone-200">
               <strong>हिंदी अनुवाद:</strong> हे ग्रामदेवी जाहेर एरा! हे मारंग बुरु! हमारे देश और गांव में सूखा या अकाल न पड़े। जब हम खेत में एक मुट्ठी बीज डालें, तो वह दस गुनी सुनहरी बालियों में लहराए। हमारे बैलों और किसानों की रक्षा करना।
             </div>
           </div>
