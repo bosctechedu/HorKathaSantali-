@@ -46,6 +46,10 @@ const SantaliIndigenousMathGeometry = lazy(() => import('./components/SantaliInd
 const SantaliWildHoneyHarvesting = lazy(() => import('./components/SantaliWildHoneyHarvesting').then((m) => ({ default: m.SantaliWildHoneyHarvesting })));
 const SantaliAnimalBehaviorOmens = lazy(() => import('./components/SantaliAnimalBehaviorOmens').then((m) => ({ default: m.SantaliAnimalBehaviorOmens })));
 const SantaliTextileDyesBlockPrint = lazy(() => import('./components/SantaliTextileDyesBlockPrint').then((m) => ({ default: m.SantaliTextileDyesBlockPrint })));
+const ExamPrepSantali = lazy(() => import('./components/knowledge/ExamPrepSantali'));
+const TribalSchemes = lazy(() => import('./components/knowledge/TribalSchemes'));
+const SantaliLiterature = lazy(() => import('./components/knowledge/SantaliLiterature'));
+const SantaliNewsEvents = lazy(() => import('./components/knowledge/SantaliNewsEvents'));
 const SantaliMidwiferyCareLore = lazy(() => import('./components/SantaliMidwiferyCareLore').then((m) => ({ default: m.SantaliMidwiferyCareLore })));
 const PwaInstallPrompt = lazy(() => import('./components/PwaInstallPrompt').then((m) => ({ default: m.PwaInstallPrompt })));
 import { Footer } from './components/Footer';
@@ -930,6 +934,10 @@ function AppContent() {
               {activeTab === 'indigenous_midwifery_care' && (
                 <SantaliMidwiferyCareLore />
               )}
+              {activeTab === 'santali_exam_prep' && <ExamPrepSantali />}
+              {activeTab === 'tribal_schemes' && <TribalSchemes />}
+              {activeTab === 'santali_literature' && <SantaliLiterature />}
+              {activeTab === 'santali_news_events' && <SantaliNewsEvents />}
 
               {/* Tab: Traditional Herbal Medicine & Ethnobotany */}
               {activeTab === 'herbal' && (

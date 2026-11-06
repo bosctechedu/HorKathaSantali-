@@ -378,6 +378,46 @@ export const APP_MODULES: SearchItem[] = [
     description: 'संताली पवित्र सृष्टि गाथा: कैसे जलमग्न संसार से धरती का निर्माण हुआ और मानव जाति की शुरुआत हुई।'
   },
   {
+    id: 'mod-santali_exam_prep',
+    type: 'module',
+    title: 'संताली प्रतियोगी परीक्षा तैयारी',
+    subtitle: 'JSSC CGL संताली पेपर, UGC-NET संताली (कोड 95), अभ्यास प्रश्न',
+    targetTab: 'santali_exam_prep',
+    icon: Sparkles,
+    category: 'Exam Prep',
+    description: 'परीक्षा, JSSC, NET, mock test, ओल चिकी, रघुनाथ मुर्मू, हूल प्रश्नोत्तरी'
+  },
+  {
+    id: 'mod-tribal_schemes',
+    type: 'module',
+    title: 'आदिवासी छात्रों के लिए सरकारी योजनाएँ',
+    subtitle: 'प्री-मैट्रिक, पोस्ट-मैट्रिक छात्रवृत्ति, नेशनल फ़ेलोशिप, EMRS',
+    targetTab: 'tribal_schemes',
+    icon: Sparkles,
+    category: 'Government Schemes',
+    description: 'छात्रवृत्ति, scholarship, ST, e-Kalyan, NSP, फ़ेलोशिप'
+  },
+  {
+    id: 'mod-santali_literature',
+    type: 'module',
+    title: 'संताली साहित्य और साहित्यकार',
+    subtitle: 'साहित्य अकादमी पुरस्कार 2005–2025, गुरु गोमके, बोडिंग',
+    targetTab: 'santali_literature',
+    icon: Sparkles,
+    category: 'Literature',
+    description: 'लेखक, कवि, कहानी, उपन्यास, नाटक, पुरस्कार'
+  },
+  {
+    id: 'mod-santali_news_events',
+    type: 'module',
+    title: 'संताली समाचार और कार्यक्रम',
+    subtitle: 'ताज़ा ख़बरें, हूल दिवस, भाषा विजय दिवस, पर्व',
+    targetTab: 'santali_news_events',
+    icon: Sparkles,
+    category: 'News & Events',
+    description: 'खबर, समाचार, कार्यक्रम, 22 दिसंबर, 30 जून'
+  },
+  {
     id: 'mod-dances',
     type: 'module',
     title: 'संताली पारंपरिक शीर्ष १० नृत्य (एनेच)',

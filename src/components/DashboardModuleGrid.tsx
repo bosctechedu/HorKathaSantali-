@@ -6,6 +6,8 @@ import {
   BookOpen,
   Camera,
   GraduationCap,
+  BookMarked,
+  Newspaper,
   Languages,
   Search,
   ArrowRight,
@@ -112,6 +114,42 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
       onOpen: openSuitePromo,
     },
     // ─── 1. भाषा, लिपि व अध्ययन (15 Modules) ───
+    {
+      id: 'santali_exam_prep',
+      title: 'संताली प्रतियोगी परीक्षा तैयारी',
+      subtitle: 'JSSC CGL Paper-II, UGC-NET (कोड 95) की जानकारी और 20 अभ्यास प्रश्न',
+      icon: GraduationCap,
+      gradient: 'from-indigo-900 via-slate-900 to-amber-900',
+      actionText: 'Start Practice',
+      category: 'language'
+    },
+    {
+      id: 'tribal_schemes',
+      title: 'आदिवासी छात्रों के लिए सरकारी योजनाएँ',
+      subtitle: 'प्री/पोस्ट-मैट्रिक छात्रवृत्ति, नेशनल फ़ेलोशिप, EMRS: सरल हिन्दी में',
+      icon: Landmark,
+      gradient: 'from-emerald-900 via-teal-900 to-slate-900',
+      actionText: 'View Schemes',
+      category: 'language'
+    },
+    {
+      id: 'santali_literature',
+      title: 'संताली साहित्य और साहित्यकार',
+      subtitle: 'गुरु गोमके, बोडिंग और साहित्य अकादमी पुरस्कार 2005–2025',
+      icon: BookMarked,
+      gradient: 'from-rose-900 via-stone-900 to-amber-900',
+      actionText: 'Explore Literature',
+      category: 'culture'
+    },
+    {
+      id: 'santali_news_events',
+      title: 'संताली समाचार और कार्यक्रम',
+      subtitle: 'ताज़ा ख़बरें, हूल दिवस, भाषा विजय दिवस व पर्वों की जानकारी',
+      icon: Newspaper,
+      gradient: 'from-sky-900 via-slate-900 to-violet-900',
+      actionText: 'Read News',
+      category: 'culture'
+    },
     {
       id: 'keyboard',
       title: 'संताली कीबोर्ड (Keyboard)',

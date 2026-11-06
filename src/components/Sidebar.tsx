@@ -7,6 +7,8 @@ import {
   Keyboard as KeyboardIcon,
   LayoutDashboard,
   GraduationCap,
+  BookMarked,
+  Newspaper,
   Languages,
   Settings,
   Info,
@@ -178,6 +180,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   const learningNav = [
+    { id: 'santali_exam_prep' as ActiveDesktopTab, label: 'संताली परीक्षा तैयारी (JSSC/NET)', icon: GraduationCap, badge: 'परीक्षा' },
+    { id: 'tribal_schemes' as ActiveDesktopTab, label: 'आदिवासी छात्र योजनाएँ', icon: Landmark, badge: 'योजना' },
+    { id: 'santali_literature' as ActiveDesktopTab, label: 'संताली साहित्य व साहित्यकार', icon: BookMarked, badge: 'साहित्य' },
+    { id: 'santali_news_events' as ActiveDesktopTab, label: 'संताली समाचार व कार्यक्रम', icon: Newspaper, badge: 'ख़बरें' },
     { id: 'certification' as ActiveDesktopTab, label: 'भाषा परीक्षा व प्रमाणपत्र', icon: Award, badge: 'प्रमाणपत्र' },
     { id: 'phonetics_lab' as ActiveDesktopTab, label: '४ रुद्ध कंठ ध्वनियां (Phonetics)', icon: Activity, badge: 'रुद्ध ध्वनि' },
     { id: 'grammar' as ActiveDesktopTab, label: 'संताली व्याकरण (रोनौड़)', icon: BookOpen, badge: 'नया' },
