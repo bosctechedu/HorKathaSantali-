@@ -418,6 +418,76 @@ export const APP_MODULES: SearchItem[] = [
     description: 'खबर, समाचार, कार्यक्रम, 22 दिसंबर, 30 जून'
   },
   {
+    id: 'mod-santal_hul_history',
+    type: 'module',
+    title: 'संताल हूल 1855–56',
+    subtitle: 'सिदो-कान्हू, चाँद-भैरव, फूलो-झानो: समय-रेखा और नायक',
+    targetTab: 'santal_hul_history',
+    icon: Sparkles,
+    category: 'History',
+    description: 'हूल, विद्रोह, सिदो कान्हू, भोगनाडीह, 30 जून, संताल परगना'
+  },
+  {
+    id: 'mod-santali_personalities',
+    type: 'module',
+    title: 'प्रसिद्ध संताल व्यक्तित्व',
+    subtitle: 'स्वतंत्रता सेनानी, साहित्यकार और सार्वजनिक जीवन के बड़े नाम',
+    targetTab: 'santali_personalities',
+    icon: Sparkles,
+    category: 'Personalities',
+    description: 'द्रौपदी मुर्मू, शिबू सोरेन, रघुनाथ मुर्मू, दमयंती बेसरा, पद्मश्री'
+  },
+  {
+    id: 'mod-santali_in_numbers',
+    type: 'module',
+    title: 'संताली आँकड़ों में',
+    subtitle: 'जनगणना 2011: 73.68 लाख भाषी, राज्यवार हिस्सा और विदेश',
+    targetTab: 'santali_in_numbers',
+    icon: Sparkles,
+    category: 'Statistics',
+    description: 'जनगणना, census, कितने लोग, राज्य, नेपाल, बांग्लादेश'
+  },
+  {
+    id: 'mod-tribal_rights_laws',
+    type: 'module',
+    title: 'आदिवासी अधिकार और क़ानून',
+    subtitle: 'पाँचवीं अनुसूची, PESA, वन अधिकार, SPT/CNT और प्रमाणपत्र गाइड',
+    targetTab: 'tribal_rights_laws',
+    icon: Sparkles,
+    category: 'Rights & Law',
+    description: 'PESA, FRA, CNT, SPT, जाति प्रमाणपत्र, आय, निवास, JharSewa'
+  },
+  {
+    id: 'mod-santali_study_career',
+    type: 'module',
+    title: 'संताली पढ़ाई, करियर और नौकरी',
+    subtitle: 'कहाँ पढ़ें (8 विश्वविद्यालय), करियर के रास्ते और नौकरी सूचना',
+    targetTab: 'santali_study_career',
+    icon: Sparkles,
+    category: 'Career',
+    description: 'विश्वविद्यालय, MA, PhD, नौकरी, vacancy, शिक्षक, अनुवादक'
+  },
+  {
+    id: 'mod-santali_books_media',
+    type: 'module',
+    title: 'संताली किताबें और मीडिया',
+    subtitle: 'ज़रूर पढ़ें किताबें, संताली विकिपीडिया, रेडियो और पत्रिकाएँ',
+    targetTab: 'santali_books_media',
+    icon: Sparkles,
+    category: 'Books & Media',
+    description: 'किताब, पुस्तक, बिदु चांदान, बोडिंग, विकिपीडिया, रेडियो, पत्रिका'
+  },
+  {
+    id: 'mod-reader_submissions',
+    type: 'module',
+    title: 'आपकी रचना',
+    subtitle: 'अपनी कविता, कहानी या लेख भेजें; Admin की मंज़ूरी के बाद सबको दिखेगी',
+    targetTab: 'reader_submissions',
+    icon: Sparkles,
+    category: 'Community',
+    description: 'कविता भेजें, कहानी, रचना, लेख, गीत, submit'
+  },
+  {
     id: 'mod-dances',
     type: 'module',
     title: 'संताली पारंपरिक शीर्ष १० नृत्य (एनेच)',

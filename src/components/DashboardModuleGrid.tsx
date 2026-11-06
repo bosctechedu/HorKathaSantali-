@@ -6,6 +6,11 @@ import {
   BookOpen,
   Camera,
   GraduationCap,
+  Star,
+  BarChart3,
+  School,
+  Library,
+  PenLine,
   BookMarked,
   Newspaper,
   Languages,
@@ -149,6 +154,69 @@ const DashboardModuleGrid: React.FC<DashboardModuleGridProps> = ({ onNavigate, i
       gradient: 'from-sky-900 via-slate-900 to-violet-900',
       actionText: 'Read News',
       category: 'culture'
+    },
+    {
+      id: 'santal_hul_history',
+      title: 'संताल हूल 1855–56',
+      subtitle: 'सिदो-कान्हू, चाँद-भैरव, फूलो-झानो: समय-रेखा और नायक',
+      icon: Flame,
+      gradient: 'from-orange-900 via-red-950 to-stone-900',
+      actionText: 'Read History',
+      category: 'culture'
+    },
+    {
+      id: 'santali_personalities',
+      title: 'प्रसिद्ध संताल व्यक्तित्व',
+      subtitle: 'स्वतंत्रता सेनानी, साहित्यकार और सार्वजनिक जीवन के बड़े नाम',
+      icon: Star,
+      gradient: 'from-yellow-900 via-amber-950 to-stone-900',
+      actionText: 'Meet Them',
+      category: 'culture'
+    },
+    {
+      id: 'santali_in_numbers',
+      title: 'संताली आँकड़ों में',
+      subtitle: 'जनगणना 2011: 73.68 लाख भाषी, राज्यवार हिस्सा और विदेश',
+      icon: BarChart3,
+      gradient: 'from-cyan-900 via-slate-900 to-indigo-900',
+      actionText: 'See Numbers',
+      category: 'language'
+    },
+    {
+      id: 'tribal_rights_laws',
+      title: 'आदिवासी अधिकार और क़ानून',
+      subtitle: 'पाँचवीं अनुसूची, PESA, वन अधिकार, SPT/CNT और प्रमाणपत्र गाइड',
+      icon: Scale,
+      gradient: 'from-lime-900 via-emerald-950 to-stone-900',
+      actionText: 'Know Rights',
+      category: 'language'
+    },
+    {
+      id: 'santali_study_career',
+      title: 'संताली पढ़ाई, करियर और नौकरी',
+      subtitle: 'कहाँ पढ़ें (8 विश्वविद्यालय), करियर के रास्ते और नौकरी सूचना',
+      icon: School,
+      gradient: 'from-teal-900 via-cyan-950 to-slate-900',
+      actionText: 'Explore Careers',
+      category: 'language'
+    },
+    {
+      id: 'santali_books_media',
+      title: 'संताली किताबें और मीडिया',
+      subtitle: 'ज़रूर पढ़ें किताबें, संताली विकिपीडिया, रेडियो और पत्रिकाएँ',
+      icon: Library,
+      gradient: 'from-fuchsia-900 via-purple-950 to-slate-900',
+      actionText: 'Open Library',
+      category: 'culture'
+    },
+    {
+      id: 'reader_submissions',
+      title: 'आपकी रचना',
+      subtitle: 'अपनी कविता, कहानी या लेख भेजें; Admin की मंज़ूरी के बाद सबको दिखेगी',
+      icon: PenLine,
+      gradient: 'from-pink-900 via-rose-950 to-slate-900',
+      actionText: 'Send Yours',
+      category: 'language'
     },
     {
       id: 'keyboard',

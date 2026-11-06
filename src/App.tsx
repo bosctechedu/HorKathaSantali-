@@ -50,6 +50,13 @@ const ExamPrepSantali = lazy(() => import('./components/knowledge/ExamPrepSantal
 const TribalSchemes = lazy(() => import('./components/knowledge/TribalSchemes'));
 const SantaliLiterature = lazy(() => import('./components/knowledge/SantaliLiterature'));
 const SantaliNewsEvents = lazy(() => import('./components/knowledge/SantaliNewsEvents'));
+const SantalHulHistory = lazy(() => import('./components/knowledge/SantalHulHistory'));
+const SantaliPersonalities = lazy(() => import('./components/knowledge/SantaliPersonalities'));
+const SantaliInNumbers = lazy(() => import('./components/knowledge/SantaliInNumbers'));
+const TribalRightsLaws = lazy(() => import('./components/knowledge/TribalRightsLaws'));
+const SantaliStudyCareer = lazy(() => import('./components/knowledge/SantaliStudyCareer'));
+const SantaliBooksMedia = lazy(() => import('./components/knowledge/SantaliBooksMedia'));
+const ReaderSubmissions = lazy(() => import('./components/knowledge/ReaderSubmissions'));
 const SantaliMidwiferyCareLore = lazy(() => import('./components/SantaliMidwiferyCareLore').then((m) => ({ default: m.SantaliMidwiferyCareLore })));
 const PwaInstallPrompt = lazy(() => import('./components/PwaInstallPrompt').then((m) => ({ default: m.PwaInstallPrompt })));
 import { Footer } from './components/Footer';
@@ -938,6 +945,13 @@ function AppContent() {
               {activeTab === 'tribal_schemes' && <TribalSchemes />}
               {activeTab === 'santali_literature' && <SantaliLiterature />}
               {activeTab === 'santali_news_events' && <SantaliNewsEvents />}
+              {activeTab === 'santal_hul_history' && <SantalHulHistory />}
+              {activeTab === 'santali_personalities' && <SantaliPersonalities />}
+              {activeTab === 'santali_in_numbers' && <SantaliInNumbers />}
+              {activeTab === 'tribal_rights_laws' && <TribalRightsLaws />}
+              {activeTab === 'santali_study_career' && <SantaliStudyCareer />}
+              {activeTab === 'santali_books_media' && <SantaliBooksMedia />}
+              {activeTab === 'reader_submissions' && <ReaderSubmissions />}
 
               {/* Tab: Traditional Herbal Medicine & Ethnobotany */}
               {activeTab === 'herbal' && (
