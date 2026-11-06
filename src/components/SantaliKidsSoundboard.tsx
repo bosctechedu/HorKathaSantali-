@@ -173,8 +173,9 @@ const BASE_SOUNDBOARD_CARDS: SoundboardCard[] = [
   },
   {
     id: 'mango',
-    nameDev: 'उलूक (Uluk)',
-    nameRoman: 'Uluk',
+    nameDev: 'उल (Ul)',
+    nameRoman: 'Ul',
+    olChiki: 'ᱩᱞ',
     hindiMeaning: 'आम (Mango)',
     category: 'nature',
     categoryLabelHindi: 'फल',
