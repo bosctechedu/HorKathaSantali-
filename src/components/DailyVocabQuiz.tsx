@@ -40,6 +40,9 @@ interface StreakData {
 
 const STORAGE_KEY = 'hk_daily_vocab_quiz_streak_v1';
 
+// Questions per daily / practice round.
+const QUIZ_SIZE = 30;
+
 function getTodayDateStr(): string {
   const now = new Date();
   const year = now.getFullYear();
@@ -119,7 +122,7 @@ export const DailyVocabQuiz: React.FC<{
   const yesterdayStr = getYesterdayDateStr();
   const isAlreadyCompletedToday = streakData.lastCompletedDate === todayStr;
 
-  // Mode: 'daily' (today's 5 words) or 'practice' (unlimited random words)
+  // Mode: 'daily' (today's QUIZ_SIZE words) or 'practice' (unlimited random words)
   const [quizMode, setQuizMode] = useState<'daily' | 'practice'>('daily');
   const [practiceSeed, setPracticeSeed] = useState(0);
 
@@ -130,21 +133,31 @@ export const DailyVocabQuiz: React.FC<{
   const [isFinished, setIsFinished] = useState(false);
   const [copiedShare, setCopiedShare] = useState(false);
 
-  // Pick 5 words deterministically or randomly for practice
+  // Pick QUIZ_SIZE words deterministically (daily) or randomly (practice)
   const questions: QuizQuestion[] = useMemo(() => {
     if (!words || words.length === 0) return [];
+    // Only words with both meanings; one entry per answer text so no two questions share a correct option.
+    const seenAns = new Set<string>();
+    const eligible = words.filter((w) => {
+      if (!w || !w.meaningEnglish || !w.meaningHindi || !(w.wordDevanagari || w.wordRoman)) return false;
+      const k = `${w.meaningEnglish} · ${w.meaningHindi}`.trim().toLowerCase();
+      if (seenAns.has(k)) return false;
+      seenAns.add(k);
+      return true;
+    });
+    const source = eligible.length >= 4 ? eligible : words;
 
     let selectedWords: SantaliWord[] = [];
 
     if (quizMode === 'daily') {
       const seed = getDaySeed(todayStr);
       const prng = seededRandom(seed);
-      const shuffled = shuffleArray(words, prng);
-      selectedWords = shuffled.slice(0, 5);
+      const shuffled = shuffleArray(source, prng);
+      selectedWords = shuffled.slice(0, QUIZ_SIZE);
     } else {
       const prng = seededRandom(Date.now() + practiceSeed);
-      const shuffled = shuffleArray(words, prng);
-      selectedWords = shuffled.slice(0, 5);
+      const shuffled = shuffleArray(source, prng);
+      selectedWords = shuffled.slice(0, QUIZ_SIZE);
     }
 
     return selectedWords.map((word, qIdx) => {
@@ -152,7 +165,7 @@ export const DailyVocabQuiz: React.FC<{
       const correctText = `${word.meaningEnglish} · ${word.meaningHindi}`;
 
       // 3 Distractors from other words
-      const otherWords = words.filter((w) => w.id !== word.id && w.meaningEnglish !== word.meaningEnglish);
+      const otherWords = source.filter((w) => w.id !== word.id && w.meaningEnglish !== word.meaningEnglish && w.meaningHindi !== word.meaningHindi);
       const randFn = quizMode === 'daily' ? seededRandom(getDaySeed(todayStr) + qIdx * 13) : Math.random;
       const shuffledOthers = shuffleArray(otherWords, randFn).slice(0, 3);
 
@@ -223,7 +236,7 @@ export const DailyVocabQuiz: React.FC<{
           [todayStr]: {
             date: todayStr,
             score: currentScore,
-            total: 5,
+            total: questions.length,
           },
         };
 
@@ -271,7 +284,7 @@ export const DailyVocabQuiz: React.FC<{
     const score = userAnswers.filter(Boolean).length;
     const squares = userAnswers.map((a) => (a ? '🟩' : '🟥')).join('');
     const shareText = `🔥 Hor Katha Daily Santali Quiz #${todayStr}
-Streak: ${streakData.currentStreak} Days | Score: ${score}/5
+Streak: ${streakData.currentStreak} Days | Score: ${score}/${questions.length}
 ${squares}
 Test your Santali vocabulary at Hor Katha Suite (BOSC Tech & Edu)`;
 
@@ -285,7 +298,7 @@ Test your Santali vocabulary at Hor Katha Suite (BOSC Tech & Edu)`;
       <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center max-w-md mx-auto my-8">
         <BookOpen className="w-8 h-8 text-amber-600 mx-auto mb-2 animate-bounce" />
         <h3 className="font-bold text-slate-800">Loading Daily Quiz...</h3>
-        <p className="text-xs text-slate-500 mt-1">Preparing today's 5 vocabulary words.</p>
+        <p className="text-xs text-slate-500 mt-1">Preparing today's {QUIZ_SIZE} vocabulary words.</p>
       </div>
     );
   }
@@ -318,7 +331,7 @@ Test your Santali vocabulary at Hor Katha Suite (BOSC Tech & Edu)`;
               <span>Daily Santali Vocabulary Quiz</span>
             </h1>
             <p className="text-xs sm:text-sm text-amber-100 font-medium mt-0.5">
-              Master 5 indigenous words every day · Build your consecutive streak!
+              Master {QUIZ_SIZE} indigenous words every day · Build your consecutive streak!
             </p>
           </div>
 
@@ -406,14 +419,14 @@ Test your Santali vocabulary at Hor Katha Suite (BOSC Tech & Edu)`;
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Word {currentIndex + 1} of {questions.length}
               </span>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0.5 flex-wrap max-w-[180px] sm:max-w-[360px]">
                 {questions.map((_, idx) => {
                   const isAnswered = idx < userAnswers.length;
                   const isCorrect = userAnswers[idx];
                   return (
                     <div
                       key={idx}
-                      className={`w-5 h-2 rounded-full transition-all ${
+                      className={`w-2 sm:w-2.5 h-2 rounded-full transition-all ${
                         isAnswered
                           ? isCorrect
                             ? 'bg-emerald-500'
@@ -598,10 +611,10 @@ Test your Santali vocabulary at Hor Katha Suite (BOSC Tech & Edu)`;
               {quizMode === 'daily' ? "Today's Daily Challenge Conquered!" : 'Practice Session Completed!'}
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
-              Johar! {score === 5 ? 'Perfect 5/5 Score!' : `You Scored ${score} / 5!`}
+              Johar! {score === questions.length ? `Perfect ${score}/${questions.length} Score!` : `You Scored ${score} / ${questions.length}!`}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-md mx-auto">
-              {score === 5
+              {score === questions.length
                 ? 'Outstanding mastery of Santali vocabulary! Your dedication keeps our heritage language alive.'
                 : 'Great effort! Review the words below to strengthen your memory.'}
             </p>
@@ -625,7 +638,7 @@ Test your Santali vocabulary at Hor Katha Suite (BOSC Tech & Edu)`;
                 <span className="text-[10px] font-bold uppercase tracking-wider">Accuracy</span>
               </div>
               <span className="text-lg sm:text-xl font-black text-emerald-950">
-                {Math.round((score / 5) * 100)}%
+                {Math.round((score / Math.max(1, questions.length)) * 100)}%
               </span>
             </div>
 
@@ -678,12 +691,12 @@ Test your Santali vocabulary at Hor Katha Suite (BOSC Tech & Edu)`;
             )}
           </div>
 
-          {/* Review of Today's 5 Words */}
+          {/* Review of Today's Words */}
           <div className="pt-6 border-t border-slate-100 text-left">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
                 <BookOpen className="w-4 h-4 text-amber-600" />
-                <span>Today's 5 Vocabulary Words Review:</span>
+                <span>Today's {questions.length} Vocabulary Words Review:</span>
               </h3>
               {onExploreInDictionary && (
                 <button

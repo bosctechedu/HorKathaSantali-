@@ -1,4 +1,5 @@
 import { QuizItem, SantaliWord, SiteHeroConfig } from '../types';
+import { OL_LETTERS, OL_DIGITS } from '../lib/olchiki';
 
 export const DEFAULT_HERO_CONFIG: SiteHeroConfig = {
   welcomeTitle: 'जोहार! Hor Katha Suite में आपका स्वागत है',
@@ -898,6 +899,140 @@ export const QUIZ_QUESTIONS: QuizItem[] = [
     explanation: 'संताली देवनागरी में ५ को "मोड़े" (Mõrẽ) कहा जाता है।'
   }
 ];
+
+// ---------------------------------------------------------------------------------------------
+// Quiz-bank generators. They build extra practice questions ONLY from data that already lives in
+// this repo (core dictionary above, Ol Chiki Unicode letters/digits in lib/olchiki, and the Santali
+// numeral names used across the site) — no new Santali words are invented here. Option choice and
+// answer position are deterministic so a generated question keeps the same id/text on every load.
+// ---------------------------------------------------------------------------------------------
+export interface GeneratedQuizQ {
+  key: string;
+  question: string;
+  options: string[];
+  answer: number;
+  explanation: string;
+}
+
+/** Santali numerals 1–10 (same names as the Learn module, soundboard and lexicon data). */
+export const SANTALI_NUMERALS: { value: number; hindi: string; santali: string; roman: string }[] = [
+  { value: 1, hindi: 'एक', santali: "मित'", roman: "Mit'" },
+  { value: 2, hindi: 'दो', santali: 'बार', roman: 'Bar' },
+  { value: 3, hindi: 'तीन', santali: 'पे', roman: 'Pe' },
+  { value: 4, hindi: 'चार', santali: 'पुन', roman: 'Pun' },
+  { value: 5, hindi: 'पाँच', santali: 'मोड़े', roman: 'More' },
+  { value: 6, hindi: 'छह', santali: 'तुरुय', roman: 'Turui' },
+  { value: 7, hindi: 'सात', santali: 'एयाय', roman: 'Eyay' },
+  { value: 8, hindi: 'आठ', santali: 'इराल', roman: 'Iral' },
+  { value: 9, hindi: 'नौ', santali: 'आरे', roman: 'Are' },
+  { value: 10, hindi: 'दस', santali: 'गेल', roman: 'Gel' },
+];
+
+const DEV_DIGITS = '०१२३४५६७८९';
+const toDevNum = (n: number) => String(n).split('').map((d) => DEV_DIGITS[+d] || d).join('');
+
+/** 4 options: the answer at a deterministic slot plus 3 distinct distractors picked by stride. */
+function mcq(all: string[], i: number): { options: string[]; answer: number } {
+  const correct = all[i];
+  const wrong: string[] = [];
+  for (const step of [7, 13, 19, 3, 11, 5, 17, 1, 2, 23]) {
+    const c = all[(i + step) % all.length];
+    if (c && c !== correct && !wrong.includes(c)) wrong.push(c);
+    if (wrong.length === 3) break;
+  }
+  let h = 0;
+  for (const ch of correct) h = (h * 31 + ch.charCodeAt(0)) | 0;
+  const slot = Math.abs(h + i) % 4;
+  const options = [...wrong];
+  options.splice(slot, 0, correct);
+  return { options, answer: slot };
+}
+
+const cleanMeaning = (m: string) => m.split(/[,،]/)[0].trim();
+const quizWords = () =>
+  SANTALI_DICTIONARY.filter((w) => w.wordDevanagari && w.meaningHindi && w.category !== 'number_time');
+
+export type GeneratedQuizKind =
+  | 'numeral_name'   // संख्या → संताली नाम
+  | 'ol_digit'       // ओल चिकी अंक → संख्या
+  | 'ol_letter_name' // ओल चिकी अक्षर → नाम
+  | 'ol_letter_char' // नाम → ओल चिकी अक्षर
+  | 'dict_meaning'   // संताली शब्द → हिंदी अर्थ
+  | 'dict_reverse';  // हिंदी अर्थ → संताली शब्द
+
+export function buildGeneratedQuiz(kind: GeneratedQuizKind): GeneratedQuizQ[] {
+  if (kind === 'numeral_name') {
+    const all = SANTALI_NUMERALS.map((n) => `${n.santali} (${n.roman})`);
+    return SANTALI_NUMERALS.map((n, i) => ({
+      key: `num_${n.value}`,
+      question: `संताली में संख्या ${toDevNum(n.value)} (${n.hindi}) को क्या कहते हैं?`,
+      ...mcq(all, i),
+      explanation: `संताली में ${toDevNum(n.value)} (${n.hindi}) को "${n.santali}" (${n.roman}) कहा जाता है।`,
+    }));
+  }
+  if (kind === 'ol_digit') {
+    const all = OL_DIGITS.map((d) => `${d.value}`);
+    return OL_DIGITS.map((d, i) => ({
+      key: `oldigit_${d.value}`,
+      question: `ओल चिकी अंक "${d.char}" किस संख्या को दर्शाता है?`,
+      ...mcq(all, i),
+      explanation: `ओल चिकी का अंक "${d.char}" संख्या ${d.value} है। ओल चिकी में ० से ९ तक दस अंक-चिह्न होते हैं।`,
+    }));
+  }
+  if (kind === 'ol_letter_name') {
+    const all = OL_LETTERS.map((l) => `${l.roman} (${l.hindi})`);
+    return OL_LETTERS.map((l, i) => ({
+      key: `olname_${l.roman}`,
+      question: `ओल चिकी अक्षर "${l.char}" का नाम क्या है?`,
+      ...mcq(all, i),
+      explanation: `ओल चिकी अक्षर "${l.char}" का नाम "${l.roman}" (${l.hindi}) है।`,
+    }));
+  }
+  if (kind === 'ol_letter_char') {
+    const all = OL_LETTERS.map((l) => l.char);
+    return OL_LETTERS.map((l, i) => ({
+      key: `olchar_${l.roman}`,
+      question: `"${l.roman}" (${l.hindi}) नाम वाला ओल चिकी अक्षर कौन-सा है?`,
+      ...mcq(all, i),
+      explanation: `"${l.roman}" (${l.hindi}) अक्षर ओल चिकी में "${l.char}" लिखा जाता है।`,
+    }));
+  }
+  const words = quizWords();
+  if (kind === 'dict_meaning') {
+    const all = words.map((w) => cleanMeaning(w.meaningHindi));
+    return words.map((w, i) => ({
+      key: `dictm_${w.id}`,
+      question: `संताली शब्द "${w.wordDevanagari}" (${w.wordRoman}) का हिंदी अर्थ क्या है?`,
+      ...mcq(all, i),
+      explanation: `"${w.wordDevanagari}" (${w.wordRoman}) का अर्थ है: ${w.meaningHindi}।`,
+    }));
+  }
+  const all = words.map((w) => `${w.wordDevanagari} (${w.wordRoman})`);
+  return words.map((w, i) => ({
+    key: `dictr_${w.id}`,
+    question: `"${cleanMeaning(w.meaningHindi)}" के लिए संताली शब्द कौन-सा है?`,
+    ...mcq(all, i),
+    explanation: `"${cleanMeaning(w.meaningHindi)}" को संताली में "${w.wordDevanagari}" (${w.wordRoman}) कहते हैं।`,
+  }));
+}
+
+/** Plain-object form used by QuizItem-shaped quizzes (correct answer stored as option text). */
+export const toQuizItem = (q: GeneratedQuizQ, idPrefix: string): QuizItem => ({
+  id: `${idPrefix}${q.key}`,
+  question: q.question,
+  options: q.options,
+  correctAnswer: q.options[q.answer],
+  explanation: q.explanation,
+});
+
+// Grow the default quiz bank to 30 questions with generated numeral / vocabulary questions
+// (skipping topics the 5 hand-written questions above already ask: ५, जोहार, दुलार, सारजोम).
+QUIZ_QUESTIONS.push(
+  ...[
+    ...buildGeneratedQuiz('numeral_name').filter((q) => q.key !== 'num_5'),
+    ...buildGeneratedQuiz('dict_meaning').filter((q) => !['dictm_oth_1', 'dictm_oth_3', 'dictm_nat_2'].includes(q.key)).slice(0, 16),
+  ].map((q) => toQuizItem(q, 'gen_')),
+);
 
 export interface TranslationMapping {
   santaliRoman: string;
