@@ -27,7 +27,8 @@ import {
   QUIZ_EXAMS,
   getExamQuestions,
 } from "../data/edisamQuizData";
-import { dedupeQuestions, mergeNewQuestions, pickUniqueQuestions } from "../utils/questionDedupe";
+import { dedupeQuestions, mergeNewQuestions, pickUniqueQuestions, resolveCorrectIndex, shuffleQuestionOptions } from "../utils/questionDedupe";
+import { ReportMistakeButton } from "./ReportMistakeButton";
 
 // Exam pools (bank + AI questions, deduped) are memoized: examSpec() is called many times per render
 // (exam cards, setup summary, timer) and each merge re-normalizes ~350 questions.
@@ -122,12 +123,16 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
         let ht = (await dt.json()).text.trim();
         ht.startsWith("```") &&
           (ht = ht.replace(/^```json\s*/, "").replace(/```$/, ""));
-        const xt = JSON.parse(ht).map((Jt: any, Bt: any) => ({
-          ...Jt,
-          id: `ai_${n}_${Date.now()}_${Bt}`,
-          category: Le.category,
-          examType: n,
-        }));
+        // AI answers can arrive as "2" / option text: keep only questions whose answer resolves to a real option
+        const xt = JSON.parse(ht)
+          .map((Jt: any, Bt: any) => ({
+            ...Jt,
+            correctAnswer: resolveCorrectIndex(Jt),
+            id: `ai_${n}_${Date.now()}_${Bt}`,
+            category: Le.category,
+            examType: n,
+          }))
+          .filter((Jt: any) => Jt.correctAnswer >= 0 && new Set((Jt.options || []).map((o: any) => String(o).trim())).size === (Jt.options || []).length);
         // AI questions are deduped against the bank and earlier AI questions
         const added = dedupeQuestions(xt, [...(ie[n] || []), ...getExamQuestions(t, n)]);
         $((Jt: any) => ({
@@ -172,7 +177,8 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
         Dt = resetSeen ? Bt.map((ea: any) => ea.id) : [...mt, ...Bt.map((ea: any) => ea.id)];
       if (
         (localStorage.setItem(pt, JSON.stringify(Dt)),
-        B(Bt),
+        // Options shuffled per session (answer re-pointed), so the correct answer is not always A
+        B(Bt.map((ea: any) => shuffleQuestionOptions(ea))),
         j(0),
         E({}),
         T(!1),
@@ -180,6 +186,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
         G(0),
         M(0),
         te(null),
+        setTimeUp(false),
         b("playing"),
         l === "exam")
       ) {
@@ -191,7 +198,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
       (D.current && clearInterval(D.current),
         O(Le),
         (D.current = setInterval(() => {
-          (O((At: any) => (At <= 1 ? (je(), 0) : At - 1)),
+          (O((At: any) => (At <= 1 ? 0 : At - 1)),
             M((At: any) => At + 1));
         }, 1e3)));
     },
@@ -199,6 +206,16 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
       D.current && (clearInterval(D.current), (D.current = null));
     };
   React.useEffect(() => () => pe(), []);
+  // Real-exam mode: auto-submit when the countdown reaches 0. Runs in an effect so je() reads the
+  // latest answers (calling it from the interval closure used the answers of the moment the test began).
+  const [timeUp, setTimeUp] = React.useState(false);
+  React.useEffect(() => {
+    if (g === "playing" && l === "exam" && z <= 0 && D.current) {
+      setTimeUp(true);
+      je();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [z]);
   // Pre-build the other exams' question banks in idle time (one bank per idle slice), so switching
   // category later doesn't block the main thread. Banks are cached in edisamQuizData.
   React.useEffect(() => {
@@ -763,6 +780,16 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                   <h3 className="text-base sm:text-lg md:text-xl font-black text-slate-900 leading-relaxed font-display">
                     {(bt = m[C]) == null ? void 0 : bt.text}
                   </h3>
+                  {m[C] && (
+                    <div className="flex justify-end">
+                      <ReportMistakeButton
+                        page={`मॉक टेस्ट / Quiz (${n}) — ${l === "exam" ? "परीक्षा मोड" : "अभ्यास मोड"}`}
+                        question={m[C].text}
+                        options={m[C].options}
+                        correct={l === "practice" && U ? m[C].options[m[C].correctAnswer] : undefined}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="grid grid-cols-1 gap-3.5 pt-2">
                   {(lt = m[C]) == null
@@ -793,10 +820,14 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                               : Q === At &&
                                 (ht = "border-emerald-600 bg-emerald-50")
                             : dt &&
+                              // Exam mode: only mark the choice as "selected" (neutral blue) — right/wrong
+                              // is revealed after submit, so a green tick here looked like "सही" for every option.
                               ((ht =
-                                "border-emerald-600 bg-emerald-50/45 font-bold ring-2 ring-emerald-600"),
+                                "border-blue-600 bg-blue-50 font-bold ring-2 ring-blue-500"),
                               (mt = (
-                                <CircleCheckIcon className="w-5 h-5 text-emerald-600 shrink-0" />
+                                <span className="text-[10px] font-black text-blue-700 bg-white border border-blue-200 px-2 py-0.5 rounded-md shrink-0">
+                                  चुना गया
+                                </span>
                               ))),
                           (
                             <button
@@ -807,7 +838,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                             >
                               <div className="flex items-center gap-3">
                                 <span
-                                  className={`w-6 h-6 rounded-lg font-extrabold text-[11px] sm:text-xs flex items-center justify-center uppercase shrink-0 ${dt ? "bg-emerald-600 text-white" : "bg-slate-100 text-gray-700"}`}
+                                  className={`w-6 h-6 rounded-lg font-extrabold text-[11px] sm:text-xs flex items-center justify-center uppercase shrink-0 ${l === "practice" ? (U && pt ? "bg-emerald-600 text-white" : U && dt ? "bg-red-500 text-white" : "bg-slate-100 text-gray-700") : dt ? "bg-blue-600 text-white" : "bg-slate-100 text-gray-700"}`}
                                 >
                                   {String.fromCharCode(65 + At)}
                                 </span>
@@ -858,6 +889,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                       <ChevronLeftIcon className="w-4 h-4" />
                       <span>पिछला (Prev)</span>
                     </button>
+                    {(l === "exam" || !U) && (
                     <button
                       onClick={() => {
                         (E((Le: any) => {
@@ -873,6 +905,7 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                     >
                       उत्तर साफ़ करें (Clear Answer)
                     </button>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
                     <button
@@ -960,13 +993,13 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-[10px] font-bold">
                   <div className="flex items-center gap-2 p-2 bg-slate-50 border border-slate-100 rounded-lg">
-                    <span className="w-3.5 h-3.5 rounded-md bg-emerald-500 text-white flex items-center justify-center font-mono font-black text-[8px]">
+                    <span className="w-3.5 h-3.5 rounded-md bg-blue-600 text-white flex items-center justify-center font-mono font-black text-[8px]">
                       {Object.keys(y).length}
                     </span>
                     <span className="text-gray-600">Answered (उत्तर दिया)</span>
                   </div>
                   <div className="flex items-center gap-2 p-2 bg-slate-50 border border-slate-100 rounded-lg">
-                    <span className="w-3.5 h-3.5 rounded-md bg-red-500 text-white flex items-center justify-center font-mono font-black text-[8px]">
+                    <span className="w-3.5 h-3.5 rounded-md bg-amber-400 text-white flex items-center justify-center font-mono font-black text-[8px]">
                       {m.length - Object.keys(y).length}
                     </span>
                     <span className="text-gray-600">Not Answered</span>
@@ -985,9 +1018,13 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                       return (
                         pt
                           ? (ht =
-                              "bg-emerald-500 text-white border-emerald-600")
+                              l === "practice"
+                                ? Le.correctAnswer === y[At]
+                                  ? "bg-emerald-500 text-white border-emerald-600"
+                                  : "bg-red-500 text-white border-red-600"
+                                : "bg-blue-600 text-white border-blue-700")
                           : At < C &&
-                            (ht = "bg-red-500 text-white border-red-600"),
+                            (ht = "bg-amber-100 text-amber-800 border-amber-300"),
                         (
                           <button
                             key={At}
@@ -1088,17 +1125,54 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                       {Ke().badge}
                     </span>
                     <h3 className="text-base sm:text-lg font-black text-emerald-950">
-                      {"कुल अंक: "}
-                      {F}
-                      {" / "}
-                      {m.length}
-                      {" सही उत्तर"}
+                      {l === "exam" && S
+                        ? `अंतिम अंक: ${S.netScore} / ${S.maxPossibleScore}`
+                        : `कुल अंक: ${S ? S.correct : F} / ${m.length} सही उत्तर`}
                     </h3>
                     <p className="text-xs text-gray-500 font-semibold leading-relaxed">
                       {Ke().feedback}
                     </p>
                   </div>
                 </div>
+                {S && (
+                  <div className="max-w-xl mx-auto space-y-2">
+                    {timeUp && (
+                      <p className="text-xs font-black text-red-700 bg-red-50 border border-red-200 rounded-xl px-3 py-2">
+                        ⏰ समय समाप्त — परीक्षा अपने-आप जमा हो गई (Time up — auto submitted)
+                      </p>
+                    )}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                      <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200">
+                        <p className="text-[10px] font-black text-emerald-700 uppercase">सही (Right)</p>
+                        <p className="text-xl font-black text-emerald-800 font-mono">{S.correct}</p>
+                      </div>
+                      <div className="p-3 rounded-2xl bg-red-50 border border-red-200">
+                        <p className="text-[10px] font-black text-red-700 uppercase">गलत (Wrong)</p>
+                        <p className="text-xl font-black text-red-700 font-mono">{S.incorrect}</p>
+                      </div>
+                      <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200">
+                        <p className="text-[10px] font-black text-slate-600 uppercase">छोड़े (Skipped)</p>
+                        <p className="text-xl font-black text-slate-700 font-mono">{S.unanswered}</p>
+                      </div>
+                      <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200">
+                        <p className="text-[10px] font-black text-amber-700 uppercase">अंतिम अंक</p>
+                        <p className="text-xl font-black text-amber-800 font-mono">
+                          {S.netScore}
+                          <span className="text-xs text-amber-700"> / {S.maxPossibleScore}</span>
+                        </p>
+                      </div>
+                    </div>
+                    {l === "exam" && (() => {
+                      const ex: any = QUIZ_EXAMS.find((x: any) => x.id === n) || QUIZ_EXAMS[0];
+                      return (
+                        <p className="text-[11px] font-bold text-slate-600">
+                          अंकन: सही पर +{ex.correctMarks}, गलत पर −{ex.negativeMarks}, छोड़े पर 0 → ({S.correct} × {ex.correctMarks}) − ({S.incorrect} × {ex.negativeMarks}) = {S.netScore}
+                          {" · "}समय लगा: {Math.floor(S.totalTimeSpent / 60)} मि {S.totalTimeSpent % 60} से
+                        </p>
+                      );
+                    })()}
+                  </div>
+                )}
                 <div className="flex items-center justify-center gap-3 pt-2">
                   <button
                     onClick={Me}
@@ -1132,11 +1206,12 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
               <div className="space-y-5">
                 {m.map((Le: any, At: any) => {
                   const dt = y[At],
-                    pt = dt === Le.correctAnswer;
+                    pt = dt === Le.correctAnswer,
+                    skipped = dt === void 0;
                   return (
                     <div
                       key={Le.id}
-                      className={`p-5 rounded-2xl border flex flex-col gap-3.5 transition duration-150 ${pt ? "border-emerald-100 bg-emerald-50/10" : "border-red-100 bg-red-50/5"}`}
+                      className={`p-5 rounded-2xl border flex flex-col gap-3.5 transition duration-150 ${pt ? "border-emerald-100 bg-emerald-50/10" : skipped ? "border-slate-200 bg-slate-50/40" : "border-red-100 bg-red-50/5"}`}
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="space-y-1">
@@ -1155,6 +1230,10 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                             <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 font-black text-[10px] px-2 py-1 rounded-md border border-emerald-200">
                               <CircleCheckIcon className="w-3.5 h-3.5" />
                               <span>CORRECT</span>
+                            </span>
+                          ) : skipped ? (
+                            <span className="inline-flex items-center gap-1 bg-slate-100 text-slate-600 font-black text-[10px] px-2 py-1 rounded-md border border-slate-200">
+                              <span>SKIPPED (छोड़ा)</span>
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 bg-red-50 text-red-700 font-black text-[10px] px-2 py-1 rounded-md border border-red-200">
@@ -1209,6 +1288,14 @@ Ensure the questions are challenging, realistic, and contain unique, non-repeati
                         <p className="text-[11px] sm:text-xs text-emerald-950 font-bold leading-relaxed">
                           {Le.explanation}
                         </p>
+                      </div>
+                      <div className="flex justify-end">
+                        <ReportMistakeButton
+                          page={`मॉक टेस्ट परिणाम समीक्षा (${n})`}
+                          question={Le.text}
+                          options={Le.options}
+                          correct={Le.options[Le.correctAnswer]}
+                        />
                       </div>
                     </div>
                   );

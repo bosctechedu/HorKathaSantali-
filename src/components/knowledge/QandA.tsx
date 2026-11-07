@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { HelpCircle, Send, Check, X, EyeOff } from 'lucide-react';
 import { KHeader, KCard } from './ui';
 import { useAdmin } from '../../context/AdminContext';
+import { MistakeReportsAdmin } from './MistakeReportsAdmin';
 
 type Item = { id: string; name: string; place: string; type: string; title: string; text: string; at: string; answer?: string };
 const TYPES = ['भाषा', 'लिपि', 'संस्कृति', 'इतिहास', 'अन्य'];
@@ -46,6 +47,7 @@ export const QandA: React.FC = () => {
           ))}
         </KCard>
       )}
+      <MistakeReportsAdmin />
       <KCard title={`उत्तर मिले प्रश्न (${items.length})`}>
         {items.length > 3 && <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="🔍 प्रश्न खोजें" className={`${inp} mb-3`} />}
         {shown.length === 0 ? <p className="text-sm text-slate-500">अभी कोई उत्तर नहीं। पहला प्रश्न आप पूछें!</p> : (

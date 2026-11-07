@@ -84,3 +84,34 @@ export function pickUniqueQuestions<T extends AnyQuestion>(pool: T[], count: num
   const picked = [...shuffle(unseen), ...shuffle(seenQs)].slice(0, n);
   return { picked: shuffle(picked), uniqueCount: unique.length, resetSeen: unseen.length < n };
 }
+
+/**
+ * Normalizes a question's correct answer to a valid 0-based index (AI output sometimes gives "2" or
+ * the option text) — returns -1 when it cannot be resolved.
+ */
+export const resolveCorrectIndex = (q: AnyQuestion): number => {
+  const opts = Array.isArray(q?.options) ? q.options : [];
+  const c = q?.correctAnswer;
+  if (typeof c === 'number' && Number.isInteger(c) && c >= 0 && c < opts.length) return c;
+  if (typeof c === 'string') {
+    const t = c.trim();
+    if (/^\d+$/.test(t) && +t < opts.length) return +t;
+    const i = opts.findIndex((o: any) => normQText(o) === normQText(t));
+    if (i >= 0) return i;
+    if (/^[A-Da-d]$/.test(t) && t.toUpperCase().charCodeAt(0) - 65 < opts.length) return t.toUpperCase().charCodeAt(0) - 65;
+  }
+  return -1;
+};
+
+/**
+ * Copy of the question with its options shuffled and `correctAnswer` re-pointed to the same option
+ * text (many template banks keep the answer at A/B). Questions whose answer cannot be resolved, or
+ * whose options repeat, are returned unchanged except for the normalized index.
+ */
+export function shuffleQuestionOptions<T extends AnyQuestion>(q: T): T {
+  const opts: any[] = Array.isArray(q?.options) ? q.options : [];
+  const ci = resolveCorrectIndex(q);
+  if (ci < 0 || opts.length < 2) return q;
+  const order = shuffle(opts.map((_, i) => i));
+  return { ...q, options: order.map((i) => opts[i]), correctAnswer: order.indexOf(ci) };
+}

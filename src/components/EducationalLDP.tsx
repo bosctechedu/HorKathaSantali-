@@ -33,7 +33,7 @@ import { edisamChapterQuestionsFetch } from "./edisam/edisamAi";
 import { generateEdisamPdf } from "./edisam/edisamPdf";
 // Quiz tab is its own chunk: LDP opens without downloading the quiz bank
 const QuizIQTest = React.lazy(() => import("./QuizIQTest").then((m) => ({ default: m.QuizIQTest })));
-import { mergeNewQuestions, pickUniqueQuestions, questionKey } from "../utils/questionDedupe";
+import { mergeNewQuestions, pickUniqueQuestions, questionKey, shuffleQuestionOptions } from "../utils/questionDedupe";
 import {
   LDP_SUBJECTS,
   generateChapterQuestions,
@@ -141,7 +141,7 @@ export function LivePracticePanel() {
         );
       ($(bt),
         localStorage.setItem(we, JSON.stringify(bt)),
-        z(st),
+        z(st.map((q: any) => shuffleQuestionOptions(q))), // options shuffled (bank keeps most answers at A/B)
         D(0),
         M({}),
         G(!1),

@@ -11,6 +11,7 @@ import {
   Heart
 } from 'lucide-react';
 import { speakWithFemaleVoice } from '../utils/speech';
+import { ReportMistakeButton } from './ReportMistakeButton';
 import { MORE_SOUNDBOARD_CARDS } from '../data/soundboardMore';
 import { MORE_SOUNDBOARD_CARDS_2 } from '../data/soundboardMore2';
 
@@ -320,7 +321,9 @@ export const SantaliKidsSoundboard: React.FC = () => {
     speakWithFemaleVoice(card.nameDev.split('(')[0].trim());
 
     if (isQuizMode) {
-      if (card.id === quizTargetCard.id) {
+      // Same card, or a card with the very same written word (e.g. two "ओदा" cards) — the prompt shows only the word
+      const word = (c: SoundboardCard) => c.nameDev.split('(')[0].trim();
+      if (card.id === quizTargetCard.id || word(card) === word(quizTargetCard)) {
         setQuizScore((prev) => prev + 1);
         setFeedback('correct');
         setTimeout(() => {
@@ -341,7 +344,9 @@ export const SantaliKidsSoundboard: React.FC = () => {
   };
 
   const pickNewQuizTarget = () => {
-    const randomCard = SOUNDBOARD_CARDS[Math.floor(Math.random() * SOUNDBOARD_CARDS.length)];
+    // Pick only from the cards visible on screen (category / search filter), otherwise the target may not be clickable
+    const pool = filteredCards.length > 0 ? filteredCards : SOUNDBOARD_CARDS;
+    const randomCard = pool[Math.floor(Math.random() * pool.length)];
     setQuizTargetCard(randomCard);
     setTimeout(() => {
       speakWithFemaleVoice(randomCard.nameDev.split('(')[0].trim());
@@ -478,10 +483,10 @@ export const SantaliKidsSoundboard: React.FC = () => {
         {filteredCards.map((card) => {
           const isActive = activeCardId === card.id;
           return (
+            <div key={card.id} className="relative">
             <button
-              key={card.id}
               onClick={() => handleCardClick(card)}
-              className={`relative rounded-3xl p-4 flex flex-col items-center justify-between text-center transition-all cursor-pointer select-none border group overflow-hidden ${
+              className={`relative w-full h-full rounded-3xl p-4 flex flex-col items-center justify-between text-center transition-all cursor-pointer select-none border group overflow-hidden ${
                 isActive
                   ? 'scale-105 shadow-xl ring-4 ring-rose-400/50 bg-rose-50 border-rose-400'
                   : 'bg-white hover:bg-slate-50 border-slate-200 hover:shadow-md hover:scale-102'
@@ -516,6 +521,13 @@ export const SantaliKidsSoundboard: React.FC = () => {
                 <Volume2 className="w-3.5 h-3.5" />
               </div>
             </button>
+            <ReportMistakeButton
+              compact
+              page="बच्चों का साउंडबोर्ड (चित्र कार्ड)"
+              question={`कार्ड: ${card.icon} ${card.nameDev} · ${card.olChiki || ''} · ${card.nameRoman} = ${card.hindiMeaning}`}
+              className="absolute top-1.5 right-1.5 bg-white/90"
+            />
+            </div>
           );
         })}
       </div>

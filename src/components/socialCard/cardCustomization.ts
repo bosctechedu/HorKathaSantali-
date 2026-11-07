@@ -250,3 +250,50 @@ export function loadImage(url: string | undefined | null): Promise<HTMLImageElem
     img.src = url;
   });
 }
+
+// ---------- 🎉 त्योहार poster: one-tap festival designs ----------
+// Text comes only from greetings already in the repo (SANTALI_100_QUOTES, by id) plus plain Hindi
+// greeting lines; no new Santali sentences. Theme / border ids are the studio's own ids.
+export interface FestivalPoster {
+  id: string;
+  emoji: string;
+  label: string; // Hindi name shown on the button
+  when: string; // short Hindi note on timing
+  quoteId: string; // SANTALI_100_QUOTES id for the Santali + Hindi lines ('' → plain "जोहार")
+  headline: string; // Hindi greeting used as the card's top line
+  theme: string;
+  border: string;
+  emblem: string;
+  accent?: string; // optional accent colour override
+  /** Yearly fixed date (MM-DD) or explicit ISO dates, for the "आने वाला" badge. */
+  yearly?: string;
+  dates?: string[];
+}
+
+export const FESTIVAL_POSTERS: FestivalPoster[] = [
+  { id: 'sohrai', emoji: '🐂', label: 'सोहराय', when: 'फसल व पशुधन का पर्व', quoteId: 'sq_58', headline: 'सोहराय की हार्दिक शुभकामनाएँ · जोहार!', theme: 'sohrai_white', border: 'sohrai_geometric', emblem: '🐂', dates: ['2026-11-08'] },
+  { id: 'baha', emoji: '🌸', label: 'बाहा', when: 'वसंत, साल के फूलों का पर्व', quoteId: 'sq_59', headline: 'बाहा पर्व की हार्दिक शुभकामनाएँ · जोहार!', theme: 'forest', border: 'sal_leaves', emblem: '🌸' },
+  { id: 'karam', emoji: '🌿', label: 'करम', when: 'करम डाल की पूजा', quoteId: 'sq_60', headline: 'करम पर्व की हार्दिक शुभकामनाएँ · जोहार!', theme: 'golden_harvest', border: 'sal_leaves', emblem: '🌿' },
+  { id: 'hul', emoji: '🏹', label: 'हूल दिवस', when: '30 जून · संताल हूल 1855', quoteId: 'sq_3', headline: 'हूल दिवस पर अमर शहीदों को शत-शत नमन', theme: 'palas_crimson', border: 'bow_arrow', emblem: '🏹', yearly: '06-30' },
+  { id: 'olchiki', emoji: '✨', label: 'ओल चिकी दिवस', when: 'ओल चिकी लिपि का सम्मान', quoteId: 'sq_6', headline: 'ओल चिकी दिवस की हार्दिक शुभकामनाएँ · जोहार!', theme: 'royal_indigo', border: 'minimal_gold', emblem: '✨' },
+  { id: 'gomke', emoji: '🪔', label: 'गुरु गोमके जयंती', when: 'पंडित रघुनाथ मुर्मू का जन्मदिन', quoteId: 'sq_87', headline: 'गुरु गोमके पंडित रघुनाथ मुर्मू जयंती पर शत-शत नमन', theme: 'vintage_parchment', border: 'minimal_gold', emblem: '🪔' },
+  { id: 'newyear', emoji: '☀️', label: 'नव वर्ष / दिसोम पर्व', when: 'नए साल की शुभकामना', quoteId: 'sq_62', headline: 'नव वर्ष की हार्दिक शुभकामनाएँ · जोहार!', theme: 'night_sky', border: 'dancing_chain', emblem: '☀️' },
+  { id: 'sakrat', emoji: '🌾', label: 'साकरात', when: 'मकर संक्रांति का पर्व', quoteId: 'sq_61', headline: 'साकरात पर्व की हार्दिक शुभकामनाएँ · जोहार!', theme: 'ochre', border: 'tumdak_tamak', emblem: '🌾' },
+  { id: 'johar', emoji: '🙏', label: 'जोहार अभिवादन', when: 'किसी भी दिन', quoteId: 'sq_57', headline: 'जोहार! आप सभी को हार्दिक शुभकामनाएँ', theme: 'terracotta', border: 'dancing_chain', emblem: '🪔' },
+];
+
+/** Days from `today` (YYYY-MM-DD, local) to the poster's next date; null when it has no known date. */
+export function festivalDaysAway(p: FestivalPoster, today: Date = new Date()): number | null {
+  const t0 = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+  const cands: number[] = [];
+  for (const d of p.dates || []) {
+    const [y, m, dd] = d.split('-').map(Number);
+    cands.push(new Date(y, m - 1, dd).getTime());
+  }
+  if (p.yearly) {
+    const [m, dd] = p.yearly.split('-').map(Number);
+    for (const y of [today.getFullYear(), today.getFullYear() + 1]) cands.push(new Date(y, m - 1, dd).getTime());
+  }
+  const diffs = cands.map((c) => Math.round((c - t0) / 86400000)).filter((n) => n >= 0);
+  return diffs.length ? Math.min(...diffs) : null;
+}

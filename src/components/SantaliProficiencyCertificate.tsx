@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useAdmin } from '../context/AdminContext';
 import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
 import { buildGeneratedQuiz, GeneratedQuizKind } from '../data/santaliData';
+import { ReportMistakeButton } from './ReportMistakeButton';
 import {
   Award,
   CheckCircle2,
@@ -197,7 +198,20 @@ export const SantaliProficiencyCertificate: React.FC = () => {
 
   const certRef = useRef<HTMLDivElement>(null);
 
-  const questions = questionsMap[level] || DEFAULT_LEVEL_QUESTIONS[level] || DEFAULT_LEVEL_QUESTIONS.beginner;
+  const levelQuestions = questionsMap[level] || DEFAULT_LEVEL_QUESTIONS[level] || DEFAULT_LEVEL_QUESTIONS.beginner;
+  // Exam session: options shuffled once at start (correctIdx re-pointed to the same option text), so the
+  // right answer is not always at the same position. Scoring and review use this same session copy.
+  const [sessionQuestions, setSessionQuestions] = useState<Question[] | null>(null);
+  const questions = (quizStarted && sessionQuestions) || levelQuestions;
+  const shuffleForSession = (list: Question[]): Question[] =>
+    list.map((q) => {
+      const order = q.options.map((_, i) => i);
+      for (let i = order.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      return { ...q, options: order.map((i) => q.options[i]), correctIdx: order.indexOf(q.correctIdx) };
+    });
 
   const handleOpenAdd = () => {
     setEditingQId(null);
@@ -286,6 +300,7 @@ export const SantaliProficiencyCertificate: React.FC = () => {
       alert('कृपया अपना नाम दर्ज करें!');
       return;
     }
+    setSessionQuestions(shuffleForSession(levelQuestions));
     setQuizStarted(true);
     setCurrentQIdx(0);
     setSelectedAnswers([]);
@@ -584,6 +599,13 @@ export const SantaliProficiencyCertificate: React.FC = () => {
             <h3 className="text-base font-black text-slate-900 leading-snug">
               {questions[currentQIdx].question}
             </h3>
+            <div className="flex justify-end -mt-2">
+              <ReportMistakeButton
+                page={`प्रमाणपत्र परीक्षा (${level})`}
+                question={questions[currentQIdx].question}
+                options={questions[currentQIdx].options}
+              />
+            </div>
 
             <div className="space-y-2.5">
               {questions[currentQIdx].options.map((opt, oIdx) => {
@@ -599,7 +621,12 @@ export const SantaliProficiencyCertificate: React.FC = () => {
                     }`}
                   >
                     <span>{opt}</span>
-                    {isSelected && <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0" />}
+                    {/* Selection marker only — right/wrong is shown in the review after the result */}
+                    {isSelected && (
+                      <span className="text-[10px] font-black text-amber-800 bg-white border border-amber-300 px-2 py-0.5 rounded-md shrink-0">
+                        चुना गया
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -720,6 +747,44 @@ export const SantaliProficiencyCertificate: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* उत्तर समीक्षा: हर प्रश्न पर आपका उत्तर बनाम सही उत्तर */}
+          <div className="max-w-2xl mx-auto bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 print:hidden">
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <h3 className="font-black text-slate-900">उत्तर समीक्षा (Answer Review)</h3>
+              <span className="text-xs font-bold text-slate-600">
+                सही {questions.filter((q, i) => selectedAnswers[i] === q.correctIdx).length} · गलत {questions.filter((q, i) => selectedAnswers[i] !== undefined && selectedAnswers[i] !== q.correctIdx).length} / {questions.length}
+              </span>
+            </div>
+            <ol className="space-y-3">
+              {questions.map((q, qi) => {
+                const mine = selectedAnswers[qi];
+                const ok = mine === q.correctIdx;
+                return (
+                  <li key={`${q.id}-${qi}`} className={`p-3 rounded-xl border ${ok ? 'border-emerald-200 bg-emerald-50/40' : 'border-rose-200 bg-rose-50/40'}`}>
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="text-xs font-bold text-slate-900">{qi + 1}. {q.question}</p>
+                      <span className={`shrink-0 inline-flex items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded-md ${ok ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                        {ok ? <CheckCircle2 className="w-3 h-3" /> : <XCircle className="w-3 h-3" />} {ok ? 'सही' : 'गलत'}
+                      </span>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-1.5 mt-2 text-[11px]">
+                      {q.options.map((opt, oi) => (
+                        <span key={oi} className={`px-2 py-1 rounded-md border ${oi === q.correctIdx ? 'bg-emerald-50 border-emerald-300 text-emerald-900 font-bold' : oi === mine ? 'bg-rose-50 border-rose-300 text-rose-900 font-bold' : 'bg-white border-slate-200 text-slate-600'}`}>
+                          {oi === q.correctIdx ? '✓ ' : oi === mine ? '✗ ' : '• '}{opt}
+                          {oi === mine && oi !== q.correctIdx && <span className="ml-1 text-[9px] font-black">(आपका उत्तर)</span>}
+                        </span>
+                      ))}
+                    </div>
+                    {q.explanation && <p className="text-[10px] text-slate-500 italic mt-1.5">💡 {q.explanation}</p>}
+                    <div className="flex justify-end mt-1.5">
+                      <ReportMistakeButton page={`प्रमाणपत्र परीक्षा समीक्षा (${level})`} question={q.question} options={q.options} correct={q.options[q.correctIdx]} />
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         </div>
       )}
 

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { speakWithFemaleVoice } from '../utils/speech';
 import { useAdmin } from '../context/AdminContext';
 import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
 import { buildGeneratedQuiz } from '../data/santaliData';
 import { SantaliDailyThoughtWidget } from './SantaliDailyThoughtWidget';
+import { ReportMistakeButton } from './ReportMistakeButton';
 import {
   GraduationCap,
   Volume2,
@@ -377,6 +378,18 @@ export const LearnModule: React.FC<{ compact?: boolean }> = ({ compact = false }
     }
   };
 
+  // Options are shown in a shuffled order per question (answers are compared by text, so the order is free)
+  // — many stored questions keep the right answer at A.
+  const currentQuizQ = quizQuestions[currentQuizIndex];
+  const shownQuizOptions = useMemo(() => {
+    const opts = [...(currentQuizQ?.options || [])];
+    for (let i = opts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [opts[i], opts[j]] = [opts[j], opts[i]];
+    }
+    return opts;
+  }, [currentQuizQ]);
+
   const handleSelectQuizOption = (option: string) => {
     if (selectedAnswer !== null) return;
     setSelectedAnswer(option);
@@ -662,9 +675,17 @@ export const LearnModule: React.FC<{ compact?: boolean }> = ({ compact = false }
                   <h2 className="text-xl sm:text-2xl font-black text-slate-900">
                     {quizQuestions[currentQuizIndex].question}
                   </h2>
+                  <div className="flex justify-end -mt-3">
+                    <ReportMistakeButton
+                      page="सीखें — प्रश्नोत्तरी (Learn quiz)"
+                      question={quizQuestions[currentQuizIndex].question}
+                      options={quizQuestions[currentQuizIndex].options}
+                      correct={selectedAnswer !== null ? quizQuestions[currentQuizIndex].correctAnswer : undefined}
+                    />
+                  </div>
 
                   <div className="space-y-2.5">
-                    {quizQuestions[currentQuizIndex].options.map((opt, i) => {
+                    {shownQuizOptions.map((opt, i) => {
                       const isSelected = selectedAnswer === opt;
                       const isCorrect = opt === quizQuestions[currentQuizIndex].correctAnswer;
                       let btnStyle = 'border-slate-200 hover:border-slate-300 bg-white text-slate-800';
@@ -680,6 +701,7 @@ export const LearnModule: React.FC<{ compact?: boolean }> = ({ compact = false }
                       return (
                         <button
                           key={i}
+                          disabled={selectedAnswer !== null}
                           onClick={() => handleSelectQuizOption(opt)}
                           className={`w-full p-4 rounded-2xl border text-left text-sm font-semibold transition-all flex items-center justify-between cursor-pointer ${btnStyle}`}
                         >

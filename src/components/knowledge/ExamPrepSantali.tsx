@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { buildGeneratedQuiz } from '../../data/santaliData';
 import { GraduationCap, CheckCircle2, XCircle, RotateCcw, ExternalLink } from 'lucide-react';
+import { ReportMistakeButton } from '../ReportMistakeButton';
 
 const EXAMS = [
   {
@@ -55,9 +56,21 @@ QUESTIONS.push(
   })),
 );
 
+// Options shown in a shuffled order (answer index re-pointed), re-shuffled on "फिर से"
+const shuffledSet = (): Q[] =>
+  QUESTIONS.map((q) => {
+    const order = q.o.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    return { ...q, o: order.map((i) => q.o[i]), a: order.indexOf(q.a) };
+  });
+
 export const ExamPrepSantali: React.FC = () => {
   const [picked, setPicked] = useState<Record<number, number>>({});
-  const score = useMemo(() => Object.entries(picked).filter(([i, v]) => QUESTIONS[+i].a === v).length, [picked]);
+  const [qs, setQs] = useState<Q[]>(shuffledSet);
+  const score = useMemo(() => Object.entries(picked).filter(([i, v]) => qs[+i].a === v).length, [picked, qs]);
   const done = Object.keys(picked).length;
 
   return (
@@ -82,21 +95,24 @@ export const ExamPrepSantali: React.FC = () => {
           <h2 className="font-black text-slate-800">अभ्यास प्रश्न ({QUESTIONS.length})</h2>
           <div className="flex items-center gap-2">
             <span className="text-sm font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800">अंक: {score} / {done}</span>
-            <button onClick={() => setPicked({})} className="text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 inline-flex items-center gap-1"><RotateCcw className="w-3 h-3" /> फिर से</button>
+            <button onClick={() => { setPicked({}); setQs(shuffledSet()); }} className="text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 inline-flex items-center gap-1"><RotateCcw className="w-3 h-3" /> फिर से</button>
           </div>
         </div>
         <ol className="space-y-4">
-          {QUESTIONS.map((q, i) => {
+          {qs.map((q, i) => {
             const p = picked[i];
             return (
               <li key={i} className="border border-slate-100 rounded-xl p-4">
-                <p className="font-bold text-slate-800 mb-2">{i + 1}. {q.q}</p>
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <p className="font-bold text-slate-800">{i + 1}. {q.q}</p>
+                  <ReportMistakeButton page="संताली प्रतियोगी परीक्षा तैयारी — अभ्यास प्रश्न" question={q.q} options={q.o} correct={p !== undefined ? q.o[q.a] : undefined} className="shrink-0" />
+                </div>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {q.o.map((o, j) => {
-                    const state = p === undefined ? '' : j === q.a ? 'bg-emerald-50 border-emerald-400 text-emerald-800' : j === p ? 'bg-rose-50 border-rose-400 text-rose-800' : 'opacity-60';
+                    const state = p === undefined ? 'border-slate-200 hover:border-indigo-300' : j === q.a ? 'bg-emerald-50 border-emerald-400 text-emerald-800 font-semibold' : j === p ? 'bg-rose-50 border-rose-400 text-rose-800' : 'border-slate-200 opacity-60';
                     return (
                       <button key={j} disabled={p !== undefined} onClick={() => setPicked((s) => ({ ...s, [i]: j }))}
-                        className={`text-left text-sm px-3 py-2 rounded-lg border border-slate-200 hover:border-indigo-300 transition ${state}`}>
+                        className={`text-left text-sm px-3 py-2 rounded-lg border transition ${state}`}>
                         {String.fromCharCode(65 + j)}. {o}
                       </button>
                     );

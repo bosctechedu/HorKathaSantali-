@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useAdmin } from '../context/AdminContext';
 import { SantaliWord } from '../types';
 import { speakWithFemaleVoice } from '../utils/speech';
+import { ReportMistakeButton } from './ReportMistakeButton';
 import {
   Flame,
   Trophy,
@@ -488,6 +489,14 @@ Test your Santali vocabulary at Hor Katha Suite (BOSC Tech & Edu)`;
             <p className="text-xs sm:text-sm font-semibold text-slate-600 mt-4">
               Select the correct meaning in English &amp; Hindi:
             </p>
+            <div className="mt-2 flex justify-center">
+              <ReportMistakeButton
+                page={`दैनिक शब्द क्विज़ (${quizMode === 'daily' ? 'आज का' : 'अभ्यास'})`}
+                question={`"${currentQ.word.wordDevanagari || ''}" (${currentQ.word.wordRoman || ''}) का अर्थ`}
+                options={currentQ.options.map((o) => o.text)}
+                correct={selectedOptionId !== null ? currentQ.options.find((o) => o.isCorrect)?.text : undefined}
+              />
+            </div>
           </div>
 
           {/* Options Grid */}

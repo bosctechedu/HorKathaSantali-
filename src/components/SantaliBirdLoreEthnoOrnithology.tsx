@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { Volume2, Award, Info, RefreshCw, Feather, Sparkles, CheckCircle, HelpCircle, Download } from 'lucide-react';
 
 interface BirdItem {
@@ -311,15 +311,18 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
   // Bird Call Quiz Logic
   const currentQuizBird = BIRD_DATABASE[quizQuestionIdx % BIRD_DATABASE.length];
   // 3 options for the quiz
-  const quizOptions = [
+  // Shuffled once per question (was re-shuffled on every render, so options jumped after answering)
+  const quizOptions = useMemo(() => [
     currentQuizBird,
     BIRD_DATABASE[(quizQuestionIdx + 2) % BIRD_DATABASE.length],
     BIRD_DATABASE[(quizQuestionIdx + 5) % BIRD_DATABASE.length]
-  ].sort(() => 0.5 - Math.random());
+  ].filter((b, i, arr) => arr.findIndex((x) => x.id === b.id) === i).sort(() => 0.5 - Math.random()), [quizQuestionIdx]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [quizPickedId, setQuizPickedId] = useState<string | null>(null);
 
   const handleQuizAnswer = (birdId: string) => {
     if (quizAnswered !== null) return;
     const isCorrect = birdId === currentQuizBird.id;
+    setQuizPickedId(birdId);
     setQuizAnswered(isCorrect);
     if (isCorrect) {
       setQuizScore(prev => prev + 10);
@@ -329,6 +332,7 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
   const nextQuizQuestion = () => {
     setQuizQuestionIdx(prev => prev + 1);
     setQuizAnswered(null);
+    setQuizPickedId(null);
   };
 
   return (
@@ -559,6 +563,8 @@ export const SantaliBirdLoreEthnoOrnithology: React.FC = () => {
               if (isSelected) {
                 if (isCorrect) {
                   btnStyle = 'bg-emerald-50 border-emerald-500 text-emerald-800 font-bold';
+                } else if (opt.id === quizPickedId) {
+                  btnStyle = 'bg-rose-50 border-rose-400 text-rose-800 font-bold';
                 } else {
                   btnStyle = 'bg-stone-50 border-stone-200 text-stone-500 opacity-60';
                 }

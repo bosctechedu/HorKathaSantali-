@@ -11,8 +11,10 @@ const KINDS: Record<string, { pend: string; pub: string; types: string[] }> = {
   event: { pend: 'sub:event:pending', pub: 'sub:event:published', types: ['मेला', 'पर्व', 'सेमिनार', 'खेल', 'अन्य'] },
   qa: { pend: 'sub:qa:pending', pub: 'sub:qa:published', types: ['भाषा', 'लिपि', 'संस्कृति', 'इतिहास', 'अन्य'] },
   job: { pend: 'sub:job:pending', pub: 'sub:job:published', types: ['शिक्षक', 'अनुवादक', 'सरकारी', 'शोध', 'अन्य'] },
+  // क्विज़ प्रश्न की "गलती बताएँ" रिपोर्ट — केवल Admin देखते हैं (public GET खाली), 'approve' = सुधार हो गया
+  mistake: { pend: 'sub:mistake:pending', pub: 'sub:mistake:resolved', types: ['उत्तर गलत है', 'प्रश्न में गलती', 'विकल्प में गलती / दो सही उत्तर', 'वर्तनी / अनुवाद', 'अन्य'] },
 };
-const kindOf = (k: unknown) => (['rachna', 'org', 'event', 'qa', 'job'].includes(String(k)) ? String(k) : 'rachna');
+const kindOf = (k: unknown) => (['rachna', 'org', 'event', 'qa', 'job', 'mistake'].includes(String(k)) ? String(k) : 'rachna');
 type Sub = { id: string; name: string; place: string; type: string; title: string; text: string; at: string; contact?: string; date?: string; answer?: string; link?: string; by?: string };
 const today = () => new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10); // IST
 
@@ -21,6 +23,7 @@ const clean = (v: unknown, n: number) => String(v ?? '').replace(/[\u0000-\u0008
 
 export const onRequestGet = async ({ env, request }: Ctx) => {
   if (!env.HK_DB) return json({ ready: false, items: [] });
+  if (kindOf(new URL(request.url).searchParams.get('kind')) === 'mistake') return json({ ready: true, items: [] }); // रिपोर्ट सार्वजनिक नहीं
   const K = KINDS[kindOf(new URL(request.url).searchParams.get('kind'))];
   const kind = kindOf(new URL(request.url).searchParams.get('kind'));
   let items = (await read(env.HK_DB, K.pub)).map(({ by, ...r }) => r);
@@ -42,6 +45,19 @@ export const onRequestPost = async ({ request, env }: Ctx) => {
   if (op === 'submit') {
     if (b?.website) return json({ success: true }); // honeypot
     if (kind === 'job') return json({ error: 'नौकरी सूचना केवल Admin डालते हैं।' }, 403);
+    if (kind === 'mistake') {
+      const text = clean(b?.text, 3000), title = clean(b?.title, 120) || text.slice(0, 80);
+      if (text.length < 10) return json({ error: 'रिपोर्ट अधूरी है।' }, 400);
+      const type = TYPES.includes(b?.type) ? b.type : TYPES[TYPES.length - 1];
+      const rk = 'subrl:mistake:' + ip(request); // अलग सीमा: प्रति घंटा 15 रिपोर्ट
+      const n = Number((await db.get(rk)) || 0);
+      if (n >= 15) return json({ error: 'एक घंटे में 15 से ज़्यादा रिपोर्ट नहीं भेज सकते। बाद में भेजें।' }, 429);
+      await db.put(rk, String(n + 1), { expirationTtl: 3600 });
+      const pend = await read(db, PENDING);
+      pend.unshift({ id: 's_' + randomHex(6), name: clean(b?.name, 60) || 'अनाम', place: '', type, title, text, at: new Date().toISOString() });
+      await db.put(PENDING, JSON.stringify(pend.slice(0, 500)));
+      return json({ success: true, message: 'धन्यवाद! Admin इसे जाँचेंगे।' });
+    }
     const name = clean(b?.name, 60), place = clean(b?.place, 60), text = clean(b?.text, 4000);
     const title = kind === 'qa' ? (clean(b?.title, 120) || text.slice(0, 80)) : clean(b?.title, 120);
     if (kind === 'qa' && text.length < 10) return json({ error: 'प्रश्न कम से कम 10 अक्षर का लिखें।' }, 400);

@@ -97,6 +97,7 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
   const [quizScore, setQuizScore] = useState(0);
   const [quizIdx, setQuizIdx] = useState(0);
   const [quizAnswered, setQuizAnswered] = useState<boolean | null>(null);
+  const [quizPicked, setQuizPicked] = useState<number | null>(null);
 
   const speakText = (text: string) => {
     if ('speechSynthesis' in window) {
@@ -146,6 +147,7 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
   const handleQuizAnswer = (idx: number) => {
     if (quizAnswered !== null) return;
     const isCorrect = idx === currentQ.correctIdx;
+    setQuizPicked(idx);
     setQuizAnswered(isCorrect);
     if (isCorrect) setQuizScore(prev => prev + 10);
   };
@@ -153,6 +155,7 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
   const nextQuiz = () => {
     setQuizIdx(prev => prev + 1);
     setQuizAnswered(null);
+    setQuizPicked(null);
   };
 
   return (
@@ -362,6 +365,7 @@ export const SantaliGreetingsEtiquetteSimulator: React.FC = () => {
               let btnStyle = 'bg-stone-100 hover:bg-stone-200 text-stone-800 border-stone-200';
               if (isSelected) {
                 if (isCorrect) btnStyle = 'bg-teal-50 text-teal-800 border-teal-500 font-bold';
+                else if (i === quizPicked) btnStyle = 'bg-rose-50 text-rose-800 border-rose-400 font-bold';
                 else btnStyle = 'bg-white text-stone-500 opacity-60 border-stone-200';
               }
 

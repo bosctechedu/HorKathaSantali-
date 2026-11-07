@@ -52,7 +52,10 @@ import {
   luminance,
   roundRectPath,
   sanitizeCustomization,
-  shapePath
+  shapePath,
+  FESTIVAL_POSTERS,
+  FestivalPoster,
+  festivalDaysAway
 } from './socialCard/cardCustomization';
 
 export type CardThemeId =
@@ -559,6 +562,32 @@ export const SantaliSocialCardStudio: React.FC = () => {
       q.authorOrSource.toLowerCase().includes(qText);
     return matchesCat && matchesSearch;
   });
+
+  // 🎉 त्योहार poster: one tap fills theme, border, emblem, top line and the greeting text
+  const [activeFestival, setActiveFestival] = useState<string | null>(null);
+  const applyFestivalPoster = (p: FestivalPoster) => {
+    const q = SANTALI_100_QUOTES.find((x) => x.id === p.quoteId);
+    if (CARD_THEMES.some((t) => t.id === p.theme)) setTheme(p.theme as CardThemeId);
+    if (CARD_BORDERS.some((b) => b.id === p.border)) setBorderStyle(p.border as CardBorderId);
+    if (CARD_EMBLEMS.some((e) => e.symbol === p.emblem)) setEmblem(p.emblem);
+    setShowEmblem(true);
+    setShowRoman(true);
+    setShowHindi(true);
+    setCustomDevanagari(q ? q.santaliDevanagari : 'जोहार!');
+    setCustomRoman(q ? q.santaliRoman : 'Johar!');
+    setCustomHindi(q ? q.hindiMeaning : p.headline);
+    setCustomMode(true);
+    setCustom((c) => ({
+      ...c,
+      topLineOn: true,
+      topLine: `${p.emoji} ${p.headline}`,
+      gradOn: false,
+      colorText: '',
+      colorAccent: p.accent || '',
+      colorSecondary: ''
+    }));
+    setActiveFestival(p.id);
+  };
 
   // Random design generator (Surprise Me!)
   const handleRandomizeDesign = () => {
@@ -1210,6 +1239,45 @@ export const SantaliSocialCardStudio: React.FC = () => {
           data-testid="social-card-controls"
           className="lg:col-span-5 space-y-6 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-1 lg:pb-2 lg:overscroll-contain"
         >
+          {/* 🎉 त्योहार poster — ready one-tap festival designs */}
+          <div data-testid="festival-posters" className="bg-white p-4 rounded-3xl border border-amber-200 shadow-sm space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-black text-slate-900 text-sm">🎉 त्योहार poster</h3>
+              <span className="text-[10px] text-amber-800 font-bold bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">एक टैप में तैयार</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {FESTIVAL_POSTERS.map((p) => {
+                const days = festivalDaysAway(p);
+                const soon = days !== null && days <= 30;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => applyFestivalPoster(p)}
+                    data-festival={p.id}
+                    className={`relative p-2.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                      activeFestival === p.id
+                        ? 'border-amber-500 bg-amber-50 ring-2 ring-amber-400/60'
+                        : 'border-slate-200 bg-white hover:bg-amber-50/60 hover:border-amber-300'
+                    }`}
+                  >
+                    <span className="text-xl leading-none">{p.emoji}</span>
+                    <span className="block text-xs font-black text-slate-900 mt-1">{p.label}</span>
+                    <span className="block text-[10px] text-slate-500 leading-snug">{p.when}</span>
+                    {soon && (
+                      <span className="absolute top-1.5 right-1.5 text-[9px] font-black px-1.5 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200">
+                        {days === 0 ? 'आज' : days === 1 ? 'कल' : `${days} दिन`}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-[10px] text-slate-500">
+              चुनने पर थीम, रंग, चिह्न, ऊपर की पंक्ति और संताली + हिंदी शुभकामना भर जाती है — नीचे "खुद का विचार" में बदल भी सकते हैं।
+            </p>
+          </div>
+
           {/* Custom vs Preset Toggle Bar */}
           <div className="bg-white p-2.5 rounded-2xl border border-slate-200 flex items-center gap-2 shadow-2xs">
             <button
