@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAdmin } from '../context/AdminContext';
 import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
+import { buildGeneratedQuiz, GeneratedQuizKind } from '../data/santaliData';
 import {
   Award,
   CheckCircle2,
@@ -142,11 +143,35 @@ export const DEFAULT_LEVEL_QUESTIONS: Record<string, Question[]> = {
   ]
 };
 
+// 30+ प्रश्न हर level: साइट के अपने शब्दकोश, ओल चिकी अक्षर/अंक डेटा से (कोई नया संताली शब्द नहीं)
+const certGen = (kinds: [GeneratedQuizKind, number][], start: number): Question[] =>
+  kinds
+    .flatMap(([k, n]) => buildGeneratedQuiz(k).slice(0, n))
+    .map((g, i) => ({ id: start + i, question: g.question, options: g.options, correctIdx: g.answer, explanation: g.explanation }));
+const CERT_EXTRA: Record<string, Question[]> = {
+  beginner: certGen([['numeral_name', 10], ['dict_meaning', 20]], 101),
+  intermediate: certGen([['ol_digit', 10], ['ol_letter_name', 20]], 201),
+  advanced: certGen([['ol_letter_char', 15], ['dict_reverse', 15]], 301),
+};
+for (const lv of Object.keys(CERT_EXTRA)) {
+  DEFAULT_LEVEL_QUESTIONS[lv] = [...(DEFAULT_LEVEL_QUESTIONS[lv] || []), ...CERT_EXTRA[lv]];
+}
+
 export const SantaliProficiencyCertificate: React.FC = () => {
   const { isAdmin } = useAdmin();
-  const [questionsMap, setQuestionsMap] = useState<Record<string, Question[]>>(() =>
-    safeLoadFromStorage('hor_katha_certificate_questions_db', DEFAULT_LEVEL_QUESTIONS)
-  );
+  const [questionsMap, setQuestionsMap] = useState<Record<string, Question[]>>(() => {
+    const saved = safeLoadFromStorage('hor_katha_certificate_questions_db', DEFAULT_LEVEL_QUESTIONS);
+    // एक बार: हर level में नए प्रश्न जोड़ें (30+); admin के बदलाव वैसे ही रहें
+    if (safeLoadFromStorage('hor_katha_certificate_merge30', false)) return saved;
+    const merged: Record<string, Question[]> = { ...saved };
+    for (const lv of Object.keys(CERT_EXTRA)) {
+      const cur = merged[lv] || [];
+      const ids = new Set(cur.map((q) => q.id));
+      merged[lv] = [...cur, ...CERT_EXTRA[lv].filter((q) => !ids.has(q.id))];
+    }
+    safeSaveToStorage('hor_katha_certificate_merge30', true);
+    return merged;
+  });
 
   const [studentName, setStudentName] = useState('');
   const [level, setLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');

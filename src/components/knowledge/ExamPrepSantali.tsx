@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { buildGeneratedQuiz } from '../../data/santaliData';
 import { GraduationCap, CheckCircle2, XCircle, RotateCcw, ExternalLink } from 'lucide-react';
 
 const EXAMS = [
@@ -47,6 +48,12 @@ const QUESTIONS: Q[] = [
   { q: 'संताली में "पारगाना" किसे कहते हैं?', o: ['कई गाँवों के समूह का प्रमुख', 'पुजारी', 'संदेशवाहक', 'युवा मुखिया'], a: 0, why: 'पारगाना कई गाँवों (पारगाना) के समूह का प्रमुख होता है।' },
   { q: 'गाँव का पुजारी संताली में क्या कहलाता है?', o: ['नायके', 'जोग माझी', 'गोडेत', 'कुडाम नायके'], a: 0, why: '"नायके" गाँव का मुख्य पुजारी होता है।' },
 ];
+// 30+ प्रश्न: ओल चिकी अंक व अक्षर-नाम (साइट के अपने डेटा से)
+QUESTIONS.push(
+  ...[...buildGeneratedQuiz('ol_digit'), ...buildGeneratedQuiz('ol_letter_name').slice(0, 10)].map((g) => ({
+    q: g.question, o: g.options, a: g.answer, why: g.explanation,
+  })),
+);
 
 export const ExamPrepSantali: React.FC = () => {
   const [picked, setPicked] = useState<Record<number, number>>({});

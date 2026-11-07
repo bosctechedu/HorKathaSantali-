@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { speakWithFemaleVoice } from '../utils/speech';
 import { useAdmin } from '../context/AdminContext';
 import { safeLoadFromStorage, safeSaveToStorage } from '../utils/storage';
+import { buildGeneratedQuiz } from '../data/santaliData';
 import { SantaliDailyThoughtWidget } from './SantaliDailyThoughtWidget';
 import {
   GraduationCap,
@@ -139,6 +140,19 @@ const DEV_QUIZ_QUESTIONS = [
   }
 ];
 
+// 30+ प्रश्न: साइट के अपने शब्दकोश/अंक डेटा से बने (कोई नया संताली शब्द नहीं)
+const LEARN_EXTRA_QUESTIONS = [
+  ...buildGeneratedQuiz('numeral_name'),
+  ...buildGeneratedQuiz('dict_meaning').slice(0, 20),
+].map((g) => ({
+  id: `lx_${g.key}`,
+  question: g.question,
+  options: g.options,
+  correctAnswer: g.options[g.answer],
+  explanation: g.explanation,
+}));
+const DEV_QUIZ_ALL = [...DEV_QUIZ_QUESTIONS, ...LEARN_EXTRA_QUESTIONS];
+
 export const LearnModule: React.FC<{ compact?: boolean }> = ({ compact = false }) => {
   const { isAdmin } = useAdmin();
 
@@ -148,9 +162,15 @@ export const LearnModule: React.FC<{ compact?: boolean }> = ({ compact = false }
   );
 
   // Persisted state for Quiz Questions
-  const [quizQuestions, setQuizQuestions] = useState(() =>
-    safeLoadFromStorage('hor_katha_learn_quiz_v1', DEV_QUIZ_QUESTIONS)
-  );
+  const [quizQuestions, setQuizQuestions] = useState(() => {
+    const saved = safeLoadFromStorage('hor_katha_learn_quiz_v1', DEV_QUIZ_QUESTIONS);
+    // एक बार: नए (30+) प्रश्न जोड़ें; admin के बदलाव/हटाए गए प्रश्न वैसे ही रहें
+    if (safeLoadFromStorage('hor_katha_learn_quiz_merge30', false)) return saved;
+    const ids = new Set(saved.map((q: { id: string }) => q.id));
+    const merged = [...saved, ...LEARN_EXTRA_QUESTIONS.filter((q) => !ids.has(q.id))];
+    safeSaveToStorage('hor_katha_learn_quiz_merge30', true);
+    return merged;
+  });
 
   useEffect(() => {
     safeSaveToStorage('hor_katha_learn_chars_v1', chars);
@@ -352,7 +372,7 @@ export const LearnModule: React.FC<{ compact?: boolean }> = ({ compact = false }
   const handleResetDefaults = () => {
     if (window.confirm('क्या आप वर्णमाला और प्रश्नोत्तरी को मूल डिफ़ॉल्ट पर रीसेट करना चाहते हैं?')) {
       setChars(SANTALI_DEV_CHARS);
-      setQuizQuestions(DEV_QUIZ_QUESTIONS);
+      setQuizQuestions(DEV_QUIZ_ALL);
       setSelectedChar(SANTALI_DEV_CHARS[0]);
     }
   };
